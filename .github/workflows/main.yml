@@ -1,0 +1,83 @@
+name: Nomad workflow
+
+on:
+    push:
+        branches:
+            - master
+
+env:
+    SITE_HOST: ${{ vars.SITE_HOST }}
+    TLS_MODE: ${{ vars.TLS_MODE }}
+    POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+    POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+    POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+    POSTGRES_HOST: ${{ vars.POSTGRES_HOST }}
+    POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+    POSTGRES_URL: ${{ vars.POSTGRES_URL }}
+    JWT_SECRET: ${{ vars.JWT_SECRET }}
+    IMGPROXY_S3_ENDPOINT: ${{ vars.IMGPROXY_S3_ENDPOINT }}
+    AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ vars.AWS_SECRET_ACCESS_KEY }}
+    IMGPROXY_DEVELOPMENT_ERRORS_MODE: ${{ vars.IMGPROXY_DEVELOPMENT_ERRORS_MODE }}
+    IMGPROXY_IGNORE_SSL_VERIFICATION: ${{ vars.IMGPROXY_IGNORE_SSL_VERIFICATION }}
+    IMGPROXY_SALT: ${{ vars.IMGPROXY_SALT }}
+    IMGPROXY_KEY: ${{ vars.IMGPROXY_KEY }}
+    IMGPROXY_SITE_HOST: ${{ vars.IMGPROXY_SITE_HOST }}
+    PEXELS_API_KEY: ${{ vars.PEXELS_API_KEY }}
+
+jobs:
+    #build:
+    #  runs-on: ubuntu-latest
+    #  steps:
+    #    - name: checkout repo
+    #      uses: actions/checkout@v3
+    #    - name: build frontend
+    #      run:  docker-compose -f docker-compose.yml -f docker-compose.frontend.yml build frontend
+    #    - name: build backend
+    #      run:  docker-compose -f docker-compose.yml -f docker-compose.production.yml build backend
+    #    - name: build nginx
+    #      run:  docker-compose -f docker-compose.yml -f docker-compose.production.yml build nginx
+
+
+    #test:
+    #  runs-on: ubuntu-latest
+    #  needs: build
+    #  steps:
+    #    - name: checkout repo
+    #      uses: actions/checkout@v3
+    #    - name: docker compose test
+    #      run: docker-compose -f docker-compose.yml -f docker-compose.test.yml run --rm backend /bin/sh -c "pytest -p no:warnings --cov-report term:skip-covered"
+
+
+    #deploy:
+    #  runs-on: self-hosted
+    #  needs: build
+    #  steps:
+    #    - name: checkout repo
+    #      uses: actions/checkout@v3
+    #    - name: down
+    #      run: docker-compose down
+    #    - name: prune
+    #      run: docker system prune -a
+    #    - name: docker compose pull
+    #      run: docker-compose -f docker-compose.yml -f docker-compose.production.yml -f docker-compose.frontend.yml pull
+    #    - name: docker-compose up
+    #      run: docker-compose -f docker-compose.yml -f docker-compose.production.yml -f docker-compose.frontend.yml up --remove-orphans -d
+
+
+    #prepare-environment:
+    #  runs-on: self-hosted
+    #  steps:
+    #    - name: Stop all
+    #      run: docker stop $(docker ps -a -q)
+    #    - name: Remove unused data
+    #      run: docker system prune -a -f
+
+    deploy:
+        runs-on: self-hosted
+        #  needs: build
+        steps:
+            -   name: checkout repo
+                uses: actions/checkout@v3
+            -   name: docker compose up
+                run: docker compose -f docker-compose.yml up --build --remove-orphans -d

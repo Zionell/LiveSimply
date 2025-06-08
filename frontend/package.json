@@ -1,0 +1,48 @@
+{
+	"name": "livesimply",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev",
+		"generate": "nuxt generate",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare",
+		"analyze": "nuxt build && npx nuxi analyze",
+		"clean": "npx nuxi cleanup",
+		"upgrade": "npx nuxi upgrade",
+		"update": "ncu -u"
+	},
+	"dependencies": {
+		"@nuxt/components": "^2.2.1",
+		"@nuxt/fonts": "^0.11.4",
+		"@nuxt/image": "^1.10.0",
+		"@nuxt/scripts": "^0.11.7",
+		"@nuxt/ui": "^3.1.2",
+		"@nuxtjs/i18n": "^9.5.4",
+		"@pinia/nuxt": "^0.11.0",
+		"@unhead/vue": "^2.0.10",
+		"@vueuse/core": "^13.2.0",
+		"@vueuse/nuxt": "^13.2.0",
+		"h3-proxy": "^1.13.0",
+		"html2canvas-pro": "^1.5.11",
+		"nuxt": "3.17.4",
+		"nuxt-charts": "^0.1.9",
+		"pinia": "^3.0.2",
+		"qrcode.vue": "^3.6.0",
+		"vue": "3.5.14",
+		"zod": "^3.25.28"
+	},
+	"devDependencies": {
+		"@babel/eslint-parser": "^7.27.1",
+		"@babel/helper-plugin-utils": "^7.27.1",
+		"@babel/preset-env": "^7.27.2",
+		"@nuxt/devtools": "^2.4.1",
+		"@nuxtjs/robots": "^5.2.10",
+		"@nuxtjs/sitemap": "^7.3.0",
+		"npm-check-updates": "^18.0.1",
+		"prettier": "^3.5.3",
+		"typescript": "^5.8.3"
+	}
+}

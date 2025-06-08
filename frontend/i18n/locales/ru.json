@@ -1,0 +1,179 @@
+{
+	"title": "LiveSimply",
+	"errorPage": {
+		"notFound": {
+			"title": "Страница не найдена",
+			"text": "Извините, мы не смогли найти страницу, которую вы ищете.",
+			"btnText": "На главную"
+		},
+		"techError": {
+			"title": "Что-то пошло не так!",
+			"text": "Мы улучшаем наш сайт",
+			"btnText": "Попробовать снова"
+		}
+	},
+	"routes": {
+		"account": "Аккаунт",
+		"dashboard": "Панель управления",
+		"finance-list": "Доходы и расходы",
+		"finance-planner": "Финансовый планировщик",
+		"business-card": "Визитка",
+		"goals": "Цели",
+		"tgBot": "Телеграм-бот",
+		"users": "Пользователи"
+	},
+	"buttons": {
+		"submit": "Отправить",
+		"close": "Закрыть",
+		"save": "Сохранить",
+		"new": "Добавить",
+		"delete": "Удалить",
+		"download": "Скачать",
+		"qrGen": "Сгенерировать QR-код",
+		"tg": "Перейти в Telegram"
+	},
+	"inputs": {
+		"total": "Общая сумма",
+		"exchange": "Валюта",
+		"curPrice": "Текущая сумма",
+		"currencyFrom": "Выберите валюту введённой суммы",
+		"currencyTo": "Выберите валюту для перевода",
+		"operationCategory": "Категория операции",
+		"expenseCategory": "Категории расходов",
+		"goals": "Цели",
+		"name": "Имя пользователя",
+		"email": "Электронная почта",
+		"phone": "Телефон",
+		"password": "Пароль",
+		"all": "Все",
+		"recent": "Недавние",
+		"linkName": "Название",
+		"link": "Ссылка",
+		"visibility": "Видимость",
+		"icon": "Иконка",
+		"goalTitle": "Название цели",
+		"goalTotal": "Необходимая сумма",
+		"initialAmount": "Начальная сумма",
+		"untilAt": "Крайний срок"
+	},
+	"inputsErrors": {
+		"required": "Обязательно для заполнения"
+	},
+	"modals": {
+		"newBusinessLink": "Добавить новую ссылку",
+		"newFinance": "Добавить новую финансовую запись",
+		"newGoal": "Добавить новую цель",
+		"addTotal": "Начальное значение баланса",
+		"generateQr": "Создать QR-код",
+		"generateQrDesc": "Создайте и скачайте свой персональный QR-код"
+	},
+	"modalAddNewGoal": {},
+	"modalAddTotal": {
+		"description": "Введите свой баланс. Это необходимо для правильного расчета доходов и расходов в будущем. Это значение будет использовано в качестве отправной точки."
+	},
+	"dashboard": {
+		"prefix": "Здравствуйте",
+		"balance": "Общий баланс",
+		"income": "Доход",
+		"expense": "Расход",
+		"rates": "Актуальные курсы",
+		"goals": "Цели",
+		"totalExpense": "Общие расходы"
+	},
+	"charts": {
+		"chartExpensesTitle": "График расходов по категориям",
+		"spent": "Потрачено"
+	},
+	"financeTable": {
+		"operationCategory": "Категория операции",
+		"curPrice": "Сумма введённых денег",
+		"exchangeItemFrom": "Валюта введённых денег",
+		"convertedPrice": "Сумма после конвертации",
+		"exchangeItemTo": "Валюта после конвертации",
+		"expenseCategory": "Категория расхода",
+		"createdAt": "Дата добавления",
+		"actions": "Действия"
+	},
+	"headerDropdown": {
+		"signedAs": "Вы вошли как",
+		"profile": "Профиль",
+		"signOut": "Выйти"
+	},
+	"businessCardInfo": {
+		"sectionTitle": "Информация о визитке",
+		"description": "Описание",
+		"descriptionPlaceholder": "Напишите краткую информацию о себе",
+		"subtitle": "Подзаголовок"
+	},
+	"modalDeletionConfirmation": {
+		"title": "Подтверждение удаления",
+		"text": "Вы уверены, что хотите удалить?"
+	},
+	"businessCardLink": {
+		"sectionTitle": "Ссылки визитки",
+		"generateLink": "Создать ссылку",
+		"tooltip": "Нажмите, чтобы скопировать",
+		"isCopied": "Скопировано",
+		"icon": "Иконка",
+		"name": "Название",
+		"link": "Ссылка",
+		"visible": "Видимо",
+		"action": "Действие"
+	},
+	"businessCardView": {
+		"about": "Обо мне",
+		"contactLinks": "Мои контакты",
+		"download": "Скачать",
+		"contact": "Связаться со мной"
+	},
+	"businessCardMeta": {
+		"title": "Визитка - ",
+		"description": "Создайте свою уникальную цифровую визитку с ЖивиПроще. Эффективно управляйте временем, задачами и целями. Отслеживайте прогресс, расставляйте приоритеты и добивайтесь успеха в жизни вместе с ЖивиПроще."
+	},
+	"signInAndSignUp": {
+		"login": "Вход",
+		"registration": "Регистрация",
+		"loginBtn": "Войти",
+		"registrationBtn": "Зарегистрироваться",
+		"loginLink": "Регистрация",
+		"registrationLink": "Вход",
+		"or": "или",
+		"loginText": "Нет аккаунта?",
+		"registrationText": "Уже есть аккаунт?",
+		"no_user": "Пользователь не найден",
+		"user_exist": "Электронная почта уже занята",
+		"wrong": "Что-то пошло не так!",
+		"successEmail": "На ваш email отправлено письмо с подтверждением."
+	},
+	"goals": {
+		"progress": "Прогресс",
+		"completed": "Поздравляем! Цель достигнута.",
+		"achievement": "Чтобы достичь цели, нужно откладывать {amount} в месяц",
+		"toComplete": "До достижения цели осталось {amount}. Вы на верном пути!",
+		"status": {
+			"completed": "Завершено",
+			"expired": "Истек срок",
+			"inProgress": "В процессе"
+		}
+	},
+	"account": {
+		"main": "Основная информация",
+		"notification": "Уведомления"
+	},
+	"reviewForm": {
+		"tooltip": "Пройти опрос"
+	},
+	"financePlanner": {
+		"income": "Доход",
+		"required": "Обязательные платежи",
+		"period": "Период"
+	},
+	"common": {
+		"loading": "Загрузка...",
+		"empty": "Упс... похоже, вы еще ничего не добавили",
+		"error": "Что-то пошло не так!",
+		"deleted": "Успешно удалено",
+		"updated": "Успешно обновлено",
+		"added": "Успешно добавлено"
+	}
+}

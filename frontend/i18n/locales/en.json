@@ -1,0 +1,180 @@
+{
+	"title": "LiveSimply",
+	"errorPage": {
+		"notFound": {
+			"title": "Page not found",
+			"text": "Sorry, we couldn’t find the page you’re looking for.",
+			"btnText": "Go home"
+		},
+		"techError": {
+			"title": "Something went wrong!",
+			"text": "We are improving our website",
+			"btnText": "Try again"
+		}
+	},
+	"routes": {
+		"account": "Account",
+		"dashboard": "Dashboard",
+		"finance-list": "Expenses and income",
+		"finance-planner": "Finance planner",
+		"business-card": "Business card",
+		"goals": "Goals",
+		"tgBot": "Telegram bot",
+		"users": "Users"
+	},
+	"buttons": {
+		"submit": "Submit",
+		"close": "Close",
+		"save": "Save",
+		"new": "Add new",
+		"delete": "Delete",
+		"download": "Download",
+		"qrGen": "Generate QR-code",
+		"tg": "Go to telegram"
+	},
+	"inputs": {
+		"total": "Total sum",
+		"exchange": "Currency",
+		"curPrice": "Current price",
+		"currencyFrom": "Select the currency of the entered amount",
+		"currencyTo": "Select the currency to transfer to",
+		"operationCategory": "Category",
+		"expenseCategory": "Expense categories",
+		"goals": "Goals",
+		"name": "Username",
+		"email": "Email",
+		"phone": "Phone",
+		"password": "Password",
+		"all": "All",
+		"recent": "Recent",
+		"linkName": "Name",
+		"link": "Link",
+		"visibility": "Visibility",
+		"icon": "Icon",
+		"goalTitle": "Title",
+		"goalTotal": "Required amount",
+		"initialAmount": "Initial amount",
+		"untilAt": "Deadline"
+	},
+	"inputsErrors": {
+		"required": "Required"
+	},
+	"modals": {
+		"newBusinessLink": "Add new link",
+		"newFinance": "Add new financial record",
+		"newGoal": "Add new goal",
+		"addTotal": "Initial balance value",
+		"generateQr": "Generate QR-code",
+		"generateQrDesc": "Generate and download your personal QR-code"
+	},
+	"modalAddNewGoal": {
+	},
+	"modalAddTotal": {
+		"description": "This is necessary for accurate calculation of future expenses and income."
+	},
+	"dashboard": {
+		"prefix": "Hello",
+		"balance": "Total balance",
+		"income": "Income",
+		"expense": "Expense",
+		"rates": "Current rates",
+		"goals": "Goals",
+		"totalExpense": "Total expense"
+	},
+	"charts": {
+		"chartExpensesTitle": "Expense chart by category",
+		"spent": "Spent"
+	},
+	"financeTable": {
+		"operationCategory": "Operation category",
+		"curPrice": "Amount of input money",
+		"exchangeItemFrom": "Currency of input money",
+		"convertedPrice": "Amount of converted money",
+		"exchangeItemTo": "Currency of converted money",
+		"expenseCategory": "Expense category",
+		"createdAt": "Date added",
+		"actions": "Actions"
+	},
+	"headerDropdown": {
+		"signedAs": "Signed in as",
+		"profile": "Profile",
+		"signOut": "Sign out"
+	},
+	"businessCardInfo": {
+		"sectionTitle": "Card information",
+		"description": "Description",
+		"descriptionPlaceholder": "Write a short information about yourself",
+		"subtitle": "Subtitle"
+	},
+	"modalDeletionConfirmation": {
+		"title": "Deletion confirmation",
+		"text": "Are you sure you want to delete?"
+	},
+	"businessCardLink": {
+		"sectionTitle": "Card links",
+		"generateLink": "Generate link",
+		"tooltip": "Click to copy",
+		"isCopied": "Copied",
+		"icon": "Icon",
+		"name": "Name",
+		"link": "Link",
+		"visible": "Visible",
+		"action":  "Action"
+	},
+	"businessCardView": {
+		"about": "About me",
+		"contactLinks": "My contacts",
+		"download": "Download",
+		"contact": "Contact Me"
+	},
+	"businessCardMeta": {
+		"title": "Business card - ",
+		"description": "Create your unique digital business card with Live Simply. Effortlessly manage your time, tasks, and goals. Track your progress, set priorities, and achieve success in your life with Live Simply."
+	},
+	"signInAndSignUp": {
+		"login": "Sign In",
+		"registration": "Registration",
+		"loginBtn": "Sign In",
+		"registrationBtn": "Sign Up",
+		"loginLink": "Sign Up",
+		"registrationLink": "Sign In",
+		"or": "or",
+		"loginText": "Don't have an account yet?",
+		"registrationText": "Already have an account??",
+		"no_user": "User not found",
+		"user_exist": "Email is already busy",
+		"wrong": "Something went wrong!",
+		"successEmail": "An email with a confirmation link has been sent to your email."
+	},
+	"goals": {
+		"progress": "Progress",
+		"completed": "Congratulations! Your goal has been achieved.",
+		"achievement": "To achieve the goal, you need to save {amount} per month",
+		"toComplete": "There are {amount} left until the goal is completed. You are on the right track!",
+		"status": {
+			"completed": "Completed",
+			"expired": "Expired",
+			"inProgress": "In progress"
+		}
+	},
+	"account": {
+		"main": "Main info",
+		"notification": "Notification"
+	},
+	"reviewForm": {
+		"tooltip": "Take the survey"
+	},
+	"financePlanner": {
+		"income": "Income",
+		"required": "Mandatory payments",
+		"period": "Period"
+	},
+	"common": {
+		"loading": "Loading...",
+		"empty": "Oops...looks like you haven't added anything yet",
+		"error": "Something went wrong!",
+		"deleted": "Successfully deleted",
+		"updated": "Successfully updated",
+		"added": "Successfully added"
+	}
+}

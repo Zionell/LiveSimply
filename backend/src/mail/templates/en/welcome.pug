@@ -1,0 +1,21 @@
+extends ./base-template.pug
+
+block header
+    include ./partials/header.pug
+
+block content
+    div
+        | Welcome to Live Simply! We are glad to see you in our community.
+        br
+        | To continue, please click the link below to confirm your email.
+        br
+        a(href=confirmationLink) Confirm Email
+        br
+        | Please be aware that the application is currently in development.
+        br
+        | We will keep you informed about all new tools and updates through email newsletters.
+        br
+        | Stay tuned for our updates and get ready for amazing opportunities awaiting you at Live Simply!
+
+block footer
+    include ./partials/footer.pug

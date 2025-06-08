@@ -1,0 +1,110 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+body {
+	font-family: "Roboto", sans-serif;
+	color: #fff;
+	background: #000;
+	letter-spacing: 0.03rem;
+}
+
+input {
+	font-size: 16px !important;
+}
+
+button:not([disabled]) {
+	cursor: pointer;
+}
+
+.rotate-enter-active,
+.rotate-leave-active,
+.dropdown-enter-active,
+.dropdown-leave-active,
+.v-enter-active,
+.v-leave-active {
+	transition: 0.3s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+	opacity: 0;
+}
+
+.rotate-enter-from,
+.rotate-leave-to {
+	transform: rotate3d(0, 1, 0, 90deg);
+}
+
+.dropdown-enter-from,
+.dropdown-leave-to {
+	transform: translateY(2rem);
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+/*Track*/
+::-webkit-scrollbar-track {
+	background: rgb(12 10 9);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: rgb(17 24 39);
+	border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: rgb(17 24 39);
+}
+
+.businessCard-image__overlay {
+	position: relative;
+
+	&:after,
+	&:before {
+		content: "";
+		position: absolute;
+		left: -25%;
+		bottom: -198px;
+		z-index: 10;
+		width: 700px;
+		height: 200px;
+		background: oklch(21% 0.034 264.665);
+		transform: rotate(12deg);
+	}
+
+	&:before {
+		right: -25%;
+		left: auto;
+		z-index: 11;
+		transform: rotate(-12deg);
+	}
+
+	@media (max-width: 1024px) {
+		&:after,
+		&:before {
+			bottom: -170px;
+			transform: rotate(8deg);
+		}
+
+		&:before {
+			transform: rotate(-8deg);
+		}
+	}
+
+	@media (max-width: 767px) {
+		&:after,
+		&:before {
+			bottom: -210px;
+			transform: rotate(10deg);
+		}
+
+		&:before {
+			transform: rotate(-10deg);
+		}
+	}
+}

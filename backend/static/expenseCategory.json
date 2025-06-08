@@ -1,0 +1,158 @@
+[
+  {
+    "ru": "Кафе и рестораны",
+    "en": "Cafes and restaurants",
+    "value": "cafesRestaurants",
+    "color": "#FF5733"
+  },
+  {
+    "ru": "Одежда и аксессуары",
+    "en": "Cloth and accessories",
+    "value": "clothAccessories",
+    "color": "#33FF57"
+  },
+  {
+    "ru": "Образование",
+    "en": "Education",
+    "value": "education",
+    "color": "#3357FF"
+  },
+  {
+    "ru": "Маркетплейсы",
+    "en": "Marketplace",
+    "value": "marketplace",
+    "color": "#FF33A8"
+  },
+  {
+    "ru": "Медицина и здравоохранение",
+    "en": "Medicine and healthcare",
+    "value": "medicineHealthcare",
+    "color": "#33FFF3"
+  },
+  {
+    "ru": "Продукты",
+    "en": "Groceries",
+    "value": "groceries",
+    "color": "#FF8C33"
+  },
+  {
+    "ru": "Связь и интернет",
+    "en": "Communications and internet",
+    "value": "communicationsInternet",
+    "color": "#33FF8C"
+  },
+  {
+    "ru": "Путешествия и транспорт",
+    "en": "Traveling and transportation",
+    "value": "travelingTransport",
+    "color": "#8C33FF"
+  },
+  {
+    "ru": "Финансовые услуги",
+    "en": "Financial services",
+    "value": "financialServices",
+    "color": "#FF338C"
+  },
+  {
+    "ru": "Аренда и ипотека",
+    "en": "Rent and mortgage",
+    "value": "rentMortgage",
+    "color": "#33A8FF"
+  },
+  {
+    "ru": "Здоровье и красота",
+    "en": "Health and beauty",
+    "value": "healthBeauty",
+    "color": "#A833FF"
+  },
+  {
+    "ru": "Покупка кофе и питание вне дома",
+    "en": "Coffee purchase and eating out",
+    "value": "coffeeEatingOut",
+    "color": "#FFA833"
+  },
+  {
+    "ru": "Развлечения",
+    "en": "Entertainment",
+    "value": "entertainment",
+    "color": "#33FFA8"
+  },
+  {
+    "ru": "Коммунальные услуги",
+    "en": "Utility bills",
+    "value": "utilityBills",
+    "color": "#8CFF33"
+  },
+  {
+    "ru": "Такси и парковка",
+    "en": "Taxi and parking",
+    "value": "taxiParking",
+    "color": "#FF3388"
+  },
+  {
+    "ru": "Покупка книг и билетов",
+    "en": "Book and ticket purchase",
+    "value": "booksTickets",
+    "color": "#3388FF"
+  },
+  {
+    "ru": "Спорт и фитнес",
+    "en": "Sports and fitness",
+    "value": "sportsFitness",
+    "color": "#FF88A8"
+  },
+  {
+    "ru": "Ремонт и обслуживание автомобиля",
+    "en": "Car repair and maintenance",
+    "value": "carRepairMaintenance",
+    "color": "#88FF33"
+  },
+  {
+    "ru": "Покупка товаров для дома",
+    "en": "Household goods purchase",
+    "value": "householdGoods",
+    "color": "#33FF88"
+  },
+  {
+    "ru": "Хобби и увлечения",
+    "en": "Hobbies and interests",
+    "value": "hobbies",
+    "color": "#FF3388"
+  },
+  {
+    "ru": "Покупка цветов и подарков",
+    "en": "Flower and gift purchase",
+    "value": "flowersGifts",
+    "color": "#3388A8"
+  },
+  {
+    "ru": "Покупка техники и программного обеспечения",
+    "en": "Gadget and software purchase",
+    "value": "gadgetsSoftware",
+    "color": "#88FF88"
+  },
+  {
+    "ru": "Косметика и ювелирные изделия",
+    "en": "Cosmetics and jewelry",
+    "value": "cosmeticsJewelry",
+    "color": "#FF88FF"
+  },
+  {
+    "ru": "Аренда автомобиля",
+    "en": "Car rental",
+    "value": "carRental",
+    "color": "#88A8FF"
+  },
+  {
+    "ru": "Покупка музыки и платные приложения",
+    "en": "Music and paid apps purchase",
+    "value": "musicPaidApps",
+    "color": "#FF88A8"
+  },
+  {
+    "ru": "Снятие наличных",
+    "en": "Cash withdrawal",
+    "value": "withdrawal",
+    "color": "#88FF88"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "en": "Expense",
+    "ru": "Расходы",
+    "value": "expense"
+  },
+  {
+    "en": "Income",
+    "ru": "Зачисление",
+    "value": "income"
+  },
+  {
+    "en": "Goals",
+    "ru": "Цели",
+    "value": "goals"
+  }
+]
