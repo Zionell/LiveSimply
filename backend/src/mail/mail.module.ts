@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { MailService } from "./mail.service";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { PrismaService } from "../prisma.service";
+import { PrismaService } from "~/prisma.service";
 import { MailerModule } from "@nestjs-modules/mailer";
 import { join } from "path";
 import { PugAdapter } from "@nestjs-modules/mailer/dist/adapters/pug.adapter";

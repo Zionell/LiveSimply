@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthController } from "./auth.controller";
-import { UsersModule } from "../users/users.module";
+import { UsersModule } from "~/users/users.module";
 import { ConfigModule, ConfigService } from "@nestjs/config";
+import { PrismaService } from "~/prisma.service";
 import { JwtModule } from "@nestjs/jwt";
-import { PrismaService } from "../prisma.service";
 
 @Module({
 	imports: [
@@ -15,7 +15,7 @@ import { PrismaService } from "../prisma.service";
 			useFactory: (configService: ConfigService) => ({
 				secret: configService.get<string>("JWT_SECRET"),
 				signOptions: {
-					expiresIn: configService.get<string>("JWT_EXPIRES_IN"),
+					expiresIn: configService.get<number>("JWT_EXPIRES_IN"),
 				},
 			}),
 			inject: [ConfigService],

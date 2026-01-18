@@ -1,4 +1,10 @@
-import { Role } from "@prisma/client";
+export enum ERole {
+	ADMIN = "ADMIN",
+	LVL1 = "LVL1",
+	LVL2 = "LVL2",
+	LVL3 = "LVL3",
+	TEST = "TEST",
+}
 
 export interface IUser {
 	id: string;
@@ -8,6 +14,6 @@ export interface IUser {
 	image: string | null;
 	phone: string | null;
 	exchange: string | null;
-	role: Role;
+	role: string;
 	total: number | null;
 }

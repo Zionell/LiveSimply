@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
 import { UsersService } from "./users.service";
-import { PrismaService } from "../prisma.service";
+import { PrismaService } from "~/prisma.service";
 import { UsersController } from "./users.controller";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { MailService } from "../mail/mail.service";
-import { MailModule } from "../mail/mail.module";
 import { JwtModule } from "@nestjs/jwt";
+import { MailService } from "~/mail/mail.service";
+import { MailModule } from "~/mail/mail.module";
 
 @Module({
 	imports: [

@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { FinanceItem } from "@prisma/client";
+import { FinanceItem } from "../../../generated/prisma/client";
 
 interface IExpenseItem {
 	id: string;

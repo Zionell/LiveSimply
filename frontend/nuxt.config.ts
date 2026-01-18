@@ -69,15 +69,6 @@ export default defineNuxtConfig({
 	// Robots
 	robots: getRobotsInfo(),
 
-	// Auto import UI components
-	components: [
-		{
-			path: "~/components",
-			extensions: [".vue"],
-			pathPrefix: false,
-		},
-	],
-
 	// Image
 	image: {
 		quality: 80,

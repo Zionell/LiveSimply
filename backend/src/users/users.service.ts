@@ -4,15 +4,15 @@ import {
 	NotFoundException,
 	UnauthorizedException,
 } from "@nestjs/common";
-import { PrismaService } from "../prisma.service";
+import { PrismaService } from "~/prisma.service";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { Role, User } from "@prisma/client";
 import bcrypt from "bcryptjs";
-import { MailService } from "../mail/mail.service";
+import { MailService } from "~/mail/mail.service";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
-import { IUser } from "../../types/user";
+import { ERole, IUser } from "@/types/user";
 import { UpdateUserDto } from "./dto/update-user.dto";
+import { User } from "@/generated/prisma/client";
 
 @Injectable()
 export class UsersService {
@@ -115,7 +115,8 @@ export class UsersService {
 
 	async findAll(req: Record<string, any>) {
 		try {
-			const isAdmin = req.payload.role === Role.ADMIN;
+			console.log("req", req);
+			const isAdmin = req.payload.role === ERole.ADMIN;
 
 			if (!isAdmin) {
 				throw new UnauthorizedException();

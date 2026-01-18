@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { ISpec } from "../../../types/common";
+import { ISpec } from "@/types/common";
 import {
 	ExchangeItem,
 	ExpenseCategory,
 	OperationCategory,
-} from "@prisma/client";
+} from "@/generated/prisma/client";
 
 export interface ILabel {
 	label: string;

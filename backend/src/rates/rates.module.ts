@@ -1,27 +1,13 @@
 import { Module } from "@nestjs/common";
 import { RatesService } from "./rates.service";
 import { RatesController } from "./rates.controller";
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import { PrismaService } from "../prisma.service";
-import { TranslateModule } from "../translate/translate.module";
-import { MailService } from "../mail/mail.service";
-import { JwtModule } from "@nestjs/jwt";
+import { PrismaService } from "~/prisma.service";
+import { ConfigModule } from "@nestjs/config";
+import { TranslateModule } from "~/translate/translate.module";
+import { MailService } from "~/mail/mail.service";
 
 @Module({
-	imports: [
-		ConfigModule,
-		TranslateModule,
-		JwtModule.registerAsync({
-			imports: [ConfigModule],
-			useFactory: (configService: ConfigService) => ({
-				secret: configService.get<string>("JWT_SECRET"),
-				signOptions: {
-					expiresIn: configService.get<string>("JWT_EXPIRES_IN"),
-				},
-			}),
-			inject: [ConfigService],
-		}),
-	],
+	imports: [ConfigModule, TranslateModule],
 	controllers: [RatesController],
 	providers: [RatesService, PrismaService, MailService],
 })

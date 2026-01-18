@@ -4,7 +4,6 @@ import {
 	Post,
 	HttpCode,
 	HttpStatus,
-	UseGuards,
 	Get,
 	Res,
 	Req,
@@ -14,13 +13,14 @@ import {
 import { type Response } from "express";
 import { AuthService } from "./auth.service";
 import { LoginUserDto } from "./dto/login-user.dto";
-import { AuthGuard } from "./guards/auth.guard";
 import { ApiBody } from "@nestjs/swagger";
+import { PublicRoute } from "~/auth/decorators/public.decorator";
 
 @Controller("auth")
 export class AuthController {
 	constructor(private authService: AuthService) {}
 
+	@PublicRoute()
 	@HttpCode(HttpStatus.OK)
 	@Post("login")
 	@ApiBody({ type: LoginUserDto })
@@ -38,9 +38,8 @@ export class AuthController {
 		return response;
 	}
 
-	@UseGuards(AuthGuard)
 	@Get("profile")
-	async getProfile(@Req() req, @Res() response: Response) {
+	async getProfile(@Req() req: Request, @Res() response: Response) {
 		const { token, ...res } = await this.authService.getProfile(req);
 
 		response

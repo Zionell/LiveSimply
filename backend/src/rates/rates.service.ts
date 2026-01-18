@@ -1,15 +1,16 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { TranslateService } from "../translate/translate.service";
-import { PrismaService } from "../prisma.service";
-import { roleRestrictions } from "../../utils/rolesRestrictions";
-import { ExchangeItem, Role } from "@prisma/client";
+import { TranslateService } from "~/translate/translate.service";
+import { PrismaService } from "~/prisma.service";
+import { roleRestrictions } from "@/utils/rolesRestrictions";
 import { ConvertRatesDto } from "./dto/convert-rates.dto";
-import { MailService } from "../mail/mail.service";
-import * as expenseCategory from "../../static/expenseCategory.json";
-import * as operationCategory from "../../static/operationCategory.json";
+import { MailService } from "~/mail/mail.service";
+import * as expenseCategory from "@/static/expenseCategory.json";
+import * as operationCategory from "@/static/operationCategory.json";
 import { Cron, CronExpression } from "@nestjs/schedule";
 import { I18nContext } from "nestjs-i18n";
+import { ERole } from "@/types/user";
+import { ExchangeItem } from "@/generated/prisma/client";
 
 @Injectable()
 export class RatesService {
@@ -125,7 +126,7 @@ export class RatesService {
 		}
 	}
 
-	async findAll(role: Role = Role.LVL3) {
+	async findAll(role: ERole = ERole.LVL3) {
 		try {
 			const sliceCount = roleRestrictions(role).getCurrencyCount();
 			const whiteList = ["USD", "EUR", "RUB"];
