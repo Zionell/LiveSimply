@@ -14,7 +14,7 @@ async function bootstrap() {
 		origin: process.env.FRONTEND_URL || `http://localhost:3000`,
 		credentials: true,
 	});
-	app.use(cookieParser(process.env.COOKIES_SECRET));
+	app.use(cookieParser());
 
 	app.useGlobalPipes(
 		new ValidationPipe({
