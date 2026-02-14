@@ -13,6 +13,7 @@ import { JwtService } from "@nestjs/jwt";
 import { ERole, IUser } from "@/types/user";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "@/generated/prisma/client";
+import { OAuthProfile } from "~/auth/oauth/oauth.types";
 
 @Injectable()
 export class UsersService {
@@ -24,6 +25,27 @@ export class UsersService {
 	) {}
 
 	private readonly saltOrRounds = 10;
+
+	async findOrCreate(dto: OAuthProfile): Promise<User> {
+		const isUserExist = await this.prismaService.user.findUnique({
+			where: {
+				email: dto.email,
+			},
+		});
+
+		if (isUserExist) {
+			return isUserExist;
+		}
+
+		return this.prismaService.user.create({
+			data: {
+				email: dto.email,
+				name: dto.name,
+				image: dto.avatar,
+				emailVerified: true,
+			},
+		});
+	}
 
 	async create(dto: CreateUserDto): Promise<void> {
 		const isUserExist = await this.prismaService.user.findUnique({
@@ -115,7 +137,6 @@ export class UsersService {
 
 	async findAll(req: Record<string, any>) {
 		try {
-			console.log("req", req);
 			const isAdmin = req.payload.role === ERole.ADMIN;
 
 			if (!isAdmin) {

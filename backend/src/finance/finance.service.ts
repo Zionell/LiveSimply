@@ -79,6 +79,7 @@ export class FinanceService {
 	async getStatistics(req: Record<string, any>) {
 		try {
 			const userId: ERole = req?.payload?.id;
+
 			const date = new Date();
 			const year = date.getFullYear();
 			const month = date.getMonth() + 1;

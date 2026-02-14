@@ -46,6 +46,7 @@ export type FinanceItemMinAggregateOutputType = {
   expenseCategoryId: string | null
   operationCategoryId: string | null
   createdAt: Date | null
+  updateddAt: Date | null
 }
 
 export type FinanceItemMaxAggregateOutputType = {
@@ -58,6 +59,7 @@ export type FinanceItemMaxAggregateOutputType = {
   expenseCategoryId: string | null
   operationCategoryId: string | null
   createdAt: Date | null
+  updateddAt: Date | null
 }
 
 export type FinanceItemCountAggregateOutputType = {
@@ -70,6 +72,7 @@ export type FinanceItemCountAggregateOutputType = {
   expenseCategoryId: number
   operationCategoryId: number
   createdAt: number
+  updateddAt: number
   _all: number
 }
 
@@ -94,6 +97,7 @@ export type FinanceItemMinAggregateInputType = {
   expenseCategoryId?: true
   operationCategoryId?: true
   createdAt?: true
+  updateddAt?: true
 }
 
 export type FinanceItemMaxAggregateInputType = {
@@ -106,6 +110,7 @@ export type FinanceItemMaxAggregateInputType = {
   expenseCategoryId?: true
   operationCategoryId?: true
   createdAt?: true
+  updateddAt?: true
 }
 
 export type FinanceItemCountAggregateInputType = {
@@ -118,6 +123,7 @@ export type FinanceItemCountAggregateInputType = {
   expenseCategoryId?: true
   operationCategoryId?: true
   createdAt?: true
+  updateddAt?: true
   _all?: true
 }
 
@@ -217,6 +223,7 @@ export type FinanceItemGroupByOutputType = {
   expenseCategoryId: string | null
   operationCategoryId: string
   createdAt: Date
+  updateddAt: Date
   _count: FinanceItemCountAggregateOutputType | null
   _avg: FinanceItemAvgAggregateOutputType | null
   _sum: FinanceItemSumAggregateOutputType | null
@@ -252,6 +259,7 @@ export type FinanceItemWhereInput = {
   expenseCategoryId?: Prisma.StringNullableFilter<"FinanceItem"> | string | null
   operationCategoryId?: Prisma.StringFilter<"FinanceItem"> | string
   createdAt?: Prisma.DateTimeFilter<"FinanceItem"> | Date | string
+  updateddAt?: Prisma.DateTimeFilter<"FinanceItem"> | Date | string
   exchangeItemFrom?: Prisma.XOR<Prisma.ExchangeItemScalarRelationFilter, Prisma.ExchangeItemWhereInput>
   exchangeItemTo?: Prisma.XOR<Prisma.ExchangeItemScalarRelationFilter, Prisma.ExchangeItemWhereInput>
   expenseCategory?: Prisma.XOR<Prisma.ExpenseCategoryNullableScalarRelationFilter, Prisma.ExpenseCategoryWhereInput> | null
@@ -268,6 +276,7 @@ export type FinanceItemOrderByWithRelationInput = {
   expenseCategoryId?: Prisma.SortOrder
   operationCategoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updateddAt?: Prisma.SortOrder
   exchangeItemFrom?: Prisma.ExchangeItemOrderByWithRelationInput
   exchangeItemTo?: Prisma.ExchangeItemOrderByWithRelationInput
   expenseCategory?: Prisma.ExpenseCategoryOrderByWithRelationInput
@@ -287,6 +296,7 @@ export type FinanceItemWhereUniqueInput = Prisma.AtLeast<{
   expenseCategoryId?: Prisma.StringNullableFilter<"FinanceItem"> | string | null
   operationCategoryId?: Prisma.StringFilter<"FinanceItem"> | string
   createdAt?: Prisma.DateTimeFilter<"FinanceItem"> | Date | string
+  updateddAt?: Prisma.DateTimeFilter<"FinanceItem"> | Date | string
   exchangeItemFrom?: Prisma.XOR<Prisma.ExchangeItemScalarRelationFilter, Prisma.ExchangeItemWhereInput>
   exchangeItemTo?: Prisma.XOR<Prisma.ExchangeItemScalarRelationFilter, Prisma.ExchangeItemWhereInput>
   expenseCategory?: Prisma.XOR<Prisma.ExpenseCategoryNullableScalarRelationFilter, Prisma.ExpenseCategoryWhereInput> | null
@@ -303,6 +313,7 @@ export type FinanceItemOrderByWithAggregationInput = {
   expenseCategoryId?: Prisma.SortOrder
   operationCategoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updateddAt?: Prisma.SortOrder
   _count?: Prisma.FinanceItemCountOrderByAggregateInput
   _avg?: Prisma.FinanceItemAvgOrderByAggregateInput
   _max?: Prisma.FinanceItemMaxOrderByAggregateInput
@@ -323,6 +334,7 @@ export type FinanceItemScalarWhereWithAggregatesInput = {
   expenseCategoryId?: Prisma.StringNullableWithAggregatesFilter<"FinanceItem"> | string | null
   operationCategoryId?: Prisma.StringWithAggregatesFilter<"FinanceItem"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"FinanceItem"> | Date | string
+  updateddAt?: Prisma.DateTimeWithAggregatesFilter<"FinanceItem"> | Date | string
 }
 
 export type FinanceItemCreateInput = {
@@ -331,6 +343,7 @@ export type FinanceItemCreateInput = {
   curPrice: number
   convertedPrice: number
   createdAt?: Date | string
+  updateddAt?: Date | string
   exchangeItemFrom: Prisma.ExchangeItemCreateNestedOneWithoutFromExchangeItemInput
   exchangeItemTo: Prisma.ExchangeItemCreateNestedOneWithoutToExchangeItemInput
   expenseCategory?: Prisma.ExpenseCategoryCreateNestedOneWithoutFinanceItemInput
@@ -347,6 +360,7 @@ export type FinanceItemUncheckedCreateInput = {
   expenseCategoryId?: string | null
   operationCategoryId: string
   createdAt?: Date | string
+  updateddAt?: Date | string
 }
 
 export type FinanceItemUpdateInput = {
@@ -354,6 +368,7 @@ export type FinanceItemUpdateInput = {
   curPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   convertedPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   exchangeItemFrom?: Prisma.ExchangeItemUpdateOneRequiredWithoutFromExchangeItemNestedInput
   exchangeItemTo?: Prisma.ExchangeItemUpdateOneRequiredWithoutToExchangeItemNestedInput
   expenseCategory?: Prisma.ExpenseCategoryUpdateOneWithoutFinanceItemNestedInput
@@ -369,6 +384,7 @@ export type FinanceItemUncheckedUpdateInput = {
   expenseCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   operationCategoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FinanceItemCreateManyInput = {
@@ -381,6 +397,7 @@ export type FinanceItemCreateManyInput = {
   expenseCategoryId?: string | null
   operationCategoryId: string
   createdAt?: Date | string
+  updateddAt?: Date | string
 }
 
 export type FinanceItemUpdateManyMutationInput = {
@@ -388,6 +405,7 @@ export type FinanceItemUpdateManyMutationInput = {
   curPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   convertedPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FinanceItemUncheckedUpdateManyInput = {
@@ -399,6 +417,7 @@ export type FinanceItemUncheckedUpdateManyInput = {
   expenseCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   operationCategoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FinanceItemListRelationFilter = {
@@ -421,6 +440,7 @@ export type FinanceItemCountOrderByAggregateInput = {
   expenseCategoryId?: Prisma.SortOrder
   operationCategoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updateddAt?: Prisma.SortOrder
 }
 
 export type FinanceItemAvgOrderByAggregateInput = {
@@ -438,6 +458,7 @@ export type FinanceItemMaxOrderByAggregateInput = {
   expenseCategoryId?: Prisma.SortOrder
   operationCategoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updateddAt?: Prisma.SortOrder
 }
 
 export type FinanceItemMinOrderByAggregateInput = {
@@ -450,6 +471,7 @@ export type FinanceItemMinOrderByAggregateInput = {
   expenseCategoryId?: Prisma.SortOrder
   operationCategoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updateddAt?: Prisma.SortOrder
 }
 
 export type FinanceItemSumOrderByAggregateInput = {
@@ -639,6 +661,7 @@ export type FinanceItemCreateWithoutExchangeItemFromInput = {
   curPrice: number
   convertedPrice: number
   createdAt?: Date | string
+  updateddAt?: Date | string
   exchangeItemTo: Prisma.ExchangeItemCreateNestedOneWithoutToExchangeItemInput
   expenseCategory?: Prisma.ExpenseCategoryCreateNestedOneWithoutFinanceItemInput
   operationCategory: Prisma.OperationCategoryCreateNestedOneWithoutFinanceItemInput
@@ -653,6 +676,7 @@ export type FinanceItemUncheckedCreateWithoutExchangeItemFromInput = {
   expenseCategoryId?: string | null
   operationCategoryId: string
   createdAt?: Date | string
+  updateddAt?: Date | string
 }
 
 export type FinanceItemCreateOrConnectWithoutExchangeItemFromInput = {
@@ -670,6 +694,7 @@ export type FinanceItemCreateWithoutExchangeItemToInput = {
   curPrice: number
   convertedPrice: number
   createdAt?: Date | string
+  updateddAt?: Date | string
   exchangeItemFrom: Prisma.ExchangeItemCreateNestedOneWithoutFromExchangeItemInput
   expenseCategory?: Prisma.ExpenseCategoryCreateNestedOneWithoutFinanceItemInput
   operationCategory: Prisma.OperationCategoryCreateNestedOneWithoutFinanceItemInput
@@ -684,6 +709,7 @@ export type FinanceItemUncheckedCreateWithoutExchangeItemToInput = {
   expenseCategoryId?: string | null
   operationCategoryId: string
   createdAt?: Date | string
+  updateddAt?: Date | string
 }
 
 export type FinanceItemCreateOrConnectWithoutExchangeItemToInput = {
@@ -724,6 +750,7 @@ export type FinanceItemScalarWhereInput = {
   expenseCategoryId?: Prisma.StringNullableFilter<"FinanceItem"> | string | null
   operationCategoryId?: Prisma.StringFilter<"FinanceItem"> | string
   createdAt?: Prisma.DateTimeFilter<"FinanceItem"> | Date | string
+  updateddAt?: Prisma.DateTimeFilter<"FinanceItem"> | Date | string
 }
 
 export type FinanceItemUpsertWithWhereUniqueWithoutExchangeItemToInput = {
@@ -748,6 +775,7 @@ export type FinanceItemCreateWithoutExpenseCategoryInput = {
   curPrice: number
   convertedPrice: number
   createdAt?: Date | string
+  updateddAt?: Date | string
   exchangeItemFrom: Prisma.ExchangeItemCreateNestedOneWithoutFromExchangeItemInput
   exchangeItemTo: Prisma.ExchangeItemCreateNestedOneWithoutToExchangeItemInput
   operationCategory: Prisma.OperationCategoryCreateNestedOneWithoutFinanceItemInput
@@ -762,6 +790,7 @@ export type FinanceItemUncheckedCreateWithoutExpenseCategoryInput = {
   currencyToId: string
   operationCategoryId: string
   createdAt?: Date | string
+  updateddAt?: Date | string
 }
 
 export type FinanceItemCreateOrConnectWithoutExpenseCategoryInput = {
@@ -795,6 +824,7 @@ export type FinanceItemCreateWithoutOperationCategoryInput = {
   curPrice: number
   convertedPrice: number
   createdAt?: Date | string
+  updateddAt?: Date | string
   exchangeItemFrom: Prisma.ExchangeItemCreateNestedOneWithoutFromExchangeItemInput
   exchangeItemTo: Prisma.ExchangeItemCreateNestedOneWithoutToExchangeItemInput
   expenseCategory?: Prisma.ExpenseCategoryCreateNestedOneWithoutFinanceItemInput
@@ -809,6 +839,7 @@ export type FinanceItemUncheckedCreateWithoutOperationCategoryInput = {
   currencyToId: string
   expenseCategoryId?: string | null
   createdAt?: Date | string
+  updateddAt?: Date | string
 }
 
 export type FinanceItemCreateOrConnectWithoutOperationCategoryInput = {
@@ -845,6 +876,7 @@ export type FinanceItemCreateManyExchangeItemFromInput = {
   expenseCategoryId?: string | null
   operationCategoryId: string
   createdAt?: Date | string
+  updateddAt?: Date | string
 }
 
 export type FinanceItemCreateManyExchangeItemToInput = {
@@ -856,6 +888,7 @@ export type FinanceItemCreateManyExchangeItemToInput = {
   expenseCategoryId?: string | null
   operationCategoryId: string
   createdAt?: Date | string
+  updateddAt?: Date | string
 }
 
 export type FinanceItemUpdateWithoutExchangeItemFromInput = {
@@ -863,6 +896,7 @@ export type FinanceItemUpdateWithoutExchangeItemFromInput = {
   curPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   convertedPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   exchangeItemTo?: Prisma.ExchangeItemUpdateOneRequiredWithoutToExchangeItemNestedInput
   expenseCategory?: Prisma.ExpenseCategoryUpdateOneWithoutFinanceItemNestedInput
   operationCategory?: Prisma.OperationCategoryUpdateOneRequiredWithoutFinanceItemNestedInput
@@ -876,6 +910,7 @@ export type FinanceItemUncheckedUpdateWithoutExchangeItemFromInput = {
   expenseCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   operationCategoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FinanceItemUncheckedUpdateManyWithoutExchangeItemFromInput = {
@@ -886,6 +921,7 @@ export type FinanceItemUncheckedUpdateManyWithoutExchangeItemFromInput = {
   expenseCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   operationCategoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FinanceItemUpdateWithoutExchangeItemToInput = {
@@ -893,6 +929,7 @@ export type FinanceItemUpdateWithoutExchangeItemToInput = {
   curPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   convertedPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   exchangeItemFrom?: Prisma.ExchangeItemUpdateOneRequiredWithoutFromExchangeItemNestedInput
   expenseCategory?: Prisma.ExpenseCategoryUpdateOneWithoutFinanceItemNestedInput
   operationCategory?: Prisma.OperationCategoryUpdateOneRequiredWithoutFinanceItemNestedInput
@@ -906,6 +943,7 @@ export type FinanceItemUncheckedUpdateWithoutExchangeItemToInput = {
   expenseCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   operationCategoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FinanceItemUncheckedUpdateManyWithoutExchangeItemToInput = {
@@ -916,6 +954,7 @@ export type FinanceItemUncheckedUpdateManyWithoutExchangeItemToInput = {
   expenseCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   operationCategoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FinanceItemCreateManyExpenseCategoryInput = {
@@ -927,6 +966,7 @@ export type FinanceItemCreateManyExpenseCategoryInput = {
   currencyToId: string
   operationCategoryId: string
   createdAt?: Date | string
+  updateddAt?: Date | string
 }
 
 export type FinanceItemUpdateWithoutExpenseCategoryInput = {
@@ -934,6 +974,7 @@ export type FinanceItemUpdateWithoutExpenseCategoryInput = {
   curPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   convertedPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   exchangeItemFrom?: Prisma.ExchangeItemUpdateOneRequiredWithoutFromExchangeItemNestedInput
   exchangeItemTo?: Prisma.ExchangeItemUpdateOneRequiredWithoutToExchangeItemNestedInput
   operationCategory?: Prisma.OperationCategoryUpdateOneRequiredWithoutFinanceItemNestedInput
@@ -947,6 +988,7 @@ export type FinanceItemUncheckedUpdateWithoutExpenseCategoryInput = {
   currencyToId?: Prisma.StringFieldUpdateOperationsInput | string
   operationCategoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FinanceItemUncheckedUpdateManyWithoutExpenseCategoryInput = {
@@ -957,6 +999,7 @@ export type FinanceItemUncheckedUpdateManyWithoutExpenseCategoryInput = {
   currencyToId?: Prisma.StringFieldUpdateOperationsInput | string
   operationCategoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FinanceItemCreateManyOperationCategoryInput = {
@@ -968,6 +1011,7 @@ export type FinanceItemCreateManyOperationCategoryInput = {
   currencyToId: string
   expenseCategoryId?: string | null
   createdAt?: Date | string
+  updateddAt?: Date | string
 }
 
 export type FinanceItemUpdateWithoutOperationCategoryInput = {
@@ -975,6 +1019,7 @@ export type FinanceItemUpdateWithoutOperationCategoryInput = {
   curPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   convertedPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   exchangeItemFrom?: Prisma.ExchangeItemUpdateOneRequiredWithoutFromExchangeItemNestedInput
   exchangeItemTo?: Prisma.ExchangeItemUpdateOneRequiredWithoutToExchangeItemNestedInput
   expenseCategory?: Prisma.ExpenseCategoryUpdateOneWithoutFinanceItemNestedInput
@@ -988,6 +1033,7 @@ export type FinanceItemUncheckedUpdateWithoutOperationCategoryInput = {
   currencyToId?: Prisma.StringFieldUpdateOperationsInput | string
   expenseCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FinanceItemUncheckedUpdateManyWithoutOperationCategoryInput = {
@@ -998,6 +1044,7 @@ export type FinanceItemUncheckedUpdateManyWithoutOperationCategoryInput = {
   currencyToId?: Prisma.StringFieldUpdateOperationsInput | string
   expenseCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1012,6 +1059,7 @@ export type FinanceItemSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   expenseCategoryId?: boolean
   operationCategoryId?: boolean
   createdAt?: boolean
+  updateddAt?: boolean
   exchangeItemFrom?: boolean | Prisma.ExchangeItemDefaultArgs<ExtArgs>
   exchangeItemTo?: boolean | Prisma.ExchangeItemDefaultArgs<ExtArgs>
   expenseCategory?: boolean | Prisma.FinanceItem$expenseCategoryArgs<ExtArgs>
@@ -1030,9 +1078,10 @@ export type FinanceItemSelectScalar = {
   expenseCategoryId?: boolean
   operationCategoryId?: boolean
   createdAt?: boolean
+  updateddAt?: boolean
 }
 
-export type FinanceItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "curPrice" | "convertedPrice" | "currencyFromId" | "currencyToId" | "expenseCategoryId" | "operationCategoryId" | "createdAt", ExtArgs["result"]["financeItem"]>
+export type FinanceItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "curPrice" | "convertedPrice" | "currencyFromId" | "currencyToId" | "expenseCategoryId" | "operationCategoryId" | "createdAt" | "updateddAt", ExtArgs["result"]["financeItem"]>
 export type FinanceItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   exchangeItemFrom?: boolean | Prisma.ExchangeItemDefaultArgs<ExtArgs>
   exchangeItemTo?: boolean | Prisma.ExchangeItemDefaultArgs<ExtArgs>
@@ -1058,6 +1107,7 @@ export type $FinanceItemPayload<ExtArgs extends runtime.Types.Extensions.Interna
     expenseCategoryId: string | null
     operationCategoryId: string
     createdAt: Date
+    updateddAt: Date
   }, ExtArgs["result"]["financeItem"]>
   composites: {}
 }
@@ -1463,6 +1513,7 @@ export interface FinanceItemFieldRefs {
   readonly expenseCategoryId: Prisma.FieldRef<"FinanceItem", 'String'>
   readonly operationCategoryId: Prisma.FieldRef<"FinanceItem", 'String'>
   readonly createdAt: Prisma.FieldRef<"FinanceItem", 'DateTime'>
+  readonly updateddAt: Prisma.FieldRef<"FinanceItem", 'DateTime'>
 }
     
 

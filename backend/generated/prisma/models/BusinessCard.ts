@@ -29,6 +29,8 @@ export type BusinessCardMinAggregateOutputType = {
   userId: string | null
   subtitle: string | null
   description: string | null
+  createdAt: Date | null
+  updateddAt: Date | null
 }
 
 export type BusinessCardMaxAggregateOutputType = {
@@ -36,6 +38,8 @@ export type BusinessCardMaxAggregateOutputType = {
   userId: string | null
   subtitle: string | null
   description: string | null
+  createdAt: Date | null
+  updateddAt: Date | null
 }
 
 export type BusinessCardCountAggregateOutputType = {
@@ -43,6 +47,8 @@ export type BusinessCardCountAggregateOutputType = {
   userId: number
   subtitle: number
   description: number
+  createdAt: number
+  updateddAt: number
   _all: number
 }
 
@@ -52,6 +58,8 @@ export type BusinessCardMinAggregateInputType = {
   userId?: true
   subtitle?: true
   description?: true
+  createdAt?: true
+  updateddAt?: true
 }
 
 export type BusinessCardMaxAggregateInputType = {
@@ -59,6 +67,8 @@ export type BusinessCardMaxAggregateInputType = {
   userId?: true
   subtitle?: true
   description?: true
+  createdAt?: true
+  updateddAt?: true
 }
 
 export type BusinessCardCountAggregateInputType = {
@@ -66,6 +76,8 @@ export type BusinessCardCountAggregateInputType = {
   userId?: true
   subtitle?: true
   description?: true
+  createdAt?: true
+  updateddAt?: true
   _all?: true
 }
 
@@ -146,6 +158,8 @@ export type BusinessCardGroupByOutputType = {
   userId: string
   subtitle: string | null
   description: string | null
+  createdAt: Date
+  updateddAt: Date
   _count: BusinessCardCountAggregateOutputType | null
   _min: BusinessCardMinAggregateOutputType | null
   _max: BusinessCardMaxAggregateOutputType | null
@@ -174,6 +188,8 @@ export type BusinessCardWhereInput = {
   userId?: Prisma.StringFilter<"BusinessCard"> | string
   subtitle?: Prisma.StringNullableFilter<"BusinessCard"> | string | null
   description?: Prisma.StringNullableFilter<"BusinessCard"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"BusinessCard"> | Date | string
+  updateddAt?: Prisma.DateTimeFilter<"BusinessCard"> | Date | string
   socialLinks?: Prisma.BusinessCardLinkListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -183,6 +199,8 @@ export type BusinessCardOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updateddAt?: Prisma.SortOrder
   socialLinks?: Prisma.BusinessCardLinkOrderByRelationAggregateInput
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -195,6 +213,8 @@ export type BusinessCardWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.BusinessCardWhereInput | Prisma.BusinessCardWhereInput[]
   subtitle?: Prisma.StringNullableFilter<"BusinessCard"> | string | null
   description?: Prisma.StringNullableFilter<"BusinessCard"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"BusinessCard"> | Date | string
+  updateddAt?: Prisma.DateTimeFilter<"BusinessCard"> | Date | string
   socialLinks?: Prisma.BusinessCardLinkListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId">
@@ -204,6 +224,8 @@ export type BusinessCardOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updateddAt?: Prisma.SortOrder
   _count?: Prisma.BusinessCardCountOrderByAggregateInput
   _max?: Prisma.BusinessCardMaxOrderByAggregateInput
   _min?: Prisma.BusinessCardMinOrderByAggregateInput
@@ -217,12 +239,16 @@ export type BusinessCardScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"BusinessCard"> | string
   subtitle?: Prisma.StringNullableWithAggregatesFilter<"BusinessCard"> | string | null
   description?: Prisma.StringNullableWithAggregatesFilter<"BusinessCard"> | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"BusinessCard"> | Date | string
+  updateddAt?: Prisma.DateTimeWithAggregatesFilter<"BusinessCard"> | Date | string
 }
 
 export type BusinessCardCreateInput = {
   id?: string
   subtitle?: string | null
   description?: string | null
+  createdAt?: Date | string
+  updateddAt?: Date | string
   socialLinks?: Prisma.BusinessCardLinkCreateNestedManyWithoutCardInput
   user: Prisma.UserCreateNestedOneWithoutBusinessCardInput
 }
@@ -232,12 +258,16 @@ export type BusinessCardUncheckedCreateInput = {
   userId: string
   subtitle?: string | null
   description?: string | null
+  createdAt?: Date | string
+  updateddAt?: Date | string
   socialLinks?: Prisma.BusinessCardLinkUncheckedCreateNestedManyWithoutCardInput
 }
 
 export type BusinessCardUpdateInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   socialLinks?: Prisma.BusinessCardLinkUpdateManyWithoutCardNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutBusinessCardNestedInput
 }
@@ -246,6 +276,8 @@ export type BusinessCardUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   socialLinks?: Prisma.BusinessCardLinkUncheckedUpdateManyWithoutCardNestedInput
 }
 
@@ -254,17 +286,23 @@ export type BusinessCardCreateManyInput = {
   userId: string
   subtitle?: string | null
   description?: string | null
+  createdAt?: Date | string
+  updateddAt?: Date | string
 }
 
 export type BusinessCardUpdateManyMutationInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BusinessCardUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BusinessCardNullableScalarRelationFilter = {
@@ -277,6 +315,8 @@ export type BusinessCardCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updateddAt?: Prisma.SortOrder
 }
 
 export type BusinessCardMaxOrderByAggregateInput = {
@@ -284,6 +324,8 @@ export type BusinessCardMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updateddAt?: Prisma.SortOrder
 }
 
 export type BusinessCardMinOrderByAggregateInput = {
@@ -291,6 +333,8 @@ export type BusinessCardMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updateddAt?: Prisma.SortOrder
 }
 
 export type BusinessCardScalarRelationFilter = {
@@ -348,6 +392,8 @@ export type BusinessCardCreateWithoutUserInput = {
   id?: string
   subtitle?: string | null
   description?: string | null
+  createdAt?: Date | string
+  updateddAt?: Date | string
   socialLinks?: Prisma.BusinessCardLinkCreateNestedManyWithoutCardInput
 }
 
@@ -355,6 +401,8 @@ export type BusinessCardUncheckedCreateWithoutUserInput = {
   id?: string
   subtitle?: string | null
   description?: string | null
+  createdAt?: Date | string
+  updateddAt?: Date | string
   socialLinks?: Prisma.BusinessCardLinkUncheckedCreateNestedManyWithoutCardInput
 }
 
@@ -377,12 +425,16 @@ export type BusinessCardUpdateToOneWithWhereWithoutUserInput = {
 export type BusinessCardUpdateWithoutUserInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   socialLinks?: Prisma.BusinessCardLinkUpdateManyWithoutCardNestedInput
 }
 
 export type BusinessCardUncheckedUpdateWithoutUserInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   socialLinks?: Prisma.BusinessCardLinkUncheckedUpdateManyWithoutCardNestedInput
 }
 
@@ -390,6 +442,8 @@ export type BusinessCardCreateWithoutSocialLinksInput = {
   id?: string
   subtitle?: string | null
   description?: string | null
+  createdAt?: Date | string
+  updateddAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutBusinessCardInput
 }
 
@@ -398,6 +452,8 @@ export type BusinessCardUncheckedCreateWithoutSocialLinksInput = {
   userId: string
   subtitle?: string | null
   description?: string | null
+  createdAt?: Date | string
+  updateddAt?: Date | string
 }
 
 export type BusinessCardCreateOrConnectWithoutSocialLinksInput = {
@@ -419,6 +475,8 @@ export type BusinessCardUpdateToOneWithWhereWithoutSocialLinksInput = {
 export type BusinessCardUpdateWithoutSocialLinksInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutBusinessCardNestedInput
 }
 
@@ -426,6 +484,8 @@ export type BusinessCardUncheckedUpdateWithoutSocialLinksInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -464,6 +524,8 @@ export type BusinessCardSelect<ExtArgs extends runtime.Types.Extensions.Internal
   userId?: boolean
   subtitle?: boolean
   description?: boolean
+  createdAt?: boolean
+  updateddAt?: boolean
   socialLinks?: boolean | Prisma.BusinessCard$socialLinksArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.BusinessCardCountOutputTypeDefaultArgs<ExtArgs>
@@ -476,9 +538,11 @@ export type BusinessCardSelectScalar = {
   userId?: boolean
   subtitle?: boolean
   description?: boolean
+  createdAt?: boolean
+  updateddAt?: boolean
 }
 
-export type BusinessCardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "subtitle" | "description", ExtArgs["result"]["businessCard"]>
+export type BusinessCardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "subtitle" | "description" | "createdAt" | "updateddAt", ExtArgs["result"]["businessCard"]>
 export type BusinessCardInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   socialLinks?: boolean | Prisma.BusinessCard$socialLinksArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -496,6 +560,8 @@ export type $BusinessCardPayload<ExtArgs extends runtime.Types.Extensions.Intern
     userId: string
     subtitle: string | null
     description: string | null
+    createdAt: Date
+    updateddAt: Date
   }, ExtArgs["result"]["businessCard"]>
   composites: {}
 }
@@ -894,6 +960,8 @@ export interface BusinessCardFieldRefs {
   readonly userId: Prisma.FieldRef<"BusinessCard", 'String'>
   readonly subtitle: Prisma.FieldRef<"BusinessCard", 'String'>
   readonly description: Prisma.FieldRef<"BusinessCard", 'String'>
+  readonly createdAt: Prisma.FieldRef<"BusinessCard", 'DateTime'>
+  readonly updateddAt: Prisma.FieldRef<"BusinessCard", 'DateTime'>
 }
     
 

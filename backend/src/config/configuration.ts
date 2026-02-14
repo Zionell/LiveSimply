@@ -4,7 +4,7 @@ export default () => ({
 	PORT: process.env.PORT ? parseInt(process.env.PORT, 10) : 8000,
 	JWT_EXPIRES_IN: 30 * 24 * 60 * 60 * 1000,
 	JWT_SECRET: process.env.JWT_SECRET,
-	SITE_URL: process.env.SITE_URL,
+	FRONTEND_URL: process.env.FRONTEND_URL,
 	MAGIC_LINK_SECRET: process.env.MAGIC_LINK_SECRET,
 	SESSION_SECRET: process.env.SESSION_SECRET,
 	EMAIL_SERVER_USER: process.env.EMAIL_SERVER_USER,
@@ -14,4 +14,7 @@ export default () => ({
 	CURRENCY_API: process.env.CURRENCY_API,
 	CONVERT_CURRENCY: process.env.CONVERT_CURRENCY,
 	TRANSLATE_API: process.env.TRANSLATE_API,
+	GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+	GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+	GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI,
 });

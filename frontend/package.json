@@ -15,34 +15,33 @@
 		"update": "ncu -u"
 	},
 	"dependencies": {
-		"@nuxt/components": "^2.2.1",
 		"@nuxt/fonts": "^0.12.1",
 		"@nuxt/image": "^2.0.0",
-		"@nuxt/scripts": "^0.13.2",
 		"@nuxt/ui": "^4.3.0",
 		"@nuxtjs/i18n": "^10.2.1",
 		"@pinia/nuxt": "^0.11.3",
-		"@unhead/vue": "^2.1.2",
 		"@vueuse/core": "^14.1.0",
 		"@vueuse/nuxt": "^14.1.0",
-		"h3-proxy": "^1.13.0",
 		"html2canvas-pro": "^1.6.4",
-		"nuxt": "4.2.2",
+		"jsonwebtoken": "^9.0.3",
+		"nuxt": "^4.2.2",
 		"nuxt-charts": "^2.0.0",
 		"pinia": "^3.0.4",
 		"qrcode.vue": "^3.6.0",
-		"vue": "3.5.26",
+		"vue": "^3.5.26",
+		"vue-router": "^4.6.4",
 		"zod": "^4.3.5"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.28.6",
 		"@babel/helper-plugin-utils": "^7.28.6",
 		"@babel/preset-env": "^7.28.6",
-		"@nuxt/devtools": "^3.1.1",
 		"@nuxtjs/robots": "^5.6.7",
 		"@nuxtjs/sitemap": "^7.5.2",
+		"@types/jsonwebtoken": "^9.0.10",
 		"npm-check-updates": "^19.3.1",
 		"prettier": "^3.8.0",
-		"typescript": "^5.9.3"
+		"typescript": "^5.9.3",
+		"vite-tsconfig-paths": "^6.0.4"
 	}
 }

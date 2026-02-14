@@ -94,12 +94,12 @@ export class RatesService {
 						label: {
 							create: [
 								{ label: String(val) || "", lang: "en" },
-								{
-									label: await this.translateService.translate(
-										String(val)
-									),
-									lang: "ru",
-								},
+								// {
+								// 	label: await this.translateService.translate(
+								// 		String(val)
+								// 	),
+								// 	lang: "ru",
+								// },
 							],
 						},
 					},
@@ -265,13 +265,13 @@ export class RatesService {
 				});
 			}
 
-			const options = {
-				to: this.configService.get("EMAIL_SERVER_USER"),
-				template: "updateRates",
-				locale: "en",
-			};
+			// const options = {
+			// 	to: this.configService.get("EMAIL_SERVER_USER"),
+			// 	template: "updateRates",
+			// 	locale: "en",
+			// };
 
-			await this.mailService.sendEmail(options);
+			// await this.mailService.sendEmail(options);
 		} catch (e) {
 			console.warn("[RatesService / update]: ", e);
 			throw new Error(e);

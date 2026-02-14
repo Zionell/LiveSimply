@@ -11,10 +11,8 @@ async function bootstrap() {
 
 	// Middleware
 	app.enableCors({
-		origin: process.env.SITE_URL || `http://localhost:3000`,
-		allowedHeaders: ["Authorization", "Content-Type", "x-csrf-token"],
+		origin: process.env.FRONTEND_URL || `http://localhost:3000`,
 		credentials: true,
-		preflightContinue: true,
 	});
 	app.use(cookieParser(process.env.COOKIES_SECRET));
 

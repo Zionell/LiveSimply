@@ -1487,7 +1487,8 @@ export const UserScalarFieldEnum = {
   exchange: 'exchange',
   role: 'role',
   total: 'total',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updateddAt: 'updateddAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -1497,7 +1498,9 @@ export const ExchangeItemScalarFieldEnum = {
   id: 'id',
   value: 'value',
   base: 'base',
-  rate: 'rate'
+  rate: 'rate',
+  createdAt: 'createdAt',
+  updateddAt: 'updateddAt'
 } as const
 
 export type ExchangeItemScalarFieldEnum = (typeof ExchangeItemScalarFieldEnum)[keyof typeof ExchangeItemScalarFieldEnum]
@@ -1507,7 +1510,9 @@ export const ExchangeItemNameScalarFieldEnum = {
   id: 'id',
   label: 'label',
   lang: 'lang',
-  exchangeId: 'exchangeId'
+  exchangeId: 'exchangeId',
+  createdAt: 'createdAt',
+  updateddAt: 'updateddAt'
 } as const
 
 export type ExchangeItemNameScalarFieldEnum = (typeof ExchangeItemNameScalarFieldEnum)[keyof typeof ExchangeItemNameScalarFieldEnum]
@@ -1516,7 +1521,9 @@ export type ExchangeItemNameScalarFieldEnum = (typeof ExchangeItemNameScalarFiel
 export const ExpenseCategoryScalarFieldEnum = {
   id: 'id',
   value: 'value',
-  color: 'color'
+  color: 'color',
+  createdAt: 'createdAt',
+  updateddAt: 'updateddAt'
 } as const
 
 export type ExpenseCategoryScalarFieldEnum = (typeof ExpenseCategoryScalarFieldEnum)[keyof typeof ExpenseCategoryScalarFieldEnum]
@@ -1526,7 +1533,9 @@ export const ExpenseCategoryNameScalarFieldEnum = {
   id: 'id',
   label: 'label',
   lang: 'lang',
-  categoryId: 'categoryId'
+  categoryId: 'categoryId',
+  createdAt: 'createdAt',
+  updateddAt: 'updateddAt'
 } as const
 
 export type ExpenseCategoryNameScalarFieldEnum = (typeof ExpenseCategoryNameScalarFieldEnum)[keyof typeof ExpenseCategoryNameScalarFieldEnum]
@@ -1534,7 +1543,9 @@ export type ExpenseCategoryNameScalarFieldEnum = (typeof ExpenseCategoryNameScal
 
 export const OperationCategoryScalarFieldEnum = {
   id: 'id',
-  value: 'value'
+  value: 'value',
+  createdAt: 'createdAt',
+  updateddAt: 'updateddAt'
 } as const
 
 export type OperationCategoryScalarFieldEnum = (typeof OperationCategoryScalarFieldEnum)[keyof typeof OperationCategoryScalarFieldEnum]
@@ -1544,7 +1555,9 @@ export const OperationCategoryNameScalarFieldEnum = {
   id: 'id',
   label: 'label',
   lang: 'lang',
-  categoryId: 'categoryId'
+  categoryId: 'categoryId',
+  createdAt: 'createdAt',
+  updateddAt: 'updateddAt'
 } as const
 
 export type OperationCategoryNameScalarFieldEnum = (typeof OperationCategoryNameScalarFieldEnum)[keyof typeof OperationCategoryNameScalarFieldEnum]
@@ -1559,7 +1572,8 @@ export const FinanceItemScalarFieldEnum = {
   currencyToId: 'currencyToId',
   expenseCategoryId: 'expenseCategoryId',
   operationCategoryId: 'operationCategoryId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updateddAt: 'updateddAt'
 } as const
 
 export type FinanceItemScalarFieldEnum = (typeof FinanceItemScalarFieldEnum)[keyof typeof FinanceItemScalarFieldEnum]
@@ -1571,7 +1585,8 @@ export const NotificationScalarFieldEnum = {
   isReaded: 'isReaded',
   title: 'title',
   text: 'text',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updateddAt: 'updateddAt'
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
@@ -1581,7 +1596,9 @@ export const BusinessCardScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   subtitle: 'subtitle',
-  description: 'description'
+  description: 'description',
+  createdAt: 'createdAt',
+  updateddAt: 'updateddAt'
 } as const
 
 export type BusinessCardScalarFieldEnum = (typeof BusinessCardScalarFieldEnum)[keyof typeof BusinessCardScalarFieldEnum]
@@ -1594,7 +1611,8 @@ export const BusinessCardLinkScalarFieldEnum = {
   icon: 'icon',
   link: 'link',
   isVisible: 'isVisible',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updateddAt: 'updateddAt'
 } as const
 
 export type BusinessCardLinkScalarFieldEnum = (typeof BusinessCardLinkScalarFieldEnum)[keyof typeof BusinessCardLinkScalarFieldEnum]
@@ -1604,12 +1622,13 @@ export const GoalScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   title: 'title',
-  createdAt: 'createdAt',
   untilAt: 'untilAt',
   total: 'total',
   amount: 'amount',
   exchangeId: 'exchangeId',
-  isCompleted: 'isCompleted'
+  isCompleted: 'isCompleted',
+  createdAt: 'createdAt',
+  updateddAt: 'updateddAt'
 } as const
 
 export type GoalScalarFieldEnum = (typeof GoalScalarFieldEnum)[keyof typeof GoalScalarFieldEnum]
@@ -1625,7 +1644,8 @@ export const FinancePlannerScalarFieldEnum = {
   customPeriodFrom: 'customPeriodFrom',
   customPeriodTo: 'customPeriodTo',
   isRegular: 'isRegular',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updateddAt: 'updateddAt'
 } as const
 
 export type FinancePlannerScalarFieldEnum = (typeof FinancePlannerScalarFieldEnum)[keyof typeof FinancePlannerScalarFieldEnum]
@@ -1637,7 +1657,9 @@ export const PaymentsScalarFieldEnum = {
   lable: 'lable',
   amount: 'amount',
   exchange: 'exchange',
-  isRequired: 'isRequired'
+  isRequired: 'isRequired',
+  createdAt: 'createdAt',
+  updateddAt: 'updateddAt'
 } as const
 
 export type PaymentsScalarFieldEnum = (typeof PaymentsScalarFieldEnum)[keyof typeof PaymentsScalarFieldEnum]

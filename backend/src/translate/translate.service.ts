@@ -8,7 +8,16 @@ export class TranslateService {
 	async translate(val: string): Promise<string> {
 		try {
 			const res = await fetch(
-				`${this.configService.get("TRANSLATE_API")}?q=${val}&langpair=en|ru`
+				`${this.configService.get("TRANSLATE_API")}/translation/text/translate`,
+				{
+					body: JSON.stringify({
+						input: val,
+						source: "en",
+					}),
+					headers: {
+						Authorization: "Bearer",
+					},
+				}
 			);
 			const data = await res.json();
 
