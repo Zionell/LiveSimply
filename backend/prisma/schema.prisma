@@ -1,188 +1,213 @@
 generator client {
-    provider = "prisma-client-js"
+	provider = "prisma-client"
+	output   = "../generated/prisma"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("POSTGRES_URL")
+	provider = "mongodb"
+	url      = env("DATABASE_URL")
 }
 
 model User {
-    id             String           @id @default(cuid())
-    name           String           @default("")
-    email          String           @unique
-    emailVerified  Boolean          @default(false)
-    image          String?
-    password       String           @default("")
-    phone          String?
-    exchange       String?
-    role           Role             @default(LVL3)
-    total          Float?
-    businessCard   BusinessCard?
-    goals          Goal[]
-    financePlanner FinancePlanner[]
-    createdAt      DateTime         @default(now())
+	id             String           @id @default(auto()) @map("_id") @db.ObjectId
+	name           String           @default("")
+	email          String           @unique
+	emailVerified  Boolean          @default(false)
+	image          String?
+	password       String?          @default("")
+	phone          String?
+	exchange       String?
+	role           String           @default("LVL3")
+	total          Float?           @default(0)
+	businessCard   BusinessCard?
+	goals          Goal[]
+	financePlanner FinancePlanner[]
 
-    exchangeItem ExchangeItem? @relation(fields: [exchange], references: [value])
-}
+	exchangeItem ExchangeItem? @relation(fields: [exchange], references: [id])
 
-enum Role {
-    ADMIN
-    LVL1
-    LVL2
-    LVL3
+	createdAt  DateTime @default(now())
+	updateddAt DateTime @default(now())
 }
 
 model ExchangeItem {
-    value String             @unique
-    label ExchangeItemName[]
-    base  String?            @default("")
-    rate  Float?             @default(1)
+	id    String             @id @default(auto()) @map("_id") @db.ObjectId
+	value String             @unique
+	label ExchangeItemName[]
+	base  String?            @default("")
+	rate  Float?             @default(1)
 
-    user             User[]
-    fromExchangeItem FinanceItem[] @relation("FromExchangeItem")
-    toExchangeItem   FinanceItem[] @relation("ToExchangeItem")
-    goal             Goal[]
-    requiredPayments Payments[]
+	user             User[]
+	fromExchangeItem FinanceItem[] @relation("FromExchangeItem")
+	toExchangeItem   FinanceItem[] @relation("ToExchangeItem")
+	goal             Goal[]
+	requiredPayments Payments[]
+
+	createdAt  DateTime @default(now())
+	updateddAt DateTime @default(now())
 }
 
 model ExchangeItemName {
-    id         String @id @default(cuid())
-    label      String
-    lang       String
-    exchangeId String
+	id         String @id @default(auto()) @map("_id") @db.ObjectId
+	label      String
+	lang       String
+	exchangeId String
 
-    exchangeItem ExchangeItem @relation(fields: [exchangeId], references: [value])
+	exchangeItem ExchangeItem @relation(fields: [exchangeId], references: [id])
+
+	createdAt  DateTime @default(now())
+	updateddAt DateTime @default(now())
 }
 
 model ExpenseCategory {
-    value       String                @unique
-    label       ExpenseCategoryName[]
-    color       String                @default("#fff")
-    financeItem FinanceItem[]
+	id          String                @id @default(auto()) @map("_id") @db.ObjectId
+	value       String                @unique
+	label       ExpenseCategoryName[]
+	color       String                @default("#fff")
+	financeItem FinanceItem[]
+
+	createdAt  DateTime @default(now())
+	updateddAt DateTime @default(now())
 }
 
 model ExpenseCategoryName {
-    id         String @id @default(cuid())
-    label      String
-    lang       String
-    categoryId String
+	id         String @id @default(auto()) @map("_id") @db.ObjectId
+	label      String
+	lang       String
+	categoryId String
 
-    expenseCategory ExpenseCategory @relation(fields: [categoryId], references: [value])
+	expenseCategory ExpenseCategory @relation(fields: [categoryId], references: [id])
+
+	createdAt  DateTime @default(now())
+	updateddAt DateTime @default(now())
 }
 
 model OperationCategory {
-    value       String                  @unique
-    financeItem FinanceItem[]
-    label       OperationCategoryName[]
+	id          String                  @id @default(auto()) @map("_id") @db.ObjectId
+	value       String                  @unique
+	financeItem FinanceItem[]
+	label       OperationCategoryName[]
+
+	createdAt  DateTime @default(now())
+	updateddAt DateTime @default(now())
 }
 
 model OperationCategoryName {
-    id         String @id @default(cuid())
-    label      String
-    lang       String
-    categoryId String
+	id         String @id @default(auto()) @map("_id") @db.ObjectId
+	label      String
+	lang       String
+	categoryId String
 
-    operationCategory OperationCategory @relation(fields: [categoryId], references: [value])
+	operationCategory OperationCategory @relation(fields: [categoryId], references: [id])
+
+	createdAt  DateTime @default(now())
+	updateddAt DateTime @default(now())
 }
 
 model FinanceItem {
-    id                  String   @id @default(cuid())
-    userId              String
-    curPrice            Float
-    convertedPrice      Float
-    currencyFromId      String
-    currencyToId        String
-    expenseCategoryId   String?
-    operationCategoryId String
-    createdAt           DateTime @default(now())
+	id                  String  @id @default(auto()) @map("_id") @db.ObjectId
+	userId              String
+	curPrice            Float
+	convertedPrice      Float
+	currencyFromId      String
+	currencyToId        String
+	expenseCategoryId   String?
+	operationCategoryId String
 
-    exchangeItemFrom  ExchangeItem      @relation("FromExchangeItem", fields: [currencyFromId], references: [value])
-    exchangeItemTo    ExchangeItem      @relation("ToExchangeItem", fields: [currencyToId], references: [value])
-    expenseCategory   ExpenseCategory?  @relation(fields: [expenseCategoryId], references: [value])
-    operationCategory OperationCategory @relation(fields: [operationCategoryId], references: [value])
+	exchangeItemFrom  ExchangeItem      @relation("FromExchangeItem", fields: [currencyFromId], references: [value])
+	exchangeItemTo    ExchangeItem      @relation("ToExchangeItem", fields: [currencyToId], references: [value])
+	expenseCategory   ExpenseCategory?  @relation(fields: [expenseCategoryId], references: [value])
+	operationCategory OperationCategory @relation(fields: [operationCategoryId], references: [value])
+
+	createdAt  DateTime @default(now())
+	updateddAt DateTime @default(now())
 }
 
 model Notification {
-    id        String   @id @default(cuid())
-    userId    String
-    isReaded  Boolean  @default(false)
-    title     String
-    text      String
-    createdAt DateTime @default(now())
+	id       String  @id @default(auto()) @map("_id") @db.ObjectId
+	userId   String
+	isReaded Boolean @default(false)
+	title    String
+	text     String
+
+	createdAt  DateTime @default(now())
+	updateddAt DateTime @default(now())
 }
 
 model BusinessCard {
-    id          String             @id @default(cuid())
-    userId      String             @unique
-    subtitle    String?
-    description String?
-    socialLinks BusinessCardLink[]
+	id          String             @id @default(auto()) @map("_id") @db.ObjectId
+	userId      String             @unique
+	subtitle    String?
+	description String?
+	socialLinks BusinessCardLink[]
 
-    user User @relation(fields: [userId], references: [id])
+	user User @relation(fields: [userId], references: [id])
+
+	createdAt  DateTime @default(now())
+	updateddAt DateTime @default(now())
 }
 
 model BusinessCardLink {
-    id        String   @id @default(cuid())
-    cardId    String
-    name      String
-    icon      String?
-    link      String
-    isVisible Boolean  @default(true)
-    createdAt DateTime @default(now())
+	id        String  @id @default(auto()) @map("_id") @db.ObjectId
+	cardId    String
+	name      String
+	icon      String?
+	link      String
+	isVisible Boolean @default(true)
 
-    card BusinessCard @relation(fields: [cardId], references: [id], onDelete: Cascade)
+	card BusinessCard @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+	createdAt  DateTime @default(now())
+	updateddAt DateTime @default(now())
 }
 
 model Goal {
-    id          String   @id @default(cuid())
-    userId      String
-    title       String
-    createdAt   DateTime @default(now())
-    untilAt     DateTime
-    total       Int      @default(0)
-    amount      Float    @default(0)
-    exchangeId  String
-    isCompleted Boolean  @default(false)
+	id          String   @id @default(auto()) @map("_id") @db.ObjectId
+	userId      String
+	title       String
+	untilAt     DateTime
+	total       Int      @default(0)
+	amount      Float    @default(0)
+	exchangeId  String
+	isCompleted Boolean  @default(false)
 
-    exchangeItem ExchangeItem @relation(fields: [exchangeId], references: [value])
-    user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
+	exchangeItem ExchangeItem @relation(fields: [exchangeId], references: [value])
+	user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-enum Period {
-    WEEK
-    MONTH
-    YEAR
-    SIXMONTH
-    CUSTOM
+	createdAt  DateTime @default(now())
+	updateddAt DateTime @default(now())
 }
 
 model FinancePlanner {
-    id     String @id @default(cuid())
-    userId String
+	id     String @id @default(auto()) @map("_id") @db.ObjectId
+	userId String
 
-    name             String     @default("")
-    commonBudget     Float      @default(0)
-    remainder        Float?     @default(0)
-    payments         Payments[]
-    period           Period?    @default(MONTH)
-    customPeriodFrom DateTime   @default(now())
-    customPeriodTo   DateTime   @default(now())
-    isRegular        Boolean    @default(false)
+	name             String     @default("")
+	commonBudget     Float      @default(0)
+	remainder        Float?     @default(0)
+	payments         Payments[]
+	period           String?    @default("MONTH")
+	customPeriodFrom DateTime   @default(now())
+	customPeriodTo   DateTime   @default(now())
+	isRegular        Boolean    @default(false)
 
-    createdAt DateTime @default(now())
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+	createdAt  DateTime @default(now())
+	updateddAt DateTime @default(now())
 }
 
 model Payments {
-    id       String @id @default(cuid())
-    plnnerId String
+	id       String @id @default(auto()) @map("_id") @db.ObjectId
+	plnnerId String
 
-    lable      String
-    amount     Float   @default(0)
-    exchange   String  @default("EUR")
-    isRequired Boolean @default(false)
+	lable      String
+	amount     Float   @default(0)
+	exchange   String  @default("EUR")
+	isRequired Boolean @default(false)
 
-    exchangeItem ExchangeItem   @relation(fields: [exchange], references: [value])
-    planner      FinancePlanner @relation(fields: [plnnerId], references: [id], onDelete: Cascade)
+	exchangeItem ExchangeItem   @relation(fields: [exchange], references: [value])
+	planner      FinancePlanner @relation(fields: [plnnerId], references: [id], onDelete: Cascade)
+
+	createdAt  DateTime @default(now())
+	updateddAt DateTime @default(now())
 }

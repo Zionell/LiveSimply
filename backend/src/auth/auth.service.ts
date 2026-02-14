@@ -4,10 +4,11 @@ import {
 	UnauthorizedException,
 } from "@nestjs/common";
 import bcrypt from "bcryptjs";
-import { UsersService } from "../users/users.service";
+import { UsersService } from "~/users/users.service";
 import { LoginUserDto } from "./dto/login-user.dto";
 import { JwtService } from "@nestjs/jwt";
 import { ILoginResponse } from "./types";
+import { OAuthProfile } from "~/auth/oauth/oauth.types";
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,17 @@ export class AuthService {
 		private usersService: UsersService,
 		private jwtService: JwtService
 	) {}
+
+	async oauthLogin(dto: OAuthProfile): Promise<ILoginResponse> {
+		const user = await this.usersService.findOrCreate(dto);
+
+		const payload = { role: user.role, email: user.email };
+
+		return {
+			user,
+			token: await this.jwtService.signAsync(payload),
+		};
+	}
 
 	async login(dto: LoginUserDto): Promise<ILoginResponse> {
 		const user = await this.usersService.findOneByEmail(dto.email);

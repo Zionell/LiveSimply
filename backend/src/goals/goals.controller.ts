@@ -6,7 +6,6 @@ import {
 	Patch,
 	Param,
 	Delete,
-	UseGuards,
 	Req,
 	HttpStatus,
 	HttpCode,
@@ -17,13 +16,11 @@ import { type Request } from "express";
 import { GoalsService } from "./goals.service";
 import { CreateGoalsDto } from "./dto/create-goals.dto";
 import { UpdateGoalsDto } from "./dto/update-goals.dto";
-import { AuthGuard } from "../auth/guards/auth.guard";
 
 @Controller("goals")
 export class GoalsController {
 	constructor(private readonly goalsService: GoalsService) {}
 
-	@UseGuards(AuthGuard)
 	@HttpCode(HttpStatus.CREATED)
 	@Post()
 	@UsePipes(new ValidationPipe({ transform: true }))
@@ -32,25 +29,21 @@ export class GoalsController {
 		return HttpStatus.CREATED;
 	}
 
-	@UseGuards(AuthGuard)
 	@Get()
 	findAll(@Req() req: Request) {
 		return this.goalsService.findAll(req);
 	}
 
-	@UseGuards(AuthGuard)
 	@Get(":id")
 	findOne(@Param("id") id: string) {
 		return this.goalsService.findOne(id);
 	}
 
-	@UseGuards(AuthGuard)
 	@Patch(":id")
 	update(@Param("id") id: string, @Body() dto: UpdateGoalsDto) {
 		return this.goalsService.update(id, dto);
 	}
 
-	@UseGuards(AuthGuard)
 	@HttpCode(HttpStatus.NO_CONTENT)
 	@Delete(":id")
 	async remove(@Param("id") id: string) {

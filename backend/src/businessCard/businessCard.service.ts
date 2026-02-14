@@ -7,7 +7,7 @@ import {
 	UpdateBusinessCardDto,
 	UpdateBusinessCardLinkDto,
 } from "./dto/update-business-card.dto";
-import { PrismaService } from "../prisma.service";
+import { PrismaService } from "~/prisma.service";
 
 @Injectable()
 export class BusinessCardService {

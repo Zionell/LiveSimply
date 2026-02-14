@@ -4,15 +4,16 @@ import {
 	NotFoundException,
 	UnauthorizedException,
 } from "@nestjs/common";
-import { PrismaService } from "../prisma.service";
+import { PrismaService } from "~/prisma.service";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { Role, User } from "@prisma/client";
 import bcrypt from "bcryptjs";
-import { MailService } from "../mail/mail.service";
+import { MailService } from "~/mail/mail.service";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
-import { IUser } from "../../types/user";
+import { ERole, IUser } from "@/types/user";
 import { UpdateUserDto } from "./dto/update-user.dto";
+import { User } from "@/generated/prisma/client";
+import { OAuthProfile } from "~/auth/oauth/oauth.types";
 
 @Injectable()
 export class UsersService {
@@ -24,6 +25,27 @@ export class UsersService {
 	) {}
 
 	private readonly saltOrRounds = 10;
+
+	async findOrCreate(dto: OAuthProfile): Promise<User> {
+		const isUserExist = await this.prismaService.user.findUnique({
+			where: {
+				email: dto.email,
+			},
+		});
+
+		if (isUserExist) {
+			return isUserExist;
+		}
+
+		return this.prismaService.user.create({
+			data: {
+				email: dto.email,
+				name: dto.name,
+				image: dto.avatar,
+				emailVerified: true,
+			},
+		});
+	}
 
 	async create(dto: CreateUserDto): Promise<void> {
 		const isUserExist = await this.prismaService.user.findUnique({
@@ -115,7 +137,7 @@ export class UsersService {
 
 	async findAll(req: Record<string, any>) {
 		try {
-			const isAdmin = req.payload.role === Role.ADMIN;
+			const isAdmin = req.payload.role === ERole.ADMIN;
 
 			if (!isAdmin) {
 				throw new UnauthorizedException();

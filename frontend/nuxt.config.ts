@@ -1,92 +1,54 @@
-import getRobotsInfo from "./config/robots.ts";
-import headConfig from "./config/head.config.ts";
+import headConfig from "./config/head.config.js";
+import { prefix } from "./lib/api";
 
 interface IEnv {
-	PROXY_URL: string;
 	SITE_URL: string;
+	PROXY_URL: string;
 	DEV: boolean;
 }
 
 const env: IEnv = {
-	SITE_URL: import.meta.env.SITE_URL || "",
-	PROXY_URL: import.meta.env.PROXY_URL || "",
-	DEV: import.meta.env.NODE_ENV === "development",
+	SITE_URL: process.env.SITE_URL || "http://localhost:3000",
+	PROXY_URL: process.env.PROXY_URL || "http://localhost:8000",
+	DEV: process.env.NODE_ENV === "development",
 };
 
 export default defineNuxtConfig({
-	compatibilityDate: "2024-11-01",
+	compatibilityDate: "2025-07-15",
+
 	devtools: { enabled: env.DEV },
 
 	runtimeConfig: {
+		public: {
+			...env,
+		},
 		...env,
+	},
+
+	vite: {
+		server: {
+			proxy: {
+				[prefix]: {
+					target: env.PROXY_URL,
+					changeOrigin: true,
+				},
+			},
+		},
 	},
 
 	// Modules
 	modules: [
-		"@nuxtjs/i18n",
-		"@nuxt/fonts",
-		"@nuxtjs/sitemap",
-		"@nuxtjs/robots",
 		"@nuxt/ui",
 		"@nuxt/image",
+		"@nuxt/fonts",
 		"@pinia/nuxt",
-		"@nuxt/scripts",
+		"@nuxtjs/i18n",
 		"nuxt-charts",
 	],
 
-	nitro: {
-		routeRules: {
-			"/api/v2/**": {
-				proxy: `${env.PROXY_URL}/**`,
-			},
-		},
-	},
-
-	// Router
-	router: {
-		options: {
-			linkActiveClass: "_active-link",
-			linkExactActiveClass: "_exact-link",
-		},
-	},
-
-	routeRules: env.DEV
-		? {}
-		: {
-				// Cached for 15 min
-				"/api/*": {
-					cache: {
-						maxAge: 60 * 15,
-					},
-				},
-			},
-
-	// Sitemap
-	site: {
-		url: env.SITE_URL,
-	},
-
-	// Robots
-	robots: getRobotsInfo(),
-
-	// Auto import UI components
-	components: [
-		{
-			path: "~/components",
-			extensions: [".vue"],
-			pathPrefix: false,
-		},
-	],
-
-	// Image
-	image: {
-		quality: 80,
-		format: ["webp"],
-	},
-
 	// i18n
 	i18n: {
-		baseUrl: process.env.SITE_URL,
+		baseUrl: env.SITE_URL,
 		strategy: "no_prefix",
 		defaultLocale: "en",
 		detectBrowserLanguage: {
@@ -112,9 +74,29 @@ export default defineNuxtConfig({
 		vueI18n: "./i18n.config.ts",
 	},
 
-	// Pinia
-	pinia: {
-		storesDirs: ["./store/**"],
+	// Router
+	router: {
+		options: {
+			linkActiveClass: "_active-link",
+			linkExactActiveClass: "_exact-link",
+		},
+	},
+
+	routeRules: env.DEV
+		? {}
+		: {
+				// Cached for 15 min
+				"/api/*": {
+					cache: {
+						maxAge: 60 * 15,
+					},
+				},
+			},
+
+	// Image
+	image: {
+		quality: 80,
+		format: ["webp"],
 	},
 
 	// Style
@@ -122,17 +104,9 @@ export default defineNuxtConfig({
 
 	// AppConfig
 	app: {
+		// @ts-ignore
 		head: headConfig,
 		pageTransition: { name: "fade", mode: "out-in" },
 		layoutTransition: { name: "fade", mode: "out-in" },
-	},
-
-	// Vite
-	vite: {
-		vue: {
-			script: {
-				propsDestructure: true,
-			},
-		},
 	},
 });

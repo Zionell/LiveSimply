@@ -1,14 +1,14 @@
-const prefix = "/api/v2";
+export const prefix = "/api/v2";
 
 export const api = {
 	auth: {
 		login: `${prefix}/auth/login/`,
+		provider: (provider: string) => `${prefix}/auth/${provider}/`,
 		profile: `${prefix}/auth/profile/`,
 		logout: `${prefix}/auth/logout/`,
 	},
 	users: {
 		common: `${prefix}/users/`,
-		verify: `${prefix}/users/verify/`,
 	},
 	finance: {
 		common: `${prefix}/finance/`,

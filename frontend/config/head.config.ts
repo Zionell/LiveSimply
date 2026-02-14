@@ -1,5 +1,5 @@
-import { faviconsLinks, faviconsMeta } from "./head/favicons.ts";
-import { headNoScripts, headScripts } from "./head/scripts.ts";
+import { faviconsLinks, faviconsMeta } from "./head/favicons.js";
+import { headNoScripts, headScripts } from "./head/scripts.js";
 
 const base_url = process.env.SITE_URL || "http://localhost:3000/";
 

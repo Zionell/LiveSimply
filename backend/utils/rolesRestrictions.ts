@@ -1,17 +1,17 @@
-import { Role } from "@prisma/client";
+import { ERole } from "@/types/user";
 
 class RoleRestrictions {
 	private readonly role: string;
 
-	constructor(role: Role) {
+	constructor(role: ERole) {
 		this.role = role;
 	}
 
 	public getCurrencyCount(): number {
 		switch (this.role) {
-			case Role.LVL3:
+			case ERole.LVL3:
 				return 30;
-			case Role.LVL2:
+			case ERole.LVL2:
 				return 50;
 			default:
 				return 170;
@@ -20,9 +20,9 @@ class RoleRestrictions {
 
 	public getBusinessCardLinkCount(): number {
 		switch (this.role) {
-			case Role.LVL3:
+			case ERole.LVL3:
 				return 3;
-			case Role.LVL2:
+			case ERole.LVL2:
 				return 6;
 			default:
 				return 15;
@@ -30,5 +30,5 @@ class RoleRestrictions {
 	}
 }
 
-export const roleRestrictions = (role: Role = Role.LVL3) =>
+export const roleRestrictions = (role: ERole = ERole.LVL3) =>
 	new RoleRestrictions(role);

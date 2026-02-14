@@ -7,7 +7,6 @@ import {
 	UsePipes,
 	ValidationPipe,
 	Res,
-	UseGuards,
 	Get,
 	Req,
 	Patch,
@@ -17,13 +16,14 @@ import {
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import type { Response } from "express";
-import { AuthGuard } from "../auth/guards/auth.guard";
 import { UpdateUserDto } from "./dto/update-user.dto";
+import { PublicRoute } from "~/auth/decorators/public.decorator";
 
 @Controller("users")
 export class UsersController {
 	constructor(private readonly usersService: UsersService) {}
 
+	@PublicRoute()
 	@HttpCode(HttpStatus.CREATED)
 	@Post()
 	@UsePipes(new ValidationPipe({ transform: true }))
@@ -32,6 +32,7 @@ export class UsersController {
 		return HttpStatus.CREATED;
 	}
 
+	@PublicRoute()
 	@Post("verify")
 	async verifyEmail(
 		@Body() body: { token: string },
@@ -51,20 +52,17 @@ export class UsersController {
 		return response;
 	}
 
-	@UseGuards(AuthGuard)
 	@Get()
 	findAll(@Req() req: Request) {
 		return this.usersService.findAll(req);
 	}
 
-	@UseGuards(AuthGuard)
 	@Patch()
 	@UsePipes(new ValidationPipe({ transform: true }))
 	update(@Body() dto: Partial<UpdateUserDto>, @Req() req: Request) {
 		return this.usersService.update(dto, req);
 	}
 
-	@UseGuards(AuthGuard)
 	@Delete(":id")
 	@HttpCode(HttpStatus.NO_CONTENT)
 	async deleteUser(@Param("id") id: string, @Res() res: Response) {

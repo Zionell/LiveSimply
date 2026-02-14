@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
+import { ConfigModule, ConfigService } from "@nestjs/config";
 import { PrismaService } from "./prisma.service";
 import configuration from "./config/configuration";
 import { ThrottlerModule } from "@nestjs/throttler";
@@ -13,12 +13,25 @@ import { RatesModule } from "./rates/rates.module";
 import { ScheduleModule } from "@nestjs/schedule";
 import { BusinessCardModule } from "./businessCard/businessCard.module";
 import { GoalsModule } from "./goals/goals.module";
+import { JwtModule } from "@nestjs/jwt";
+import { APP_GUARD } from "@nestjs/core";
+import { AuthGuard } from "~/auth/guards/auth.guard";
 
 @Module({
 	imports: [
 		ConfigModule.forRoot({
 			envFilePath: ".env",
 			load: [configuration],
+		}),
+		JwtModule.registerAsync({
+			imports: [ConfigModule],
+			useFactory: async (configService: ConfigService) => ({
+				secret: configService.get<string>("JWT_SECRET"),
+				signOptions: {
+					expiresIn: configService.get<number>("JWT_EXPIRES_IN"),
+				},
+			}),
+			inject: [ConfigService],
 		}),
 		ThrottlerModule.forRoot([
 			{
@@ -43,6 +56,12 @@ import { GoalsModule } from "./goals/goals.module";
 		BusinessCardModule,
 		GoalsModule,
 	],
-	providers: [PrismaService],
+	providers: [
+		PrismaService,
+		{
+			provide: APP_GUARD,
+			useClass: AuthGuard,
+		},
+	],
 })
 export class AppModule {}

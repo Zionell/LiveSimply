@@ -1,0 +1,41 @@
+name: Trigger Content Generation in Repo B
+
+on:
+    pull_request:
+        branches:
+            - master
+        types: [closed]
+
+jobs:
+    trigger-repo-b:
+        # Запускаем только если PR был именно замержен, а не просто закрыт
+        if: github.event.pull_request.merged == true
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0 # Обязательно подгружаем все коммиты
+
+            - name: Get PR commit messages via Git
+              id: get_commits
+              run: |
+                  # Собираем сообщения между точкой ветвления и последним коммитом PR
+                  # Использование %s берет только заголовок (первую строку) сообщения
+                  MESSAGES=$(git log ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} --pretty=format:"%s" | tr '\n' '|' | sed 's/|$//')
+
+                  echo "messages=$MESSAGES" >> $GITHUB_OUTPUT
+
+            - name: Trigger workflow in Repo B
+              if: github.event.pull_request.merged == true
+              run: |
+                  curl -X POST ${{ secrets.SERVER_API_URL }} \
+                    -H "Content-Type: application/json" \
+                    -H "Authorization: Bearer ${{ secrets.SERVER_API_TOKEN }}" \
+                    -d '{
+                      "title": ${{ toJson(github.event.pull_request.title) }},
+                      "body": ${{ toJson(github.event.pull_request.body) }},
+                      "commits": "${{ steps.get_commits.outputs.messages }}",
+                      "repo_name": "${{ github.repository }}"
+                    }'

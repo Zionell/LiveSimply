@@ -1,0 +1,15 @@
+import { defineStore } from "pinia";
+
+export const useMainStore = defineStore("main", () => {
+	async function nuxtServerInit() {
+		try {
+			await Promise.all([useUserStore().fetchUser()]);
+		} catch (e) {
+			console.error("[nuxtServerInit]: ", e);
+		}
+	}
+
+	return {
+		nuxtServerInit,
+	};
+});

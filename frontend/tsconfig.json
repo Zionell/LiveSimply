@@ -1,26 +1,18 @@
 {
 	// https://nuxt.com/docs/guide/concepts/typescript
-	"extends": "./.nuxt/tsconfig.json",
-	"compilerOptions": {
-		"moduleResolution": "Bundler",
-		"allowImportingTsExtensions": true,
-		"paths": {
-			"@/*": [
-				"./*"
-			],
-			"~/*": [
-				"./*"
-			],
-			"./*": [
-				"./*"
-			]
+	"files": [],
+	"references": [
+		{
+			"path": "./.nuxt/tsconfig.app.json"
 		},
-		"skipLibCheck": true,
-		"typeRoots": [
-			"./node_modules/@types"
-		],
-		"types": [
-			"@nuxtjs/i18n",
-		]
-	}
+		{
+			"path": "./.nuxt/tsconfig.server.json"
+		},
+		{
+			"path": "./.nuxt/tsconfig.shared.json"
+		},
+		{
+			"path": "./.nuxt/tsconfig.node.json"
+		}
+	]
 }
