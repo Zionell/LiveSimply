@@ -94,12 +94,12 @@ export class RatesService {
 						label: {
 							create: [
 								{ label: String(val) || "", lang: "en" },
-								// {
-								// 	label: await this.translateService.translate(
-								// 		String(val)
-								// 	),
-								// 	lang: "ru",
-								// },
+								{
+									label: await this.translateService.translate(
+										String(val)
+									),
+									lang: "ru",
+								},
 							],
 						},
 					},

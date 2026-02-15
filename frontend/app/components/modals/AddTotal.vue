@@ -43,7 +43,7 @@ async function handleSubmit() {
 	} catch (e) {
 		console.warn("onSubmit: ", e);
 		toast.add({
-			title: e?.data?.message?.[0] || e?.data?.message || t("common.error"),
+			title: t("common.error"),
 			color: "error",
 		});
 	} finally {
@@ -77,12 +77,14 @@ onMounted(() => {
 				</UFormField>
 
 				<UFormField class="w-full" :label="$t('inputs.exchange')" name="exchange">
-					<USelect
+					<USelectMenu
 						class="w-full"
 						size="md"
 						v-model="state.exchange"
 						:items="data?.exchange"
-						placeholder="12 093"
+						placeholder="RUB"
+						value-key="value"
+						virtualize
 					/>
 				</UFormField>
 			</UForm>
