@@ -28,7 +28,7 @@ services:
         build:
             context: backend
             args:
-                - PORT=${PORT}
+                - PORT=${BACKEND_PORT}
                 - FRONTEND_URL=${FRONTEND_URL}
                 - DATABASE_URL=${DATABASE_URL}
                 - JWT_SECRET=${JWT_SECRET}
@@ -47,13 +47,15 @@ services:
         restart: always
         env_file:
             - .env
+        ports:
+            - ${BACKEND_PORT}:${BACKEND_PORT}
         networks:
             - my_network
 
     frontend:
         container_name: livesimply_frontend
         depends_on:
-                - backend
+            - backend
         build:
             context: frontend
             args:
@@ -62,6 +64,8 @@ services:
         restart: always
         env_file:
             - .env
+        ports:
+            -   3000:3000
         networks:
             - my_network
 
