@@ -1,5 +1,5 @@
 import { NestFactory } from "@nestjs/core";
-import cookieParser from "cookie-parser";
+import * as cookieParser from "cookie-parser";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { AppModule } from "./app.module";
 import { I18nValidationExceptionFilter } from "nestjs-i18n";
@@ -14,7 +14,7 @@ async function bootstrap() {
 		origin: process.env.FRONTEND_URL || `http://localhost:3000`,
 		credentials: true,
 	});
-	app.use(cookieParser());
+	app.use(cookieParser(process.env.COOKIES_SECRET));
 
 	app.useGlobalPipes(
 		new ValidationPipe({
@@ -39,7 +39,7 @@ async function bootstrap() {
 	SwaggerModule.setup("api/v2/docs", app, document);
 	// Swagger end
 
-	await app.listen(process.env.PORT || 8000);
+	await app.listen(process.env.BACKEND_PORT || 8000);
 }
 
 bootstrap();

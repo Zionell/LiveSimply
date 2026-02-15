@@ -7,21 +7,27 @@ export class TranslateService {
 
 	async translate(val: string): Promise<string> {
 		try {
+			const body = {
+				text: val,
+				to: "ru",
+				from: "en",
+			};
+
 			const res = await fetch(
-				`${this.configService.get("TRANSLATE_API")}/translation/text/translate`,
+				`${this.configService.get("TRANSLATE_API")}`,
 				{
-					body: JSON.stringify({
-						input: val,
-						source: "en",
-					}),
+					method: "POST",
+					body: JSON.stringify(body),
 					headers: {
-						Authorization: "Bearer",
+						"Content-Type": "application/json",
+						"x-rapidapi-key":
+							this.configService.get("TRANSLATE_KEY"),
 					},
 				}
 			);
 			const data = await res.json();
 
-			return data?.responseData?.translatedText;
+			return data?.trans;
 		} catch (e) {
 			console.warn("[TranslateService / translate]: ", e);
 			throw new Error(e);

@@ -1,0 +1,78 @@
+version: '3.3'
+
+services:
+    nginx:
+        restart: always
+        container_name: livesimply_nginx
+        environment:
+            - ENVIRONMENT=production
+            - TLS_MODE
+            - SITE_HOST
+        volumes:
+            - nginx_cache:/var/lib/nginx/proxy_cache
+            - static:/app/www/static/
+            - local_static:/var/www/local_static/
+            - static:/var/www/static/:ro
+            - acme.sh:/acme.sh:delegated
+            - certs:/etc/nginx/certs
+        build:
+            context: ./nginx
+        ports:
+            - 80:80
+            - 443:443
+        networks:
+            - my_network
+
+    backend:
+        container_name: livesimply_backend
+        build:
+            context: backend
+            args:
+                - PORT=${PORT}
+                - FRONTEND_URL=${FRONTEND_URL}
+                - DATABASE_URL=${DATABASE_URL}
+                - JWT_SECRET=${JWT_SECRET}
+                - SESSION_SECRET=${SESSION_SECRET}
+                - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+                - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+                - GOOGLE_REDIRECT_URI=${GOOGLE_REDIRECT_URI}
+                - EMAIL_SERVER_USER=${EMAIL_SERVER_USER}
+                - EMAIL_SERVER_PASSWORD=${EMAIL_SERVER_PASSWORD}
+                - EMAIL_SERVER_HOST=${EMAIL_SERVER_HOST}
+                - EMAIL_FROM=${EMAIL_FROM}
+                - CURRENCY_API=${CURRENCY_API}
+                - CONVERT_CURRENCY=${CONVERT_CURRENCY}
+                - TRANSLATE_API=${TRANSLATE_API}
+                - TRANSLATE_KEY=${TRANSLATE_KEY}
+        restart: always
+        env_file:
+            - .env
+        networks:
+            - my_network
+
+    frontend:
+        container_name: livesimply_frontend
+        depends_on:
+                - backend
+        build:
+            context: frontend
+            args:
+                - SITE_URL=${SITE_URL}
+                - PROXY_URL=${PROXY_URL}
+        restart: always
+        env_file:
+            - .env
+        networks:
+            - my_network
+
+volumes:
+    postgresdata:
+    nginx_cache:
+    local_static:
+    static:
+    acme.sh:
+    certs:
+
+networks:
+    my_network:
+        driver: bridge
