@@ -92,6 +92,9 @@ server {
         }
     <% fi; -%>
 
+    location /api/_nuxt_icon/ {
+		include frontend;
+    }
 
     location /api/ {
         include backend;

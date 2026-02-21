@@ -28,21 +28,21 @@ export type OperationCategoryMinAggregateOutputType = {
   id: string | null
   value: string | null
   createdAt: Date | null
-  updateddAt: Date | null
+  updatedAt: Date | null
 }
 
 export type OperationCategoryMaxAggregateOutputType = {
   id: string | null
   value: string | null
   createdAt: Date | null
-  updateddAt: Date | null
+  updatedAt: Date | null
 }
 
 export type OperationCategoryCountAggregateOutputType = {
   id: number
   value: number
   createdAt: number
-  updateddAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -51,21 +51,21 @@ export type OperationCategoryMinAggregateInputType = {
   id?: true
   value?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
 }
 
 export type OperationCategoryMaxAggregateInputType = {
   id?: true
   value?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
 }
 
 export type OperationCategoryCountAggregateInputType = {
   id?: true
   value?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -145,7 +145,7 @@ export type OperationCategoryGroupByOutputType = {
   id: string
   value: string
   createdAt: Date
-  updateddAt: Date
+  updatedAt: Date | null
   _count: OperationCategoryCountAggregateOutputType | null
   _min: OperationCategoryMinAggregateOutputType | null
   _max: OperationCategoryMaxAggregateOutputType | null
@@ -173,7 +173,7 @@ export type OperationCategoryWhereInput = {
   id?: Prisma.StringFilter<"OperationCategory"> | string
   value?: Prisma.StringFilter<"OperationCategory"> | string
   createdAt?: Prisma.DateTimeFilter<"OperationCategory"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"OperationCategory"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"OperationCategory"> | Date | string | null
   financeItem?: Prisma.FinanceItemListRelationFilter
   label?: Prisma.OperationCategoryNameListRelationFilter
 }
@@ -182,7 +182,7 @@ export type OperationCategoryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   value?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   financeItem?: Prisma.FinanceItemOrderByRelationAggregateInput
   label?: Prisma.OperationCategoryNameOrderByRelationAggregateInput
 }
@@ -194,7 +194,7 @@ export type OperationCategoryWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.OperationCategoryWhereInput[]
   NOT?: Prisma.OperationCategoryWhereInput | Prisma.OperationCategoryWhereInput[]
   createdAt?: Prisma.DateTimeFilter<"OperationCategory"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"OperationCategory"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"OperationCategory"> | Date | string | null
   financeItem?: Prisma.FinanceItemListRelationFilter
   label?: Prisma.OperationCategoryNameListRelationFilter
 }, "id" | "value">
@@ -203,7 +203,7 @@ export type OperationCategoryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   value?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.OperationCategoryCountOrderByAggregateInput
   _max?: Prisma.OperationCategoryMaxOrderByAggregateInput
   _min?: Prisma.OperationCategoryMinOrderByAggregateInput
@@ -216,14 +216,14 @@ export type OperationCategoryScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"OperationCategory"> | string
   value?: Prisma.StringWithAggregatesFilter<"OperationCategory"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"OperationCategory"> | Date | string
-  updateddAt?: Prisma.DateTimeWithAggregatesFilter<"OperationCategory"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"OperationCategory"> | Date | string | null
 }
 
 export type OperationCategoryCreateInput = {
   id?: string
   value: string
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   financeItem?: Prisma.FinanceItemCreateNestedManyWithoutOperationCategoryInput
   label?: Prisma.OperationCategoryNameCreateNestedManyWithoutOperationCategoryInput
 }
@@ -232,7 +232,7 @@ export type OperationCategoryUncheckedCreateInput = {
   id?: string
   value: string
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   financeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutOperationCategoryInput
   label?: Prisma.OperationCategoryNameUncheckedCreateNestedManyWithoutOperationCategoryInput
 }
@@ -240,7 +240,7 @@ export type OperationCategoryUncheckedCreateInput = {
 export type OperationCategoryUpdateInput = {
   value?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   financeItem?: Prisma.FinanceItemUpdateManyWithoutOperationCategoryNestedInput
   label?: Prisma.OperationCategoryNameUpdateManyWithoutOperationCategoryNestedInput
 }
@@ -248,7 +248,7 @@ export type OperationCategoryUpdateInput = {
 export type OperationCategoryUncheckedUpdateInput = {
   value?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   financeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutOperationCategoryNestedInput
   label?: Prisma.OperationCategoryNameUncheckedUpdateManyWithoutOperationCategoryNestedInput
 }
@@ -257,40 +257,40 @@ export type OperationCategoryCreateManyInput = {
   id?: string
   value: string
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type OperationCategoryUpdateManyMutationInput = {
   value?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type OperationCategoryUncheckedUpdateManyInput = {
   value?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type OperationCategoryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   value?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type OperationCategoryMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   value?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type OperationCategoryMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   value?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type OperationCategoryScalarRelationFilter = {
@@ -330,7 +330,7 @@ export type OperationCategoryCreateWithoutLabelInput = {
   id?: string
   value: string
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   financeItem?: Prisma.FinanceItemCreateNestedManyWithoutOperationCategoryInput
 }
 
@@ -338,7 +338,7 @@ export type OperationCategoryUncheckedCreateWithoutLabelInput = {
   id?: string
   value: string
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   financeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutOperationCategoryInput
 }
 
@@ -361,14 +361,14 @@ export type OperationCategoryUpdateToOneWithWhereWithoutLabelInput = {
 export type OperationCategoryUpdateWithoutLabelInput = {
   value?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   financeItem?: Prisma.FinanceItemUpdateManyWithoutOperationCategoryNestedInput
 }
 
 export type OperationCategoryUncheckedUpdateWithoutLabelInput = {
   value?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   financeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutOperationCategoryNestedInput
 }
 
@@ -376,7 +376,7 @@ export type OperationCategoryCreateWithoutFinanceItemInput = {
   id?: string
   value: string
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   label?: Prisma.OperationCategoryNameCreateNestedManyWithoutOperationCategoryInput
 }
 
@@ -384,7 +384,7 @@ export type OperationCategoryUncheckedCreateWithoutFinanceItemInput = {
   id?: string
   value: string
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   label?: Prisma.OperationCategoryNameUncheckedCreateNestedManyWithoutOperationCategoryInput
 }
 
@@ -407,14 +407,14 @@ export type OperationCategoryUpdateToOneWithWhereWithoutFinanceItemInput = {
 export type OperationCategoryUpdateWithoutFinanceItemInput = {
   value?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.OperationCategoryNameUpdateManyWithoutOperationCategoryNestedInput
 }
 
 export type OperationCategoryUncheckedUpdateWithoutFinanceItemInput = {
   value?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.OperationCategoryNameUncheckedUpdateManyWithoutOperationCategoryNestedInput
 }
 
@@ -462,7 +462,7 @@ export type OperationCategorySelect<ExtArgs extends runtime.Types.Extensions.Int
   id?: boolean
   value?: boolean
   createdAt?: boolean
-  updateddAt?: boolean
+  updatedAt?: boolean
   financeItem?: boolean | Prisma.OperationCategory$financeItemArgs<ExtArgs>
   label?: boolean | Prisma.OperationCategory$labelArgs<ExtArgs>
   _count?: boolean | Prisma.OperationCategoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -474,10 +474,10 @@ export type OperationCategorySelectScalar = {
   id?: boolean
   value?: boolean
   createdAt?: boolean
-  updateddAt?: boolean
+  updatedAt?: boolean
 }
 
-export type OperationCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "value" | "createdAt" | "updateddAt", ExtArgs["result"]["operationCategory"]>
+export type OperationCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "value" | "createdAt" | "updatedAt", ExtArgs["result"]["operationCategory"]>
 export type OperationCategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   financeItem?: boolean | Prisma.OperationCategory$financeItemArgs<ExtArgs>
   label?: boolean | Prisma.OperationCategory$labelArgs<ExtArgs>
@@ -494,7 +494,7 @@ export type $OperationCategoryPayload<ExtArgs extends runtime.Types.Extensions.I
     id: string
     value: string
     createdAt: Date
-    updateddAt: Date
+    updatedAt: Date | null
   }, ExtArgs["result"]["operationCategory"]>
   composites: {}
 }
@@ -892,7 +892,7 @@ export interface OperationCategoryFieldRefs {
   readonly id: Prisma.FieldRef<"OperationCategory", 'String'>
   readonly value: Prisma.FieldRef<"OperationCategory", 'String'>
   readonly createdAt: Prisma.FieldRef<"OperationCategory", 'DateTime'>
-  readonly updateddAt: Prisma.FieldRef<"OperationCategory", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"OperationCategory", 'DateTime'>
 }
     
 

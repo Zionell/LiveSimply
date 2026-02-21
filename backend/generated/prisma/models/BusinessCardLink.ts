@@ -32,7 +32,7 @@ export type BusinessCardLinkMinAggregateOutputType = {
   link: string | null
   isVisible: boolean | null
   createdAt: Date | null
-  updateddAt: Date | null
+  updatedAt: Date | null
 }
 
 export type BusinessCardLinkMaxAggregateOutputType = {
@@ -43,7 +43,7 @@ export type BusinessCardLinkMaxAggregateOutputType = {
   link: string | null
   isVisible: boolean | null
   createdAt: Date | null
-  updateddAt: Date | null
+  updatedAt: Date | null
 }
 
 export type BusinessCardLinkCountAggregateOutputType = {
@@ -54,7 +54,7 @@ export type BusinessCardLinkCountAggregateOutputType = {
   link: number
   isVisible: number
   createdAt: number
-  updateddAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -67,7 +67,7 @@ export type BusinessCardLinkMinAggregateInputType = {
   link?: true
   isVisible?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
 }
 
 export type BusinessCardLinkMaxAggregateInputType = {
@@ -78,7 +78,7 @@ export type BusinessCardLinkMaxAggregateInputType = {
   link?: true
   isVisible?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
 }
 
 export type BusinessCardLinkCountAggregateInputType = {
@@ -89,7 +89,7 @@ export type BusinessCardLinkCountAggregateInputType = {
   link?: true
   isVisible?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -173,7 +173,7 @@ export type BusinessCardLinkGroupByOutputType = {
   link: string
   isVisible: boolean
   createdAt: Date
-  updateddAt: Date
+  updatedAt: Date | null
   _count: BusinessCardLinkCountAggregateOutputType | null
   _min: BusinessCardLinkMinAggregateOutputType | null
   _max: BusinessCardLinkMaxAggregateOutputType | null
@@ -205,7 +205,7 @@ export type BusinessCardLinkWhereInput = {
   link?: Prisma.StringFilter<"BusinessCardLink"> | string
   isVisible?: Prisma.BoolFilter<"BusinessCardLink"> | boolean
   createdAt?: Prisma.DateTimeFilter<"BusinessCardLink"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"BusinessCardLink"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"BusinessCardLink"> | Date | string | null
   card?: Prisma.XOR<Prisma.BusinessCardScalarRelationFilter, Prisma.BusinessCardWhereInput>
 }
 
@@ -217,7 +217,7 @@ export type BusinessCardLinkOrderByWithRelationInput = {
   link?: Prisma.SortOrder
   isVisible?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   card?: Prisma.BusinessCardOrderByWithRelationInput
 }
 
@@ -232,7 +232,7 @@ export type BusinessCardLinkWhereUniqueInput = Prisma.AtLeast<{
   link?: Prisma.StringFilter<"BusinessCardLink"> | string
   isVisible?: Prisma.BoolFilter<"BusinessCardLink"> | boolean
   createdAt?: Prisma.DateTimeFilter<"BusinessCardLink"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"BusinessCardLink"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"BusinessCardLink"> | Date | string | null
   card?: Prisma.XOR<Prisma.BusinessCardScalarRelationFilter, Prisma.BusinessCardWhereInput>
 }, "id">
 
@@ -244,7 +244,7 @@ export type BusinessCardLinkOrderByWithAggregationInput = {
   link?: Prisma.SortOrder
   isVisible?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.BusinessCardLinkCountOrderByAggregateInput
   _max?: Prisma.BusinessCardLinkMaxOrderByAggregateInput
   _min?: Prisma.BusinessCardLinkMinOrderByAggregateInput
@@ -261,7 +261,7 @@ export type BusinessCardLinkScalarWhereWithAggregatesInput = {
   link?: Prisma.StringWithAggregatesFilter<"BusinessCardLink"> | string
   isVisible?: Prisma.BoolWithAggregatesFilter<"BusinessCardLink"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"BusinessCardLink"> | Date | string
-  updateddAt?: Prisma.DateTimeWithAggregatesFilter<"BusinessCardLink"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"BusinessCardLink"> | Date | string | null
 }
 
 export type BusinessCardLinkCreateInput = {
@@ -271,7 +271,7 @@ export type BusinessCardLinkCreateInput = {
   link: string
   isVisible?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   card: Prisma.BusinessCardCreateNestedOneWithoutSocialLinksInput
 }
 
@@ -283,7 +283,7 @@ export type BusinessCardLinkUncheckedCreateInput = {
   link: string
   isVisible?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type BusinessCardLinkUpdateInput = {
@@ -292,7 +292,7 @@ export type BusinessCardLinkUpdateInput = {
   link?: Prisma.StringFieldUpdateOperationsInput | string
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   card?: Prisma.BusinessCardUpdateOneRequiredWithoutSocialLinksNestedInput
 }
 
@@ -303,7 +303,7 @@ export type BusinessCardLinkUncheckedUpdateInput = {
   link?: Prisma.StringFieldUpdateOperationsInput | string
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type BusinessCardLinkCreateManyInput = {
@@ -314,7 +314,7 @@ export type BusinessCardLinkCreateManyInput = {
   link: string
   isVisible?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type BusinessCardLinkUpdateManyMutationInput = {
@@ -323,7 +323,7 @@ export type BusinessCardLinkUpdateManyMutationInput = {
   link?: Prisma.StringFieldUpdateOperationsInput | string
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type BusinessCardLinkUncheckedUpdateManyInput = {
@@ -333,7 +333,7 @@ export type BusinessCardLinkUncheckedUpdateManyInput = {
   link?: Prisma.StringFieldUpdateOperationsInput | string
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type BusinessCardLinkListRelationFilter = {
@@ -354,7 +354,7 @@ export type BusinessCardLinkCountOrderByAggregateInput = {
   link?: Prisma.SortOrder
   isVisible?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type BusinessCardLinkMaxOrderByAggregateInput = {
@@ -365,7 +365,7 @@ export type BusinessCardLinkMaxOrderByAggregateInput = {
   link?: Prisma.SortOrder
   isVisible?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type BusinessCardLinkMinOrderByAggregateInput = {
@@ -376,7 +376,7 @@ export type BusinessCardLinkMinOrderByAggregateInput = {
   link?: Prisma.SortOrder
   isVisible?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type BusinessCardLinkCreateNestedManyWithoutCardInput = {
@@ -428,7 +428,7 @@ export type BusinessCardLinkCreateWithoutCardInput = {
   link: string
   isVisible?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type BusinessCardLinkUncheckedCreateWithoutCardInput = {
@@ -438,7 +438,7 @@ export type BusinessCardLinkUncheckedCreateWithoutCardInput = {
   link: string
   isVisible?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type BusinessCardLinkCreateOrConnectWithoutCardInput = {
@@ -477,7 +477,7 @@ export type BusinessCardLinkScalarWhereInput = {
   link?: Prisma.StringFilter<"BusinessCardLink"> | string
   isVisible?: Prisma.BoolFilter<"BusinessCardLink"> | boolean
   createdAt?: Prisma.DateTimeFilter<"BusinessCardLink"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"BusinessCardLink"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"BusinessCardLink"> | Date | string | null
 }
 
 export type BusinessCardLinkCreateManyCardInput = {
@@ -487,7 +487,7 @@ export type BusinessCardLinkCreateManyCardInput = {
   link: string
   isVisible?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type BusinessCardLinkUpdateWithoutCardInput = {
@@ -496,7 +496,7 @@ export type BusinessCardLinkUpdateWithoutCardInput = {
   link?: Prisma.StringFieldUpdateOperationsInput | string
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type BusinessCardLinkUncheckedUpdateWithoutCardInput = {
@@ -505,7 +505,7 @@ export type BusinessCardLinkUncheckedUpdateWithoutCardInput = {
   link?: Prisma.StringFieldUpdateOperationsInput | string
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type BusinessCardLinkUncheckedUpdateManyWithoutCardInput = {
@@ -514,7 +514,7 @@ export type BusinessCardLinkUncheckedUpdateManyWithoutCardInput = {
   link?: Prisma.StringFieldUpdateOperationsInput | string
   isVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -527,7 +527,7 @@ export type BusinessCardLinkSelect<ExtArgs extends runtime.Types.Extensions.Inte
   link?: boolean
   isVisible?: boolean
   createdAt?: boolean
-  updateddAt?: boolean
+  updatedAt?: boolean
   card?: boolean | Prisma.BusinessCardDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["businessCardLink"]>
 
@@ -541,10 +541,10 @@ export type BusinessCardLinkSelectScalar = {
   link?: boolean
   isVisible?: boolean
   createdAt?: boolean
-  updateddAt?: boolean
+  updatedAt?: boolean
 }
 
-export type BusinessCardLinkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cardId" | "name" | "icon" | "link" | "isVisible" | "createdAt" | "updateddAt", ExtArgs["result"]["businessCardLink"]>
+export type BusinessCardLinkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cardId" | "name" | "icon" | "link" | "isVisible" | "createdAt" | "updatedAt", ExtArgs["result"]["businessCardLink"]>
 export type BusinessCardLinkInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   card?: boolean | Prisma.BusinessCardDefaultArgs<ExtArgs>
 }
@@ -562,7 +562,7 @@ export type $BusinessCardLinkPayload<ExtArgs extends runtime.Types.Extensions.In
     link: string
     isVisible: boolean
     createdAt: Date
-    updateddAt: Date
+    updatedAt: Date | null
   }, ExtArgs["result"]["businessCardLink"]>
   composites: {}
 }
@@ -963,7 +963,7 @@ export interface BusinessCardLinkFieldRefs {
   readonly link: Prisma.FieldRef<"BusinessCardLink", 'String'>
   readonly isVisible: Prisma.FieldRef<"BusinessCardLink", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"BusinessCardLink", 'DateTime'>
-  readonly updateddAt: Prisma.FieldRef<"BusinessCardLink", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"BusinessCardLink", 'DateTime'>
 }
     
 

@@ -37,14 +37,7 @@ export default defineNuxtConfig({
 	},
 
 	// Modules
-	modules: [
-		"@nuxt/ui",
-		"@nuxt/image",
-		"@nuxt/fonts",
-		"@pinia/nuxt",
-		"@nuxtjs/i18n",
-		"nuxt-charts",
-	],
+	modules: ["@nuxt/ui", "@nuxt/image", "@nuxt/fonts", "@pinia/nuxt", "@nuxtjs/i18n", "nuxt-charts"],
 
 	// i18n
 	i18n: {
@@ -81,17 +74,6 @@ export default defineNuxtConfig({
 			linkExactActiveClass: "_exact-link",
 		},
 	},
-
-	routeRules: env.DEV
-		? {}
-		: {
-				// Cached for 15 min
-				"/api/*": {
-					cache: {
-						maxAge: 60 * 15,
-					},
-				},
-			},
 
 	// Image
 	image: {

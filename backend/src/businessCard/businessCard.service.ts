@@ -102,6 +102,7 @@ export class BusinessCardService {
 			return this.prismaService.businessCard.update({
 				where: { id },
 				data: {
+					updatedAt: new Date(),
 					...dto,
 				},
 			});
@@ -116,6 +117,7 @@ export class BusinessCardService {
 			return this.prismaService.businessCardLink.update({
 				where: { id },
 				data: {
+					updatedAt: new Date(),
 					...dto,
 				},
 			});

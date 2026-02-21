@@ -100,6 +100,7 @@ function handleClose() {
 		btnLabel="new"
 		title="newFinance"
 		:isDisabled="!isValid"
+		:isLoading="isLoading"
 		@close="handleClose"
 		@click="onSubmit"
 	>

@@ -36,7 +36,11 @@ if (error.value) {
 				<div class="flex flex-col gap-4">
 					<DashboardFinanceStatistic :finances="data?.finances" />
 
-					<DashboardFinanceRates v-if="data?.rates?.length" :rates="data?.rates" />
+					<DashboardFinanceRates
+						v-if="data?.rates?.rates?.length"
+						:rates="data?.rates?.rates"
+						:lastUpdated="data?.rates?.lastUpdated"
+					/>
 
 					<DashboardGoals />
 				</div>

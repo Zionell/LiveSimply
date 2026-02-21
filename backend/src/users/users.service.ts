@@ -103,6 +103,7 @@ export class UsersService {
 					email: verifiedPayload.email,
 				},
 				data: {
+					updatedAt: new Date(),
 					emailVerified: true,
 				},
 			});
@@ -164,6 +165,7 @@ export class UsersService {
 			return await this.prismaService.user.update({
 				where: { id },
 				data: {
+					updatedAt: new Date(),
 					...dto,
 				},
 			});

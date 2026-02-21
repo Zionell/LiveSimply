@@ -175,7 +175,10 @@ export class RatesService {
 
 	async findCurrent(req: Record<string, any>) {
 		try {
-			const data = [];
+			const data = {
+				lastUpdated: "",
+				rates: [],
+			};
 			const userCur: string = req.payload.exchange;
 			const ratesLib = [
 				{
@@ -208,13 +211,20 @@ export class RatesService {
 						to: r.to,
 						price: 1,
 					});
-					data.push({
+					data.rates.push({
 						curFrom: r.from || "",
 						curTo: r.to || "",
 						rate: convertedPrice || 0,
 					});
 				}
 			}
+
+			const baseRate = await this.prismaService.exchangeItem.findFirst({
+				where: {
+					value: "EUR",
+				},
+			});
+			data.lastUpdated = baseRate?.updatedAt.toString() || "";
 
 			return data;
 		} catch (e) {
@@ -254,26 +264,42 @@ export class RatesService {
 			const symbolsArr = Object.entries(data.rates);
 
 			for (const [key, val] of symbolsArr) {
+				if (!val) {
+					continue;
+				}
+
 				await this.prismaService.exchangeItem.update({
 					where: {
 						value: key,
 					},
 					data: {
-						base: data.base?.toString() || "",
-						rate: Number(val) || 0,
+						rate: Number(val),
+						updatedAt: new Date(),
 					},
 				});
 			}
 
-			// const options = {
-			// 	to: this.configService.get("EMAIL_SERVER_USER"),
-			// 	template: "updateRates",
-			// 	locale: "en",
-			// };
+			const options = {
+				to: this.configService.get("EMAIL_SERVER_USER"),
+				template: "updateRates",
+				locale: "en",
+			};
 
-			// await this.mailService.sendEmail(options);
+			await this.mailService.sendEmail(options);
 		} catch (e) {
 			console.warn("[RatesService / update]: ", e);
+
+			const options = {
+				to: this.configService.get("EMAIL_SERVER_USER"),
+				template: "updateRatesError",
+				locale: "en",
+				props: {
+					error: JSON.stringify(e?.message || e),
+				},
+			};
+
+			await this.mailService.sendEmail(options);
+
 			throw new Error(e);
 		}
 	}
