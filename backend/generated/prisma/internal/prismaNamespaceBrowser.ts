@@ -83,7 +83,7 @@ export const UserScalarFieldEnum = {
   role: 'role',
   total: 'total',
   createdAt: 'createdAt',
-  updateddAt: 'updateddAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -95,7 +95,7 @@ export const ExchangeItemScalarFieldEnum = {
   base: 'base',
   rate: 'rate',
   createdAt: 'createdAt',
-  updateddAt: 'updateddAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type ExchangeItemScalarFieldEnum = (typeof ExchangeItemScalarFieldEnum)[keyof typeof ExchangeItemScalarFieldEnum]
@@ -107,7 +107,7 @@ export const ExchangeItemNameScalarFieldEnum = {
   lang: 'lang',
   exchangeId: 'exchangeId',
   createdAt: 'createdAt',
-  updateddAt: 'updateddAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type ExchangeItemNameScalarFieldEnum = (typeof ExchangeItemNameScalarFieldEnum)[keyof typeof ExchangeItemNameScalarFieldEnum]
@@ -118,7 +118,7 @@ export const ExpenseCategoryScalarFieldEnum = {
   value: 'value',
   color: 'color',
   createdAt: 'createdAt',
-  updateddAt: 'updateddAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type ExpenseCategoryScalarFieldEnum = (typeof ExpenseCategoryScalarFieldEnum)[keyof typeof ExpenseCategoryScalarFieldEnum]
@@ -130,7 +130,7 @@ export const ExpenseCategoryNameScalarFieldEnum = {
   lang: 'lang',
   categoryId: 'categoryId',
   createdAt: 'createdAt',
-  updateddAt: 'updateddAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type ExpenseCategoryNameScalarFieldEnum = (typeof ExpenseCategoryNameScalarFieldEnum)[keyof typeof ExpenseCategoryNameScalarFieldEnum]
@@ -140,7 +140,7 @@ export const OperationCategoryScalarFieldEnum = {
   id: 'id',
   value: 'value',
   createdAt: 'createdAt',
-  updateddAt: 'updateddAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type OperationCategoryScalarFieldEnum = (typeof OperationCategoryScalarFieldEnum)[keyof typeof OperationCategoryScalarFieldEnum]
@@ -152,7 +152,7 @@ export const OperationCategoryNameScalarFieldEnum = {
   lang: 'lang',
   categoryId: 'categoryId',
   createdAt: 'createdAt',
-  updateddAt: 'updateddAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type OperationCategoryNameScalarFieldEnum = (typeof OperationCategoryNameScalarFieldEnum)[keyof typeof OperationCategoryNameScalarFieldEnum]
@@ -168,7 +168,7 @@ export const FinanceItemScalarFieldEnum = {
   expenseCategoryId: 'expenseCategoryId',
   operationCategoryId: 'operationCategoryId',
   createdAt: 'createdAt',
-  updateddAt: 'updateddAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type FinanceItemScalarFieldEnum = (typeof FinanceItemScalarFieldEnum)[keyof typeof FinanceItemScalarFieldEnum]
@@ -181,7 +181,7 @@ export const NotificationScalarFieldEnum = {
   title: 'title',
   text: 'text',
   createdAt: 'createdAt',
-  updateddAt: 'updateddAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
@@ -193,7 +193,7 @@ export const BusinessCardScalarFieldEnum = {
   subtitle: 'subtitle',
   description: 'description',
   createdAt: 'createdAt',
-  updateddAt: 'updateddAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type BusinessCardScalarFieldEnum = (typeof BusinessCardScalarFieldEnum)[keyof typeof BusinessCardScalarFieldEnum]
@@ -207,7 +207,7 @@ export const BusinessCardLinkScalarFieldEnum = {
   link: 'link',
   isVisible: 'isVisible',
   createdAt: 'createdAt',
-  updateddAt: 'updateddAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type BusinessCardLinkScalarFieldEnum = (typeof BusinessCardLinkScalarFieldEnum)[keyof typeof BusinessCardLinkScalarFieldEnum]
@@ -223,7 +223,7 @@ export const GoalScalarFieldEnum = {
   exchangeId: 'exchangeId',
   isCompleted: 'isCompleted',
   createdAt: 'createdAt',
-  updateddAt: 'updateddAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type GoalScalarFieldEnum = (typeof GoalScalarFieldEnum)[keyof typeof GoalScalarFieldEnum]
@@ -240,7 +240,7 @@ export const FinancePlannerScalarFieldEnum = {
   customPeriodTo: 'customPeriodTo',
   isRegular: 'isRegular',
   createdAt: 'createdAt',
-  updateddAt: 'updateddAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type FinancePlannerScalarFieldEnum = (typeof FinancePlannerScalarFieldEnum)[keyof typeof FinancePlannerScalarFieldEnum]
@@ -254,7 +254,7 @@ export const PaymentsScalarFieldEnum = {
   exchange: 'exchange',
   isRequired: 'isRequired',
   createdAt: 'createdAt',
-  updateddAt: 'updateddAt'
+  updatedAt: 'updatedAt'
 } as const
 
 export type PaymentsScalarFieldEnum = (typeof PaymentsScalarFieldEnum)[keyof typeof PaymentsScalarFieldEnum]

@@ -132,7 +132,7 @@ export class FinanceService {
 
 			return {
 				finances: FinanceSerializer.serialize(finances),
-				rates,
+				rates: rates,
 				chart: StatisticsSerializer.serialize(
 					financesChart,
 					expenseCategories
@@ -287,6 +287,7 @@ export class FinanceService {
 			return this.prismaService.financeItem.update({
 				where: { id },
 				data: {
+					updatedAt: new Date(),
 					...updateFinanceDto,
 				},
 			});

@@ -47,7 +47,7 @@ export type FinancePlannerMinAggregateOutputType = {
   customPeriodTo: Date | null
   isRegular: boolean | null
   createdAt: Date | null
-  updateddAt: Date | null
+  updatedAt: Date | null
 }
 
 export type FinancePlannerMaxAggregateOutputType = {
@@ -61,7 +61,7 @@ export type FinancePlannerMaxAggregateOutputType = {
   customPeriodTo: Date | null
   isRegular: boolean | null
   createdAt: Date | null
-  updateddAt: Date | null
+  updatedAt: Date | null
 }
 
 export type FinancePlannerCountAggregateOutputType = {
@@ -75,7 +75,7 @@ export type FinancePlannerCountAggregateOutputType = {
   customPeriodTo: number
   isRegular: number
   createdAt: number
-  updateddAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -101,7 +101,7 @@ export type FinancePlannerMinAggregateInputType = {
   customPeriodTo?: true
   isRegular?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
 }
 
 export type FinancePlannerMaxAggregateInputType = {
@@ -115,7 +115,7 @@ export type FinancePlannerMaxAggregateInputType = {
   customPeriodTo?: true
   isRegular?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
 }
 
 export type FinancePlannerCountAggregateInputType = {
@@ -129,7 +129,7 @@ export type FinancePlannerCountAggregateInputType = {
   customPeriodTo?: true
   isRegular?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -230,7 +230,7 @@ export type FinancePlannerGroupByOutputType = {
   customPeriodTo: Date
   isRegular: boolean
   createdAt: Date
-  updateddAt: Date
+  updatedAt: Date | null
   _count: FinancePlannerCountAggregateOutputType | null
   _avg: FinancePlannerAvgAggregateOutputType | null
   _sum: FinancePlannerSumAggregateOutputType | null
@@ -267,7 +267,7 @@ export type FinancePlannerWhereInput = {
   customPeriodTo?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
   isRegular?: Prisma.BoolFilter<"FinancePlanner"> | boolean
   createdAt?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"FinancePlanner"> | Date | string | null
   payments?: Prisma.PaymentsListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -283,7 +283,7 @@ export type FinancePlannerOrderByWithRelationInput = {
   customPeriodTo?: Prisma.SortOrder
   isRegular?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   payments?: Prisma.PaymentsOrderByRelationAggregateInput
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -302,7 +302,7 @@ export type FinancePlannerWhereUniqueInput = Prisma.AtLeast<{
   customPeriodTo?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
   isRegular?: Prisma.BoolFilter<"FinancePlanner"> | boolean
   createdAt?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"FinancePlanner"> | Date | string | null
   payments?: Prisma.PaymentsListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
@@ -318,7 +318,7 @@ export type FinancePlannerOrderByWithAggregationInput = {
   customPeriodTo?: Prisma.SortOrder
   isRegular?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.FinancePlannerCountOrderByAggregateInput
   _avg?: Prisma.FinancePlannerAvgOrderByAggregateInput
   _max?: Prisma.FinancePlannerMaxOrderByAggregateInput
@@ -340,7 +340,7 @@ export type FinancePlannerScalarWhereWithAggregatesInput = {
   customPeriodTo?: Prisma.DateTimeWithAggregatesFilter<"FinancePlanner"> | Date | string
   isRegular?: Prisma.BoolWithAggregatesFilter<"FinancePlanner"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"FinancePlanner"> | Date | string
-  updateddAt?: Prisma.DateTimeWithAggregatesFilter<"FinancePlanner"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"FinancePlanner"> | Date | string | null
 }
 
 export type FinancePlannerCreateInput = {
@@ -353,7 +353,7 @@ export type FinancePlannerCreateInput = {
   customPeriodTo?: Date | string
   isRegular?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   payments?: Prisma.PaymentsCreateNestedManyWithoutPlannerInput
   user: Prisma.UserCreateNestedOneWithoutFinancePlannerInput
 }
@@ -369,7 +369,7 @@ export type FinancePlannerUncheckedCreateInput = {
   customPeriodTo?: Date | string
   isRegular?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   payments?: Prisma.PaymentsUncheckedCreateNestedManyWithoutPlannerInput
 }
 
@@ -382,7 +382,7 @@ export type FinancePlannerUpdateInput = {
   customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   payments?: Prisma.PaymentsUpdateManyWithoutPlannerNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutFinancePlannerNestedInput
 }
@@ -397,7 +397,7 @@ export type FinancePlannerUncheckedUpdateInput = {
   customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   payments?: Prisma.PaymentsUncheckedUpdateManyWithoutPlannerNestedInput
 }
 
@@ -412,7 +412,7 @@ export type FinancePlannerCreateManyInput = {
   customPeriodTo?: Date | string
   isRegular?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type FinancePlannerUpdateManyMutationInput = {
@@ -424,7 +424,7 @@ export type FinancePlannerUpdateManyMutationInput = {
   customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type FinancePlannerUncheckedUpdateManyInput = {
@@ -437,7 +437,7 @@ export type FinancePlannerUncheckedUpdateManyInput = {
   customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type FinancePlannerListRelationFilter = {
@@ -461,7 +461,7 @@ export type FinancePlannerCountOrderByAggregateInput = {
   customPeriodTo?: Prisma.SortOrder
   isRegular?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FinancePlannerAvgOrderByAggregateInput = {
@@ -480,7 +480,7 @@ export type FinancePlannerMaxOrderByAggregateInput = {
   customPeriodTo?: Prisma.SortOrder
   isRegular?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FinancePlannerMinOrderByAggregateInput = {
@@ -494,7 +494,7 @@ export type FinancePlannerMinOrderByAggregateInput = {
   customPeriodTo?: Prisma.SortOrder
   isRegular?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type FinancePlannerSumOrderByAggregateInput = {
@@ -573,7 +573,7 @@ export type FinancePlannerCreateWithoutUserInput = {
   customPeriodTo?: Date | string
   isRegular?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   payments?: Prisma.PaymentsCreateNestedManyWithoutPlannerInput
 }
 
@@ -587,7 +587,7 @@ export type FinancePlannerUncheckedCreateWithoutUserInput = {
   customPeriodTo?: Date | string
   isRegular?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   payments?: Prisma.PaymentsUncheckedCreateNestedManyWithoutPlannerInput
 }
 
@@ -630,7 +630,7 @@ export type FinancePlannerScalarWhereInput = {
   customPeriodTo?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
   isRegular?: Prisma.BoolFilter<"FinancePlanner"> | boolean
   createdAt?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"FinancePlanner"> | Date | string | null
 }
 
 export type FinancePlannerCreateWithoutPaymentsInput = {
@@ -643,7 +643,7 @@ export type FinancePlannerCreateWithoutPaymentsInput = {
   customPeriodTo?: Date | string
   isRegular?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutFinancePlannerInput
 }
 
@@ -658,7 +658,7 @@ export type FinancePlannerUncheckedCreateWithoutPaymentsInput = {
   customPeriodTo?: Date | string
   isRegular?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type FinancePlannerCreateOrConnectWithoutPaymentsInput = {
@@ -686,7 +686,7 @@ export type FinancePlannerUpdateWithoutPaymentsInput = {
   customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutFinancePlannerNestedInput
 }
 
@@ -700,7 +700,7 @@ export type FinancePlannerUncheckedUpdateWithoutPaymentsInput = {
   customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type FinancePlannerCreateManyUserInput = {
@@ -713,7 +713,7 @@ export type FinancePlannerCreateManyUserInput = {
   customPeriodTo?: Date | string
   isRegular?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type FinancePlannerUpdateWithoutUserInput = {
@@ -725,7 +725,7 @@ export type FinancePlannerUpdateWithoutUserInput = {
   customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   payments?: Prisma.PaymentsUpdateManyWithoutPlannerNestedInput
 }
 
@@ -738,7 +738,7 @@ export type FinancePlannerUncheckedUpdateWithoutUserInput = {
   customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   payments?: Prisma.PaymentsUncheckedUpdateManyWithoutPlannerNestedInput
 }
 
@@ -751,7 +751,7 @@ export type FinancePlannerUncheckedUpdateManyWithoutUserInput = {
   customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -796,7 +796,7 @@ export type FinancePlannerSelect<ExtArgs extends runtime.Types.Extensions.Intern
   customPeriodTo?: boolean
   isRegular?: boolean
   createdAt?: boolean
-  updateddAt?: boolean
+  updatedAt?: boolean
   payments?: boolean | Prisma.FinancePlanner$paymentsArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.FinancePlannerCountOutputTypeDefaultArgs<ExtArgs>
@@ -815,10 +815,10 @@ export type FinancePlannerSelectScalar = {
   customPeriodTo?: boolean
   isRegular?: boolean
   createdAt?: boolean
-  updateddAt?: boolean
+  updatedAt?: boolean
 }
 
-export type FinancePlannerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "commonBudget" | "remainder" | "period" | "customPeriodFrom" | "customPeriodTo" | "isRegular" | "createdAt" | "updateddAt", ExtArgs["result"]["financePlanner"]>
+export type FinancePlannerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "commonBudget" | "remainder" | "period" | "customPeriodFrom" | "customPeriodTo" | "isRegular" | "createdAt" | "updatedAt", ExtArgs["result"]["financePlanner"]>
 export type FinancePlannerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   payments?: boolean | Prisma.FinancePlanner$paymentsArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -842,7 +842,7 @@ export type $FinancePlannerPayload<ExtArgs extends runtime.Types.Extensions.Inte
     customPeriodTo: Date
     isRegular: boolean
     createdAt: Date
-    updateddAt: Date
+    updatedAt: Date | null
   }, ExtArgs["result"]["financePlanner"]>
   composites: {}
 }
@@ -1247,7 +1247,7 @@ export interface FinancePlannerFieldRefs {
   readonly customPeriodTo: Prisma.FieldRef<"FinancePlanner", 'DateTime'>
   readonly isRegular: Prisma.FieldRef<"FinancePlanner", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"FinancePlanner", 'DateTime'>
-  readonly updateddAt: Prisma.FieldRef<"FinancePlanner", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"FinancePlanner", 'DateTime'>
 }
     
 

@@ -30,7 +30,7 @@ export type ExchangeItemNameMinAggregateOutputType = {
   lang: string | null
   exchangeId: string | null
   createdAt: Date | null
-  updateddAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ExchangeItemNameMaxAggregateOutputType = {
@@ -39,7 +39,7 @@ export type ExchangeItemNameMaxAggregateOutputType = {
   lang: string | null
   exchangeId: string | null
   createdAt: Date | null
-  updateddAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ExchangeItemNameCountAggregateOutputType = {
@@ -48,7 +48,7 @@ export type ExchangeItemNameCountAggregateOutputType = {
   lang: number
   exchangeId: number
   createdAt: number
-  updateddAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -59,7 +59,7 @@ export type ExchangeItemNameMinAggregateInputType = {
   lang?: true
   exchangeId?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
 }
 
 export type ExchangeItemNameMaxAggregateInputType = {
@@ -68,7 +68,7 @@ export type ExchangeItemNameMaxAggregateInputType = {
   lang?: true
   exchangeId?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
 }
 
 export type ExchangeItemNameCountAggregateInputType = {
@@ -77,7 +77,7 @@ export type ExchangeItemNameCountAggregateInputType = {
   lang?: true
   exchangeId?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -159,7 +159,7 @@ export type ExchangeItemNameGroupByOutputType = {
   lang: string
   exchangeId: string
   createdAt: Date
-  updateddAt: Date
+  updatedAt: Date | null
   _count: ExchangeItemNameCountAggregateOutputType | null
   _min: ExchangeItemNameMinAggregateOutputType | null
   _max: ExchangeItemNameMaxAggregateOutputType | null
@@ -189,7 +189,7 @@ export type ExchangeItemNameWhereInput = {
   lang?: Prisma.StringFilter<"ExchangeItemName"> | string
   exchangeId?: Prisma.StringFilter<"ExchangeItemName"> | string
   createdAt?: Prisma.DateTimeFilter<"ExchangeItemName"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"ExchangeItemName"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"ExchangeItemName"> | Date | string | null
   exchangeItem?: Prisma.XOR<Prisma.ExchangeItemScalarRelationFilter, Prisma.ExchangeItemWhereInput>
 }
 
@@ -199,7 +199,7 @@ export type ExchangeItemNameOrderByWithRelationInput = {
   lang?: Prisma.SortOrder
   exchangeId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   exchangeItem?: Prisma.ExchangeItemOrderByWithRelationInput
 }
 
@@ -212,7 +212,7 @@ export type ExchangeItemNameWhereUniqueInput = Prisma.AtLeast<{
   lang?: Prisma.StringFilter<"ExchangeItemName"> | string
   exchangeId?: Prisma.StringFilter<"ExchangeItemName"> | string
   createdAt?: Prisma.DateTimeFilter<"ExchangeItemName"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"ExchangeItemName"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"ExchangeItemName"> | Date | string | null
   exchangeItem?: Prisma.XOR<Prisma.ExchangeItemScalarRelationFilter, Prisma.ExchangeItemWhereInput>
 }, "id">
 
@@ -222,7 +222,7 @@ export type ExchangeItemNameOrderByWithAggregationInput = {
   lang?: Prisma.SortOrder
   exchangeId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.ExchangeItemNameCountOrderByAggregateInput
   _max?: Prisma.ExchangeItemNameMaxOrderByAggregateInput
   _min?: Prisma.ExchangeItemNameMinOrderByAggregateInput
@@ -237,7 +237,7 @@ export type ExchangeItemNameScalarWhereWithAggregatesInput = {
   lang?: Prisma.StringWithAggregatesFilter<"ExchangeItemName"> | string
   exchangeId?: Prisma.StringWithAggregatesFilter<"ExchangeItemName"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ExchangeItemName"> | Date | string
-  updateddAt?: Prisma.DateTimeWithAggregatesFilter<"ExchangeItemName"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ExchangeItemName"> | Date | string | null
 }
 
 export type ExchangeItemNameCreateInput = {
@@ -245,7 +245,7 @@ export type ExchangeItemNameCreateInput = {
   label: string
   lang: string
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   exchangeItem: Prisma.ExchangeItemCreateNestedOneWithoutLabelInput
 }
 
@@ -255,14 +255,14 @@ export type ExchangeItemNameUncheckedCreateInput = {
   lang: string
   exchangeId: string
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type ExchangeItemNameUpdateInput = {
   label?: Prisma.StringFieldUpdateOperationsInput | string
   lang?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   exchangeItem?: Prisma.ExchangeItemUpdateOneRequiredWithoutLabelNestedInput
 }
 
@@ -271,7 +271,7 @@ export type ExchangeItemNameUncheckedUpdateInput = {
   lang?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ExchangeItemNameCreateManyInput = {
@@ -280,14 +280,14 @@ export type ExchangeItemNameCreateManyInput = {
   lang: string
   exchangeId: string
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type ExchangeItemNameUpdateManyMutationInput = {
   label?: Prisma.StringFieldUpdateOperationsInput | string
   lang?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ExchangeItemNameUncheckedUpdateManyInput = {
@@ -295,7 +295,7 @@ export type ExchangeItemNameUncheckedUpdateManyInput = {
   lang?: Prisma.StringFieldUpdateOperationsInput | string
   exchangeId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ExchangeItemNameListRelationFilter = {
@@ -314,7 +314,7 @@ export type ExchangeItemNameCountOrderByAggregateInput = {
   lang?: Prisma.SortOrder
   exchangeId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ExchangeItemNameMaxOrderByAggregateInput = {
@@ -323,7 +323,7 @@ export type ExchangeItemNameMaxOrderByAggregateInput = {
   lang?: Prisma.SortOrder
   exchangeId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ExchangeItemNameMinOrderByAggregateInput = {
@@ -332,7 +332,7 @@ export type ExchangeItemNameMinOrderByAggregateInput = {
   lang?: Prisma.SortOrder
   exchangeId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ExchangeItemNameCreateNestedManyWithoutExchangeItemInput = {
@@ -382,7 +382,7 @@ export type ExchangeItemNameCreateWithoutExchangeItemInput = {
   label: string
   lang: string
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type ExchangeItemNameUncheckedCreateWithoutExchangeItemInput = {
@@ -390,7 +390,7 @@ export type ExchangeItemNameUncheckedCreateWithoutExchangeItemInput = {
   label: string
   lang: string
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type ExchangeItemNameCreateOrConnectWithoutExchangeItemInput = {
@@ -427,7 +427,7 @@ export type ExchangeItemNameScalarWhereInput = {
   lang?: Prisma.StringFilter<"ExchangeItemName"> | string
   exchangeId?: Prisma.StringFilter<"ExchangeItemName"> | string
   createdAt?: Prisma.DateTimeFilter<"ExchangeItemName"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"ExchangeItemName"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"ExchangeItemName"> | Date | string | null
 }
 
 export type ExchangeItemNameCreateManyExchangeItemInput = {
@@ -435,28 +435,28 @@ export type ExchangeItemNameCreateManyExchangeItemInput = {
   label: string
   lang: string
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type ExchangeItemNameUpdateWithoutExchangeItemInput = {
   label?: Prisma.StringFieldUpdateOperationsInput | string
   lang?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ExchangeItemNameUncheckedUpdateWithoutExchangeItemInput = {
   label?: Prisma.StringFieldUpdateOperationsInput | string
   lang?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ExchangeItemNameUncheckedUpdateManyWithoutExchangeItemInput = {
   label?: Prisma.StringFieldUpdateOperationsInput | string
   lang?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -467,7 +467,7 @@ export type ExchangeItemNameSelect<ExtArgs extends runtime.Types.Extensions.Inte
   lang?: boolean
   exchangeId?: boolean
   createdAt?: boolean
-  updateddAt?: boolean
+  updatedAt?: boolean
   exchangeItem?: boolean | Prisma.ExchangeItemDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["exchangeItemName"]>
 
@@ -479,10 +479,10 @@ export type ExchangeItemNameSelectScalar = {
   lang?: boolean
   exchangeId?: boolean
   createdAt?: boolean
-  updateddAt?: boolean
+  updatedAt?: boolean
 }
 
-export type ExchangeItemNameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "label" | "lang" | "exchangeId" | "createdAt" | "updateddAt", ExtArgs["result"]["exchangeItemName"]>
+export type ExchangeItemNameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "label" | "lang" | "exchangeId" | "createdAt" | "updatedAt", ExtArgs["result"]["exchangeItemName"]>
 export type ExchangeItemNameInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   exchangeItem?: boolean | Prisma.ExchangeItemDefaultArgs<ExtArgs>
 }
@@ -498,7 +498,7 @@ export type $ExchangeItemNamePayload<ExtArgs extends runtime.Types.Extensions.In
     lang: string
     exchangeId: string
     createdAt: Date
-    updateddAt: Date
+    updatedAt: Date | null
   }, ExtArgs["result"]["exchangeItemName"]>
   composites: {}
 }
@@ -897,7 +897,7 @@ export interface ExchangeItemNameFieldRefs {
   readonly lang: Prisma.FieldRef<"ExchangeItemName", 'String'>
   readonly exchangeId: Prisma.FieldRef<"ExchangeItemName", 'String'>
   readonly createdAt: Prisma.FieldRef<"ExchangeItemName", 'DateTime'>
-  readonly updateddAt: Prisma.FieldRef<"ExchangeItemName", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"ExchangeItemName", 'DateTime'>
 }
     
 

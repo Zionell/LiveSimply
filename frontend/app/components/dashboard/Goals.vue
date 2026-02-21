@@ -28,12 +28,19 @@ function getGoalStatus(goal: IGoal) {
 		</template>
 
 		<div class="grid grid-cols-2 gap-4 items-center">
-			<div v-for="goal in data" :key="goal.id" class="grid grid-cols-2 gap-2 items-center justify-center">
-				<UProgress size="xl" v-model="getGoalStatus(goal).value" :color="getGoalStatus(goal).color" />
+			<NuxtLink
+				v-for="goal in data"
+				:key="goal.id"
+				:href="`/goals/?id=${goal.id}`"
+				class="grid grid-cols-2 gap-2 items-center justify-center"
+			>
+				<UTooltip :text="`${getGoalStatus(goal).value.toString()}%`" :delay-duration="0">
+					<UProgress size="xl" v-model="getGoalStatus(goal).value" :color="getGoalStatus(goal).color" />
+				</UTooltip>
 				<h3 class="lg:text-base text-sm lg:font-bold">
 					{{ goal.title }}
 				</h3>
-			</div>
+			</NuxtLink>
 		</div>
 	</CommonCardWrapper>
 </template>

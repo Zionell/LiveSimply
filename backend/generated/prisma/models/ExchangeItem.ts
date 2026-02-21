@@ -40,7 +40,7 @@ export type ExchangeItemMinAggregateOutputType = {
   base: string | null
   rate: number | null
   createdAt: Date | null
-  updateddAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ExchangeItemMaxAggregateOutputType = {
@@ -49,7 +49,7 @@ export type ExchangeItemMaxAggregateOutputType = {
   base: string | null
   rate: number | null
   createdAt: Date | null
-  updateddAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ExchangeItemCountAggregateOutputType = {
@@ -58,7 +58,7 @@ export type ExchangeItemCountAggregateOutputType = {
   base: number
   rate: number
   createdAt: number
-  updateddAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -77,7 +77,7 @@ export type ExchangeItemMinAggregateInputType = {
   base?: true
   rate?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
 }
 
 export type ExchangeItemMaxAggregateInputType = {
@@ -86,7 +86,7 @@ export type ExchangeItemMaxAggregateInputType = {
   base?: true
   rate?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
 }
 
 export type ExchangeItemCountAggregateInputType = {
@@ -95,7 +95,7 @@ export type ExchangeItemCountAggregateInputType = {
   base?: true
   rate?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -191,7 +191,7 @@ export type ExchangeItemGroupByOutputType = {
   base: string | null
   rate: number | null
   createdAt: Date
-  updateddAt: Date
+  updatedAt: Date | null
   _count: ExchangeItemCountAggregateOutputType | null
   _avg: ExchangeItemAvgAggregateOutputType | null
   _sum: ExchangeItemSumAggregateOutputType | null
@@ -223,7 +223,7 @@ export type ExchangeItemWhereInput = {
   base?: Prisma.StringNullableFilter<"ExchangeItem"> | string | null
   rate?: Prisma.FloatNullableFilter<"ExchangeItem"> | number | null
   createdAt?: Prisma.DateTimeFilter<"ExchangeItem"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"ExchangeItem"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"ExchangeItem"> | Date | string | null
   label?: Prisma.ExchangeItemNameListRelationFilter
   user?: Prisma.UserListRelationFilter
   fromExchangeItem?: Prisma.FinanceItemListRelationFilter
@@ -238,7 +238,7 @@ export type ExchangeItemOrderByWithRelationInput = {
   base?: Prisma.SortOrder
   rate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   label?: Prisma.ExchangeItemNameOrderByRelationAggregateInput
   user?: Prisma.UserOrderByRelationAggregateInput
   fromExchangeItem?: Prisma.FinanceItemOrderByRelationAggregateInput
@@ -256,7 +256,7 @@ export type ExchangeItemWhereUniqueInput = Prisma.AtLeast<{
   base?: Prisma.StringNullableFilter<"ExchangeItem"> | string | null
   rate?: Prisma.FloatNullableFilter<"ExchangeItem"> | number | null
   createdAt?: Prisma.DateTimeFilter<"ExchangeItem"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"ExchangeItem"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"ExchangeItem"> | Date | string | null
   label?: Prisma.ExchangeItemNameListRelationFilter
   user?: Prisma.UserListRelationFilter
   fromExchangeItem?: Prisma.FinanceItemListRelationFilter
@@ -271,7 +271,7 @@ export type ExchangeItemOrderByWithAggregationInput = {
   base?: Prisma.SortOrder
   rate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.ExchangeItemCountOrderByAggregateInput
   _avg?: Prisma.ExchangeItemAvgOrderByAggregateInput
   _max?: Prisma.ExchangeItemMaxOrderByAggregateInput
@@ -288,7 +288,7 @@ export type ExchangeItemScalarWhereWithAggregatesInput = {
   base?: Prisma.StringNullableWithAggregatesFilter<"ExchangeItem"> | string | null
   rate?: Prisma.FloatNullableWithAggregatesFilter<"ExchangeItem"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ExchangeItem"> | Date | string
-  updateddAt?: Prisma.DateTimeWithAggregatesFilter<"ExchangeItem"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ExchangeItem"> | Date | string | null
 }
 
 export type ExchangeItemCreateInput = {
@@ -297,7 +297,7 @@ export type ExchangeItemCreateInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   label?: Prisma.ExchangeItemNameCreateNestedManyWithoutExchangeItemInput
   user?: Prisma.UserCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemFromInput
@@ -312,7 +312,7 @@ export type ExchangeItemUncheckedCreateInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   label?: Prisma.ExchangeItemNameUncheckedCreateNestedManyWithoutExchangeItemInput
   user?: Prisma.UserUncheckedCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemFromInput
@@ -326,7 +326,7 @@ export type ExchangeItemUpdateInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExchangeItemNameUpdateManyWithoutExchangeItemNestedInput
   user?: Prisma.UserUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemFromNestedInput
@@ -340,7 +340,7 @@ export type ExchangeItemUncheckedUpdateInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExchangeItemNameUncheckedUpdateManyWithoutExchangeItemNestedInput
   user?: Prisma.UserUncheckedUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemFromNestedInput
@@ -355,7 +355,7 @@ export type ExchangeItemCreateManyInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type ExchangeItemUpdateManyMutationInput = {
@@ -363,7 +363,7 @@ export type ExchangeItemUpdateManyMutationInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ExchangeItemUncheckedUpdateManyInput = {
@@ -371,7 +371,7 @@ export type ExchangeItemUncheckedUpdateManyInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ExchangeItemNullableScalarRelationFilter = {
@@ -385,7 +385,7 @@ export type ExchangeItemCountOrderByAggregateInput = {
   base?: Prisma.SortOrder
   rate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ExchangeItemAvgOrderByAggregateInput = {
@@ -398,7 +398,7 @@ export type ExchangeItemMaxOrderByAggregateInput = {
   base?: Prisma.SortOrder
   rate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ExchangeItemMinOrderByAggregateInput = {
@@ -407,7 +407,7 @@ export type ExchangeItemMinOrderByAggregateInput = {
   base?: Prisma.SortOrder
   rate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ExchangeItemSumOrderByAggregateInput = {
@@ -511,7 +511,7 @@ export type ExchangeItemCreateWithoutUserInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   label?: Prisma.ExchangeItemNameCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemFromInput
   toExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemToInput
@@ -525,7 +525,7 @@ export type ExchangeItemUncheckedCreateWithoutUserInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   label?: Prisma.ExchangeItemNameUncheckedCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemFromInput
   toExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemToInput
@@ -554,7 +554,7 @@ export type ExchangeItemUpdateWithoutUserInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExchangeItemNameUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemFromNestedInput
   toExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemToNestedInput
@@ -567,7 +567,7 @@ export type ExchangeItemUncheckedUpdateWithoutUserInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExchangeItemNameUncheckedUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemFromNestedInput
   toExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemToNestedInput
@@ -581,7 +581,7 @@ export type ExchangeItemCreateWithoutLabelInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   user?: Prisma.UserCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemFromInput
   toExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemToInput
@@ -595,7 +595,7 @@ export type ExchangeItemUncheckedCreateWithoutLabelInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   user?: Prisma.UserUncheckedCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemFromInput
   toExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemToInput
@@ -624,7 +624,7 @@ export type ExchangeItemUpdateWithoutLabelInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemFromNestedInput
   toExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemToNestedInput
@@ -637,7 +637,7 @@ export type ExchangeItemUncheckedUpdateWithoutLabelInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUncheckedUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemFromNestedInput
   toExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemToNestedInput
@@ -651,7 +651,7 @@ export type ExchangeItemCreateWithoutFromExchangeItemInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   label?: Prisma.ExchangeItemNameCreateNestedManyWithoutExchangeItemInput
   user?: Prisma.UserCreateNestedManyWithoutExchangeItemInput
   toExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemToInput
@@ -665,7 +665,7 @@ export type ExchangeItemUncheckedCreateWithoutFromExchangeItemInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   label?: Prisma.ExchangeItemNameUncheckedCreateNestedManyWithoutExchangeItemInput
   user?: Prisma.UserUncheckedCreateNestedManyWithoutExchangeItemInput
   toExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemToInput
@@ -684,7 +684,7 @@ export type ExchangeItemCreateWithoutToExchangeItemInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   label?: Prisma.ExchangeItemNameCreateNestedManyWithoutExchangeItemInput
   user?: Prisma.UserCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemFromInput
@@ -698,7 +698,7 @@ export type ExchangeItemUncheckedCreateWithoutToExchangeItemInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   label?: Prisma.ExchangeItemNameUncheckedCreateNestedManyWithoutExchangeItemInput
   user?: Prisma.UserUncheckedCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemFromInput
@@ -727,7 +727,7 @@ export type ExchangeItemUpdateWithoutFromExchangeItemInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExchangeItemNameUpdateManyWithoutExchangeItemNestedInput
   user?: Prisma.UserUpdateManyWithoutExchangeItemNestedInput
   toExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemToNestedInput
@@ -740,7 +740,7 @@ export type ExchangeItemUncheckedUpdateWithoutFromExchangeItemInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExchangeItemNameUncheckedUpdateManyWithoutExchangeItemNestedInput
   user?: Prisma.UserUncheckedUpdateManyWithoutExchangeItemNestedInput
   toExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemToNestedInput
@@ -764,7 +764,7 @@ export type ExchangeItemUpdateWithoutToExchangeItemInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExchangeItemNameUpdateManyWithoutExchangeItemNestedInput
   user?: Prisma.UserUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemFromNestedInput
@@ -777,7 +777,7 @@ export type ExchangeItemUncheckedUpdateWithoutToExchangeItemInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExchangeItemNameUncheckedUpdateManyWithoutExchangeItemNestedInput
   user?: Prisma.UserUncheckedUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemFromNestedInput
@@ -791,7 +791,7 @@ export type ExchangeItemCreateWithoutGoalInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   label?: Prisma.ExchangeItemNameCreateNestedManyWithoutExchangeItemInput
   user?: Prisma.UserCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemFromInput
@@ -805,7 +805,7 @@ export type ExchangeItemUncheckedCreateWithoutGoalInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   label?: Prisma.ExchangeItemNameUncheckedCreateNestedManyWithoutExchangeItemInput
   user?: Prisma.UserUncheckedCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemFromInput
@@ -834,7 +834,7 @@ export type ExchangeItemUpdateWithoutGoalInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExchangeItemNameUpdateManyWithoutExchangeItemNestedInput
   user?: Prisma.UserUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemFromNestedInput
@@ -847,7 +847,7 @@ export type ExchangeItemUncheckedUpdateWithoutGoalInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExchangeItemNameUncheckedUpdateManyWithoutExchangeItemNestedInput
   user?: Prisma.UserUncheckedUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemFromNestedInput
@@ -861,7 +861,7 @@ export type ExchangeItemCreateWithoutRequiredPaymentsInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   label?: Prisma.ExchangeItemNameCreateNestedManyWithoutExchangeItemInput
   user?: Prisma.UserCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemFromInput
@@ -875,7 +875,7 @@ export type ExchangeItemUncheckedCreateWithoutRequiredPaymentsInput = {
   base?: string | null
   rate?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   label?: Prisma.ExchangeItemNameUncheckedCreateNestedManyWithoutExchangeItemInput
   user?: Prisma.UserUncheckedCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemFromInput
@@ -904,7 +904,7 @@ export type ExchangeItemUpdateWithoutRequiredPaymentsInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExchangeItemNameUpdateManyWithoutExchangeItemNestedInput
   user?: Prisma.UserUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemFromNestedInput
@@ -917,7 +917,7 @@ export type ExchangeItemUncheckedUpdateWithoutRequiredPaymentsInput = {
   base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExchangeItemNameUncheckedUpdateManyWithoutExchangeItemNestedInput
   user?: Prisma.UserUncheckedUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemFromNestedInput
@@ -1007,7 +1007,7 @@ export type ExchangeItemSelect<ExtArgs extends runtime.Types.Extensions.Internal
   base?: boolean
   rate?: boolean
   createdAt?: boolean
-  updateddAt?: boolean
+  updatedAt?: boolean
   label?: boolean | Prisma.ExchangeItem$labelArgs<ExtArgs>
   user?: boolean | Prisma.ExchangeItem$userArgs<ExtArgs>
   fromExchangeItem?: boolean | Prisma.ExchangeItem$fromExchangeItemArgs<ExtArgs>
@@ -1025,10 +1025,10 @@ export type ExchangeItemSelectScalar = {
   base?: boolean
   rate?: boolean
   createdAt?: boolean
-  updateddAt?: boolean
+  updatedAt?: boolean
 }
 
-export type ExchangeItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "value" | "base" | "rate" | "createdAt" | "updateddAt", ExtArgs["result"]["exchangeItem"]>
+export type ExchangeItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "value" | "base" | "rate" | "createdAt" | "updatedAt", ExtArgs["result"]["exchangeItem"]>
 export type ExchangeItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   label?: boolean | Prisma.ExchangeItem$labelArgs<ExtArgs>
   user?: boolean | Prisma.ExchangeItem$userArgs<ExtArgs>
@@ -1055,7 +1055,7 @@ export type $ExchangeItemPayload<ExtArgs extends runtime.Types.Extensions.Intern
     base: string | null
     rate: number | null
     createdAt: Date
-    updateddAt: Date
+    updatedAt: Date | null
   }, ExtArgs["result"]["exchangeItem"]>
   composites: {}
 }
@@ -1459,7 +1459,7 @@ export interface ExchangeItemFieldRefs {
   readonly base: Prisma.FieldRef<"ExchangeItem", 'String'>
   readonly rate: Prisma.FieldRef<"ExchangeItem", 'Float'>
   readonly createdAt: Prisma.FieldRef<"ExchangeItem", 'DateTime'>
-  readonly updateddAt: Prisma.FieldRef<"ExchangeItem", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"ExchangeItem", 'DateTime'>
 }
     
 

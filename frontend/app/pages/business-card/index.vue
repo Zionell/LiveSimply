@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { api } from "~~/lib/api";
 
-const {
-	data: card,
-	error,
-	pending,
-	refresh,
-} = await useFetch<IBusinessCard>(api.businessCard.common);
+const { data: card, error, pending, refresh } = await useFetch<IBusinessCard>(api.businessCard.common);
 
 if (error.value) {
 	throw createError({
@@ -19,16 +14,13 @@ if (error.value) {
 <template>
 	<section class="overflow-hidden grid gap-4">
 		<CommonSectionHeader classs="lg:p-0 px-4 lg:flex-row flex-col">
-			<BusinessCardHeader :card="card" />
+			<transition name="dropdown">
+				<BusinessCardHeader v-if="card" :card="card" />
+			</transition>
 		</CommonSectionHeader>
 
-		<BusinessCardInfo v-if="card" :card="card" @refresh="refresh" />
+		<BusinessCardInfo :card="card" @refresh="refresh" />
 
-		<BusinessCardContacts
-			:links="card?.socialLinks"
-			:cardId="card?.id"
-			:loading="pending"
-			@refresh="refresh"
-		/>
+		<BusinessCardContacts :links="card?.socialLinks" :cardId="card?.id" :loading="pending" @refresh="refresh" />
 	</section>
 </template>

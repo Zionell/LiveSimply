@@ -24,7 +24,7 @@
 		"@vueuse/nuxt": "^14.1.0",
 		"html2canvas-pro": "^1.6.4",
 		"jsonwebtoken": "^9.0.3",
-		"nuxt": "^4.2.2",
+		"nuxt": "^4.3.1",
 		"nuxt-charts": "^2.0.0",
 		"pinia": "^3.0.4",
 		"qrcode.vue": "^3.6.0",

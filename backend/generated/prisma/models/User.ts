@@ -46,7 +46,7 @@ export type UserMinAggregateOutputType = {
   role: string | null
   total: number | null
   createdAt: Date | null
-  updateddAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -61,7 +61,7 @@ export type UserMaxAggregateOutputType = {
   role: string | null
   total: number | null
   createdAt: Date | null
-  updateddAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -76,7 +76,7 @@ export type UserCountAggregateOutputType = {
   role: number
   total: number
   createdAt: number
-  updateddAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -101,7 +101,7 @@ export type UserMinAggregateInputType = {
   role?: true
   total?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -116,7 +116,7 @@ export type UserMaxAggregateInputType = {
   role?: true
   total?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -131,7 +131,7 @@ export type UserCountAggregateInputType = {
   role?: true
   total?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -233,7 +233,7 @@ export type UserGroupByOutputType = {
   role: string
   total: number | null
   createdAt: Date
-  updateddAt: Date
+  updatedAt: Date | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -271,7 +271,7 @@ export type UserWhereInput = {
   role?: Prisma.StringFilter<"User"> | string
   total?: Prisma.FloatNullableFilter<"User"> | number | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   businessCard?: Prisma.XOR<Prisma.BusinessCardNullableScalarRelationFilter, Prisma.BusinessCardWhereInput> | null
   goals?: Prisma.GoalListRelationFilter
   financePlanner?: Prisma.FinancePlannerListRelationFilter
@@ -290,7 +290,7 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   total?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   businessCard?: Prisma.BusinessCardOrderByWithRelationInput
   goals?: Prisma.GoalOrderByRelationAggregateInput
   financePlanner?: Prisma.FinancePlannerOrderByRelationAggregateInput
@@ -312,7 +312,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.StringFilter<"User"> | string
   total?: Prisma.FloatNullableFilter<"User"> | number | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   businessCard?: Prisma.XOR<Prisma.BusinessCardNullableScalarRelationFilter, Prisma.BusinessCardWhereInput> | null
   goals?: Prisma.GoalListRelationFilter
   financePlanner?: Prisma.FinancePlannerListRelationFilter
@@ -331,7 +331,7 @@ export type UserOrderByWithAggregationInput = {
   role?: Prisma.SortOrder
   total?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -354,7 +354,7 @@ export type UserScalarWhereWithAggregatesInput = {
   role?: Prisma.StringWithAggregatesFilter<"User"> | string
   total?: Prisma.FloatNullableWithAggregatesFilter<"User"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
-  updateddAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
 
 export type UserCreateInput = {
@@ -368,7 +368,7 @@ export type UserCreateInput = {
   role?: string
   total?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   businessCard?: Prisma.BusinessCardCreateNestedOneWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   financePlanner?: Prisma.FinancePlannerCreateNestedManyWithoutUserInput
@@ -387,7 +387,7 @@ export type UserUncheckedCreateInput = {
   role?: string
   total?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   businessCard?: Prisma.BusinessCardUncheckedCreateNestedOneWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   financePlanner?: Prisma.FinancePlannerUncheckedCreateNestedManyWithoutUserInput
@@ -403,7 +403,7 @@ export type UserUpdateInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   businessCard?: Prisma.BusinessCardUpdateOneWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUpdateManyWithoutUserNestedInput
@@ -421,7 +421,7 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   businessCard?: Prisma.BusinessCardUncheckedUpdateOneWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUncheckedUpdateManyWithoutUserNestedInput
@@ -439,7 +439,7 @@ export type UserCreateManyInput = {
   role?: string
   total?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -452,7 +452,7 @@ export type UserUpdateManyMutationInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -466,7 +466,7 @@ export type UserUncheckedUpdateManyInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -481,7 +481,7 @@ export type UserCountOrderByAggregateInput = {
   role?: Prisma.SortOrder
   total?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -500,7 +500,7 @@ export type UserMaxOrderByAggregateInput = {
   role?: Prisma.SortOrder
   total?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -515,7 +515,7 @@ export type UserMinOrderByAggregateInput = {
   role?: Prisma.SortOrder
   total?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -561,6 +561,11 @@ export type NullableFloatFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+  unset?: boolean
 }
 
 export type UserCreateNestedManyWithoutExchangeItemInput = {
@@ -658,7 +663,7 @@ export type UserCreateWithoutExchangeItemInput = {
   role?: string
   total?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   businessCard?: Prisma.BusinessCardCreateNestedOneWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   financePlanner?: Prisma.FinancePlannerCreateNestedManyWithoutUserInput
@@ -675,7 +680,7 @@ export type UserUncheckedCreateWithoutExchangeItemInput = {
   role?: string
   total?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   businessCard?: Prisma.BusinessCardUncheckedCreateNestedOneWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   financePlanner?: Prisma.FinancePlannerUncheckedCreateNestedManyWithoutUserInput
@@ -721,7 +726,7 @@ export type UserScalarWhereInput = {
   role?: Prisma.StringFilter<"User"> | string
   total?: Prisma.FloatNullableFilter<"User"> | number | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
 }
 
 export type UserCreateWithoutBusinessCardInput = {
@@ -735,7 +740,7 @@ export type UserCreateWithoutBusinessCardInput = {
   role?: string
   total?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   financePlanner?: Prisma.FinancePlannerCreateNestedManyWithoutUserInput
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
@@ -753,7 +758,7 @@ export type UserUncheckedCreateWithoutBusinessCardInput = {
   role?: string
   total?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   financePlanner?: Prisma.FinancePlannerUncheckedCreateNestedManyWithoutUserInput
 }
@@ -784,7 +789,7 @@ export type UserUpdateWithoutBusinessCardInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUpdateManyWithoutUserNestedInput
   exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
@@ -801,7 +806,7 @@ export type UserUncheckedUpdateWithoutBusinessCardInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -817,7 +822,7 @@ export type UserCreateWithoutGoalsInput = {
   role?: string
   total?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   businessCard?: Prisma.BusinessCardCreateNestedOneWithoutUserInput
   financePlanner?: Prisma.FinancePlannerCreateNestedManyWithoutUserInput
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
@@ -835,7 +840,7 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   role?: string
   total?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   businessCard?: Prisma.BusinessCardUncheckedCreateNestedOneWithoutUserInput
   financePlanner?: Prisma.FinancePlannerUncheckedCreateNestedManyWithoutUserInput
 }
@@ -866,7 +871,7 @@ export type UserUpdateWithoutGoalsInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   businessCard?: Prisma.BusinessCardUpdateOneWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUpdateManyWithoutUserNestedInput
   exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
@@ -883,7 +888,7 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   businessCard?: Prisma.BusinessCardUncheckedUpdateOneWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -899,7 +904,7 @@ export type UserCreateWithoutFinancePlannerInput = {
   role?: string
   total?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   businessCard?: Prisma.BusinessCardCreateNestedOneWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
@@ -917,7 +922,7 @@ export type UserUncheckedCreateWithoutFinancePlannerInput = {
   role?: string
   total?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   businessCard?: Prisma.BusinessCardUncheckedCreateNestedOneWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
 }
@@ -948,7 +953,7 @@ export type UserUpdateWithoutFinancePlannerInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   businessCard?: Prisma.BusinessCardUpdateOneWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
@@ -965,7 +970,7 @@ export type UserUncheckedUpdateWithoutFinancePlannerInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   businessCard?: Prisma.BusinessCardUncheckedUpdateOneWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -981,7 +986,7 @@ export type UserCreateManyExchangeItemInput = {
   role?: string
   total?: number | null
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type UserUpdateWithoutExchangeItemInput = {
@@ -994,7 +999,7 @@ export type UserUpdateWithoutExchangeItemInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   businessCard?: Prisma.BusinessCardUpdateOneWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUpdateManyWithoutUserNestedInput
@@ -1010,7 +1015,7 @@ export type UserUncheckedUpdateWithoutExchangeItemInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   businessCard?: Prisma.BusinessCardUncheckedUpdateOneWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUncheckedUpdateManyWithoutUserNestedInput
@@ -1026,7 +1031,7 @@ export type UserUncheckedUpdateManyWithoutExchangeItemInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1081,7 +1086,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   role?: boolean
   total?: boolean
   createdAt?: boolean
-  updateddAt?: boolean
+  updatedAt?: boolean
   businessCard?: boolean | Prisma.User$businessCardArgs<ExtArgs>
   goals?: boolean | Prisma.User$goalsArgs<ExtArgs>
   financePlanner?: boolean | Prisma.User$financePlannerArgs<ExtArgs>
@@ -1103,10 +1108,10 @@ export type UserSelectScalar = {
   role?: boolean
   total?: boolean
   createdAt?: boolean
-  updateddAt?: boolean
+  updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "phone" | "exchange" | "role" | "total" | "createdAt" | "updateddAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "phone" | "exchange" | "role" | "total" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   businessCard?: boolean | Prisma.User$businessCardArgs<ExtArgs>
   goals?: boolean | Prisma.User$goalsArgs<ExtArgs>
@@ -1135,7 +1140,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     role: string
     total: number | null
     createdAt: Date
-    updateddAt: Date
+    updatedAt: Date | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1543,7 +1548,7 @@ export interface UserFieldRefs {
   readonly role: Prisma.FieldRef<"User", 'String'>
   readonly total: Prisma.FieldRef<"User", 'Float'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
-  readonly updateddAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 

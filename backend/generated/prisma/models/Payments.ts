@@ -42,7 +42,7 @@ export type PaymentsMinAggregateOutputType = {
   exchange: string | null
   isRequired: boolean | null
   createdAt: Date | null
-  updateddAt: Date | null
+  updatedAt: Date | null
 }
 
 export type PaymentsMaxAggregateOutputType = {
@@ -53,7 +53,7 @@ export type PaymentsMaxAggregateOutputType = {
   exchange: string | null
   isRequired: boolean | null
   createdAt: Date | null
-  updateddAt: Date | null
+  updatedAt: Date | null
 }
 
 export type PaymentsCountAggregateOutputType = {
@@ -64,7 +64,7 @@ export type PaymentsCountAggregateOutputType = {
   exchange: number
   isRequired: number
   createdAt: number
-  updateddAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -85,7 +85,7 @@ export type PaymentsMinAggregateInputType = {
   exchange?: true
   isRequired?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
 }
 
 export type PaymentsMaxAggregateInputType = {
@@ -96,7 +96,7 @@ export type PaymentsMaxAggregateInputType = {
   exchange?: true
   isRequired?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
 }
 
 export type PaymentsCountAggregateInputType = {
@@ -107,7 +107,7 @@ export type PaymentsCountAggregateInputType = {
   exchange?: true
   isRequired?: true
   createdAt?: true
-  updateddAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -205,7 +205,7 @@ export type PaymentsGroupByOutputType = {
   exchange: string
   isRequired: boolean
   createdAt: Date
-  updateddAt: Date
+  updatedAt: Date | null
   _count: PaymentsCountAggregateOutputType | null
   _avg: PaymentsAvgAggregateOutputType | null
   _sum: PaymentsSumAggregateOutputType | null
@@ -239,7 +239,7 @@ export type PaymentsWhereInput = {
   exchange?: Prisma.StringFilter<"Payments"> | string
   isRequired?: Prisma.BoolFilter<"Payments"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Payments"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"Payments"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"Payments"> | Date | string | null
   exchangeItem?: Prisma.XOR<Prisma.ExchangeItemScalarRelationFilter, Prisma.ExchangeItemWhereInput>
   planner?: Prisma.XOR<Prisma.FinancePlannerScalarRelationFilter, Prisma.FinancePlannerWhereInput>
 }
@@ -252,7 +252,7 @@ export type PaymentsOrderByWithRelationInput = {
   exchange?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   exchangeItem?: Prisma.ExchangeItemOrderByWithRelationInput
   planner?: Prisma.FinancePlannerOrderByWithRelationInput
 }
@@ -268,7 +268,7 @@ export type PaymentsWhereUniqueInput = Prisma.AtLeast<{
   exchange?: Prisma.StringFilter<"Payments"> | string
   isRequired?: Prisma.BoolFilter<"Payments"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Payments"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"Payments"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"Payments"> | Date | string | null
   exchangeItem?: Prisma.XOR<Prisma.ExchangeItemScalarRelationFilter, Prisma.ExchangeItemWhereInput>
   planner?: Prisma.XOR<Prisma.FinancePlannerScalarRelationFilter, Prisma.FinancePlannerWhereInput>
 }, "id">
@@ -281,7 +281,7 @@ export type PaymentsOrderByWithAggregationInput = {
   exchange?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.PaymentsCountOrderByAggregateInput
   _avg?: Prisma.PaymentsAvgOrderByAggregateInput
   _max?: Prisma.PaymentsMaxOrderByAggregateInput
@@ -300,7 +300,7 @@ export type PaymentsScalarWhereWithAggregatesInput = {
   exchange?: Prisma.StringWithAggregatesFilter<"Payments"> | string
   isRequired?: Prisma.BoolWithAggregatesFilter<"Payments"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Payments"> | Date | string
-  updateddAt?: Prisma.DateTimeWithAggregatesFilter<"Payments"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Payments"> | Date | string | null
 }
 
 export type PaymentsCreateInput = {
@@ -309,7 +309,7 @@ export type PaymentsCreateInput = {
   amount?: number
   isRequired?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutRequiredPaymentsInput
   planner: Prisma.FinancePlannerCreateNestedOneWithoutPaymentsInput
 }
@@ -322,7 +322,7 @@ export type PaymentsUncheckedCreateInput = {
   exchange?: string
   isRequired?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type PaymentsUpdateInput = {
@@ -330,7 +330,7 @@ export type PaymentsUpdateInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   exchangeItem?: Prisma.ExchangeItemUpdateOneRequiredWithoutRequiredPaymentsNestedInput
   planner?: Prisma.FinancePlannerUpdateOneRequiredWithoutPaymentsNestedInput
 }
@@ -342,7 +342,7 @@ export type PaymentsUncheckedUpdateInput = {
   exchange?: Prisma.StringFieldUpdateOperationsInput | string
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PaymentsCreateManyInput = {
@@ -353,7 +353,7 @@ export type PaymentsCreateManyInput = {
   exchange?: string
   isRequired?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type PaymentsUpdateManyMutationInput = {
@@ -361,7 +361,7 @@ export type PaymentsUpdateManyMutationInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PaymentsUncheckedUpdateManyInput = {
@@ -371,7 +371,7 @@ export type PaymentsUncheckedUpdateManyInput = {
   exchange?: Prisma.StringFieldUpdateOperationsInput | string
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PaymentsListRelationFilter = {
@@ -392,7 +392,7 @@ export type PaymentsCountOrderByAggregateInput = {
   exchange?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type PaymentsAvgOrderByAggregateInput = {
@@ -407,7 +407,7 @@ export type PaymentsMaxOrderByAggregateInput = {
   exchange?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type PaymentsMinOrderByAggregateInput = {
@@ -418,7 +418,7 @@ export type PaymentsMinOrderByAggregateInput = {
   exchange?: Prisma.SortOrder
   isRequired?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updateddAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type PaymentsSumOrderByAggregateInput = {
@@ -515,7 +515,7 @@ export type PaymentsCreateWithoutExchangeItemInput = {
   amount?: number
   isRequired?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   planner: Prisma.FinancePlannerCreateNestedOneWithoutPaymentsInput
 }
 
@@ -526,7 +526,7 @@ export type PaymentsUncheckedCreateWithoutExchangeItemInput = {
   amount?: number
   isRequired?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type PaymentsCreateOrConnectWithoutExchangeItemInput = {
@@ -565,7 +565,7 @@ export type PaymentsScalarWhereInput = {
   exchange?: Prisma.StringFilter<"Payments"> | string
   isRequired?: Prisma.BoolFilter<"Payments"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Payments"> | Date | string
-  updateddAt?: Prisma.DateTimeFilter<"Payments"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"Payments"> | Date | string | null
 }
 
 export type PaymentsCreateWithoutPlannerInput = {
@@ -574,7 +574,7 @@ export type PaymentsCreateWithoutPlannerInput = {
   amount?: number
   isRequired?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutRequiredPaymentsInput
 }
 
@@ -585,7 +585,7 @@ export type PaymentsUncheckedCreateWithoutPlannerInput = {
   exchange?: string
   isRequired?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type PaymentsCreateOrConnectWithoutPlannerInput = {
@@ -620,7 +620,7 @@ export type PaymentsCreateManyExchangeItemInput = {
   amount?: number
   isRequired?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type PaymentsUpdateWithoutExchangeItemInput = {
@@ -628,7 +628,7 @@ export type PaymentsUpdateWithoutExchangeItemInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   planner?: Prisma.FinancePlannerUpdateOneRequiredWithoutPaymentsNestedInput
 }
 
@@ -638,7 +638,7 @@ export type PaymentsUncheckedUpdateWithoutExchangeItemInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PaymentsUncheckedUpdateManyWithoutExchangeItemInput = {
@@ -647,7 +647,7 @@ export type PaymentsUncheckedUpdateManyWithoutExchangeItemInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PaymentsCreateManyPlannerInput = {
@@ -657,7 +657,7 @@ export type PaymentsCreateManyPlannerInput = {
   exchange?: string
   isRequired?: boolean
   createdAt?: Date | string
-  updateddAt?: Date | string
+  updatedAt?: Date | string | null
 }
 
 export type PaymentsUpdateWithoutPlannerInput = {
@@ -665,7 +665,7 @@ export type PaymentsUpdateWithoutPlannerInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   exchangeItem?: Prisma.ExchangeItemUpdateOneRequiredWithoutRequiredPaymentsNestedInput
 }
 
@@ -675,7 +675,7 @@ export type PaymentsUncheckedUpdateWithoutPlannerInput = {
   exchange?: Prisma.StringFieldUpdateOperationsInput | string
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PaymentsUncheckedUpdateManyWithoutPlannerInput = {
@@ -684,7 +684,7 @@ export type PaymentsUncheckedUpdateManyWithoutPlannerInput = {
   exchange?: Prisma.StringFieldUpdateOperationsInput | string
   isRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateddAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -697,7 +697,7 @@ export type PaymentsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   exchange?: boolean
   isRequired?: boolean
   createdAt?: boolean
-  updateddAt?: boolean
+  updatedAt?: boolean
   exchangeItem?: boolean | Prisma.ExchangeItemDefaultArgs<ExtArgs>
   planner?: boolean | Prisma.FinancePlannerDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["payments"]>
@@ -712,10 +712,10 @@ export type PaymentsSelectScalar = {
   exchange?: boolean
   isRequired?: boolean
   createdAt?: boolean
-  updateddAt?: boolean
+  updatedAt?: boolean
 }
 
-export type PaymentsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "plnnerId" | "lable" | "amount" | "exchange" | "isRequired" | "createdAt" | "updateddAt", ExtArgs["result"]["payments"]>
+export type PaymentsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "plnnerId" | "lable" | "amount" | "exchange" | "isRequired" | "createdAt" | "updatedAt", ExtArgs["result"]["payments"]>
 export type PaymentsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   exchangeItem?: boolean | Prisma.ExchangeItemDefaultArgs<ExtArgs>
   planner?: boolean | Prisma.FinancePlannerDefaultArgs<ExtArgs>
@@ -735,7 +735,7 @@ export type $PaymentsPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     exchange: string
     isRequired: boolean
     createdAt: Date
-    updateddAt: Date
+    updatedAt: Date | null
   }, ExtArgs["result"]["payments"]>
   composites: {}
 }
@@ -1137,7 +1137,7 @@ export interface PaymentsFieldRefs {
   readonly exchange: Prisma.FieldRef<"Payments", 'String'>
   readonly isRequired: Prisma.FieldRef<"Payments", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Payments", 'DateTime'>
-  readonly updateddAt: Prisma.FieldRef<"Payments", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Payments", 'DateTime'>
 }
     
 

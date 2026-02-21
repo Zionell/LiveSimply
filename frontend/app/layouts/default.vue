@@ -2,7 +2,7 @@
 
 <template>
 	<main class="grid lg:grid-cols-[18rem_1fr] lg:grid-rows-[4rem_1fr]">
-		<NuxtLoadingIndicator color="#111827" />
+		<NuxtLoadingIndicator color="#0278ae" />
 
 		<LayoutNavBar />
 

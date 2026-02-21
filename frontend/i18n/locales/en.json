@@ -78,6 +78,7 @@
 		"income": "Income",
 		"expense": "Expense",
 		"rates": "Current rates",
+		"ratesUpdated": "Last updated:",
 		"goals": "Goals",
 		"totalExpense": "Total expense"
 	},

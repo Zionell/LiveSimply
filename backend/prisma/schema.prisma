@@ -25,8 +25,8 @@ model User {
 
 	exchangeItem ExchangeItem? @relation(fields: [exchange], references: [id])
 
-	createdAt  DateTime @default(now())
-	updateddAt DateTime @default(now())
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }
 
 model ExchangeItem {
@@ -42,8 +42,8 @@ model ExchangeItem {
 	goal             Goal[]
 	requiredPayments Payments[]
 
-	createdAt  DateTime @default(now())
-	updateddAt DateTime @default(now())
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }
 
 model ExchangeItemName {
@@ -54,8 +54,8 @@ model ExchangeItemName {
 
 	exchangeItem ExchangeItem @relation(fields: [exchangeId], references: [id])
 
-	createdAt  DateTime @default(now())
-	updateddAt DateTime @default(now())
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }
 
 model ExpenseCategory {
@@ -65,8 +65,8 @@ model ExpenseCategory {
 	color       String                @default("#fff")
 	financeItem FinanceItem[]
 
-	createdAt  DateTime @default(now())
-	updateddAt DateTime @default(now())
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }
 
 model ExpenseCategoryName {
@@ -77,8 +77,8 @@ model ExpenseCategoryName {
 
 	expenseCategory ExpenseCategory @relation(fields: [categoryId], references: [id])
 
-	createdAt  DateTime @default(now())
-	updateddAt DateTime @default(now())
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }
 
 model OperationCategory {
@@ -87,8 +87,8 @@ model OperationCategory {
 	financeItem FinanceItem[]
 	label       OperationCategoryName[]
 
-	createdAt  DateTime @default(now())
-	updateddAt DateTime @default(now())
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }
 
 model OperationCategoryName {
@@ -99,8 +99,8 @@ model OperationCategoryName {
 
 	operationCategory OperationCategory @relation(fields: [categoryId], references: [id])
 
-	createdAt  DateTime @default(now())
-	updateddAt DateTime @default(now())
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }
 
 model FinanceItem {
@@ -118,8 +118,8 @@ model FinanceItem {
 	expenseCategory   ExpenseCategory?  @relation(fields: [expenseCategoryId], references: [value])
 	operationCategory OperationCategory @relation(fields: [operationCategoryId], references: [value])
 
-	createdAt  DateTime @default(now())
-	updateddAt DateTime @default(now())
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }
 
 model Notification {
@@ -129,8 +129,8 @@ model Notification {
 	title    String
 	text     String
 
-	createdAt  DateTime @default(now())
-	updateddAt DateTime @default(now())
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }
 
 model BusinessCard {
@@ -142,8 +142,8 @@ model BusinessCard {
 
 	user User @relation(fields: [userId], references: [id])
 
-	createdAt  DateTime @default(now())
-	updateddAt DateTime @default(now())
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }
 
 model BusinessCardLink {
@@ -156,8 +156,8 @@ model BusinessCardLink {
 
 	card BusinessCard @relation(fields: [cardId], references: [id], onDelete: Cascade)
 
-	createdAt  DateTime @default(now())
-	updateddAt DateTime @default(now())
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }
 
 model Goal {
@@ -173,8 +173,8 @@ model Goal {
 	exchangeItem ExchangeItem @relation(fields: [exchangeId], references: [value])
 	user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-	createdAt  DateTime @default(now())
-	updateddAt DateTime @default(now())
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }
 
 model FinancePlanner {
@@ -192,8 +192,8 @@ model FinancePlanner {
 
 	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-	createdAt  DateTime @default(now())
-	updateddAt DateTime @default(now())
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }
 
 model Payments {
@@ -208,6 +208,6 @@ model Payments {
 	exchangeItem ExchangeItem   @relation(fields: [exchange], references: [value])
 	planner      FinancePlanner @relation(fields: [plnnerId], references: [id], onDelete: Cascade)
 
-	createdAt  DateTime @default(now())
-	updateddAt DateTime @default(now())
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }

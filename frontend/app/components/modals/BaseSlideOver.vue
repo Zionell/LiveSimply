@@ -5,6 +5,7 @@ interface IProps {
 	title: string;
 	description?: string;
 	isDisabled?: boolean;
+	isLoading?: boolean;
 }
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -45,14 +46,10 @@ function handleClose(): void {
 
 		<template #footer>
 			<div class="grid grid-cols-2 gap-4 w-full">
-				<UButton
-					block
-					color="error"
-					:label="$t('buttons.close')"
-					@click="handleClose"
-				/>
+				<UButton block color="error" :label="$t('buttons.close')" @click="handleClose" />
 				<UButton
 					:disabled="props.isDisabled"
+					:loading="props.isLoading"
 					block
 					:label="$t(`buttons.${props.footerBtnLabel}`)"
 					@click="emit('click')"

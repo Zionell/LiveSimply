@@ -78,6 +78,7 @@ export class GoalsService {
 			return this.prismaService.goal.update({
 				where: { id },
 				data: {
+					updatedAt: new Date(),
 					...dto,
 				},
 			});

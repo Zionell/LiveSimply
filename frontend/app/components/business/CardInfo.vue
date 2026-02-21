@@ -3,7 +3,7 @@ import { z } from "zod";
 import { api } from "~~/lib/api";
 
 interface IProps {
-	card: IBusinessCard;
+	card: IBusinessCard | undefined;
 }
 
 const props = defineProps<IProps>();
@@ -11,8 +11,8 @@ const props = defineProps<IProps>();
 const emit = defineEmits(["refresh"]);
 
 const initialValues = {
-	subtitle: props.card.subtitle || "",
-	description: props.card.description || "",
+	subtitle: props.card?.subtitle || "",
+	description: props.card?.description || "",
 };
 const { t } = useI18n();
 
