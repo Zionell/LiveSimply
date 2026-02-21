@@ -1,5 +1,4 @@
-# ---------- BUILD ----------
-FROM node:22.18-alpine AS build
+FROM node:22.18-alpine
 
 #common
 ARG PORT
@@ -50,7 +49,5 @@ COPY . .
 #RUN npx prisma generate
 RUN npm run build
 #RUN npx prisma migrate deploy
-
-COPY --from=build /app/.dist ./.dist
 
 CMD ["npm", "run", "start"]
