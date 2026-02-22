@@ -254,7 +254,9 @@ export class RatesService {
 		}
 	}
 
-	@Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+	@Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, {
+		name: "updateRates",
+	})
 	async update() {
 		try {
 			const res = await fetch(
@@ -294,7 +296,8 @@ export class RatesService {
 				template: "updateRatesError",
 				locale: "en",
 				props: {
-					error: JSON.stringify(e?.message || e),
+					error: JSON.stringify(e),
+					errorMsg: JSON.stringify(e?.message),
 				},
 			};
 
