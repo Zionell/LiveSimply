@@ -7,7 +7,7 @@ import { ConvertRatesDto } from "./dto/convert-rates.dto";
 import { MailService } from "~/mail/mail.service";
 import * as expenseCategory from "@/static/expenseCategory.json";
 import * as operationCategory from "@/static/operationCategory.json";
-import { Cron } from "@nestjs/schedule";
+import { Cron, CronExpression } from "@nestjs/schedule";
 import { I18nContext } from "nestjs-i18n";
 import { ERole } from "@/types/user";
 import { ExchangeItem } from "@/generated/prisma/client";
@@ -254,8 +254,7 @@ export class RatesService {
 		}
 	}
 
-	// @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, {
-	@Cron("45 * * * * *", {
+	@Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, {
 		name: "updateRates",
 	})
 	async update() {
