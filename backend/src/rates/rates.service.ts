@@ -7,7 +7,7 @@ import { ConvertRatesDto } from "./dto/convert-rates.dto";
 import { MailService } from "~/mail/mail.service";
 import * as expenseCategory from "@/static/expenseCategory.json";
 import * as operationCategory from "@/static/operationCategory.json";
-import { Cron, CronExpression } from "@nestjs/schedule";
+import { Cron } from "@nestjs/schedule";
 import { I18nContext } from "nestjs-i18n";
 import { ERole } from "@/types/user";
 import { ExchangeItem } from "@/generated/prisma/client";
@@ -254,7 +254,8 @@ export class RatesService {
 		}
 	}
 
-	@Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, {
+	// @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, {
+	@Cron("45 * * * * *", {
 		name: "updateRates",
 	})
 	async update() {
@@ -262,7 +263,14 @@ export class RatesService {
 			const res = await fetch(
 				`${this.configService.get("CURRENCY_API")}latest?access_key=${this.configService.get("CONVERT_CURRENCY")}`
 			);
-			const data = await res.json();
+			if (!res) {
+				throw new Error("Error");
+			}
+
+			const data = await res?.json();
+			if (!data) {
+				throw new Error("No data");
+			}
 			const symbolsArr = Object.entries(data.rates);
 
 			for (const [key, val] of symbolsArr) {
