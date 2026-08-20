@@ -6,8 +6,8 @@
 		},
 		"backend": {
 			"root": "backend",
-			"framework": "nestjs",
-			"entrypoint": "src/main.ts"
+			"runtime": "container",
+			"entrypoint": "Dockerfile.vercel"
 		}
 	},
 	"rewrites": [

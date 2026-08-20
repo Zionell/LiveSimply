@@ -1,0 +1,20 @@
+# ставится заново внутри образа (нативные модули собраны под другую платформу)
+node_modules
+generated
+dist
+
+# секреты не должны попадать в слои образа
+.env
+.env.*
+
+.git
+.gitignore
+.idea
+.vscode
+coverage
+test
+*.log
+.DS_Store
+Dockerfile
+Dockerfile.vercel
+.dockerignore
