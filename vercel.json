@@ -5,7 +5,9 @@
 			"framework": "nuxtjs"
 		},
 		"backend": {
-			"root": "backend"
+			"root": "backend",
+			"framework": "nestjs",
+			"entrypoint": "npm run start:prod"
 		}
 	},
 	"rewrites": [
