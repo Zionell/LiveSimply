@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { OAuthProfile, OAuthProvider } from "~/auth/oauth/oauth.types";
+import { OAuthProfile, OAuthProvider } from "../oauth.types";
 
 @Injectable()
 export class GoogleOAuthProvider implements OAuthProvider {

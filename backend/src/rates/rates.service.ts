@@ -1,16 +1,16 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { TranslateService } from "~/translate/translate.service";
-import { PrismaService } from "~/prisma.service";
-import { roleRestrictions } from "@/utils/rolesRestrictions";
+import { TranslateService } from "../translate/translate.service";
+import { PrismaService } from "../prisma.service";
+import { roleRestrictions } from "../../utils/rolesRestrictions";
 import { ConvertRatesDto } from "./dto/convert-rates.dto";
-import { MailService } from "~/mail/mail.service";
-import expenseCategory from "@/static/expenseCategory.json";
-import operationCategory from "@/static/operationCategory.json";
+import { MailService } from "../mail/mail.service";
+import expenseCategory from "../../static/expenseCategory.json";
+import operationCategory from "../../static/operationCategory.json";
 import { Cron, CronExpression } from "@nestjs/schedule";
 import { I18nContext } from "nestjs-i18n";
-import { ERole } from "@/types/user";
-import { ExchangeItem } from "@/generated/prisma/client";
+import { ERole } from "../../types/user";
+import { ExchangeItem } from "../../generated/prisma/client";
 
 @Injectable()
 export class RatesService {

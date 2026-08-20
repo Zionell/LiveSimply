@@ -16,8 +16,8 @@ import { type Response } from "express";
 import { AuthService } from "./auth.service";
 import { LoginUserDto } from "./dto/login-user.dto";
 import { ApiBody } from "@nestjs/swagger";
-import { PublicRoute } from "~/auth/decorators/public.decorator";
-import { OAuthService } from "~/auth/oauth/oauth.service";
+import { PublicRoute } from "./decorators/public.decorator";
+import { OAuthService } from "./oauth/oauth.service";
 
 let redirectTo = "";
 

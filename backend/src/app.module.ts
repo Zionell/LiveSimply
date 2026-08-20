@@ -15,7 +15,7 @@ import { BusinessCardModule } from "./businessCard/businessCard.module";
 import { GoalsModule } from "./goals/goals.module";
 import { JwtModule } from "@nestjs/jwt";
 import { APP_GUARD } from "@nestjs/core";
-import { AuthGuard } from "~/auth/guards/auth.guard";
+import { AuthGuard } from "./auth/guards/auth.guard";
 
 @Module({
 	imports: [

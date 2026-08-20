@@ -5,12 +5,7 @@
 		<NuxtLoadingIndicator color="#111827" />
 
 		<div class="hidden lg:flex rounded-r-3xl overflow-hidden">
-			<NuxtImg
-				src="images/login-bg.jpg"
-				alt="Image"
-				class="object-cover h-screen w-full"
-				placeholder
-			/>
+			<NuxtImg src="/images/login-bg.jpg" alt="Image" class="object-cover h-screen w-full" placeholder />
 		</div>
 
 		<slot />

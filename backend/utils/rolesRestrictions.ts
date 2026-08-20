@@ -1,4 +1,4 @@
-import { ERole } from "@/types/user";
+import { ERole } from "../types/user";
 
 class RoleRestrictions {
 	private readonly role: string;

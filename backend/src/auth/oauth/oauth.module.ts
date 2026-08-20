@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
-import { GoogleOAuthProvider } from "~/auth/oauth/providers/google.provider";
-import { OAUTH_PROVIDERS } from "~/auth/oauth/constants";
-import { OAuthService } from "~/auth/oauth/oauth.service";
+import { GoogleOAuthProvider } from "./providers/google.provider";
+import { OAUTH_PROVIDERS } from "./constants";
+import { OAuthService } from "./oauth.service";
 import { ConfigModule } from "@nestjs/config";
 
 @Module({

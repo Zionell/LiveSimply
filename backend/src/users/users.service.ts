@@ -4,16 +4,16 @@ import {
 	NotFoundException,
 	UnauthorizedException,
 } from "@nestjs/common";
-import { PrismaService } from "~/prisma.service";
+import { PrismaService } from "../prisma.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import bcrypt from "bcryptjs";
-import { MailService } from "~/mail/mail.service";
+import { MailService } from "../mail/mail.service";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
-import { ERole, IUser } from "@/types/user";
+import { ERole, IUser } from "../../types/user";
 import { UpdateUserDto } from "./dto/update-user.dto";
-import { User } from "@/generated/prisma/client";
-import { OAuthProfile } from "~/auth/oauth/oauth.types";
+import { User } from "../../generated/prisma/client";
+import { OAuthProfile } from "../auth/oauth/oauth.types";
 
 @Injectable()
 export class UsersService {

@@ -22,7 +22,7 @@ import {
 	UpdateBusinessCardDto,
 	UpdateBusinessCardLinkDto,
 } from "./dto/update-business-card.dto";
-import { PublicRoute } from "~/auth/decorators/public.decorator";
+import { PublicRoute } from "../auth/decorators/public.decorator";
 
 @Controller("business-card")
 export class BusinessCardController {

@@ -1,19 +1,19 @@
 import { Injectable } from "@nestjs/common";
 import { CreateFinanceDto } from "./dto/create-finance.dto";
 import { UpdateFinanceDto } from "./dto/update-finance.dto";
-import { PrismaService } from "~/prisma.service";
+import { PrismaService } from "../prisma.service";
 import { FindAllFinanceDto } from "./dto/find-all-finance.dto";
-import { RatesService } from "~/rates/rates.service";
+import { RatesService } from "../rates/rates.service";
 import { I18nContext } from "nestjs-i18n";
 import { SpecsSerializer } from "./serializer/specs.serializer";
-import { UsersService } from "~/users/users.service";
+import { UsersService } from "../users/users.service";
 import { ListSerializer } from "./serializer/list.serializer";
-import { daysInMonth } from "@/utils/date";
+import { daysInMonth } from "../../utils/date";
 import { StatisticsSerializer } from "./serializer/statistics.serializer";
 import { FinanceSerializer } from "./serializer/finance.serializer";
-import { GoalsService } from "~/goals/goals.service";
+import { GoalsService } from "../goals/goals.service";
 import { BadRequestException } from "@nestjs/common/exceptions/bad-request.exception";
-import { ERole } from "@/types/user";
+import { ERole } from "../../types/user";
 
 @Injectable()
 export class FinanceService {

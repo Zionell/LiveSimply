@@ -7,8 +7,8 @@ import {
 import { JwtService } from "@nestjs/jwt";
 import { Request } from "express";
 import { ConfigService } from "@nestjs/config";
-import { PrismaService } from "~/prisma.service";
-import { IS_PUBLIC_KEY } from "~/auth/decorators/public.decorator";
+import { PrismaService } from "../../prisma.service";
+import { IS_PUBLIC_KEY } from "../decorators/public.decorator";
 import { Reflector } from "@nestjs/core";
 
 @Injectable()

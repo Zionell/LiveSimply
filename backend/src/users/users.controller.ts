@@ -17,7 +17,7 @@ import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import type { Response } from "express";
 import { UpdateUserDto } from "./dto/update-user.dto";
-import { PublicRoute } from "~/auth/decorators/public.decorator";
+import { PublicRoute } from "../auth/decorators/public.decorator";
 
 @Controller("users")
 export class UsersController {
