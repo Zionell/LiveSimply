@@ -7,7 +7,7 @@
 		"backend": {
 			"root": "backend",
 			"framework": "nestjs",
-			"entrypoint": "npm run start:prod"
+			"entrypoint": "dist/main"
 		}
 	},
 	"rewrites": [
