@@ -1,4 +1,4 @@
-FROM node:22.18-alpine
+FROM node:24-alpine
 
 #common
 ARG PORT

@@ -39,7 +39,7 @@ async function bootstrap() {
 	SwaggerModule.setup("api/v2/docs", app, document);
 	// Swagger end
 
-	await app.listen(process.env.BACKEND_PORT || 8000);
+	await app.listen(process.env.PORT || process.env.BACKEND_PORT || 8000);
 }
 
 bootstrap();
