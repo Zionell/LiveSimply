@@ -4,7 +4,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { PrismaService } from "~/prisma.service";
 import { MailerModule } from "@nestjs-modules/mailer";
 import { join } from "path";
-import { PugAdapter } from "@nestjs-modules/mailer/dist/adapters/pug.adapter";
+import { PugAdapter } from "@nestjs-modules/mailer/adapters/pug.adapter";
 
 @Module({
 	imports: [
