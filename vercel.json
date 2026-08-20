@@ -1,0 +1,27 @@
+{
+	"services": {
+		"frontend": {
+			"root": "frontend",
+			"framework": "nuxtjs"
+		},
+		"backend": {
+			"root": "backend"
+		}
+	},
+	"rewrites": [
+		{
+			"source": "/api/v2(/.*)?",
+			"destination": {
+				"type": "service",
+				"service": "backend"
+			}
+		},
+		{
+			"source": "/(.*)",
+			"destination": {
+				"type": "service",
+				"service": "frontend"
+			}
+		}
+	]
+}
