@@ -1,4 +1,11 @@
-FROM node:24-alpine
+FROM node:24-slim
+
+# Движок Prisma — нативный бинарник. На Alpine он собран под musl,
+# и это самый частый источник падений; Prisma сама рекомендует slim
+# при проблемах совместимости. openssl в slim-образе не предустановлен.
+RUN apt-get update -y \
+ && apt-get install -y --no-install-recommends openssl \
+ && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
