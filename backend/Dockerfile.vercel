@@ -22,6 +22,27 @@ COPY . .
 ARG DATABASE_URL="mongodb://placeholder:placeholder@localhost:27017/placeholder"
 
 RUN npx prisma generate
+
+# prisma generate обязан отработать до сборки: без generated/ падает импорт
+# ../generated/prisma/client. Проверяем явно, потому что noImplicitAny: false
+# в tsconfig глушит ошибку "модуль не найден", и tsc собрал бы битый результат молча.
+RUN test -f generated/prisma/client.ts \
+ || (echo "ОШИБКА: prisma generate не создал generated/prisma" && exit 1)
+
 RUN npm run build
 
-CMD ["node", "dist/src/main.js"]
+# nest build кладёт main.js либо в dist/main.js, либо в dist/src/main.js —
+# зависит от того, попали ли в компиляцию файлы вне src/ (generated/, types/,
+# utils/, static/), потому что от них считается rootDir. Фиксируем реальный путь
+# на сборке, чтобы CMD не зависел от этого и чтобы поломка вылезала здесь,
+# а не падением контейнера в рантайме.
+RUN node -e "const fs=require('fs'); \
+const p=['dist/main.js','dist/src/main.js'].find(f=>fs.existsSync(f)); \
+if(!p){console.error('main.js не найден. dist содержит:'); \
+console.error(fs.existsSync('dist')?fs.readdirSync('dist').join(', '):'(dist отсутствует)'); \
+process.exit(1);} \
+console.log('entrypoint:',p); fs.writeFileSync('entrypoint.txt',p);"
+
+# exec — чтобы SIGTERM от Vercel при масштабировании вниз дошёл до node,
+# а не остался в оболочке sh.
+CMD ["sh", "-c", "exec node $(cat entrypoint.txt)"]
