@@ -275,6 +275,7 @@ export type UserWhereInput = {
   businessCard?: Prisma.XOR<Prisma.BusinessCardNullableScalarRelationFilter, Prisma.BusinessCardWhereInput> | null
   goals?: Prisma.GoalListRelationFilter
   financePlanner?: Prisma.FinancePlannerListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
   exchangeItem?: Prisma.XOR<Prisma.ExchangeItemNullableScalarRelationFilter, Prisma.ExchangeItemWhereInput> | null
 }
 
@@ -294,6 +295,7 @@ export type UserOrderByWithRelationInput = {
   businessCard?: Prisma.BusinessCardOrderByWithRelationInput
   goals?: Prisma.GoalOrderByRelationAggregateInput
   financePlanner?: Prisma.FinancePlannerOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
   exchangeItem?: Prisma.ExchangeItemOrderByWithRelationInput
 }
 
@@ -316,6 +318,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   businessCard?: Prisma.XOR<Prisma.BusinessCardNullableScalarRelationFilter, Prisma.BusinessCardWhereInput> | null
   goals?: Prisma.GoalListRelationFilter
   financePlanner?: Prisma.FinancePlannerListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
   exchangeItem?: Prisma.XOR<Prisma.ExchangeItemNullableScalarRelationFilter, Prisma.ExchangeItemWhereInput> | null
 }, "id" | "email">
 
@@ -372,6 +375,7 @@ export type UserCreateInput = {
   businessCard?: Prisma.BusinessCardCreateNestedOneWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   financePlanner?: Prisma.FinancePlannerCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
 }
 
@@ -391,6 +395,7 @@ export type UserUncheckedCreateInput = {
   businessCard?: Prisma.BusinessCardUncheckedCreateNestedOneWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   financePlanner?: Prisma.FinancePlannerUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -407,6 +412,7 @@ export type UserUpdateInput = {
   businessCard?: Prisma.BusinessCardUpdateOneWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
 }
 
@@ -425,6 +431,7 @@ export type UserUncheckedUpdateInput = {
   businessCard?: Prisma.BusinessCardUncheckedUpdateOneWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -610,6 +617,20 @@ export type UserUncheckedUpdateManyWithoutExchangeItemNestedInput = {
   deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
+export type UserCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.UserUpsertWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
 export type UserCreateNestedOneWithoutBusinessCardInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutBusinessCardInput, Prisma.UserUncheckedCreateWithoutBusinessCardInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutBusinessCardInput
@@ -667,6 +688,7 @@ export type UserCreateWithoutExchangeItemInput = {
   businessCard?: Prisma.BusinessCardCreateNestedOneWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   financePlanner?: Prisma.FinancePlannerCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutExchangeItemInput = {
@@ -684,6 +706,7 @@ export type UserUncheckedCreateWithoutExchangeItemInput = {
   businessCard?: Prisma.BusinessCardUncheckedCreateNestedOneWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   financePlanner?: Prisma.FinancePlannerUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutExchangeItemInput = {
@@ -729,6 +752,92 @@ export type UserScalarWhereInput = {
   updatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
 }
 
+export type UserCreateWithoutNotificationsInput = {
+  id?: string
+  name?: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  password?: string | null
+  phone?: string | null
+  role?: string
+  total?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  businessCard?: Prisma.BusinessCardCreateNestedOneWithoutUserInput
+  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  financePlanner?: Prisma.FinancePlannerCreateNestedManyWithoutUserInput
+  exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  name?: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  password?: string | null
+  phone?: string | null
+  exchange?: string | null
+  role?: string
+  total?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  businessCard?: Prisma.BusinessCardUncheckedCreateNestedOneWithoutUserInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  financePlanner?: Prisma.FinancePlannerUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+}
+
+export type UserUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type UserUpdateWithoutNotificationsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  businessCard?: Prisma.BusinessCardUpdateOneWithoutUserNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  financePlanner?: Prisma.FinancePlannerUpdateManyWithoutUserNestedInput
+  exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exchange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  businessCard?: Prisma.BusinessCardUncheckedUpdateOneWithoutUserNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  financePlanner?: Prisma.FinancePlannerUncheckedUpdateManyWithoutUserNestedInput
+}
+
 export type UserCreateWithoutBusinessCardInput = {
   id?: string
   name?: string
@@ -743,6 +852,7 @@ export type UserCreateWithoutBusinessCardInput = {
   updatedAt?: Date | string | null
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   financePlanner?: Prisma.FinancePlannerCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
 }
 
@@ -761,6 +871,7 @@ export type UserUncheckedCreateWithoutBusinessCardInput = {
   updatedAt?: Date | string | null
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   financePlanner?: Prisma.FinancePlannerUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBusinessCardInput = {
@@ -792,6 +903,7 @@ export type UserUpdateWithoutBusinessCardInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
 }
 
@@ -809,6 +921,7 @@ export type UserUncheckedUpdateWithoutBusinessCardInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGoalsInput = {
@@ -825,6 +938,7 @@ export type UserCreateWithoutGoalsInput = {
   updatedAt?: Date | string | null
   businessCard?: Prisma.BusinessCardCreateNestedOneWithoutUserInput
   financePlanner?: Prisma.FinancePlannerCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
 }
 
@@ -843,6 +957,7 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   updatedAt?: Date | string | null
   businessCard?: Prisma.BusinessCardUncheckedCreateNestedOneWithoutUserInput
   financePlanner?: Prisma.FinancePlannerUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGoalsInput = {
@@ -874,6 +989,7 @@ export type UserUpdateWithoutGoalsInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   businessCard?: Prisma.BusinessCardUpdateOneWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
 }
 
@@ -891,6 +1007,7 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   businessCard?: Prisma.BusinessCardUncheckedUpdateOneWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFinancePlannerInput = {
@@ -907,6 +1024,7 @@ export type UserCreateWithoutFinancePlannerInput = {
   updatedAt?: Date | string | null
   businessCard?: Prisma.BusinessCardCreateNestedOneWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
 }
 
@@ -925,6 +1043,7 @@ export type UserUncheckedCreateWithoutFinancePlannerInput = {
   updatedAt?: Date | string | null
   businessCard?: Prisma.BusinessCardUncheckedCreateNestedOneWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFinancePlannerInput = {
@@ -956,6 +1075,7 @@ export type UserUpdateWithoutFinancePlannerInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   businessCard?: Prisma.BusinessCardUpdateOneWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
 }
 
@@ -973,6 +1093,7 @@ export type UserUncheckedUpdateWithoutFinancePlannerInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   businessCard?: Prisma.BusinessCardUncheckedUpdateOneWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyExchangeItemInput = {
@@ -1003,6 +1124,7 @@ export type UserUpdateWithoutExchangeItemInput = {
   businessCard?: Prisma.BusinessCardUpdateOneWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExchangeItemInput = {
@@ -1019,6 +1141,7 @@ export type UserUncheckedUpdateWithoutExchangeItemInput = {
   businessCard?: Prisma.BusinessCardUncheckedUpdateOneWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   financePlanner?: Prisma.FinancePlannerUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutExchangeItemInput = {
@@ -1042,11 +1165,13 @@ export type UserUncheckedUpdateManyWithoutExchangeItemInput = {
 export type UserCountOutputType = {
   goals: number
   financePlanner: number
+  notifications: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   goals?: boolean | UserCountOutputTypeCountGoalsArgs
   financePlanner?: boolean | UserCountOutputTypeCountFinancePlannerArgs
+  notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
 }
 
 /**
@@ -1073,6 +1198,13 @@ export type UserCountOutputTypeCountFinancePlannerArgs<ExtArgs extends runtime.T
   where?: Prisma.FinancePlannerWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1090,6 +1222,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   businessCard?: boolean | Prisma.User$businessCardArgs<ExtArgs>
   goals?: boolean | Prisma.User$goalsArgs<ExtArgs>
   financePlanner?: boolean | Prisma.User$financePlannerArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   exchangeItem?: boolean | Prisma.User$exchangeItemArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -1116,6 +1249,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   businessCard?: boolean | Prisma.User$businessCardArgs<ExtArgs>
   goals?: boolean | Prisma.User$goalsArgs<ExtArgs>
   financePlanner?: boolean | Prisma.User$financePlannerArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   exchangeItem?: boolean | Prisma.User$exchangeItemArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1126,6 +1260,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     businessCard: Prisma.$BusinessCardPayload<ExtArgs> | null
     goals: Prisma.$GoalPayload<ExtArgs>[]
     financePlanner: Prisma.$FinancePlannerPayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
     exchangeItem: Prisma.$ExchangeItemPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1507,6 +1642,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   businessCard<T extends Prisma.User$businessCardArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$businessCardArgs<ExtArgs>>): Prisma.Prisma__BusinessCardClient<runtime.Types.Result.GetResult<Prisma.$BusinessCardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   goals<T extends Prisma.User$goalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$goalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   financePlanner<T extends Prisma.User$financePlannerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$financePlannerArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinancePlannerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   exchangeItem<T extends Prisma.User$exchangeItemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$exchangeItemArgs<ExtArgs>>): Prisma.Prisma__ExchangeItemClient<runtime.Types.Result.GetResult<Prisma.$ExchangeItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1983,6 +2119,30 @@ export type User$financePlannerArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.FinancePlannerScalarFieldEnum | Prisma.FinancePlannerScalarFieldEnum[]
+}
+
+/**
+ * User.notifications
+ */
+export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Notification
+   */
+  select?: Prisma.NotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Notification
+   */
+  omit?: Prisma.NotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationInclude<ExtArgs> | null
+  where?: Prisma.NotificationWhereInput
+  orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
 }
 
 /**
