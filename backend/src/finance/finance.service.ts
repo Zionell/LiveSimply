@@ -8,7 +8,7 @@ import { I18nContext } from "nestjs-i18n";
 import { SpecsSerializer } from "./serializer/specs.serializer";
 import { UsersService } from "../users/users.service";
 import { ListSerializer } from "./serializer/list.serializer";
-import { daysInMonth } from "../../utils/date";
+import { getMonthRange } from "../../utils/date";
 import { StatisticsSerializer } from "./serializer/statistics.serializer";
 import { FinanceSerializer } from "./serializer/finance.serializer";
 import { GoalsService } from "../goals/goals.service";
@@ -81,9 +81,10 @@ export class FinanceService {
 			const userId: ERole = req?.payload?.id;
 
 			const date = new Date();
-			const year = date.getFullYear();
-			const month = date.getMonth() + 1;
-			const lastDay = daysInMonth(month, year);
+			const period = getMonthRange(
+				date.getUTCFullYear(),
+				date.getUTCMonth() + 1
+			);
 
 			const [rates, finances, financesChart, expenseCategories] =
 				await Promise.all([
@@ -93,10 +94,7 @@ export class FinanceService {
 						where: {
 							userId: userId,
 							operationCategoryId: { in: ["expense", "income"] },
-							createdAt: {
-								gte: new Date(`${year}-${month}-1`),
-								lte: new Date(`${year}-${month}-${lastDay}`),
-							},
+							createdAt: period,
 						},
 						_sum: {
 							convertedPrice: true,
@@ -107,10 +105,7 @@ export class FinanceService {
 						where: {
 							userId: userId,
 							operationCategoryId: { in: ["expense"] },
-							createdAt: {
-								gte: new Date(`${year}-${month}-1`),
-								lte: new Date(`${year}-${month}-${lastDay}`),
-							},
+							createdAt: period,
 						},
 						_sum: {
 							convertedPrice: true,
