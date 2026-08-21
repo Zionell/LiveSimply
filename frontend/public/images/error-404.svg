@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 540" fill="none" aria-hidden="true">
+	<defs>
+		<radialGradient id="err-glow" cx="50%" cy="45%" r="55%">
+			<stop offset="0%" stop-color="#38bdf8" stop-opacity=".14" />
+			<stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+		</radialGradient>
+	</defs>
+
+	<!-- космическое пятно -->
+	<path
+		d="M330 34c98-16 190 40 226 128 36 88 22 186-46 244-68 58-176 82-264 52C158 428 100 350 106 262 112 174 232 50 330 34Z"
+		fill="rgba(255,255,255,.045)"
+		stroke="rgba(255,255,255,.08)"
+		stroke-width="1"
+	/>
+	<path
+		d="M330 34c98-16 190 40 226 128 36 88 22 186-46 244-68 58-176 82-264 52C158 428 100 350 106 262 112 174 232 50 330 34Z"
+		fill="url(#err-glow)"
+	/>
+
+	<!-- орбиты -->
+	<ellipse cx="300" cy="212" rx="248" ry="66" transform="rotate(-14 300 212)" stroke="#38bdf8" stroke-opacity=".45" stroke-width="1.5" />
+	<ellipse cx="322" cy="352" rx="256" ry="72" transform="rotate(-7 322 352)" stroke="#38bdf8" stroke-opacity=".3" stroke-width="1.5" />
+
+	<!-- планета -->
+	<circle cx="132" cy="196" r="62" fill="#0278ae" />
+	<circle cx="132" cy="196" r="62" fill="#000" fill-opacity=".08" />
+
+	<!-- звёзды -->
+	<circle cx="252" cy="118" r="3" fill="#fff" fill-opacity=".85" />
+	<circle cx="470" cy="150" r="2.5" fill="#fff" fill-opacity=".6" />
+	<circle cx="228" cy="232" r="2" fill="#fff" fill-opacity=".5" />
+	<circle cx="512" cy="290" r="4" fill="#38bdf8" fill-opacity=".8" />
+	<circle cx="196" cy="330" r="5" fill="#38bdf8" fill-opacity=".55" />
+	<circle cx="286" cy="412" r="2.5" fill="#fff" fill-opacity=".45" />
+	<circle cx="438" cy="430" r="3" fill="#fff" fill-opacity=".3" />
+	<circle cx="366" cy="96" r="2" fill="#fff" fill-opacity=".4" />
+	<path d="M478 128 452 196" stroke="#fff" stroke-opacity=".35" stroke-width="2" stroke-linecap="round" />
+
+	<!-- ракета -->
+	<g transform="translate(338 268) rotate(28)">
+		<!-- опоры -->
+		<path d="M-52 84 -70 128M52 84 70 128" stroke="#cdcdcd" stroke-width="7" stroke-linecap="round" />
+		<path d="M-84 126h30M54 126h30" stroke="#cdcdcd" stroke-width="7" stroke-linecap="round" />
+
+		<!-- боковые бустеры -->
+		<path d="M-40 6c-26 10-34 42-30 76h30Z" fill="#cdcdcd" />
+		<path d="M40 6c26 10 34 42 30 76H40Z" fill="#cdcdcd" />
+
+		<!-- корпус -->
+		<path
+			d="M0-148c28 40 42 92 42 148v34c0 12-10 22-22 22h-40c-12 0-22-10-22-22v-34c0-56 14-108 42-148Z"
+			fill="#f4f4f4"
+		/>
+		<!-- зелёный пояс -->
+		<path d="M-38-46h76c1 14 2 28 2 42h-80c0-14 1-28 2-42Z" fill="#38bdf8" />
+		<!-- носовой акцент -->
+		<path d="M0-148c11 16 20 34 27 54h-54c7-20 16-38 27-54Z" fill="#38bdf8" />
+		<!-- иллюминатор -->
+		<circle cx="0" cy="24" r="17" fill="#0a0a0a" fill-opacity=".8" />
+		<circle cx="0" cy="24" r="17" stroke="#38bdf8" stroke-width="3" />
+		<!-- сопла -->
+		<path d="M-24 56h48" stroke="#0a0a0a" stroke-opacity=".18" stroke-width="4" stroke-linecap="round" />
+	</g>
+</svg>

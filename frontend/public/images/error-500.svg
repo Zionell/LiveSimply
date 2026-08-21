@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 540" fill="none" aria-hidden="true">
+	<defs>
+		<radialGradient id="err500-glow" cx="50%" cy="45%" r="55%">
+			<stop offset="0%" stop-color="#38bdf8" stop-opacity=".14" />
+			<stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+		</radialGradient>
+	</defs>
+
+	<!-- космическое пятно -->
+	<path
+		d="M330 34c98-16 190 40 226 128 36 88 22 186-46 244-68 58-176 82-264 52C158 428 100 350 106 262 112 174 232 50 330 34Z"
+		fill="rgba(255,255,255,.045)"
+		stroke="rgba(255,255,255,.08)"
+		stroke-width="1"
+	/>
+	<path
+		d="M330 34c98-16 190 40 226 128 36 88 22 186-46 244-68 58-176 82-264 52C158 428 100 350 106 262 112 174 232 50 330 34Z"
+		fill="url(#err500-glow)"
+	/>
+
+	<!-- орбиты -->
+	<ellipse cx="300" cy="212" rx="248" ry="66" transform="rotate(-14 300 212)" stroke="#38bdf8" stroke-opacity=".45" stroke-width="1.5" />
+	<ellipse cx="322" cy="352" rx="256" ry="72" transform="rotate(-7 322 352)" stroke="#38bdf8" stroke-opacity=".3" stroke-width="1.5" />
+
+	<!-- планета -->
+	<circle cx="508" cy="404" r="58" fill="#0278ae" />
+	<circle cx="508" cy="404" r="58" fill="#000" fill-opacity=".08" />
+
+	<!-- звёзды -->
+	<circle cx="214" cy="126" r="3" fill="#fff" fill-opacity=".85" />
+	<circle cx="486" cy="140" r="2.5" fill="#fff" fill-opacity=".6" />
+	<circle cx="168" cy="248" r="2" fill="#fff" fill-opacity=".5" />
+	<circle cx="546" cy="238" r="4" fill="#38bdf8" fill-opacity=".8" />
+	<circle cx="150" cy="366" r="5" fill="#38bdf8" fill-opacity=".55" />
+	<circle cx="262" cy="452" r="2.5" fill="#fff" fill-opacity=".45" />
+	<circle cx="404" cy="118" r="2" fill="#fff" fill-opacity=".4" />
+	<path d="M132 152 106 220" stroke="#fff" stroke-opacity=".35" stroke-width="2" stroke-linecap="round" />
+
+	<!-- потерянный сигнал -->
+	<path d="M392 128a92 92 0 0 1 34 62" stroke="#38bdf8" stroke-opacity=".55" stroke-width="4" stroke-linecap="round" stroke-dasharray="14 16" />
+	<path d="M414 96a132 132 0 0 1 48 90" stroke="#38bdf8" stroke-opacity=".3" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 20" />
+
+	<!-- спутник -->
+	<g transform="translate(302 272) rotate(-16)">
+		<!-- левая панель -->
+		<rect x="-206" y="-34" width="112" height="68" rx="6" fill="#cdcdcd" />
+		<path d="M-206 0h112M-168-34v68M-132-34v68" stroke="#0a0a0a" stroke-opacity=".25" stroke-width="4" />
+		<path d="M-94 0h34" stroke="#cdcdcd" stroke-width="8" stroke-linecap="round" />
+
+		<!-- правая панель, оторвана -->
+		<g transform="translate(150 26) rotate(24)">
+			<rect x="-14" y="-34" width="112" height="68" rx="6" fill="#cdcdcd" fill-opacity=".75" />
+			<path d="M-14 0h112M24-34v68M60-34v68" stroke="#0a0a0a" stroke-opacity=".25" stroke-width="4" />
+		</g>
+		<path d="M60 0h30" stroke="#cdcdcd" stroke-width="8" stroke-linecap="round" />
+
+		<!-- корпус -->
+		<rect x="-60" y="-52" width="120" height="104" rx="16" fill="#f4f4f4" />
+		<path d="M-60-14h120" stroke="#38bdf8" stroke-width="10" />
+		<circle cx="0" cy="22" r="17" fill="#0a0a0a" fill-opacity=".8" />
+		<circle cx="0" cy="22" r="17" stroke="#38bdf8" stroke-width="3" />
+
+		<!-- сломанная антенна -->
+		<path d="M-16-52-40-104" stroke="#cdcdcd" stroke-width="7" stroke-linecap="round" />
+		<path d="M-40-104 4-124" stroke="#cdcdcd" stroke-opacity=".6" stroke-width="7" stroke-linecap="round" />
+		<path d="M28-136 60-118" stroke="#cdcdcd" stroke-opacity=".35" stroke-width="7" stroke-linecap="round" />
+
+		<!-- искра -->
+		<path d="M-40-104-62-70h22l-20 36" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+	</g>
+
+	<!-- обломки -->
+	<circle cx="248" cy="176" r="6" fill="#cdcdcd" fill-opacity=".5" />
+	<rect x="470" y="300" width="16" height="10" rx="3" transform="rotate(28 470 300)" fill="#cdcdcd" fill-opacity=".45" />
+	<rect x="190" y="424" width="22" height="12" rx="3" transform="rotate(-18 190 424)" fill="#cdcdcd" fill-opacity=".35" />
+</svg>

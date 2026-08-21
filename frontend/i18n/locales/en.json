@@ -6,6 +6,16 @@
 			"text": "Sorry, we couldn’t find the page you’re looking for.",
 			"btnText": "Go home"
 		},
+		"unauthorized": {
+			"title": "Sign in required",
+			"text": "Your session has expired. Please sign in again to continue.",
+			"btnText": "Sign in"
+		},
+		"forbidden": {
+			"title": "Access denied",
+			"text": "You don’t have permission to open this page.",
+			"btnText": "Go home"
+		},
 		"techError": {
 			"title": "Something went wrong!",
 			"text": "We are improving our website",
