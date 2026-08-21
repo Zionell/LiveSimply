@@ -1,0 +1,16 @@
+{
+	"budget": {
+		"item": {
+			"threshold": {
+				"title": "{label}: израсходовано {percent}% плана",
+				"text": "Потрачено {spent} из {planned} {currency}, запланированных на эту цель."
+			}
+		},
+		"total": {
+			"threshold": {
+				"title": "Израсходовано {percent}% бюджета месяца",
+				"text": "Потрачено {spent} из {planned} {currency} месячного заработка."
+			}
+		}
+	}
+}

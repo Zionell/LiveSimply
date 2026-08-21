@@ -1,0 +1,16 @@
+{
+	"budget": {
+		"item": {
+			"threshold": {
+				"title": "{label}: {percent}% of the plan spent",
+				"text": "You have spent {spent} of {planned} {currency} planned for this goal."
+			}
+		},
+		"total": {
+			"threshold": {
+				"title": "{percent}% of the monthly budget spent",
+				"text": "You have spent {spent} of {planned} {currency} of your monthly income."
+			}
+		}
+	}
+}
