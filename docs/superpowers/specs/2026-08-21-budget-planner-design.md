@@ -278,7 +278,6 @@ export enum ENotificationType {
 
 ```
 GET    /api/v2/planner?year=&month=      план месяца; при отсутствии создаётся пустой
-POST   /api/v2/planner                   создать план
 PATCH  /api/v2/planner/:id               curIncome, currencyFromId, alertThreshold, isRegular
 DELETE /api/v2/planner/:id
 POST   /api/v2/planner/:id/items         добавить статью
