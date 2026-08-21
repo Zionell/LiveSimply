@@ -3,8 +3,10 @@ import { ENotificationType } from "../types";
 
 const i18nMock = {
 	translate: jest.fn(
-		(key: string, options: { lang: string; args: Record<string, unknown> }) =>
-			`${options.lang}:${key}:${JSON.stringify(options.args)}`
+		(
+			key: string,
+			options: { lang: string; args: Record<string, unknown> }
+		) => `${options.lang}:${key}:${JSON.stringify(options.args)}`
 	),
 } as any;
 
@@ -12,7 +14,13 @@ const baseNotification = {
 	id: "n1",
 	userId: "u1",
 	type: ENotificationType.BudgetItemThreshold,
-	params: { label: "Rent", percent: 70, spent: 700, planned: 1000, currency: "EUR" },
+	params: {
+		label: "Rent",
+		percent: 70,
+		spent: 700,
+		planned: 1000,
+		currency: "EUR",
+	},
 	isReaded: false,
 	createdAt: new Date("2026-08-10T00:00:00.000Z"),
 	updatedAt: new Date("2026-08-10T00:00:00.000Z"),
@@ -34,8 +42,12 @@ describe("NotificationSerializer", () => {
 			"notification.budget.item.threshold.title",
 			{ lang: "en", args: baseNotification.params }
 		);
-		expect(result?.title).toContain("en:notification.budget.item.threshold.title");
-		expect(result?.text).toContain("en:notification.budget.item.threshold.text");
+		expect(result?.title).toContain(
+			"en:notification.budget.item.threshold.title"
+		);
+		expect(result?.text).toContain(
+			"en:notification.budget.item.threshold.text"
+		);
 		expect(result?.id).toBe("n1");
 		expect(result?.isReaded).toBe(false);
 	});
@@ -47,7 +59,9 @@ describe("NotificationSerializer", () => {
 			"ru"
 		);
 
-		expect(result?.title).toContain("ru:notification.budget.item.threshold.title");
+		expect(result?.title).toContain(
+			"ru:notification.budget.item.threshold.title"
+		);
 	});
 
 	it("returns null for an unknown notification type instead of throwing", () => {
@@ -66,13 +80,17 @@ describe("NotificationSerializer", () => {
 			[
 				baseNotification,
 				{ ...baseNotification, id: "n2", type: "some.removed.type" },
-				{ ...baseNotification, id: "n3", type: ENotificationType.BudgetTotalThreshold },
+				{
+					...baseNotification,
+					id: "n3",
+					type: ENotificationType.BudgetTotalThreshold,
+				},
 			] as any,
 			i18nMock,
 			"en"
 		);
 
-		expect(result.map((n) => n.id)).toEqual(["n1", "n3"]);
+		expect(result.map(n => n.id)).toEqual(["n1", "n3"]);
 	});
 
 	it("tolerates a notification with empty params", () => {

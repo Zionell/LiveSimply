@@ -23,14 +23,14 @@ export class NotificationSerializer {
 		return {
 			id: notification.id,
 			type: notification.type,
-			title: i18n.translate(
-				`notification.${notification.type}.title`,
-				{ lang, args }
-			),
-			text: i18n.translate(
-				`notification.${notification.type}.text`,
-				{ lang, args }
-			),
+			title: i18n.translate(`notification.${notification.type}.title`, {
+				lang,
+				args,
+			}),
+			text: i18n.translate(`notification.${notification.type}.text`, {
+				lang,
+				args,
+			}),
 			isReaded: notification.isReaded,
 			createdAt: notification.createdAt,
 		};
@@ -42,7 +42,7 @@ export class NotificationSerializer {
 		lang: string
 	): ISerializedNotification[] {
 		return notifications
-			.map((n) => this.serialize(n, i18n, lang))
+			.map(n => this.serialize(n, i18n, lang))
 			.filter((n): n is ISerializedNotification => n !== null);
 	}
 }
