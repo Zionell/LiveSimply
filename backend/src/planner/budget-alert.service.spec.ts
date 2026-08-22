@@ -216,11 +216,18 @@ describe("BudgetAlertService", () => {
 	});
 
 	it("resolves to an empty array instead of rejecting when the database throws", async () => {
-		prisma.financePlanner.findUnique.mockRejectedValue(new Error("boom"));
+		const warnSpy = jest.spyOn(console, "warn").mockImplementation();
+		try {
+			prisma.financePlanner.findUnique.mockRejectedValue(
+				new Error("boom")
+			);
 
-		const result = await service.checkAfterExpense(args);
+			const result = await service.checkAfterExpense(args);
 
-		expect(result).toEqual([]);
+			expect(result).toEqual([]);
+		} finally {
+			warnSpy.mockRestore();
+		}
 	});
 
 	it("skips an item with a zero planned amount", async () => {

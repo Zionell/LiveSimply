@@ -311,7 +311,11 @@ export class FinanceService {
 				},
 			});
 
-			if (!original || original.operationCategoryId !== "expense") {
+			if (
+				!original ||
+				(original.operationCategoryId !== "expense" &&
+					updated.operationCategoryId !== "expense")
+			) {
 				return { ...updated, notifications: [] };
 			}
 

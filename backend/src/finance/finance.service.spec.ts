@@ -151,5 +151,60 @@ describe("FinanceService", () => {
 			expect(budgetAlertMock.checkAfterExpense).not.toHaveBeenCalled();
 			expect(result.notifications).toEqual([]);
 		});
+
+		it("triggers re-evaluation when an income record is edited to expense", async () => {
+			const originalIncome = {
+				...originalExpense,
+				operationCategoryId: "income",
+				expenseCategoryId: null,
+			};
+			prisma.financeItem.findUnique.mockResolvedValue(originalIncome);
+			prisma.financeItem.update.mockResolvedValue({
+				...originalExpense,
+				operationCategoryId: "expense",
+				expenseCategoryId: "travel",
+			});
+
+			await service.update("f1", {
+				operationCategoryId: "expense",
+				expenseCategoryId: "travel",
+			} as any);
+
+			expect(budgetAlertMock.resetAfterChange).toHaveBeenCalledWith({
+				userId: "u1",
+				expenseCategoryId: "travel",
+				date: originalExpense.createdAt,
+			});
+			expect(budgetAlertMock.checkAfterExpense).toHaveBeenCalledWith({
+				userId: "u1",
+				expenseCategoryId: "travel",
+				date: originalExpense.createdAt,
+			});
+		});
+
+		it("still re-evaluates the original category when an expense is edited to income", async () => {
+			prisma.financeItem.findUnique.mockResolvedValue(originalExpense);
+			prisma.financeItem.update.mockResolvedValue({
+				...originalExpense,
+				operationCategoryId: "income",
+				expenseCategoryId: null,
+			});
+
+			await service.update("f1", {
+				operationCategoryId: "income",
+				expenseCategoryId: null,
+			} as any);
+
+			expect(budgetAlertMock.resetAfterChange).toHaveBeenCalledWith({
+				userId: "u1",
+				expenseCategoryId: "travel",
+				date: originalExpense.createdAt,
+			});
+			expect(budgetAlertMock.checkAfterExpense).toHaveBeenCalledWith({
+				userId: "u1",
+				expenseCategoryId: "travel",
+				date: originalExpense.createdAt,
+			});
+		});
 	});
 });
