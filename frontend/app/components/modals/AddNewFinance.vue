@@ -61,7 +61,7 @@ async function onSubmit() {
 	try {
 		isLoading.value = true;
 
-		await $fetch(api.finance.common, {
+		const response = await $fetch<{ notifications: INotification[] }>(api.finance.common, {
 			method: "POST",
 			body: JSON.stringify(state),
 		});
@@ -73,6 +73,21 @@ async function onSubmit() {
 			color: "success",
 			icon: "i-lucide-circle-check",
 		});
+
+		const notifications = response?.notifications || [];
+
+		if (notifications.length) {
+			useNotificationsStore().push(notifications);
+
+			notifications.forEach((notification) => {
+				toast.add({
+					title: notification.title,
+					description: notification.text,
+					color: "warning",
+					icon: "i-lucide-triangle-alert",
+				});
+			});
+		}
 
 		await useUserStore().fetchUser();
 	} catch (e) {

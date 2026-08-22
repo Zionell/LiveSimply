@@ -35,6 +35,8 @@ const breadcrumbs = computed(() => {
 
 		<ModalsTheBurgerMenu />
 
+		<LayoutNotificationsBell />
+
 		<LayoutProfileAvatar />
 	</header>
 </template>
