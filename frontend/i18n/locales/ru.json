@@ -64,7 +64,10 @@
 		"goalTitle": "Название цели",
 		"goalTotal": "Необходимая сумма",
 		"initialAmount": "Начальная сумма",
-		"untilAt": "Крайний срок"
+		"untilAt": "Крайний срок",
+		"budgetItemLabel": "Цель расхода",
+		"budgetItemAmount": "Планируемая сумма",
+		"isRequired": "Обязательный расход"
 	},
 	"inputsErrors": {
 		"required": "Обязательно для заполнения",
@@ -76,7 +79,9 @@
 		"newGoal": "Добавить новую цель",
 		"addTotal": "Начальное значение баланса",
 		"generateQr": "Создать QR-код",
-		"generateQrDesc": "Создайте и скачайте свой персональный QR-код"
+		"generateQrDesc": "Создайте и скачайте свой персональный QR-код",
+		"newBudgetItem": "Добавить плановый расход",
+		"editPlanner": "Настройки бюджета месяца"
 	},
 	"modalAddNewGoal": {},
 	"modalAddTotal": {
@@ -176,9 +181,24 @@
 		"tooltip": "Пройти опрос"
 	},
 	"financePlanner": {
-		"income": "Доход",
-		"required": "Обязательные платежи",
-		"period": "Период"
+		"income": "Заработок",
+		"required": "Обязательные расходы",
+		"additional": "Дополнительные расходы",
+		"period": "Период",
+		"planned": "Запланировано",
+		"spent": "Потрачено",
+		"unallocated": "Не распределено",
+		"overplanned": "Превышение заработка на {amount}",
+		"threshold": "Порог уведомления",
+		"thresholdHint": "Уведомим, когда траты достигнут этой доли плана.",
+		"isRegular": "Повторять план каждый месяц",
+		"empty": "Расходы пока не запланированы",
+		"ofPlan": "{spent} из {planned} {currency}"
+	},
+	"notifications": {
+		"title": "Уведомления",
+		"empty": "Уведомлений пока нет",
+		"markAllRead": "Отметить все прочитанными"
 	},
 	"common": {
 		"loading": "Загрузка...",

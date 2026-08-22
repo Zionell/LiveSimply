@@ -28,4 +28,15 @@ export const api = {
 	goals: {
 		common: `${prefix}/goals/`,
 	},
+	planner: {
+		common: `${prefix}/planner/`,
+		detail: (id: string) => `${prefix}/planner/${id}/`,
+		items: (id: string) => `${prefix}/planner/${id}/items/`,
+		item: (itemId: string) => `${prefix}/planner/items/${itemId}/`,
+	},
+	notifications: {
+		common: `${prefix}/notifications/`,
+		read: (id: string) => `${prefix}/notifications/${id}/read/`,
+		readAll: `${prefix}/notifications/read-all/`,
+	},
 };

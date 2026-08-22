@@ -1,13 +1,68 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { api } from "~~/lib/api";
+
+const { t } = useI18n();
+const toast = useToast();
+
+const { data, error, refresh } = await useFetch<IPlanner>(api.planner.common, {
+	key: "Planner",
+});
+
+if (error.value) {
+	throw createError({
+		statusCode: error.value?.statusCode,
+		statusMessage: error.value?.statusMessage,
+	});
+}
+
+const usedCategories = computed((): string[] =>
+	[...(data.value?.required || []), ...(data.value?.additional || [])].map((item) => item.expenseCategory.value),
+);
+
+async function removeItem(item: IBudgetItem) {
+	try {
+		await $fetch(api.planner.item(item.id), { method: "DELETE" });
+
+		await refresh();
+		toast.add({
+			title: t("common.deleted"),
+			color: "success",
+			icon: "i-lucide-circle-check",
+		});
+	} catch (e) {
+		console.warn("removeItem: ", e);
+		toast.add({ title: t("common.error"), color: "error" });
+	}
+}
+</script>
 
 <template>
-	<section class="flex flex-col items-center justify-between">
-		PlannerWrapper
-		<!--		<PlannerWrapper-->
-		<!--			dict={financePlanner}-->
-		<!--			list={plansList}-->
-		<!--			modalDict={modalAddNewGoal}-->
-		<!--			buttons={buttons}-->
-		<!--		/>-->
+	<section class="overflow-hidden grid gap-4">
+		<CommonSectionHeader>
+			<ModalsEditPlanner v-if="data" :planner="data" @refresh="refresh" />
+			<ModalsAddBudgetItem v-if="data" :plannerId="data.id" :usedCategories="usedCategories" @refresh="refresh" />
+		</CommonSectionHeader>
+
+		<CommonSuspenseWrapper>
+			<div v-if="data" class="grid gap-6">
+				<PlannerSummary :planner="data" />
+
+				<PlannerGroup
+					:title="$t('financePlanner.required')"
+					:items="data.required"
+					:threshold="data.alertThreshold"
+					:currency="data.currency"
+					@remove="removeItem"
+				/>
+
+				<PlannerGroup
+					:title="$t('financePlanner.additional')"
+					:items="data.additional"
+					:threshold="data.alertThreshold"
+					:currency="data.currency"
+					@remove="removeItem"
+				/>
+			</div>
+		</CommonSuspenseWrapper>
 	</section>
 </template>

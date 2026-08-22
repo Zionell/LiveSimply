@@ -64,7 +64,10 @@
 		"goalTitle": "Title",
 		"goalTotal": "Required amount",
 		"initialAmount": "Initial amount",
-		"untilAt": "Deadline"
+		"untilAt": "Deadline",
+		"budgetItemLabel": "Expense goal",
+		"budgetItemAmount": "Planned amount",
+		"isRequired": "Mandatory payment"
 	},
 	"inputsErrors": {
 		"required": "Required",
@@ -76,7 +79,9 @@
 		"newGoal": "Add new goal",
 		"addTotal": "Initial balance value",
 		"generateQr": "Generate QR-code",
-		"generateQrDesc": "Generate and download your personal QR-code"
+		"generateQrDesc": "Generate and download your personal QR-code",
+		"newBudgetItem": "Add a planned expense",
+		"editPlanner": "Monthly budget settings"
 	},
 	"modalAddNewGoal": {},
 	"modalAddTotal": {
@@ -170,7 +175,22 @@
 	"financePlanner": {
 		"income": "Income",
 		"required": "Mandatory payments",
-		"period": "Period"
+		"additional": "Additional expenses",
+		"period": "Period",
+		"planned": "Planned",
+		"spent": "Spent",
+		"unallocated": "Unallocated",
+		"overplanned": "Over the income by {amount}",
+		"threshold": "Alert threshold",
+		"thresholdHint": "You will be notified once spending reaches this share of a plan.",
+		"isRegular": "Repeat this plan every month",
+		"empty": "No expenses planned yet",
+		"ofPlan": "{spent} of {planned} {currency}"
+	},
+	"notifications": {
+		"title": "Notifications",
+		"empty": "No notifications yet",
+		"markAllRead": "Mark all as read"
 	},
 	"common": {
 		"loading": "Loading...",
