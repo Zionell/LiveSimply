@@ -14,6 +14,19 @@ export interface ISerializedBudgetItem {
 	isRequired: boolean;
 }
 
+export interface ISerializedChartPoint {
+	day: number;
+	income: number;
+	expense: number;
+}
+
+export interface IMonthFacts {
+	spentByCategory: Record<string, number>;
+	totalSpent: number;
+	actualIncome: number;
+	chart: ISerializedChartPoint[];
+}
+
 export interface ISerializedPlanner {
 	id: string;
 	year: number;
@@ -21,17 +34,19 @@ export interface ISerializedPlanner {
 	currency: string;
 	alertThreshold: number;
 	isRegular: boolean;
-	income: {
+	expectedIncome: {
 		cur: number;
 		currency: string;
 		converted: number;
 	};
+	actualIncome: number;
 	planned: number;
 	totalSpent: number;
 	unallocated: number;
 	progress: number;
 	required: ISerializedBudgetItem[];
 	additional: ISerializedBudgetItem[];
+	chart: ISerializedChartPoint[];
 }
 
 const round = (value: number): number => +value.toFixed(2);
@@ -65,9 +80,9 @@ export class PlannerSerializer {
 
 	static serialize(
 		planner: Record<string, any>,
-		spentByCategory: Record<string, number>,
-		totalSpent: number
+		facts: IMonthFacts
 	): ISerializedPlanner {
+		const { spentByCategory, totalSpent, actualIncome, chart } = facts;
 		const items: Record<string, any>[] = planner.items || [];
 
 		const planned = items.reduce(
@@ -89,11 +104,12 @@ export class PlannerSerializer {
 			currency: planner.currencyToId,
 			alertThreshold: planner.alertThreshold,
 			isRegular: planner.isRegular,
-			income: {
+			expectedIncome: {
 				cur: planner.curIncome,
 				currency: planner.currencyFromId,
 				converted: planner.convertedIncome,
 			},
+			actualIncome: round(actualIncome),
 			planned: round(planned),
 			totalSpent: round(totalSpent),
 			unallocated: round(planner.convertedIncome - planned),
@@ -103,6 +119,11 @@ export class PlannerSerializer {
 					: 0,
 			required: serializedItems.filter(i => i.isRequired),
 			additional: serializedItems.filter(i => !i.isRequired),
+			chart: chart.map(point => ({
+				day: point.day,
+				income: round(point.income),
+				expense: round(point.expense),
+			})),
 		};
 	}
 }

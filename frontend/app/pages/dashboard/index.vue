@@ -13,7 +13,10 @@ export interface IChart {
 }
 
 interface IResponse {
-	rates: ICurrentRate[];
+	rates: {
+		rates: ICurrentRate[];
+		lastUpdated: string;
+	};
 	finances: IFinances;
 	chart: IChart[];
 }

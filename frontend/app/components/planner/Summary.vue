@@ -5,14 +5,6 @@ const props = defineProps<{
 	planner: IPlanner;
 }>();
 
-const { locale } = useI18n();
-
-const periodLabel = computed((): string => {
-	const date = new Date(Date.UTC(props.planner.year, props.planner.month - 1, 1));
-
-	return new Intl.DateTimeFormat(locale.value, { month: "long", year: "numeric", timeZone: "UTC" }).format(date);
-});
-
 const percent = computed((): number => Math.round(props.planner.progress * 100));
 
 const color = computed((): UiColors => {
@@ -32,15 +24,19 @@ const isOverplanned = computed((): boolean => props.planner.unallocated < 0);
 
 <template>
 	<CommonCardWrapper>
-		<h2 class="text-sm uppercase tracking-wide text-gray-400 mb-4">
-			{{ $t("financePlanner.period") }}: {{ periodLabel }}
-		</h2>
-
-		<div class="grid sm:grid-cols-3 gap-4">
+		<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
 			<div>
-				<div class="text-xs text-gray-400">{{ $t("financePlanner.income") }}</div>
+				<div class="text-xs text-gray-400">{{ $t("financePlanner.expectedIncome") }}</div>
 				<div class="text-lg">
-					{{ splitThousandsFloat(props.planner.income.converted) }}
+					{{ splitThousandsFloat(props.planner.expectedIncome.converted) }}
+					{{ props.planner.currency }}
+				</div>
+			</div>
+
+			<div>
+				<div class="text-xs text-gray-400">{{ $t("financePlanner.actualIncome") }}</div>
+				<div class="text-lg">
+					{{ splitThousandsFloat(props.planner.actualIncome) }}
 					{{ props.planner.currency }}
 				</div>
 			</div>

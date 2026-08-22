@@ -24,7 +24,7 @@ const isAdmin = computed(() => userStore.user?.role === ERole.ADMIN);
 		<UNavigationMenu orientation="vertical" class="grow" :items="links" />
 
 		<div v-if="isAdmin">
-			<UButton variant="link" :to="ERoutes.users" class="h-7 w-full">
+			<UButton variant="link" icon="i-lucide-users" :to="ERoutes.users" class="h-7 w-full">
 				Users
 			</UButton>
 		</div>

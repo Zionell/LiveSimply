@@ -1,4 +1,12 @@
-import { PlannerSerializer } from "./planner.serializer";
+import { IMonthFacts, PlannerSerializer } from "./planner.serializer";
+
+const facts = (overrides: Partial<IMonthFacts> = {}): IMonthFacts => ({
+	spentByCategory: {},
+	totalSpent: 0,
+	actualIncome: 0,
+	chart: [],
+	...overrides,
+});
 
 const plannerRecord = {
 	id: "p1",
@@ -32,7 +40,7 @@ describe("PlannerSerializer", () => {
 			],
 		};
 
-		const result = PlannerSerializer.serialize(planner, {}, 0);
+		const result = PlannerSerializer.serialize(planner, facts());
 
 		expect(result.planned).toBe(1200);
 		expect(result.unallocated).toBe(-200);
@@ -57,11 +65,41 @@ describe("PlannerSerializer", () => {
 
 		const result = PlannerSerializer.serialize(
 			planner,
-			{ misc: 50 },
-			50
+			facts({ spentByCategory: { misc: 50 }, totalSpent: 50 })
 		);
 
 		expect(result.additional[0].progress).toBe(0);
 		expect(Number.isFinite(result.additional[0].progress)).toBe(true);
+	});
+
+	it("reports the manually planned income and the income actually earned separately", () => {
+		const result = PlannerSerializer.serialize(
+			plannerRecord,
+			facts({ actualIncome: 812.345 })
+		);
+
+		expect(result.expectedIncome).toEqual({
+			cur: 5000,
+			currency: "USD",
+			converted: 1000,
+		});
+		expect(result.actualIncome).toBe(812.35);
+	});
+
+	it("rounds every chart point it passes through", () => {
+		const result = PlannerSerializer.serialize(
+			plannerRecord,
+			facts({
+				chart: [
+					{ day: 1, income: 100.126, expense: 33.333 },
+					{ day: 2, income: 100.126, expense: 66.666 },
+				],
+			})
+		);
+
+		expect(result.chart).toEqual([
+			{ day: 1, income: 100.13, expense: 33.33 },
+			{ day: 2, income: 100.13, expense: 66.67 },
+		]);
 	});
 });

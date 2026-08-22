@@ -1,5 +1,7 @@
 import { NotificationSerializer } from "./notification.serializer";
 import { ENotificationType } from "../types";
+import en from "../../i18n/en/notification.json";
+import ru from "../../i18n/ru/notification.json";
 
 const i18nMock = {
 	translate: jest.fn(
@@ -106,4 +108,39 @@ describe("NotificationSerializer", () => {
 		);
 		expect(result).not.toBeNull();
 	});
+});
+
+describe("notification locales", () => {
+	const locales: Record<string, Record<string, any>> = { en, ru };
+
+	const read = (locale: Record<string, any>, type: string, part: string) =>
+		`${type}.${part}`
+			.split(".")
+			.reduce<any>((node, key) => node?.[key], locale);
+
+	const placeholders = (template: string): string[] =>
+		[...template.matchAll(/{(\w+)}/g)].map(match => match[1]).sort();
+
+	it.each(Object.values(ENotificationType))(
+		"has a title and a text for %s in every language",
+		type => {
+			for (const [lang, locale] of Object.entries(locales)) {
+				expect(typeof read(locale, type, "title")).toBe("string");
+				expect(typeof read(locale, type, "text")).toBe("string");
+				expect(read(locale, type, "title")).not.toBe("");
+				expect(lang).toBeTruthy();
+			}
+		}
+	);
+
+	it.each(Object.values(ENotificationType))(
+		"uses the same placeholders for %s in every language",
+		type => {
+			for (const part of ["title", "text"]) {
+				expect(placeholders(read(ru, type, part))).toEqual(
+					placeholders(read(en, type, part))
+				);
+			}
+		}
+	);
 });

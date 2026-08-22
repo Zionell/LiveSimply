@@ -6,7 +6,11 @@ import { ThrottlerModule } from "@nestjs/throttler";
 import { AuthModule } from "./auth/auth.module";
 import { UsersModule } from "./users/users.module";
 import * as path from "path";
-import { CookieResolver, I18nModule } from "nestjs-i18n";
+import {
+	AcceptLanguageResolver,
+	CookieResolver,
+	I18nModule,
+} from "nestjs-i18n";
 import { FinanceModule } from "./finance/finance.module";
 import { TranslateModule } from "./translate/translate.module";
 import { RatesModule } from "./rates/rates.module";
@@ -46,11 +50,20 @@ import { AuthGuard } from "./auth/guards/auth.guard";
 		UsersModule,
 		I18nModule.forRoot({
 			fallbackLanguage: "en",
+			fallbacks: {
+				"en-*": "en",
+				"ru-*": "ru",
+			},
 			loaderOptions: {
 				path: path.join(__dirname, "/i18n/"),
 				watch: true,
 			},
-			resolvers: [new CookieResolver(["i18n_redirected"])],
+			// The cookie is what the app sets; the header is the browser's own
+			// preference, used when there is no cookie yet (sign-up included).
+			resolvers: [
+				new CookieResolver(["i18n_redirected"]),
+				AcceptLanguageResolver,
+			],
 		}),
 		FinanceModule,
 		TranslateModule,

@@ -56,6 +56,15 @@ onMounted(() => {
 		isOpen.value = true;
 	}
 });
+
+watch(
+	() => userStore.user?.total,
+	(total) => {
+		if (!total) {
+			isOpen.value = true;
+		}
+	},
+);
 </script>
 
 <template>

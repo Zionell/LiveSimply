@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
-import { PlannerService } from "./planner.service";
+import { PlannerService, REMINDER_DAYS_BEFORE } from "./planner.service";
+import { daysInMonth } from "../../utils/date";
 
 @Injectable()
 export class PlannerCron {
@@ -17,6 +18,30 @@ export class PlannerCron {
 			);
 		} catch (e) {
 			console.warn("[PlannerCron / copyRegularPlanners]: ", e);
+		}
+	}
+
+	/**
+	 * Cron cannot express "three days before the month ends", so this runs
+	 * daily and returns immediately on every other day.
+	 */
+	@Cron("0 9 * * *", { name: "remindToPlanNextMonth", timeZone: "UTC" })
+	async remindToPlanNextMonth(): Promise<void> {
+		try {
+			const now = new Date();
+			const year = now.getUTCFullYear();
+			const month = now.getUTCMonth() + 1;
+
+			const reminderDay =
+				daysInMonth(year, month) - REMINDER_DAYS_BEFORE;
+
+			if (now.getUTCDate() !== reminderDay) {
+				return;
+			}
+
+			await this.plannerService.remindToPlanNextMonth(year, month);
+		} catch (e) {
+			console.warn("[PlannerCron / remindToPlanNextMonth]: ", e);
 		}
 	}
 }

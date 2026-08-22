@@ -15,14 +15,12 @@ const filteredLinks = computed(() => {
 
 function dividePhrase(str: string) {
 	const strToArr = str.split(" ");
-	return `<span class="text-indigo-800">${strToArr[0]}</span>&nbsp;${strToArr[1]}`;
+	return `<span class="text-primary">${strToArr[0]}</span>&nbsp;${strToArr[1]}`;
 }
 </script>
 
 <template>
-	<div
-		class="overflow-auto lg:w-xl w-full lg:h-142.5 :lg-translate-x-3 rounded-r-lg bg-gray-900"
-	>
+	<div class="overflow-auto lg:w-xl w-full lg:h-142.5 :lg-translate-x-3 rounded-r-lg bg-gray-900">
 		<div
 			class="flex lg:px-7 md:px-5 lg:py-5 py-3 md:text-2xl text-lg font-extrabold"
 			v-html="dividePhrase($t('businessCardView.about'))"
@@ -48,22 +46,14 @@ function dividePhrase(str: string) {
 					target="_blank"
 					class="flex items-center gap-2"
 				>
-					<UAvatar
-						:text="link.name"
-						:src="getImage(link) || '/images/seo.jpg'"
-						size="lg"
-					/>
+					<UAvatar :text="link.name" :src="getImage(link) || '/images/seo.jpg'" size="lg" />
 					<div class="flex flex-col ml-3">
 						<p class="text-md">{{ link.name }}</p>
 					</div>
 				</ULink>
 			</div>
 			<ClientOnly>
-				<LazyCommonQrGen
-					hydrate-on-visible
-					class="sticky top-2"
-					:link="link"
-				/>
+				<LazyCommonQrGen hydrate-on-visible class="sticky top-2 h-64" :link="link" />
 			</ClientOnly>
 		</div>
 	</div>

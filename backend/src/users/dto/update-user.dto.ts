@@ -10,6 +10,9 @@ export class UpdateUserDto extends CreateUserDto {
 	exchange: string;
 
 	@ApiProperty()
+	language: string;
+
+	@ApiProperty()
 	image: string;
 
 	@ApiProperty()

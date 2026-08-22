@@ -7,6 +7,8 @@ const props = defineProps<{
 	currency: string;
 }>();
 
+const isRemoving = ref<boolean>(false);
+
 const emit = defineEmits(["remove"]);
 
 const percent = computed((): number => Math.round(props.item.progress * 100));
@@ -22,6 +24,11 @@ const color = computed((): UiColors => {
 
 	return UiColors.success;
 });
+
+const remove = () => {
+	isRemoving.value = true;
+	emit("remove", props.item);
+};
 </script>
 
 <template>
@@ -40,8 +47,9 @@ const color = computed((): UiColors => {
 					color="error"
 					variant="ghost"
 					icon="i-lucide-trash-2"
+					:loading="isRemoving"
 					:aria-label="$t('buttons.delete')"
-					@click="emit('remove', props.item)"
+					@click="remove"
 				/>
 			</div>
 		</template>

@@ -7,7 +7,7 @@ const props = defineProps<{
 	lastUpdated: string;
 }>();
 
-const date = computed(() => formatDate(normalizeDate(props.lastUpdated), "D-MM-YYYY"));
+const date = computed(() => formatDate(normalizeDate(props.lastUpdated), "D-MM-YYYY HH:mm"));
 </script>
 
 <template>

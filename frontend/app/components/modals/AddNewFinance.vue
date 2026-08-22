@@ -38,7 +38,7 @@ const isLoading = ref<boolean>(false);
 const toast = useToast();
 const sliderOverRef = useTemplateRef("slideOver");
 
-const { data, error } = await useFetch<FinanceSpecs>(api.finance.specs, {
+const { data, error, refresh } = await useFetch<FinanceSpecs>(api.finance.specs, {
 	key: "FinanceSpecs",
 });
 
@@ -49,6 +49,8 @@ if (error.value) {
 	});
 }
 
+const { isCreating: isCategoryCreating, createCategory } = useExpenseCategory();
+
 const isExpenseCatVisible = computed((): boolean => state.operationCategoryId === EOperationTypes.expense);
 
 const isGoalsVisible = computed((): boolean => state.operationCategoryId === EOperationTypes.goals);
@@ -56,6 +58,17 @@ const isGoalsVisible = computed((): boolean => state.operationCategoryId === EOp
 const isValid = computed(() => {
 	return schema.safeParse(state).success;
 });
+
+async function onCreateCategory(label: string) {
+	const category = await createCategory(label);
+
+	if (!category) {
+		return;
+	}
+
+	await refresh();
+	state.expenseCategoryId = category.value;
+}
 
 async function onSubmit() {
 	try {
@@ -113,6 +126,7 @@ function handleClose() {
 	<ModalsBaseSlideOver
 		ref="slideOver"
 		btnLabel="new"
+		btnIcon="i-lucide-plus"
 		title="newFinance"
 		:isDisabled="!isValid"
 		:isLoading="isLoading"
@@ -160,8 +174,15 @@ function handleClose() {
 						:items="data?.expenseCategory"
 						placeholder="12 093"
 						value-key="value"
+						:loading="isCategoryCreating"
+						create-item
 						virtualize
-					/>
+						@create="onCreateCategory"
+					>
+						<template #create-item-label="{ item }">
+							{{ $t("inputs.createExpenseCategory", { label: item }) }}
+						</template>
+					</USelectMenu>
 				</UFormField>
 
 				<UFormField v-else-if="isGoalsVisible" class="w-full" :label="$t('inputs.goals')" name="goals">

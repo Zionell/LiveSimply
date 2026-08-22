@@ -44,6 +44,10 @@ export class SpecsSerializer {
 		};
 	}
 
+	static serializeCategory(category: ICategory): ISpec {
+		return this.formatCategories([category])[0];
+	}
+
 	private static formatCategories(categories: ICategory[]): ISpec[] {
 		return categories.map(category => ({
 			label: category.label?.[0]?.label || "Unknown",

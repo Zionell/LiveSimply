@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { NuxtError } from "nuxt/app";
+import type { NuxtError } from "#app";
 
 enum EErrorType {
 	notFound = "notFound",
@@ -59,6 +59,8 @@ function handleError() {
 
 <template>
 	<main class="flex items-center min-h-screen bg-black px-8 py-24 md:px-16 lg:px-24 lg:py-32">
+		<NuxtLoadingIndicator color="#0278ae" />
+
 		<div
 			class="grid items-center gap-16 w-full max-w-7xl mx-auto lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-24"
 		>

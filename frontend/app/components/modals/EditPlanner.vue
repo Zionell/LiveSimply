@@ -18,8 +18,8 @@ const schema = z.object({
 });
 
 const state = reactive({
-	curIncome: props.planner.income.cur,
-	currencyFromId: props.planner.income.currency,
+	curIncome: props.planner.expectedIncome.cur,
+	currencyFromId: props.planner.expectedIncome.currency,
 	alertThreshold: Math.round(props.planner.alertThreshold * 100),
 	isRegular: props.planner.isRegular,
 });
@@ -74,8 +74,8 @@ async function onSubmit() {
 }
 
 function handleClose() {
-	state.curIncome = props.planner.income.cur;
-	state.currencyFromId = props.planner.income.currency;
+	state.curIncome = props.planner.expectedIncome.cur;
+	state.currencyFromId = props.planner.expectedIncome.currency;
 	state.alertThreshold = Math.round(props.planner.alertThreshold * 100);
 	state.isRegular = props.planner.isRegular;
 }
@@ -84,7 +84,9 @@ function handleClose() {
 <template>
 	<ModalsBaseSlideOver
 		ref="slideOver"
-		btnLabel="save"
+		btnLabel="plannerSettings"
+		btnIcon="i-lucide-settings-2"
+		btnVariant="subtle"
 		title="editPlanner"
 		:isDisabled="!isValid"
 		:isLoading="isLoading"
@@ -92,7 +94,7 @@ function handleClose() {
 		@click="onSubmit"
 	>
 		<UForm :schema="schema" :state="state" class="w-full flex flex-col items-center space-y-4" @submit="onSubmit">
-			<UFormField class="w-full" :label="$t('financePlanner.income')" name="curIncome">
+			<UFormField class="w-full" :label="$t('financePlanner.expectedIncome')" name="curIncome">
 				<UInput type="number" class="w-full" size="md" placeholder="5 000" v-model="state.curIncome" />
 			</UFormField>
 

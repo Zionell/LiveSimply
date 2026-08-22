@@ -14,6 +14,12 @@ export interface IBudgetItem {
 	isRequired: boolean;
 }
 
+export interface IPlannerChartPoint {
+	day: number;
+	income: number;
+	expense: number;
+}
+
 export interface IPlanner {
 	id: string;
 	year: number;
@@ -21,15 +27,17 @@ export interface IPlanner {
 	currency: string;
 	alertThreshold: number;
 	isRegular: boolean;
-	income: {
+	expectedIncome: {
 		cur: number;
 		currency: string;
 		converted: number;
 	};
+	actualIncome: number;
 	planned: number;
 	totalSpent: number;
 	unallocated: number;
 	progress: number;
 	required: IBudgetItem[];
 	additional: IBudgetItem[];
+	chart: IPlannerChartPoint[];
 }

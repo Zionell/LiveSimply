@@ -8,16 +8,14 @@ const dropdownLinks = computed((): DropdownMenuItem[][] => {
 	return [
 		[
 			{
-				label: userStore.user?.email,
-				slot: "account",
-				disabled: true,
-			},
-		],
-		[
-			{
 				label: t("headerDropdown.profile"),
 				icon: "i-heroicons:user-16-solid",
 				to: ERoutes.profile,
+			},
+			{
+				label: t("routes.settings"),
+				icon: "i-heroicons:cog-6-tooth-16-solid",
+				to: ERoutes.settings,
 			},
 		],
 		[
@@ -41,29 +39,12 @@ const dropdownLinks = computed((): DropdownMenuItem[][] => {
 		}"
 		:popper="{ placement: 'bottom-start' }"
 	>
-		<UAvatar
-			:src="userStore.user?.image || ''"
-			:alt="userStore.user?.name"
-			size="lg"
-		/>
-
-		<template #account="{ item }">
-			<div class="text-left">
-				<p>{{ $t("headerDropdown.signedAs") }}</p>
-				<p class="truncate font-medium">
-					{{ item.label }}
-				</p>
-			</div>
-		</template>
+		<UAvatar :src="userStore.user?.image || ''" :alt="userStore.user?.name" size="lg" />
 
 		<template #item="{ item }">
 			<span class="truncate">{{ item.label }}</span>
 
-			<UIcon
-				v-if="item?.icon"
-				:name="item.icon"
-				class="flex-shrink-0 h-4 w-4 text-gray-400 ms-auto"
-			/>
+			<UIcon v-if="item?.icon" :name="item.icon" class="flex-shrink-0 h-4 w-4 text-gray-400 ms-auto" />
 		</template>
 	</UDropdownMenu>
 </template>

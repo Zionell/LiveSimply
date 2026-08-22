@@ -12,5 +12,11 @@
 				"text": "You have spent {spent} of {planned} {currency} of your monthly income."
 			}
 		}
+	},
+	"planner": {
+		"reminder": {
+			"title": "Time to plan next month",
+			"text": "The month ends in {days} days — fill in your budget plan for the next one."
+		}
 	}
 }

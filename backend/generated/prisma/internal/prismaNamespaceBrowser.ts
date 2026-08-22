@@ -81,7 +81,9 @@ export const UserScalarFieldEnum = {
   phone: 'phone',
   exchange: 'exchange',
   role: 'role',
+  language: 'language',
   total: 'total',
+  emailNotifications: 'emailNotifications',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

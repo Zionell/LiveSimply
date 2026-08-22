@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { z } from "zod";
 import { api } from "~~/lib/api";
+import { getError } from "~/assets/utils/common.ts";
 
 const props = defineProps<{
 	plannerId: string;
@@ -11,7 +12,7 @@ const emit = defineEmits(["refresh"]);
 
 interface IState {
 	label: string;
-	curAmount: number | null;
+	curAmount: number;
 	currencyFromId: string;
 	expenseCategoryId: string;
 	isRequired: boolean;
@@ -19,7 +20,7 @@ interface IState {
 
 const initialValues: IState = {
 	label: "",
-	curAmount: null,
+	curAmount: 0,
 	currencyFromId: "",
 	expenseCategoryId: "",
 	isRequired: false,
@@ -42,7 +43,7 @@ const isLoading = ref<boolean>(false);
 const toast = useToast();
 const slideOverRef = useTemplateRef("slideOver");
 
-const { data, error } = await useFetch<FinanceSpecs>(api.finance.specs, {
+const { data, error, refresh } = await useFetch<FinanceSpecs>(api.finance.specs, {
 	key: "FinanceSpecs",
 });
 
@@ -53,11 +54,24 @@ if (error.value) {
 	});
 }
 
+const { isCreating: isCategoryCreating, createCategory } = useExpenseCategory();
+
 const availableCategories = computed(() =>
 	(data.value?.expenseCategory || []).filter((c) => !props.usedCategories.includes(c.value)),
 );
 
 const isValid = computed(() => schema.safeParse(state).success);
+
+async function onCreateCategory(label: string) {
+	const category = await createCategory(label);
+
+	if (!category) {
+		return;
+	}
+
+	await refresh();
+	state.expenseCategoryId = category.value;
+}
 
 async function onSubmit() {
 	try {
@@ -77,7 +91,7 @@ async function onSubmit() {
 	} catch (e) {
 		console.warn("onSubmit: ", e);
 		toast.add({
-			title: e?.data?.message?.[0] || e?.data?.message || t("common.error"),
+			title: getError(e) || t("common.error"),
 			color: "error",
 		});
 	} finally {
@@ -94,7 +108,8 @@ function handleClose() {
 <template>
 	<ModalsBaseSlideOver
 		ref="slideOver"
-		btnLabel="new"
+		btnLabel="newBudgetItem"
+		btnIcon="i-lucide-plus"
 		title="newBudgetItem"
 		:isDisabled="!isValid"
 		:isLoading="isLoading"
@@ -112,9 +127,17 @@ function handleClose() {
 					size="md"
 					v-model="state.expenseCategoryId"
 					:items="availableCategories"
+					placeholder="Category"
 					value-key="value"
+					:loading="isCategoryCreating"
+					create-item
 					virtualize
-				/>
+					@create="onCreateCategory"
+				>
+					<template #create-item-label="{ item }">
+						{{ $t("inputs.createExpenseCategory", { label: item }) }}
+					</template>
+				</USelectMenu>
 			</UFormField>
 
 			<UFormField class="w-full" :label="$t('inputs.budgetItemAmount')" name="curAmount">

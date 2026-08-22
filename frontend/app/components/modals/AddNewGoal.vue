@@ -85,6 +85,7 @@ function handleCLose() {
 	<ModalsBaseSlideOver
 		ref="sliderOver"
 		btnLabel="new"
+		btnIcon="i-lucide-plus"
 		title="newBusinessLink"
 		:isDisabled="!isValid"
 		@close="handleCLose"

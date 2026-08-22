@@ -14,6 +14,8 @@ export const api = {
 		common: `${prefix}/finance/`,
 		specs: `${prefix}/finance/specs/`,
 		statistics: `${prefix}/finance/statistics/`,
+		expenseCategories: `${prefix}/finance/expense-categories/`,
+		reset: `${prefix}/finance/reset/`,
 	},
 	rates: {
 		common: `${prefix}/rates/`,
@@ -38,5 +40,6 @@ export const api = {
 		common: `${prefix}/notifications/`,
 		read: (id: string) => `${prefix}/notifications/${id}/read/`,
 		readAll: `${prefix}/notifications/read-all/`,
+		settings: `${prefix}/notifications/settings/`,
 	},
 };

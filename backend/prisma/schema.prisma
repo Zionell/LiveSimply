@@ -18,11 +18,15 @@ model User {
 	phone          String?
 	exchange       String?
 	role           String           @default("LVL3")
+	language       String?
 	total          Float?           @default(0)
 	businessCard   BusinessCard?
 	goals          Goal[]
 	financePlanner FinancePlanner[]
 	notifications  Notification[]
+
+	// { [group]: boolean } — which notification groups are also emailed.
+	emailNotifications Json?
 
 	exchangeItem ExchangeItem? @relation(fields: [exchange], references: [id])
 

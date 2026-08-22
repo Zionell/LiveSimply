@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { CreateFinanceDto } from "./dto/create-finance.dto";
+import { CreateExpenseCategoryDto } from "./dto/create-expense-category.dto";
 import { UpdateFinanceDto } from "./dto/update-finance.dto";
 import { PrismaService } from "../prisma.service";
 import { FindAllFinanceDto } from "./dto/find-all-finance.dto";
@@ -16,6 +17,10 @@ import { BadRequestException } from "@nestjs/common/exceptions/bad-request.excep
 import { ERole } from "../../types/user";
 import { BudgetAlertService } from "../planner/budget-alert.service";
 import { ISerializedNotification } from "../notifications/types";
+import { slugify } from "../../utils/slug";
+import { normalizeLanguage, SUPPORTED_LANGUAGES } from "../../utils/language";
+import { ISpec } from "../../types/common";
+import { randomUUID } from "node:crypto";
 
 @Injectable()
 export class FinanceService {
@@ -75,6 +80,61 @@ export class FinanceService {
 			);
 		} catch (e) {
 			console.warn("[FinanceService / getSpecs]: ", e);
+			throw new Error(e);
+		}
+	}
+
+	/**
+	 * Creates an expense category on the fly from the "add transaction" and
+	 * "add budget item" modals. The catalog is shared, so a label that slugs
+	 * into an existing category returns that one instead of failing on the
+	 * unique constraint.
+	 */
+	async createExpenseCategory(dto: CreateExpenseCategoryDto): Promise<ISpec> {
+		const label = dto.label?.trim();
+
+		if (!label) {
+			throw new BadRequestException("Expense category label is required");
+		}
+
+		const lang = normalizeLanguage(I18nContext.current()?.lang);
+		const include = {
+			label: {
+				where: { lang },
+				select: { label: true },
+			},
+		};
+
+		const value = slugify(label) || `category-${randomUUID().slice(0, 8)}`;
+
+		try {
+			const existing =
+				await this.prismaService.expenseCategory.findUnique({
+					where: { value },
+					include,
+				});
+
+			if (existing) {
+				return SpecsSerializer.serializeCategory(existing);
+			}
+
+			const created = await this.prismaService.expenseCategory.create({
+				data: {
+					value,
+					...(dto.color ? { color: dto.color } : {}),
+					label: {
+						create: SUPPORTED_LANGUAGES.map(itemLang => ({
+							label,
+							lang: itemLang,
+						})),
+					},
+				},
+				include,
+			});
+
+			return SpecsSerializer.serializeCategory(created);
+		} catch (e) {
+			console.warn("[FinanceService / createExpenseCategory]: ", e);
 			throw new Error(e);
 		}
 	}
@@ -214,6 +274,45 @@ export class FinanceService {
 		});
 
 		return { notifications };
+	}
+
+	async resetAll(req: Record<string, any>): Promise<{ count: number }> {
+		try {
+			const userId: string = req.payload.id;
+
+			const { count } = await this.prismaService.financeItem.deleteMany({
+				where: { userId },
+			});
+
+			const planners = await this.prismaService.financePlanner.findMany({
+				where: { userId },
+				select: { id: true },
+			});
+
+			await this.prismaService.financePlanner.updateMany({
+				where: { userId, notifiedThreshold: { not: null } },
+				data: { notifiedThreshold: null, updatedAt: new Date() },
+			});
+
+			if (planners.length) {
+				await this.prismaService.budgetItem.updateMany({
+					where: {
+						plannerId: {
+							in: planners.map(
+								(planner: { id: string }) => planner.id
+							),
+						},
+						notifiedThreshold: { not: null },
+					},
+					data: { notifiedThreshold: null, updatedAt: new Date() },
+				});
+			}
+
+			return { count };
+		} catch (e) {
+			console.warn("[FinanceService / resetAll]: ", e);
+			throw new Error(e);
+		}
 	}
 
 	async findAll(

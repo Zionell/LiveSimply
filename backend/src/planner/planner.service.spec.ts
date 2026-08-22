@@ -18,8 +18,11 @@ const buildPrismaMock = () => ({
 		createMany: jest.fn(),
 	},
 	financeItem: {
-		groupBy: jest.fn().mockResolvedValue([]),
+		findMany: jest.fn().mockResolvedValue([]),
 		aggregate: jest.fn().mockResolvedValue({ _sum: { convertedPrice: 0 } }),
+	},
+	notification: {
+		findMany: jest.fn().mockResolvedValue([]),
 	},
 });
 
@@ -30,6 +33,10 @@ const ratesMock = {
 const budgetAlertMock = {
 	checkAfterExpense: jest.fn(),
 	resetAfterChange: jest.fn(),
+};
+
+const notificationsMock = {
+	create: jest.fn(),
 };
 
 const req = { payload: { id: "u1", exchange: "EUR" } };
@@ -58,10 +65,12 @@ describe("PlannerService", () => {
 		ratesMock.convertPrice.mockReset();
 		budgetAlertMock.checkAfterExpense.mockReset();
 		budgetAlertMock.resetAfterChange.mockReset();
+		notificationsMock.create.mockReset().mockResolvedValue(null);
 		service = new PlannerService(
 			prisma as any,
 			ratesMock as any,
-			budgetAlertMock as any
+			budgetAlertMock as any,
+			notificationsMock as any
 		);
 	});
 
@@ -110,7 +119,7 @@ describe("PlannerService", () => {
 				},
 				include: expect.any(Object),
 			});
-			expect(result.income.converted).toBe(0);
+			expect(result.expectedIncome.converted).toBe(0);
 		});
 
 		it("returns the winning planner when a concurrent create loses the unique-constraint race", async () => {
@@ -126,6 +135,147 @@ describe("PlannerService", () => {
 
 			expect(prisma.financePlanner.findUnique).toHaveBeenCalledTimes(2);
 			expect(result.id).toBe("p1");
+		});
+	});
+
+	describe("month facts", () => {
+		const row = (
+			day: number,
+			operationCategoryId: string,
+			convertedPrice: number,
+			expenseCategoryId: string | null = null
+		) => ({
+			createdAt: new Date(Date.UTC(2026, 7, day, 12)),
+			convertedPrice,
+			operationCategoryId,
+			expenseCategoryId,
+		});
+
+		beforeEach(() => {
+			jest.useFakeTimers().setSystemTime(
+				new Date("2026-09-10T00:00:00.000Z")
+			);
+			prisma.financePlanner.findUnique.mockResolvedValue(plannerRecord);
+		});
+
+		afterEach(() => {
+			jest.useRealTimers();
+		});
+
+		it("reads both expenses and income for the planner's month", async () => {
+			await service.getOrCreate({ year: 2026, month: 8 }, req);
+
+			expect(prisma.financeItem.findMany).toHaveBeenCalledWith({
+				where: {
+					userId: "u1",
+					operationCategoryId: { in: ["expense", "income"] },
+					createdAt: {
+						gte: new Date("2026-08-01T00:00:00.000Z"),
+						lt: new Date("2026-09-01T00:00:00.000Z"),
+					},
+				},
+				select: {
+					createdAt: true,
+					convertedPrice: true,
+					operationCategoryId: true,
+					expenseCategoryId: true,
+				},
+			});
+		});
+
+		it("sums earned income separately from spending", async () => {
+			prisma.financeItem.findMany.mockResolvedValue([
+				row(3, "income", 2000),
+				row(5, "income", 500),
+				row(6, "expense", 120, "food"),
+			]);
+
+			const result = await service.getOrCreate(
+				{ year: 2026, month: 8 },
+				req
+			);
+
+			expect(result.actualIncome).toBe(2500);
+			expect(result.totalSpent).toBe(120);
+			expect(result.expectedIncome.converted).toBe(4600);
+		});
+
+		it("accumulates several expenses in one category instead of overwriting them", async () => {
+			prisma.financeItem.findMany.mockResolvedValue([
+				row(2, "expense", 100, "food"),
+				row(9, "expense", 40, "food"),
+				row(9, "expense", 25, "travel"),
+			]);
+			prisma.financePlanner.findUnique.mockResolvedValue({
+				...plannerRecord,
+				items: [
+					{
+						id: "i1",
+						label: "Food",
+						curAmount: 200,
+						currencyFromId: "EUR",
+						convertedAmount: 200,
+						currencyToId: "EUR",
+						expenseCategoryId: "food",
+						isRequired: true,
+					},
+				],
+			});
+
+			const result = await service.getOrCreate(
+				{ year: 2026, month: 8 },
+				req
+			);
+
+			expect(result.required[0].spent).toBe(140);
+			expect(result.totalSpent).toBe(165);
+		});
+
+		it("builds a cumulative daily series covering every day of a finished month", async () => {
+			prisma.financeItem.findMany.mockResolvedValue([
+				row(1, "income", 1000),
+				row(2, "expense", 300),
+				row(4, "expense", 200),
+			]);
+
+			const result = await service.getOrCreate(
+				{ year: 2026, month: 8 },
+				req
+			);
+
+			expect(result.chart).toHaveLength(31);
+			expect(result.chart.slice(0, 5)).toEqual([
+				{ day: 1, income: 1000, expense: 0 },
+				{ day: 2, income: 1000, expense: 300 },
+				{ day: 3, income: 1000, expense: 300 },
+				{ day: 4, income: 1000, expense: 500 },
+				{ day: 5, income: 1000, expense: 500 },
+			]);
+			expect(result.chart[30]).toEqual({
+				day: 31,
+				income: 1000,
+				expense: 500,
+			});
+		});
+
+		it("stops the series at today for the month still in progress", async () => {
+			prisma.financePlanner.findUnique.mockResolvedValue({
+				...plannerRecord,
+				month: 9,
+			});
+			prisma.financeItem.findMany.mockResolvedValue([]);
+
+			const result = await service.getOrCreate(
+				{ year: 2026, month: 9 },
+				req
+			);
+
+			expect(result.chart).toHaveLength(10);
+			expect(result.chart[9]).toEqual({
+				day: 10,
+				income: 0,
+				expense: 0,
+			});
 		});
 	});
 
@@ -387,6 +537,144 @@ describe("PlannerService", () => {
 				NotFoundException
 			);
 			expect(prisma.budgetItem.delete).not.toHaveBeenCalled();
+		});
+	});
+
+	describe("remindToPlanNextMonth", () => {
+		const filled = (userId: string, overrides = {}) => ({
+			userId,
+			convertedIncome: 3000,
+			isRegular: false,
+			items: [],
+			...overrides,
+		});
+
+		beforeEach(() => {
+			jest.useFakeTimers().setSystemTime(
+				new Date("2026-08-28T09:00:00.000Z")
+			);
+			prisma.notification.findMany.mockResolvedValue([]);
+		});
+
+		afterEach(() => {
+			jest.useRealTimers();
+		});
+
+		it("notifies a planner whose next month is still untouched", async () => {
+			prisma.financePlanner.findMany
+				.mockResolvedValueOnce([filled("u1")])
+				.mockResolvedValueOnce([]);
+
+			const sent = await service.remindToPlanNextMonth(2026, 8);
+
+			expect(sent).toBe(1);
+			expect(notificationsMock.create).toHaveBeenCalledWith({
+				userId: "u1",
+				type: "planner.reminder",
+				params: { days: 3 },
+			});
+		});
+
+		it("looks the next month up under the following year in December", async () => {
+			prisma.financePlanner.findMany
+				.mockResolvedValueOnce([filled("u1")])
+				.mockResolvedValueOnce([]);
+
+			await service.remindToPlanNextMonth(2026, 12);
+
+			expect(prisma.financePlanner.findMany).toHaveBeenLastCalledWith({
+				where: {
+					userId: { in: ["u1"] },
+					year: 2027,
+					month: 1,
+				},
+				include: { items: { select: { id: true } } },
+			});
+		});
+
+		it("skips a user whose next month already has income or items", async () => {
+			prisma.financePlanner.findMany
+				.mockResolvedValueOnce([filled("u1"), filled("u2")])
+				.mockResolvedValueOnce([
+					{ userId: "u1", convertedIncome: 4000, items: [] },
+					{
+						userId: "u2",
+						convertedIncome: 0,
+						items: [{ id: "i1" }],
+					},
+				]);
+
+			const sent = await service.remindToPlanNextMonth(2026, 8);
+
+			expect(sent).toBe(0);
+			expect(notificationsMock.create).not.toHaveBeenCalled();
+		});
+
+		it("still notifies a user whose next-month planner was auto-created but left empty", async () => {
+			prisma.financePlanner.findMany
+				.mockResolvedValueOnce([filled("u1")])
+				.mockResolvedValueOnce([
+					{ userId: "u1", convertedIncome: 0, items: [] },
+				]);
+
+			const sent = await service.remindToPlanNextMonth(2026, 8);
+
+			expect(sent).toBe(1);
+		});
+
+		it("skips the owner of a regular plan, which is copied automatically", async () => {
+			prisma.financePlanner.findMany
+				.mockResolvedValueOnce([filled("u1", { isRegular: true })])
+				.mockResolvedValueOnce([]);
+
+			const sent = await service.remindToPlanNextMonth(2026, 8);
+
+			expect(sent).toBe(0);
+			expect(notificationsMock.create).not.toHaveBeenCalled();
+		});
+
+		it("skips a user who never filled the current month in", async () => {
+			prisma.financePlanner.findMany
+				.mockResolvedValueOnce([
+					filled("u1", { convertedIncome: 0, items: [] }),
+				])
+				.mockResolvedValueOnce([]);
+
+			const sent = await service.remindToPlanNextMonth(2026, 8);
+
+			expect(sent).toBe(0);
+		});
+
+		it("does not send a second reminder on a re-run the same day", async () => {
+			prisma.financePlanner.findMany
+				.mockResolvedValueOnce([filled("u1")])
+				.mockResolvedValueOnce([]);
+			prisma.notification.findMany.mockResolvedValue([{ userId: "u1" }]);
+
+			const sent = await service.remindToPlanNextMonth(2026, 8);
+
+			expect(sent).toBe(0);
+			expect(prisma.notification.findMany).toHaveBeenCalledWith({
+				where: {
+					userId: { in: ["u1"] },
+					type: "planner.reminder",
+					createdAt: { gte: new Date("2026-08-28T00:00:00.000Z") },
+				},
+				select: { userId: true },
+			});
+		});
+
+		it("does not let a failure escape", async () => {
+			prisma.financePlanner.findMany.mockRejectedValue(
+				new Error("db down")
+			);
+			const warnSpy = jest.spyOn(console, "warn").mockImplementation();
+
+			await expect(service.remindToPlanNextMonth(2026, 8)).resolves.toBe(
+				0
+			);
+
+			warnSpy.mockRestore();
 		});
 	});
 

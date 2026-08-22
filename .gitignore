@@ -87,3 +87,6 @@ sw.*
 *.swp
 
 old/
+.junie
+.superpowers
+docs

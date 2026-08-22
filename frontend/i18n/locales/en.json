@@ -30,13 +30,16 @@
 		"business-card": "Business card",
 		"goals": "Goals",
 		"tgBot": "Telegram bot",
-		"users": "Users"
+		"users": "Users",
+		"settings": "Settings"
 	},
 	"buttons": {
 		"submit": "Submit",
 		"close": "Close",
 		"save": "Save",
 		"new": "Add new",
+		"newBudgetItem": "Add expense",
+		"plannerSettings": "Plan settings",
 		"delete": "Delete",
 		"download": "Download",
 		"qrGen": "Generate QR-code",
@@ -50,6 +53,7 @@
 		"currencyTo": "Select the currency to transfer to",
 		"operationCategory": "Category",
 		"expenseCategory": "Expense categories",
+		"createExpenseCategory": "Create category \"{label}\"",
 		"goals": "Goals",
 		"name": "Username",
 		"email": "Email",
@@ -173,19 +177,25 @@
 		"tooltip": "Take the survey"
 	},
 	"financePlanner": {
-		"income": "Income",
+		"expectedIncome": "Expected income",
+		"actualIncome": "Income so far",
 		"required": "Mandatory payments",
 		"additional": "Additional expenses",
-		"period": "Period",
 		"planned": "Planned",
 		"spent": "Spent",
 		"unallocated": "Unallocated",
-		"overplanned": "Over the income by {amount}",
+		"overplanned": "Over the expected income by {amount}",
 		"threshold": "Alert threshold",
 		"thresholdHint": "You will be notified once spending reaches this share of a plan.",
 		"isRegular": "Repeat this plan every month",
 		"empty": "No expenses planned yet",
-		"ofPlan": "{spent} of {planned} {currency}"
+		"ofPlan": "{spent} of {planned} {currency}",
+		"chartTitle": "Income vs expenses",
+		"chartIncome": "Income",
+		"chartExpense": "Expenses",
+		"chartEmpty": "No transactions this month yet",
+		"prevMonth": "Previous month",
+		"nextMonth": "Next month"
 	},
 	"notifications": {
 		"title": "Notifications",
@@ -199,5 +209,44 @@
 		"deleted": "Successfully deleted",
 		"updated": "Successfully updated",
 		"added": "Successfully added"
+	},
+	"settings": {
+		"tabs": {
+			"finance": "Finance",
+			"notifications": "Notifications"
+		},
+		"finance": {
+			"balanceTitle": "Balance",
+			"balanceDescription": "Current balance: {balance}. Resetting sets it to zero so you can enter a new starting value.",
+			"balanceButton": "Reset balance",
+			"balanceConfirmTitle": "Reset balance?",
+			"balanceConfirmText": "The balance will be set to zero. Your transactions will not be deleted.",
+			"balanceReset": "Balance has been reset",
+			"tableTitle": "Transactions table",
+			"tableDescription": "Permanently deletes all your income and expense records. The balance stays unchanged.",
+			"tableButton": "Clear table",
+			"tableConfirmTitle": "Clear the transactions table?",
+			"tableConfirmText": "All records will be deleted permanently. This cannot be undone.",
+			"tableReset": "Transactions table has been cleared"
+		},
+		"notifications": {
+			"title": "Email delivery",
+			"description": "Everything always arrives in the app. Turn a group on to also get it by email.",
+			"emailLabel": "Send by email",
+			"groups": {
+				"finance": {
+					"label": "Finance",
+					"hint": "Budget threshold alerts for a goal and for the month as a whole."
+				},
+				"planner": {
+					"label": "Planner",
+					"hint": "A reminder to fill in the plan before the month ends."
+				},
+				"goals": {
+					"label": "Goals",
+					"hint": "Progress on your saving goals."
+				}
+			}
+		}
 	}
 }
