@@ -144,6 +144,7 @@ describe("BudgetAlertService", () => {
 		const result = await service.checkAfterExpense(args);
 
 		expect(notifications.create).not.toHaveBeenCalled();
+		expect(prisma.budgetItem.update).not.toHaveBeenCalled();
 		expect(result).toEqual([]);
 	});
 
@@ -214,6 +215,14 @@ describe("BudgetAlertService", () => {
 		expect(prisma.financeItem.aggregate).not.toHaveBeenCalled();
 	});
 
+	it("resolves to an empty array instead of rejecting when the database throws", async () => {
+		prisma.financePlanner.findUnique.mockRejectedValue(new Error("boom"));
+
+		const result = await service.checkAfterExpense(args);
+
+		expect(result).toEqual([]);
+	});
+
 	it("skips an item with a zero planned amount", async () => {
 		prisma.financePlanner.findUnique.mockResolvedValue(
 			plannerWithItem({
@@ -240,7 +249,7 @@ describe("BudgetAlertService", () => {
 	it("ignores an expense in a category that is not planned", async () => {
 		prisma.financePlanner.findUnique.mockResolvedValue(plannerWithItem());
 		prisma.financeItem.aggregate.mockResolvedValue({
-			_sum: { convertedPrice: 100 },
+			_sum: { convertedPrice: 900 },
 		});
 
 		const result = await service.checkAfterExpense({
@@ -255,7 +264,7 @@ describe("BudgetAlertService", () => {
 	it("tolerates an expense with no category at all", async () => {
 		prisma.financePlanner.findUnique.mockResolvedValue(plannerWithItem());
 		prisma.financeItem.aggregate.mockResolvedValue({
-			_sum: { convertedPrice: 100 },
+			_sum: { convertedPrice: 900 },
 		});
 
 		const result = await service.checkAfterExpense({
@@ -315,6 +324,18 @@ describe("BudgetAlertService", () => {
 
 			await service.resetAfterChange(args);
 
+			expect(prisma.budgetItem.update).not.toHaveBeenCalled();
+			expect(prisma.financePlanner.update).not.toHaveBeenCalled();
+		});
+
+		it("skips the aggregate query and update entirely when nothing was ever flagged", async () => {
+			prisma.financePlanner.findUnique.mockResolvedValue(
+				plannerWithItem()
+			);
+
+			await service.resetAfterChange(args);
+
+			expect(prisma.financeItem.aggregate).not.toHaveBeenCalled();
 			expect(prisma.budgetItem.update).not.toHaveBeenCalled();
 			expect(prisma.financePlanner.update).not.toHaveBeenCalled();
 		});

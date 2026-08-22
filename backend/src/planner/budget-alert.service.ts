@@ -1,7 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
 import { NotificationsService } from "../notifications/notifications.service";
-import { ENotificationType, ISerializedNotification } from "../notifications/types";
+import {
+	ENotificationType,
+	ISerializedNotification,
+} from "../notifications/types";
 import { getMonthRange } from "../../utils/date";
 
 interface ICheckArgs {
@@ -61,7 +64,10 @@ export class BudgetAlertService {
 		date = new Date(),
 	}: ICheckArgs): Promise<ISerializedNotification[]> {
 		try {
-			const { planner, year, month } = await this.loadPlanner(userId, date);
+			const { planner, year, month } = await this.loadPlanner(
+				userId,
+				date
+			);
 
 			if (!planner) {
 				return [];
@@ -90,18 +96,19 @@ export class BudgetAlertService {
 					progress >= threshold &&
 					item.notifiedThreshold !== threshold
 				) {
-					const notification =
-						await this.notificationsService.create({
+					const notification = await this.notificationsService.create(
+						{
 							userId,
 							type: ENotificationType.BudgetItemThreshold,
 							params: {
 								label: item.label,
 								percent: Math.round(progress * 100),
 								spent: round(spent),
-								planned: item.convertedAmount,
+								planned: round(item.convertedAmount),
 								currency: planner.currencyToId,
 							},
-						});
+						}
+					);
 
 					await this.prismaService.budgetItem.update({
 						where: { id: item.id },
@@ -125,17 +132,18 @@ export class BudgetAlertService {
 					progress >= threshold &&
 					planner.notifiedThreshold !== threshold
 				) {
-					const notification =
-						await this.notificationsService.create({
+					const notification = await this.notificationsService.create(
+						{
 							userId,
 							type: ENotificationType.BudgetTotalThreshold,
 							params: {
 								percent: Math.round(progress * 100),
 								spent: round(totalSpent),
-								planned: planner.convertedIncome,
+								planned: round(planner.convertedIncome),
 								currency: planner.currencyToId,
 							},
-						});
+						}
+					);
 
 					await this.prismaService.financePlanner.update({
 						where: { id: planner.id },
@@ -164,7 +172,10 @@ export class BudgetAlertService {
 		date = new Date(),
 	}: ICheckArgs): Promise<void> {
 		try {
-			const { planner, year, month } = await this.loadPlanner(userId, date);
+			const { planner, year, month } = await this.loadPlanner(
+				userId,
+				date
+			);
 
 			if (!planner) {
 				return;

@@ -296,7 +296,10 @@ export class PlannerService {
 			data.isRequired = dto.isRequired;
 		}
 
-		if (dto.curAmount !== undefined || dto.currencyFromId !== undefined) {
+		const amountChanged =
+			dto.curAmount !== undefined || dto.currencyFromId !== undefined;
+
+		if (amountChanged) {
 			const curAmount =
 				dto.curAmount !== undefined ? dto.curAmount : item.curAmount;
 			const currencyFromId = dto.currencyFromId || item.currencyFromId;
@@ -315,7 +318,7 @@ export class PlannerService {
 			data,
 		});
 
-		if (dto.curAmount !== undefined || dto.currencyFromId !== undefined) {
+		if (amountChanged) {
 			await this.budgetAlertService.resetAfterChange({
 				userId,
 				expenseCategoryId: item.expenseCategoryId,
@@ -336,25 +339,6 @@ export class PlannerService {
 		await this.loadOwnedItem(itemId, userId);
 
 		await this.prismaService.budgetItem.delete({ where: { id: itemId } });
-	}
-
-	async spentForCategory(
-		userId: string,
-		expenseCategoryId: string,
-		year: number,
-		month: number
-	): Promise<number> {
-		const result = await this.prismaService.financeItem.aggregate({
-			where: {
-				userId,
-				operationCategoryId: "expense",
-				expenseCategoryId,
-				createdAt: getMonthRange(year, month),
-			},
-			_sum: { convertedPrice: true },
-		});
-
-		return result._sum.convertedPrice || 0;
 	}
 
 	async copyRegularPlanners(year: number, month: number): Promise<void> {

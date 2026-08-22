@@ -191,7 +191,7 @@ export class FinanceService {
 
 		delete createFinanceDto.goalsId;
 
-		await this.prismaService.financeItem.create({
+		const created = await this.prismaService.financeItem.create({
 			data: {
 				...createFinanceDto,
 				expenseCategoryId: createFinanceDto.expenseCategoryId || null,
@@ -210,6 +210,7 @@ export class FinanceService {
 		const notifications = await this.budgetAlertService.checkAfterExpense({
 			userId: user.id,
 			expenseCategoryId: createFinanceDto.expenseCategoryId || null,
+			date: created.createdAt,
 		});
 
 		return { notifications };
@@ -291,15 +292,55 @@ export class FinanceService {
 		}
 	}
 
-	async update(id: string, updateFinanceDto: UpdateFinanceDto) {
+	async update(
+		id: string,
+		updateFinanceDto: UpdateFinanceDto
+	): Promise<
+		Record<string, any> & { notifications: ISerializedNotification[] }
+	> {
 		try {
-			return this.prismaService.financeItem.update({
+			const original = await this.prismaService.financeItem.findUnique({
+				where: { id },
+			});
+
+			const updated = await this.prismaService.financeItem.update({
 				where: { id },
 				data: {
 					updatedAt: new Date(),
 					...updateFinanceDto,
 				},
 			});
+
+			if (!original || original.operationCategoryId !== "expense") {
+				return { ...updated, notifications: [] };
+			}
+
+			const categoryIds = new Set<string | null>([
+				original.expenseCategoryId,
+				updated.expenseCategoryId,
+			]);
+
+			const notifications: ISerializedNotification[] = [];
+
+			for (const expenseCategoryId of categoryIds) {
+				await this.budgetAlertService.resetAfterChange({
+					userId: original.userId,
+					expenseCategoryId,
+					date: original.createdAt,
+				});
+
+				const created = await this.budgetAlertService.checkAfterExpense(
+					{
+						userId: original.userId,
+						expenseCategoryId,
+						date: original.createdAt,
+					}
+				);
+
+				notifications.push(...created);
+			}
+
+			return { ...updated, notifications };
 		} catch (e) {
 			console.warn("[FinanceService / update]: ", e);
 			throw new Error(e);
