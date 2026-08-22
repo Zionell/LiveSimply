@@ -8,6 +8,7 @@ import { TranslateService } from "../translate/translate.service";
 import { MailService } from "../mail/mail.service";
 import { NotificationsModule } from "../notifications/notifications.module";
 import { BudgetAlertService } from "./budget-alert.service";
+import { PlannerCron } from "./planner.cron";
 
 @Module({
 	imports: [ConfigModule, NotificationsModule],
@@ -19,6 +20,7 @@ import { BudgetAlertService } from "./budget-alert.service";
 		TranslateService,
 		MailService,
 		BudgetAlertService,
+		PlannerCron,
 	],
 	exports: [PlannerService, BudgetAlertService],
 })
