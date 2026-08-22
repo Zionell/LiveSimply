@@ -137,7 +137,7 @@ export class FinanceService {
 				),
 			};
 		} catch (e) {
-			console.warn("[FinanceService / getSpecs]: ", e);
+			console.warn("[FinanceService / getStatistics]: ", e);
 			throw new Error(e);
 		}
 	}

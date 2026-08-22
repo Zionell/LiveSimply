@@ -5,6 +5,14 @@ const props = defineProps<{
 	planner: IPlanner;
 }>();
 
+const { locale } = useI18n();
+
+const periodLabel = computed((): string => {
+	const date = new Date(Date.UTC(props.planner.year, props.planner.month - 1, 1));
+
+	return new Intl.DateTimeFormat(locale.value, { month: "long", year: "numeric", timeZone: "UTC" }).format(date);
+});
+
 const percent = computed((): number => Math.round(props.planner.progress * 100));
 
 const color = computed((): UiColors => {
@@ -24,6 +32,10 @@ const isOverplanned = computed((): boolean => props.planner.unallocated < 0);
 
 <template>
 	<CommonCardWrapper>
+		<h2 class="text-sm uppercase tracking-wide text-gray-400 mb-4">
+			{{ $t("financePlanner.period") }}: {{ periodLabel }}
+		</h2>
+
 		<div class="grid sm:grid-cols-3 gap-4">
 			<div>
 				<div class="text-xs text-gray-400">{{ $t("financePlanner.income") }}</div>
