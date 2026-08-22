@@ -43,7 +43,7 @@ export class PlannerController {
 	@Delete(":id")
 	async remove(@Param("id") id: string, @Req() req: Request) {
 		await this.plannerService.remove(id, req);
-		return HttpStatus.NO_CONTENT;
+		return;
 	}
 
 	@HttpCode(HttpStatus.CREATED)
@@ -69,6 +69,6 @@ export class PlannerController {
 	@Delete("items/:itemId")
 	async removeItem(@Param("itemId") itemId: string, @Req() req: Request) {
 		await this.plannerService.removeItem(itemId, req);
-		return HttpStatus.NO_CONTENT;
+		return;
 	}
 }

@@ -71,6 +71,19 @@ export class PlannerService {
 		return planner;
 	}
 
+	private async loadOwnedItem(itemId: string, userId: string) {
+		const item = await this.prismaService.budgetItem.findUnique({
+			where: { id: itemId },
+			include: { planner: true },
+		});
+
+		if (!item || item.planner.userId !== userId) {
+			throw new NotFoundException();
+		}
+
+		return item;
+	}
+
 	private async collectSpent(userId: string, year: number, month: number) {
 		const period = getMonthRange(year, month);
 
@@ -133,18 +146,33 @@ export class PlannerService {
 			if (!planner) {
 				const currency = this.baseCurrency(req);
 
-				planner = await this.prismaService.financePlanner.create({
-					data: {
-						userId,
-						year,
-						month,
-						curIncome: 0,
-						currencyFromId: currency,
-						convertedIncome: 0,
-						currencyToId: currency,
-					},
-					include: this.itemsInclude(),
-				});
+				try {
+					planner = await this.prismaService.financePlanner.create({
+						data: {
+							userId,
+							year,
+							month,
+							curIncome: 0,
+							currencyFromId: currency,
+							convertedIncome: 0,
+							currencyToId: currency,
+						},
+						include: this.itemsInclude(),
+					});
+				} catch (e) {
+					if (e?.code !== "P2002") {
+						throw e;
+					}
+
+					planner = await this.prismaService.financePlanner.findUnique(
+						{
+							where: {
+								userId_year_month: { userId, year, month },
+							},
+							include: this.itemsInclude(),
+						}
+					);
+				}
 			}
 
 			return this.present(planner);
@@ -254,14 +282,7 @@ export class PlannerService {
 	): Promise<ISerializedPlanner> {
 		const userId: string = req.payload.id;
 
-		const item = await this.prismaService.budgetItem.findUnique({
-			where: { id: itemId },
-			include: { planner: true },
-		});
-
-		if (!item || item.planner.userId !== userId) {
-			throw new NotFoundException();
-		}
+		const item = await this.loadOwnedItem(itemId, userId);
 
 		const data: Record<string, any> = { updatedAt: new Date() };
 
@@ -314,14 +335,7 @@ export class PlannerService {
 	async removeItem(itemId: string, req: Record<string, any>): Promise<void> {
 		const userId: string = req.payload.id;
 
-		const item = await this.prismaService.budgetItem.findUnique({
-			where: { id: itemId },
-			include: { planner: true },
-		});
-
-		if (!item || item.planner.userId !== userId) {
-			throw new NotFoundException();
-		}
+		await this.loadOwnedItem(itemId, userId);
 
 		await this.prismaService.budgetItem.delete({ where: { id: itemId } });
 	}

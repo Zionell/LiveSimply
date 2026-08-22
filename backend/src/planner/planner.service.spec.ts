@@ -101,6 +101,21 @@ describe("PlannerService", () => {
 			});
 			expect(result.income.converted).toBe(0);
 		});
+
+		it("returns the winning planner when a concurrent create loses the unique-constraint race", async () => {
+			prisma.financePlanner.findUnique
+				.mockResolvedValueOnce(null)
+				.mockResolvedValueOnce(plannerRecord);
+			prisma.financePlanner.create.mockRejectedValue({ code: "P2002" });
+
+			const result = await service.getOrCreate(
+				{ year: 2026, month: 8 },
+				req
+			);
+
+			expect(prisma.financePlanner.findUnique).toHaveBeenCalledTimes(2);
+			expect(result.id).toBe("p1");
+		});
 	});
 
 	describe("update", () => {
@@ -286,6 +301,32 @@ describe("PlannerService", () => {
 					}),
 				})
 			);
+		});
+
+		it("keeps notifiedThreshold when progress stays at or above the threshold", async () => {
+			prisma.budgetItem.findUnique.mockResolvedValue({
+				id: "i1",
+				plannerId: "p1",
+				curAmount: 1000,
+				currencyFromId: "EUR",
+				convertedAmount: 1000,
+				currencyToId: "EUR",
+				expenseCategoryId: "travel",
+				notifiedThreshold: 0.7,
+				planner: plannerRecord,
+			});
+			prisma.financeItem.aggregate.mockResolvedValue({
+				_sum: { convertedPrice: 700 },
+			});
+			ratesMock.convertPrice.mockResolvedValue(900);
+			prisma.financePlanner.findUnique.mockResolvedValue(plannerRecord);
+			prisma.budgetItem.update.mockResolvedValue({});
+
+			await service.updateItem("i1", { curAmount: 900 }, req);
+
+			const updateCall = prisma.budgetItem.update.mock.calls[0][0];
+
+			expect(updateCall.data).not.toHaveProperty("notifiedThreshold");
 		});
 	});
 
