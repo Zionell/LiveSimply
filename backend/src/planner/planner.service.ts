@@ -6,6 +6,7 @@ import {
 import { I18nContext } from "nestjs-i18n";
 import { PrismaService } from "../prisma.service";
 import { RatesService } from "../rates/rates.service";
+import { BudgetAlertService } from "./budget-alert.service";
 import { getMonthRange } from "../../utils/date";
 import { CreateBudgetItemDto } from "./dto/create-budget-item.dto";
 import { UpdateBudgetItemDto } from "./dto/update-budget-item.dto";
@@ -22,7 +23,8 @@ const DEFAULT_CURRENCY = "EUR";
 export class PlannerService {
 	constructor(
 		private readonly prismaService: PrismaService,
-		private readonly ratesService: RatesService
+		private readonly ratesService: RatesService,
+		private readonly budgetAlertService: BudgetAlertService
 	) {}
 
 	private itemsInclude() {
@@ -306,26 +308,22 @@ export class PlannerService {
 				currencyFromId,
 				item.currencyToId
 			);
-
-			const spent = await this.spentForCategory(
-				userId,
-				item.expenseCategoryId,
-				item.planner.year,
-				item.planner.month
-			);
-
-			const progress =
-				data.convertedAmount > 0 ? spent / data.convertedAmount : 0;
-
-			if (progress < item.planner.alertThreshold) {
-				data.notifiedThreshold = null;
-			}
 		}
 
 		await this.prismaService.budgetItem.update({
 			where: { id: itemId },
 			data,
 		});
+
+		if (dto.curAmount !== undefined || dto.currencyFromId !== undefined) {
+			await this.budgetAlertService.resetAfterChange({
+				userId,
+				expenseCategoryId: item.expenseCategoryId,
+				date: new Date(
+					Date.UTC(item.planner.year, item.planner.month - 1, 1)
+				),
+			});
+		}
 
 		return this.present(
 			await this.loadOwnedPlanner(item.plannerId, userId)

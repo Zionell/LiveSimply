@@ -27,6 +27,11 @@ const ratesMock = {
 	convertPrice: jest.fn(),
 };
 
+const budgetAlertMock = {
+	checkAfterExpense: jest.fn(),
+	resetAfterChange: jest.fn(),
+};
+
 const req = { payload: { id: "u1", exchange: "EUR" } };
 
 const plannerRecord = {
@@ -51,7 +56,13 @@ describe("PlannerService", () => {
 	beforeEach(() => {
 		prisma = buildPrismaMock();
 		ratesMock.convertPrice.mockReset();
-		service = new PlannerService(prisma as any, ratesMock as any);
+		budgetAlertMock.checkAfterExpense.mockReset();
+		budgetAlertMock.resetAfterChange.mockReset();
+		service = new PlannerService(
+			prisma as any,
+			ratesMock as any,
+			budgetAlertMock as any
+		);
 	});
 
 	describe("getOrCreate", () => {
@@ -272,7 +283,7 @@ describe("PlannerService", () => {
 			expect(prisma.budgetItem.update).not.toHaveBeenCalled();
 		});
 
-		it("clears notifiedThreshold when the planned amount grows past the threshold", async () => {
+		it("delegates to resetAfterChange when the planned amount changes, instead of computing progress inline", async () => {
 			prisma.budgetItem.findUnique.mockResolvedValue({
 				id: "i1",
 				plannerId: "p1",
@@ -283,9 +294,6 @@ describe("PlannerService", () => {
 				expenseCategoryId: "travel",
 				notifiedThreshold: 0.7,
 				planner: plannerRecord,
-			});
-			prisma.financeItem.aggregate.mockResolvedValue({
-				_sum: { convertedPrice: 700 },
 			});
 			ratesMock.convertPrice.mockResolvedValue(2000);
 			prisma.financePlanner.findUnique.mockResolvedValue(plannerRecord);
@@ -293,17 +301,23 @@ describe("PlannerService", () => {
 
 			await service.updateItem("i1", { curAmount: 2000 }, req);
 
-			expect(prisma.budgetItem.update).toHaveBeenCalledWith(
-				expect.objectContaining({
-					data: expect.objectContaining({
-						convertedAmount: 2000,
-						notifiedThreshold: null,
-					}),
-				})
+			const updateCall = prisma.budgetItem.update.mock.calls[0][0];
+
+			expect(updateCall.data).toEqual(
+				expect.objectContaining({ convertedAmount: 2000 })
 			);
+			expect(updateCall.data).not.toHaveProperty("notifiedThreshold");
+
+			expect(budgetAlertMock.resetAfterChange).toHaveBeenCalledWith({
+				userId: "u1",
+				expenseCategoryId: "travel",
+				date: new Date(
+					Date.UTC(plannerRecord.year, plannerRecord.month - 1, 1)
+				),
+			});
 		});
 
-		it("keeps notifiedThreshold when progress stays at or above the threshold", async () => {
+		it("never writes notifiedThreshold directly from an item update, regardless of progress", async () => {
 			prisma.budgetItem.findUnique.mockResolvedValue({
 				id: "i1",
 				plannerId: "p1",
@@ -314,9 +328,6 @@ describe("PlannerService", () => {
 				expenseCategoryId: "travel",
 				notifiedThreshold: 0.7,
 				planner: plannerRecord,
-			});
-			prisma.financeItem.aggregate.mockResolvedValue({
-				_sum: { convertedPrice: 700 },
 			});
 			ratesMock.convertPrice.mockResolvedValue(900);
 			prisma.financePlanner.findUnique.mockResolvedValue(plannerRecord);
@@ -327,6 +338,26 @@ describe("PlannerService", () => {
 			const updateCall = prisma.budgetItem.update.mock.calls[0][0];
 
 			expect(updateCall.data).not.toHaveProperty("notifiedThreshold");
+		});
+
+		it("does not call resetAfterChange when only non-amount fields change", async () => {
+			prisma.budgetItem.findUnique.mockResolvedValue({
+				id: "i1",
+				plannerId: "p1",
+				curAmount: 1000,
+				currencyFromId: "EUR",
+				convertedAmount: 1000,
+				currencyToId: "EUR",
+				expenseCategoryId: "travel",
+				notifiedThreshold: 0.7,
+				planner: plannerRecord,
+			});
+			prisma.financePlanner.findUnique.mockResolvedValue(plannerRecord);
+			prisma.budgetItem.update.mockResolvedValue({});
+
+			await service.updateItem("i1", { label: "Renamed" }, req);
+
+			expect(budgetAlertMock.resetAfterChange).not.toHaveBeenCalled();
 		});
 	});
 

@@ -10,6 +10,7 @@ import { UsersService } from "../users/users.service";
 import { GoalsService } from "../goals/goals.service";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
+import { PlannerModule } from "../planner/planner.module";
 
 @Module({
 	imports: [
@@ -24,6 +25,7 @@ import { JwtModule } from "@nestjs/jwt";
 			}),
 			inject: [ConfigService],
 		}),
+		PlannerModule,
 	],
 	controllers: [FinanceController],
 	providers: [

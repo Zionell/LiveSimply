@@ -14,6 +14,8 @@ import { FinanceSerializer } from "./serializer/finance.serializer";
 import { GoalsService } from "../goals/goals.service";
 import { BadRequestException } from "@nestjs/common/exceptions/bad-request.exception";
 import { ERole } from "../../types/user";
+import { BudgetAlertService } from "../planner/budget-alert.service";
+import { ISerializedNotification } from "../notifications/types";
 
 @Injectable()
 export class FinanceService {
@@ -21,7 +23,8 @@ export class FinanceService {
 		private readonly prismaService: PrismaService,
 		private readonly ratesService: RatesService,
 		private readonly usersService: UsersService,
-		private readonly goalsService: GoalsService
+		private readonly goalsService: GoalsService,
+		private readonly budgetAlertService: BudgetAlertService
 	) {}
 
 	async getSpecs(req: Record<string, any>) {
@@ -142,7 +145,7 @@ export class FinanceService {
 	async create(
 		createFinanceDto: CreateFinanceDto,
 		req: Record<string, any>
-	): Promise<void> {
+	): Promise<{ notifications: ISerializedNotification[] }> {
 		const user: Record<string, any> = req.payload;
 		const currencyToId = user.exchange || "EUR";
 
@@ -199,6 +202,17 @@ export class FinanceService {
 		});
 
 		await this.usersService.update({ total }, req);
+
+		if (operationCategoryId !== "expense") {
+			return { notifications: [] };
+		}
+
+		const notifications = await this.budgetAlertService.checkAfterExpense({
+			userId: user.id,
+			expenseCategoryId: createFinanceDto.expenseCategoryId || null,
+		});
+
+		return { notifications };
 	}
 
 	async findAll(
@@ -294,9 +308,21 @@ export class FinanceService {
 
 	async remove(id: string) {
 		try {
+			const item = await this.prismaService.financeItem.findUnique({
+				where: { id },
+			});
+
 			await this.prismaService.financeItem.delete({
 				where: { id },
 			});
+
+			if (item && item.operationCategoryId === "expense") {
+				await this.budgetAlertService.resetAfterChange({
+					userId: item.userId,
+					expenseCategoryId: item.expenseCategoryId,
+					date: item.createdAt,
+				});
+			}
 		} catch (e) {
 			console.warn("[FinanceService / remove]: ", e);
 			throw new Error(e);

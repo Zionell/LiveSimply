@@ -40,8 +40,7 @@ export class FinanceController {
 		@Body() createFinanceDto: CreateFinanceDto,
 		@Req() req: Request
 	) {
-		await this.financeService.create(createFinanceDto, req);
-		return HttpStatus.CREATED;
+		return this.financeService.create(createFinanceDto, req);
 	}
 
 	@Get()

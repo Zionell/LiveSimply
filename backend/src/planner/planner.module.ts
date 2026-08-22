@@ -7,6 +7,7 @@ import { RatesService } from "../rates/rates.service";
 import { TranslateService } from "../translate/translate.service";
 import { MailService } from "../mail/mail.service";
 import { NotificationsModule } from "../notifications/notifications.module";
+import { BudgetAlertService } from "./budget-alert.service";
 
 @Module({
 	imports: [ConfigModule, NotificationsModule],
@@ -17,7 +18,8 @@ import { NotificationsModule } from "../notifications/notifications.module";
 		RatesService,
 		TranslateService,
 		MailService,
+		BudgetAlertService,
 	],
-	exports: [PlannerService],
+	exports: [PlannerService, BudgetAlertService],
 })
 export class PlannerModule {}
