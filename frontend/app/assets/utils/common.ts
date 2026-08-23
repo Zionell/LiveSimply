@@ -50,3 +50,7 @@ export function colorByPercent(percentage: number) {
 	if (percentage < 60) return UiColors.warning;
 	return UiColors.success;
 }
+
+export function getError(error: any): string {
+	return error?.data?.message?.[0] || error?.data?.message || "";
+}

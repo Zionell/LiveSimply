@@ -229,7 +229,6 @@ export type ExchangeItemWhereInput = {
   fromExchangeItem?: Prisma.FinanceItemListRelationFilter
   toExchangeItem?: Prisma.FinanceItemListRelationFilter
   goal?: Prisma.GoalListRelationFilter
-  requiredPayments?: Prisma.PaymentsListRelationFilter
 }
 
 export type ExchangeItemOrderByWithRelationInput = {
@@ -244,7 +243,6 @@ export type ExchangeItemOrderByWithRelationInput = {
   fromExchangeItem?: Prisma.FinanceItemOrderByRelationAggregateInput
   toExchangeItem?: Prisma.FinanceItemOrderByRelationAggregateInput
   goal?: Prisma.GoalOrderByRelationAggregateInput
-  requiredPayments?: Prisma.PaymentsOrderByRelationAggregateInput
 }
 
 export type ExchangeItemWhereUniqueInput = Prisma.AtLeast<{
@@ -262,7 +260,6 @@ export type ExchangeItemWhereUniqueInput = Prisma.AtLeast<{
   fromExchangeItem?: Prisma.FinanceItemListRelationFilter
   toExchangeItem?: Prisma.FinanceItemListRelationFilter
   goal?: Prisma.GoalListRelationFilter
-  requiredPayments?: Prisma.PaymentsListRelationFilter
 }, "id" | "value">
 
 export type ExchangeItemOrderByWithAggregationInput = {
@@ -303,7 +300,6 @@ export type ExchangeItemCreateInput = {
   fromExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemFromInput
   toExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemToInput
   goal?: Prisma.GoalCreateNestedManyWithoutExchangeItemInput
-  requiredPayments?: Prisma.PaymentsCreateNestedManyWithoutExchangeItemInput
 }
 
 export type ExchangeItemUncheckedCreateInput = {
@@ -318,7 +314,6 @@ export type ExchangeItemUncheckedCreateInput = {
   fromExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemFromInput
   toExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemToInput
   goal?: Prisma.GoalUncheckedCreateNestedManyWithoutExchangeItemInput
-  requiredPayments?: Prisma.PaymentsUncheckedCreateNestedManyWithoutExchangeItemInput
 }
 
 export type ExchangeItemUpdateInput = {
@@ -332,7 +327,6 @@ export type ExchangeItemUpdateInput = {
   fromExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemFromNestedInput
   toExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemToNestedInput
   goal?: Prisma.GoalUpdateManyWithoutExchangeItemNestedInput
-  requiredPayments?: Prisma.PaymentsUpdateManyWithoutExchangeItemNestedInput
 }
 
 export type ExchangeItemUncheckedUpdateInput = {
@@ -346,7 +340,6 @@ export type ExchangeItemUncheckedUpdateInput = {
   fromExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemFromNestedInput
   toExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemToNestedInput
   goal?: Prisma.GoalUncheckedUpdateManyWithoutExchangeItemNestedInput
-  requiredPayments?: Prisma.PaymentsUncheckedUpdateManyWithoutExchangeItemNestedInput
 }
 
 export type ExchangeItemCreateManyInput = {
@@ -491,20 +484,6 @@ export type ExchangeItemUpdateOneRequiredWithoutGoalNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ExchangeItemUpdateToOneWithWhereWithoutGoalInput, Prisma.ExchangeItemUpdateWithoutGoalInput>, Prisma.ExchangeItemUncheckedUpdateWithoutGoalInput>
 }
 
-export type ExchangeItemCreateNestedOneWithoutRequiredPaymentsInput = {
-  create?: Prisma.XOR<Prisma.ExchangeItemCreateWithoutRequiredPaymentsInput, Prisma.ExchangeItemUncheckedCreateWithoutRequiredPaymentsInput>
-  connectOrCreate?: Prisma.ExchangeItemCreateOrConnectWithoutRequiredPaymentsInput
-  connect?: Prisma.ExchangeItemWhereUniqueInput
-}
-
-export type ExchangeItemUpdateOneRequiredWithoutRequiredPaymentsNestedInput = {
-  create?: Prisma.XOR<Prisma.ExchangeItemCreateWithoutRequiredPaymentsInput, Prisma.ExchangeItemUncheckedCreateWithoutRequiredPaymentsInput>
-  connectOrCreate?: Prisma.ExchangeItemCreateOrConnectWithoutRequiredPaymentsInput
-  upsert?: Prisma.ExchangeItemUpsertWithoutRequiredPaymentsInput
-  connect?: Prisma.ExchangeItemWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ExchangeItemUpdateToOneWithWhereWithoutRequiredPaymentsInput, Prisma.ExchangeItemUpdateWithoutRequiredPaymentsInput>, Prisma.ExchangeItemUncheckedUpdateWithoutRequiredPaymentsInput>
-}
-
 export type ExchangeItemCreateWithoutUserInput = {
   id?: string
   value: string
@@ -516,7 +495,6 @@ export type ExchangeItemCreateWithoutUserInput = {
   fromExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemFromInput
   toExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemToInput
   goal?: Prisma.GoalCreateNestedManyWithoutExchangeItemInput
-  requiredPayments?: Prisma.PaymentsCreateNestedManyWithoutExchangeItemInput
 }
 
 export type ExchangeItemUncheckedCreateWithoutUserInput = {
@@ -530,7 +508,6 @@ export type ExchangeItemUncheckedCreateWithoutUserInput = {
   fromExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemFromInput
   toExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemToInput
   goal?: Prisma.GoalUncheckedCreateNestedManyWithoutExchangeItemInput
-  requiredPayments?: Prisma.PaymentsUncheckedCreateNestedManyWithoutExchangeItemInput
 }
 
 export type ExchangeItemCreateOrConnectWithoutUserInput = {
@@ -559,7 +536,6 @@ export type ExchangeItemUpdateWithoutUserInput = {
   fromExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemFromNestedInput
   toExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemToNestedInput
   goal?: Prisma.GoalUpdateManyWithoutExchangeItemNestedInput
-  requiredPayments?: Prisma.PaymentsUpdateManyWithoutExchangeItemNestedInput
 }
 
 export type ExchangeItemUncheckedUpdateWithoutUserInput = {
@@ -572,7 +548,6 @@ export type ExchangeItemUncheckedUpdateWithoutUserInput = {
   fromExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemFromNestedInput
   toExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemToNestedInput
   goal?: Prisma.GoalUncheckedUpdateManyWithoutExchangeItemNestedInput
-  requiredPayments?: Prisma.PaymentsUncheckedUpdateManyWithoutExchangeItemNestedInput
 }
 
 export type ExchangeItemCreateWithoutLabelInput = {
@@ -586,7 +561,6 @@ export type ExchangeItemCreateWithoutLabelInput = {
   fromExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemFromInput
   toExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemToInput
   goal?: Prisma.GoalCreateNestedManyWithoutExchangeItemInput
-  requiredPayments?: Prisma.PaymentsCreateNestedManyWithoutExchangeItemInput
 }
 
 export type ExchangeItemUncheckedCreateWithoutLabelInput = {
@@ -600,7 +574,6 @@ export type ExchangeItemUncheckedCreateWithoutLabelInput = {
   fromExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemFromInput
   toExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemToInput
   goal?: Prisma.GoalUncheckedCreateNestedManyWithoutExchangeItemInput
-  requiredPayments?: Prisma.PaymentsUncheckedCreateNestedManyWithoutExchangeItemInput
 }
 
 export type ExchangeItemCreateOrConnectWithoutLabelInput = {
@@ -629,7 +602,6 @@ export type ExchangeItemUpdateWithoutLabelInput = {
   fromExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemFromNestedInput
   toExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemToNestedInput
   goal?: Prisma.GoalUpdateManyWithoutExchangeItemNestedInput
-  requiredPayments?: Prisma.PaymentsUpdateManyWithoutExchangeItemNestedInput
 }
 
 export type ExchangeItemUncheckedUpdateWithoutLabelInput = {
@@ -642,7 +614,6 @@ export type ExchangeItemUncheckedUpdateWithoutLabelInput = {
   fromExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemFromNestedInput
   toExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemToNestedInput
   goal?: Prisma.GoalUncheckedUpdateManyWithoutExchangeItemNestedInput
-  requiredPayments?: Prisma.PaymentsUncheckedUpdateManyWithoutExchangeItemNestedInput
 }
 
 export type ExchangeItemCreateWithoutFromExchangeItemInput = {
@@ -656,7 +627,6 @@ export type ExchangeItemCreateWithoutFromExchangeItemInput = {
   user?: Prisma.UserCreateNestedManyWithoutExchangeItemInput
   toExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemToInput
   goal?: Prisma.GoalCreateNestedManyWithoutExchangeItemInput
-  requiredPayments?: Prisma.PaymentsCreateNestedManyWithoutExchangeItemInput
 }
 
 export type ExchangeItemUncheckedCreateWithoutFromExchangeItemInput = {
@@ -670,7 +640,6 @@ export type ExchangeItemUncheckedCreateWithoutFromExchangeItemInput = {
   user?: Prisma.UserUncheckedCreateNestedManyWithoutExchangeItemInput
   toExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemToInput
   goal?: Prisma.GoalUncheckedCreateNestedManyWithoutExchangeItemInput
-  requiredPayments?: Prisma.PaymentsUncheckedCreateNestedManyWithoutExchangeItemInput
 }
 
 export type ExchangeItemCreateOrConnectWithoutFromExchangeItemInput = {
@@ -689,7 +658,6 @@ export type ExchangeItemCreateWithoutToExchangeItemInput = {
   user?: Prisma.UserCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemFromInput
   goal?: Prisma.GoalCreateNestedManyWithoutExchangeItemInput
-  requiredPayments?: Prisma.PaymentsCreateNestedManyWithoutExchangeItemInput
 }
 
 export type ExchangeItemUncheckedCreateWithoutToExchangeItemInput = {
@@ -703,7 +671,6 @@ export type ExchangeItemUncheckedCreateWithoutToExchangeItemInput = {
   user?: Prisma.UserUncheckedCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemFromInput
   goal?: Prisma.GoalUncheckedCreateNestedManyWithoutExchangeItemInput
-  requiredPayments?: Prisma.PaymentsUncheckedCreateNestedManyWithoutExchangeItemInput
 }
 
 export type ExchangeItemCreateOrConnectWithoutToExchangeItemInput = {
@@ -732,7 +699,6 @@ export type ExchangeItemUpdateWithoutFromExchangeItemInput = {
   user?: Prisma.UserUpdateManyWithoutExchangeItemNestedInput
   toExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemToNestedInput
   goal?: Prisma.GoalUpdateManyWithoutExchangeItemNestedInput
-  requiredPayments?: Prisma.PaymentsUpdateManyWithoutExchangeItemNestedInput
 }
 
 export type ExchangeItemUncheckedUpdateWithoutFromExchangeItemInput = {
@@ -745,7 +711,6 @@ export type ExchangeItemUncheckedUpdateWithoutFromExchangeItemInput = {
   user?: Prisma.UserUncheckedUpdateManyWithoutExchangeItemNestedInput
   toExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemToNestedInput
   goal?: Prisma.GoalUncheckedUpdateManyWithoutExchangeItemNestedInput
-  requiredPayments?: Prisma.PaymentsUncheckedUpdateManyWithoutExchangeItemNestedInput
 }
 
 export type ExchangeItemUpsertWithoutToExchangeItemInput = {
@@ -769,7 +734,6 @@ export type ExchangeItemUpdateWithoutToExchangeItemInput = {
   user?: Prisma.UserUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemFromNestedInput
   goal?: Prisma.GoalUpdateManyWithoutExchangeItemNestedInput
-  requiredPayments?: Prisma.PaymentsUpdateManyWithoutExchangeItemNestedInput
 }
 
 export type ExchangeItemUncheckedUpdateWithoutToExchangeItemInput = {
@@ -782,7 +746,6 @@ export type ExchangeItemUncheckedUpdateWithoutToExchangeItemInput = {
   user?: Prisma.UserUncheckedUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemFromNestedInput
   goal?: Prisma.GoalUncheckedUpdateManyWithoutExchangeItemNestedInput
-  requiredPayments?: Prisma.PaymentsUncheckedUpdateManyWithoutExchangeItemNestedInput
 }
 
 export type ExchangeItemCreateWithoutGoalInput = {
@@ -796,7 +759,6 @@ export type ExchangeItemCreateWithoutGoalInput = {
   user?: Prisma.UserCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemFromInput
   toExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemToInput
-  requiredPayments?: Prisma.PaymentsCreateNestedManyWithoutExchangeItemInput
 }
 
 export type ExchangeItemUncheckedCreateWithoutGoalInput = {
@@ -810,7 +772,6 @@ export type ExchangeItemUncheckedCreateWithoutGoalInput = {
   user?: Prisma.UserUncheckedCreateNestedManyWithoutExchangeItemInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemFromInput
   toExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemToInput
-  requiredPayments?: Prisma.PaymentsUncheckedCreateNestedManyWithoutExchangeItemInput
 }
 
 export type ExchangeItemCreateOrConnectWithoutGoalInput = {
@@ -839,7 +800,6 @@ export type ExchangeItemUpdateWithoutGoalInput = {
   user?: Prisma.UserUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemFromNestedInput
   toExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemToNestedInput
-  requiredPayments?: Prisma.PaymentsUpdateManyWithoutExchangeItemNestedInput
 }
 
 export type ExchangeItemUncheckedUpdateWithoutGoalInput = {
@@ -852,77 +812,6 @@ export type ExchangeItemUncheckedUpdateWithoutGoalInput = {
   user?: Prisma.UserUncheckedUpdateManyWithoutExchangeItemNestedInput
   fromExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemFromNestedInput
   toExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemToNestedInput
-  requiredPayments?: Prisma.PaymentsUncheckedUpdateManyWithoutExchangeItemNestedInput
-}
-
-export type ExchangeItemCreateWithoutRequiredPaymentsInput = {
-  id?: string
-  value: string
-  base?: string | null
-  rate?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string | null
-  label?: Prisma.ExchangeItemNameCreateNestedManyWithoutExchangeItemInput
-  user?: Prisma.UserCreateNestedManyWithoutExchangeItemInput
-  fromExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemFromInput
-  toExchangeItem?: Prisma.FinanceItemCreateNestedManyWithoutExchangeItemToInput
-  goal?: Prisma.GoalCreateNestedManyWithoutExchangeItemInput
-}
-
-export type ExchangeItemUncheckedCreateWithoutRequiredPaymentsInput = {
-  id?: string
-  value: string
-  base?: string | null
-  rate?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string | null
-  label?: Prisma.ExchangeItemNameUncheckedCreateNestedManyWithoutExchangeItemInput
-  user?: Prisma.UserUncheckedCreateNestedManyWithoutExchangeItemInput
-  fromExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemFromInput
-  toExchangeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExchangeItemToInput
-  goal?: Prisma.GoalUncheckedCreateNestedManyWithoutExchangeItemInput
-}
-
-export type ExchangeItemCreateOrConnectWithoutRequiredPaymentsInput = {
-  where: Prisma.ExchangeItemWhereUniqueInput
-  create: Prisma.XOR<Prisma.ExchangeItemCreateWithoutRequiredPaymentsInput, Prisma.ExchangeItemUncheckedCreateWithoutRequiredPaymentsInput>
-}
-
-export type ExchangeItemUpsertWithoutRequiredPaymentsInput = {
-  update: Prisma.XOR<Prisma.ExchangeItemUpdateWithoutRequiredPaymentsInput, Prisma.ExchangeItemUncheckedUpdateWithoutRequiredPaymentsInput>
-  create: Prisma.XOR<Prisma.ExchangeItemCreateWithoutRequiredPaymentsInput, Prisma.ExchangeItemUncheckedCreateWithoutRequiredPaymentsInput>
-  where?: Prisma.ExchangeItemWhereInput
-}
-
-export type ExchangeItemUpdateToOneWithWhereWithoutRequiredPaymentsInput = {
-  where?: Prisma.ExchangeItemWhereInput
-  data: Prisma.XOR<Prisma.ExchangeItemUpdateWithoutRequiredPaymentsInput, Prisma.ExchangeItemUncheckedUpdateWithoutRequiredPaymentsInput>
-}
-
-export type ExchangeItemUpdateWithoutRequiredPaymentsInput = {
-  value?: Prisma.StringFieldUpdateOperationsInput | string
-  base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  label?: Prisma.ExchangeItemNameUpdateManyWithoutExchangeItemNestedInput
-  user?: Prisma.UserUpdateManyWithoutExchangeItemNestedInput
-  fromExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemFromNestedInput
-  toExchangeItem?: Prisma.FinanceItemUpdateManyWithoutExchangeItemToNestedInput
-  goal?: Prisma.GoalUpdateManyWithoutExchangeItemNestedInput
-}
-
-export type ExchangeItemUncheckedUpdateWithoutRequiredPaymentsInput = {
-  value?: Prisma.StringFieldUpdateOperationsInput | string
-  base?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rate?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  label?: Prisma.ExchangeItemNameUncheckedUpdateManyWithoutExchangeItemNestedInput
-  user?: Prisma.UserUncheckedUpdateManyWithoutExchangeItemNestedInput
-  fromExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemFromNestedInput
-  toExchangeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExchangeItemToNestedInput
-  goal?: Prisma.GoalUncheckedUpdateManyWithoutExchangeItemNestedInput
 }
 
 
@@ -936,7 +825,6 @@ export type ExchangeItemCountOutputType = {
   fromExchangeItem: number
   toExchangeItem: number
   goal: number
-  requiredPayments: number
 }
 
 export type ExchangeItemCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -945,7 +833,6 @@ export type ExchangeItemCountOutputTypeSelect<ExtArgs extends runtime.Types.Exte
   fromExchangeItem?: boolean | ExchangeItemCountOutputTypeCountFromExchangeItemArgs
   toExchangeItem?: boolean | ExchangeItemCountOutputTypeCountToExchangeItemArgs
   goal?: boolean | ExchangeItemCountOutputTypeCountGoalArgs
-  requiredPayments?: boolean | ExchangeItemCountOutputTypeCountRequiredPaymentsArgs
 }
 
 /**
@@ -993,13 +880,6 @@ export type ExchangeItemCountOutputTypeCountGoalArgs<ExtArgs extends runtime.Typ
   where?: Prisma.GoalWhereInput
 }
 
-/**
- * ExchangeItemCountOutputType without action
- */
-export type ExchangeItemCountOutputTypeCountRequiredPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PaymentsWhereInput
-}
-
 
 export type ExchangeItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1013,7 +893,6 @@ export type ExchangeItemSelect<ExtArgs extends runtime.Types.Extensions.Internal
   fromExchangeItem?: boolean | Prisma.ExchangeItem$fromExchangeItemArgs<ExtArgs>
   toExchangeItem?: boolean | Prisma.ExchangeItem$toExchangeItemArgs<ExtArgs>
   goal?: boolean | Prisma.ExchangeItem$goalArgs<ExtArgs>
-  requiredPayments?: boolean | Prisma.ExchangeItem$requiredPaymentsArgs<ExtArgs>
   _count?: boolean | Prisma.ExchangeItemCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["exchangeItem"]>
 
@@ -1035,7 +914,6 @@ export type ExchangeItemInclude<ExtArgs extends runtime.Types.Extensions.Interna
   fromExchangeItem?: boolean | Prisma.ExchangeItem$fromExchangeItemArgs<ExtArgs>
   toExchangeItem?: boolean | Prisma.ExchangeItem$toExchangeItemArgs<ExtArgs>
   goal?: boolean | Prisma.ExchangeItem$goalArgs<ExtArgs>
-  requiredPayments?: boolean | Prisma.ExchangeItem$requiredPaymentsArgs<ExtArgs>
   _count?: boolean | Prisma.ExchangeItemCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -1047,7 +925,6 @@ export type $ExchangeItemPayload<ExtArgs extends runtime.Types.Extensions.Intern
     fromExchangeItem: Prisma.$FinanceItemPayload<ExtArgs>[]
     toExchangeItem: Prisma.$FinanceItemPayload<ExtArgs>[]
     goal: Prisma.$GoalPayload<ExtArgs>[]
-    requiredPayments: Prisma.$PaymentsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1424,7 +1301,6 @@ export interface Prisma__ExchangeItemClient<T, Null = never, ExtArgs extends run
   fromExchangeItem<T extends Prisma.ExchangeItem$fromExchangeItemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExchangeItem$fromExchangeItemArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   toExchangeItem<T extends Prisma.ExchangeItem$toExchangeItemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExchangeItem$toExchangeItemArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   goal<T extends Prisma.ExchangeItem$goalArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExchangeItem$goalArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  requiredPayments<T extends Prisma.ExchangeItem$requiredPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExchangeItem$requiredPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1947,30 +1823,6 @@ export type ExchangeItem$goalArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.GoalScalarFieldEnum | Prisma.GoalScalarFieldEnum[]
-}
-
-/**
- * ExchangeItem.requiredPayments
- */
-export type ExchangeItem$requiredPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Payments
-   */
-  select?: Prisma.PaymentsSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Payments
-   */
-  omit?: Prisma.PaymentsOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PaymentsInclude<ExtArgs> | null
-  where?: Prisma.PaymentsWhereInput
-  orderBy?: Prisma.PaymentsOrderByWithRelationInput | Prisma.PaymentsOrderByWithRelationInput[]
-  cursor?: Prisma.PaymentsWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PaymentsScalarFieldEnum | Prisma.PaymentsScalarFieldEnum[]
 }
 
 /**

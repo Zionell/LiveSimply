@@ -14,6 +14,8 @@ import { ERole, IUser } from "../../types/user";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "../../generated/prisma/client";
 import { OAuthProfile } from "../auth/oauth/oauth.types";
+import { I18nContext } from "nestjs-i18n";
+import { normalizeLanguage } from "../../utils/language";
 
 @Injectable()
 export class UsersService {
@@ -25,6 +27,14 @@ export class UsersService {
 	) {}
 
 	private readonly saltOrRounds = 10;
+
+	/**
+	 * The language the browser asked this request in — the cookie the app sets,
+	 * or the Accept-Language header when there is no cookie yet.
+	 */
+	private requestLanguage(): string {
+		return normalizeLanguage(I18nContext.current()?.lang);
+	}
 
 	async findOrCreate(dto: OAuthProfile): Promise<User> {
 		const isUserExist = await this.prismaService.user.findUnique({
@@ -43,6 +53,7 @@ export class UsersService {
 				name: dto.name,
 				image: dto.avatar,
 				emailVerified: true,
+				language: this.requestLanguage(),
 			},
 		});
 	}
@@ -66,6 +77,7 @@ export class UsersService {
 			data: {
 				...dto,
 				password: hash,
+				language: this.requestLanguage(),
 			},
 		});
 
@@ -82,7 +94,7 @@ export class UsersService {
 		const options = {
 			to: user.email,
 			template: "welcome",
-			locale: "en",
+			locale: normalizeLanguage(user.language),
 			props: {
 				name: user.name,
 				confirmationLink: confirmationLink,
@@ -130,6 +142,29 @@ export class UsersService {
 		}
 	}
 
+	/**
+	 * Accounts that predate the language column have none stored. Fill it in
+	 * from the request the first time we see them rather than emailing every
+	 * existing user in English forever.
+	 */
+	async ensureLanguage(user: User): Promise<User> {
+		if (user.language) {
+			return user;
+		}
+
+		const language = this.requestLanguage();
+
+		try {
+			return await this.prismaService.user.update({
+				where: { id: user.id },
+				data: { language },
+			});
+		} catch (e) {
+			console.warn("[UsersService / ensureLanguage]: ", e);
+			return { ...user, language };
+		}
+	}
+
 	async findOneByEmail(email: string): Promise<User | null> {
 		return this.prismaService.user.findUnique({
 			where: { email },
@@ -162,12 +197,18 @@ export class UsersService {
 		try {
 			const id: string = req.payload.id;
 
+			const data: Record<string, any> = {
+				updatedAt: new Date(),
+				...dto,
+			};
+
+			if (dto.language !== undefined) {
+				data.language = normalizeLanguage(dto.language);
+			}
+
 			return await this.prismaService.user.update({
 				where: { id },
-				data: {
-					updatedAt: new Date(),
-					...dto,
-				},
+				data,
 			});
 		} catch (e) {
 			throw e;

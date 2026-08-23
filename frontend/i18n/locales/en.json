@@ -6,6 +6,16 @@
 			"text": "Sorry, we couldn’t find the page you’re looking for.",
 			"btnText": "Go home"
 		},
+		"unauthorized": {
+			"title": "Sign in required",
+			"text": "Your session has expired. Please sign in again to continue.",
+			"btnText": "Sign in"
+		},
+		"forbidden": {
+			"title": "Access denied",
+			"text": "You don’t have permission to open this page.",
+			"btnText": "Go home"
+		},
 		"techError": {
 			"title": "Something went wrong!",
 			"text": "We are improving our website",
@@ -20,13 +30,16 @@
 		"business-card": "Business card",
 		"goals": "Goals",
 		"tgBot": "Telegram bot",
-		"users": "Users"
+		"users": "Users",
+		"settings": "Settings"
 	},
 	"buttons": {
 		"submit": "Submit",
 		"close": "Close",
 		"save": "Save",
 		"new": "Add new",
+		"newBudgetItem": "Add expense",
+		"plannerSettings": "Plan settings",
 		"delete": "Delete",
 		"download": "Download",
 		"qrGen": "Generate QR-code",
@@ -40,6 +53,7 @@
 		"currencyTo": "Select the currency to transfer to",
 		"operationCategory": "Category",
 		"expenseCategory": "Expense categories",
+		"createExpenseCategory": "Create category \"{label}\"",
 		"goals": "Goals",
 		"name": "Username",
 		"email": "Email",
@@ -54,7 +68,10 @@
 		"goalTitle": "Title",
 		"goalTotal": "Required amount",
 		"initialAmount": "Initial amount",
-		"untilAt": "Deadline"
+		"untilAt": "Deadline",
+		"budgetItemLabel": "Expense goal",
+		"budgetItemAmount": "Planned amount",
+		"isRequired": "Mandatory payment"
 	},
 	"inputsErrors": {
 		"required": "Required",
@@ -66,7 +83,9 @@
 		"newGoal": "Add new goal",
 		"addTotal": "Initial balance value",
 		"generateQr": "Generate QR-code",
-		"generateQrDesc": "Generate and download your personal QR-code"
+		"generateQrDesc": "Generate and download your personal QR-code",
+		"newBudgetItem": "Add a planned expense",
+		"editPlanner": "Monthly budget settings"
 	},
 	"modalAddNewGoal": {},
 	"modalAddTotal": {
@@ -158,9 +177,30 @@
 		"tooltip": "Take the survey"
 	},
 	"financePlanner": {
-		"income": "Income",
+		"expectedIncome": "Expected income",
+		"actualIncome": "Income so far",
 		"required": "Mandatory payments",
-		"period": "Period"
+		"additional": "Additional expenses",
+		"planned": "Planned",
+		"spent": "Spent",
+		"unallocated": "Unallocated",
+		"overplanned": "Over the expected income by {amount}",
+		"threshold": "Alert threshold",
+		"thresholdHint": "You will be notified once spending reaches this share of a plan.",
+		"isRegular": "Repeat this plan every month",
+		"empty": "No expenses planned yet",
+		"ofPlan": "{spent} of {planned} {currency}",
+		"chartTitle": "Income vs expenses",
+		"chartIncome": "Income",
+		"chartExpense": "Expenses",
+		"chartEmpty": "No transactions this month yet",
+		"prevMonth": "Previous month",
+		"nextMonth": "Next month"
+	},
+	"notifications": {
+		"title": "Notifications",
+		"empty": "No notifications yet",
+		"markAllRead": "Mark all as read"
 	},
 	"common": {
 		"loading": "Loading...",
@@ -168,6 +208,50 @@
 		"error": "Something went wrong!",
 		"deleted": "Successfully deleted",
 		"updated": "Successfully updated",
-		"added": "Successfully added"
+		"added": "Successfully added",
+		"retry": "Retry"
+	},
+	"settings": {
+		"tabs": {
+			"finance": "Finance",
+			"notifications": "Notifications"
+		},
+		"finance": {
+			"balanceTitle": "Balance",
+			"balanceDescription": "Current balance: {balance}. Resetting sets it to zero so you can enter a new starting value.",
+			"balanceButton": "Reset balance",
+			"balanceConfirmTitle": "Reset balance?",
+			"balanceConfirmText": "The balance will be set to zero. Your transactions will not be deleted.",
+			"balanceReset": "Balance has been reset",
+			"tableTitle": "Transactions table",
+			"tableDescription": "Permanently deletes all your income and expense records. The balance stays unchanged.",
+			"tableButton": "Clear table",
+			"tableConfirmTitle": "Clear the transactions table?",
+			"tableConfirmText": "All records will be deleted permanently. This cannot be undone.",
+			"tableReset": "Transactions table has been cleared"
+		},
+		"notifications": {
+			"title": "Email delivery",
+			"description": "Everything always arrives in the app. Turn a group on to also get it by email.",
+			"emailLabel": "Send by email",
+			"groups": {
+				"finance": {
+					"label": "Finance",
+					"hint": "Budget threshold alerts for a goal and for the month as a whole."
+				},
+				"planner": {
+					"label": "Planner",
+					"hint": "A reminder to fill in the plan before the month ends."
+				},
+				"goals": {
+					"label": "Goals",
+					"hint": "Progress on your saving goals."
+				},
+				"rates": {
+					"label": "Exchange rates",
+					"hint": "Currency rates have been refreshed."
+				}
+			}
+		}
 	}
 }

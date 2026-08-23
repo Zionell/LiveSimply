@@ -57,10 +57,12 @@ export class AuthService {
 			throw new UnauthorizedException();
 		}
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { password, ...user } = await this.usersService.findOneByEmail(
-			req.payload.email
+		const stored = await this.usersService.ensureLanguage(
+			await this.usersService.findOneByEmail(req.payload.email)
 		);
+
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { password, ...user } = stored;
 
 		const payload = { role: user.role, email: user.email };
 

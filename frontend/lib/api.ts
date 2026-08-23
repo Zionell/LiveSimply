@@ -14,6 +14,8 @@ export const api = {
 		common: `${prefix}/finance/`,
 		specs: `${prefix}/finance/specs/`,
 		statistics: `${prefix}/finance/statistics/`,
+		expenseCategories: `${prefix}/finance/expense-categories/`,
+		reset: `${prefix}/finance/reset/`,
 	},
 	rates: {
 		common: `${prefix}/rates/`,
@@ -27,5 +29,17 @@ export const api = {
 	},
 	goals: {
 		common: `${prefix}/goals/`,
+	},
+	planner: {
+		common: `${prefix}/planner/`,
+		detail: (id: string) => `${prefix}/planner/${id}/`,
+		items: (id: string) => `${prefix}/planner/${id}/items/`,
+		item: (itemId: string) => `${prefix}/planner/items/${itemId}/`,
+	},
+	notifications: {
+		common: `${prefix}/notifications/`,
+		read: (id: string) => `${prefix}/notifications/${id}/read/`,
+		readAll: `${prefix}/notifications/read-all/`,
+		settings: `${prefix}/notifications/settings/`,
 	},
 };

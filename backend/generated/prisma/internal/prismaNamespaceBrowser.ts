@@ -62,7 +62,7 @@ export const ModelName = {
   BusinessCardLink: 'BusinessCardLink',
   Goal: 'Goal',
   FinancePlanner: 'FinancePlanner',
-  Payments: 'Payments'
+  BudgetItem: 'BudgetItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -81,7 +81,9 @@ export const UserScalarFieldEnum = {
   phone: 'phone',
   exchange: 'exchange',
   role: 'role',
+  language: 'language',
   total: 'total',
+  emailNotifications: 'emailNotifications',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -177,9 +179,9 @@ export type FinanceItemScalarFieldEnum = (typeof FinanceItemScalarFieldEnum)[key
 export const NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  type: 'type',
+  params: 'params',
   isReaded: 'isReaded',
-  title: 'title',
-  text: 'text',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -222,6 +224,7 @@ export const GoalScalarFieldEnum = {
   amount: 'amount',
   exchangeId: 'exchangeId',
   isCompleted: 'isCompleted',
+  lastAmountAt: 'lastAmountAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -232,12 +235,14 @@ export type GoalScalarFieldEnum = (typeof GoalScalarFieldEnum)[keyof typeof Goal
 export const FinancePlannerScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  name: 'name',
-  commonBudget: 'commonBudget',
-  remainder: 'remainder',
-  period: 'period',
-  customPeriodFrom: 'customPeriodFrom',
-  customPeriodTo: 'customPeriodTo',
+  year: 'year',
+  month: 'month',
+  curIncome: 'curIncome',
+  currencyFromId: 'currencyFromId',
+  convertedIncome: 'convertedIncome',
+  currencyToId: 'currencyToId',
+  alertThreshold: 'alertThreshold',
+  notifiedThreshold: 'notifiedThreshold',
   isRegular: 'isRegular',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -246,18 +251,22 @@ export const FinancePlannerScalarFieldEnum = {
 export type FinancePlannerScalarFieldEnum = (typeof FinancePlannerScalarFieldEnum)[keyof typeof FinancePlannerScalarFieldEnum]
 
 
-export const PaymentsScalarFieldEnum = {
+export const BudgetItemScalarFieldEnum = {
   id: 'id',
-  plnnerId: 'plnnerId',
-  lable: 'lable',
-  amount: 'amount',
-  exchange: 'exchange',
+  plannerId: 'plannerId',
+  label: 'label',
+  curAmount: 'curAmount',
+  currencyFromId: 'currencyFromId',
+  convertedAmount: 'convertedAmount',
+  currencyToId: 'currencyToId',
+  expenseCategoryId: 'expenseCategoryId',
   isRequired: 'isRequired',
+  notifiedThreshold: 'notifiedThreshold',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type PaymentsScalarFieldEnum = (typeof PaymentsScalarFieldEnum)[keyof typeof PaymentsScalarFieldEnum]
+export type BudgetItemScalarFieldEnum = (typeof BudgetItemScalarFieldEnum)[keyof typeof BudgetItemScalarFieldEnum]
 
 
 export const SortOrder = {

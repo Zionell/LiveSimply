@@ -1,0 +1,40 @@
+{
+	"budget": {
+		"item": {
+			"threshold": {
+				"title": "{label}: {percent}% of the plan spent",
+				"text": "You have spent {spent} of {planned} {currency} planned for this goal."
+			}
+		},
+		"total": {
+			"threshold": {
+				"title": "{percent}% of the monthly budget spent",
+				"text": "You have spent {spent} of {planned} {currency} of your monthly income."
+			}
+		}
+	},
+	"planner": {
+		"reminder": {
+			"title": "Time to plan next month",
+			"text": "The month ends in {days} days — fill in your budget plan for the next one."
+		}
+	},
+	"goal": {
+		"contribution": {
+			"reminder": {
+				"title": "{title}: time to top up",
+				"text": "Nothing has gone into this goal this month. Put in about {amount} {currency} — the month ends in {days} days."
+			}
+		}
+	},
+	"rates": {
+		"update": {
+			"title": "Rates update",
+			"text": "Currency rates updated"
+		},
+		"updateError": {
+			"title": "Rates update",
+			"text": "Exchange rates were not updated due to an error: {error} and {errorMsg}"
+		}
+	}
+}

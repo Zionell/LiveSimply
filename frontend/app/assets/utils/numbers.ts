@@ -5,6 +5,25 @@ export function splitThousandsFloat(x: number): string {
 		.replace(".00", "");
 }
 
+export function shortThousands(x: number): string {
+	const num = Math.round(x);
+
+	if (num < 1000) {
+		return num.toString();
+	}
+	if (num < 1000000) {
+		return num / 1000 + "K";
+	}
+	if (num < 1000000000) {
+		return num / 1000000 + "M";
+	}
+	if (num < 1000000000000) {
+		return num / 1000000000 + "B";
+	}
+
+	return num.toString();
+}
+
 export function splitThousands(val: number): string | number {
 	if (isNaN(val)) {
 		return val;

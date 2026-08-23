@@ -1,14 +1,14 @@
 import { Module } from "@nestjs/common";
 import { RatesService } from "./rates.service";
 import { RatesController } from "./rates.controller";
-import { PrismaService } from "../prisma.service";
 import { ConfigModule } from "@nestjs/config";
 import { TranslateModule } from "../translate/translate.module";
-import { MailService } from "../mail/mail.service";
+import { NotificationsModule } from "../notifications/notifications.module";
 
 @Module({
-	imports: [ConfigModule, TranslateModule],
+	imports: [ConfigModule, TranslateModule, NotificationsModule],
 	controllers: [RatesController],
-	providers: [RatesService, PrismaService, MailService],
+	providers: [RatesService],
+	exports: [RatesService],
 })
 export class RatesModule {}

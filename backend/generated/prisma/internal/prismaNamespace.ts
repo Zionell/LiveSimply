@@ -403,7 +403,7 @@ export const ModelName = {
   BusinessCardLink: 'BusinessCardLink',
   Goal: 'Goal',
   FinancePlanner: 'FinancePlanner',
-  Payments: 'Payments'
+  BudgetItem: 'BudgetItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -419,7 +419,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "exchangeItem" | "exchangeItemName" | "expenseCategory" | "expenseCategoryName" | "operationCategory" | "operationCategoryName" | "financeItem" | "notification" | "businessCard" | "businessCardLink" | "goal" | "financePlanner" | "payments"
+    modelProps: "user" | "exchangeItem" | "exchangeItemName" | "expenseCategory" | "expenseCategoryName" | "operationCategory" | "operationCategoryName" | "financeItem" | "notification" | "businessCard" | "businessCardLink" | "goal" | "financePlanner" | "budgetItem"
     txIsolationLevel: never
   }
   model: {
@@ -1385,77 +1385,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Payments: {
-      payload: Prisma.$PaymentsPayload<ExtArgs>
-      fields: Prisma.PaymentsFieldRefs
+    BudgetItem: {
+      payload: Prisma.$BudgetItemPayload<ExtArgs>
+      fields: Prisma.BudgetItemFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.PaymentsFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentsPayload> | null
+          args: Prisma.BudgetItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BudgetItemPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.PaymentsFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentsPayload>
+          args: Prisma.BudgetItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BudgetItemPayload>
         }
         findFirst: {
-          args: Prisma.PaymentsFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentsPayload> | null
+          args: Prisma.BudgetItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BudgetItemPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.PaymentsFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentsPayload>
+          args: Prisma.BudgetItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BudgetItemPayload>
         }
         findMany: {
-          args: Prisma.PaymentsFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentsPayload>[]
+          args: Prisma.BudgetItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BudgetItemPayload>[]
         }
         create: {
-          args: Prisma.PaymentsCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentsPayload>
+          args: Prisma.BudgetItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BudgetItemPayload>
         }
         createMany: {
-          args: Prisma.PaymentsCreateManyArgs<ExtArgs>
+          args: Prisma.BudgetItemCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         delete: {
-          args: Prisma.PaymentsDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentsPayload>
+          args: Prisma.BudgetItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BudgetItemPayload>
         }
         update: {
-          args: Prisma.PaymentsUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentsPayload>
+          args: Prisma.BudgetItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BudgetItemPayload>
         }
         deleteMany: {
-          args: Prisma.PaymentsDeleteManyArgs<ExtArgs>
+          args: Prisma.BudgetItemDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.PaymentsUpdateManyArgs<ExtArgs>
+          args: Prisma.BudgetItemUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         upsert: {
-          args: Prisma.PaymentsUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentsPayload>
+          args: Prisma.BudgetItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BudgetItemPayload>
         }
         aggregate: {
-          args: Prisma.PaymentsAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregatePayments>
+          args: Prisma.BudgetItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBudgetItem>
         }
         groupBy: {
-          args: Prisma.PaymentsGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.PaymentsGroupByOutputType>[]
+          args: Prisma.BudgetItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BudgetItemGroupByOutputType>[]
         }
         findRaw: {
-          args: Prisma.PaymentsFindRawArgs<ExtArgs>
+          args: Prisma.BudgetItemFindRawArgs<ExtArgs>
           result: Prisma.JsonObject
         }
         aggregateRaw: {
-          args: Prisma.PaymentsAggregateRawArgs<ExtArgs>
+          args: Prisma.BudgetItemAggregateRawArgs<ExtArgs>
           result: Prisma.JsonObject
         }
         count: {
-          args: Prisma.PaymentsCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.PaymentsCountAggregateOutputType> | number
+          args: Prisma.BudgetItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BudgetItemCountAggregateOutputType> | number
         }
       }
     }
@@ -1486,7 +1486,9 @@ export const UserScalarFieldEnum = {
   phone: 'phone',
   exchange: 'exchange',
   role: 'role',
+  language: 'language',
   total: 'total',
+  emailNotifications: 'emailNotifications',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1582,9 +1584,9 @@ export type FinanceItemScalarFieldEnum = (typeof FinanceItemScalarFieldEnum)[key
 export const NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  type: 'type',
+  params: 'params',
   isReaded: 'isReaded',
-  title: 'title',
-  text: 'text',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1627,6 +1629,7 @@ export const GoalScalarFieldEnum = {
   amount: 'amount',
   exchangeId: 'exchangeId',
   isCompleted: 'isCompleted',
+  lastAmountAt: 'lastAmountAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1637,12 +1640,14 @@ export type GoalScalarFieldEnum = (typeof GoalScalarFieldEnum)[keyof typeof Goal
 export const FinancePlannerScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  name: 'name',
-  commonBudget: 'commonBudget',
-  remainder: 'remainder',
-  period: 'period',
-  customPeriodFrom: 'customPeriodFrom',
-  customPeriodTo: 'customPeriodTo',
+  year: 'year',
+  month: 'month',
+  curIncome: 'curIncome',
+  currencyFromId: 'currencyFromId',
+  convertedIncome: 'convertedIncome',
+  currencyToId: 'currencyToId',
+  alertThreshold: 'alertThreshold',
+  notifiedThreshold: 'notifiedThreshold',
   isRegular: 'isRegular',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1651,18 +1656,22 @@ export const FinancePlannerScalarFieldEnum = {
 export type FinancePlannerScalarFieldEnum = (typeof FinancePlannerScalarFieldEnum)[keyof typeof FinancePlannerScalarFieldEnum]
 
 
-export const PaymentsScalarFieldEnum = {
+export const BudgetItemScalarFieldEnum = {
   id: 'id',
-  plnnerId: 'plnnerId',
-  lable: 'lable',
-  amount: 'amount',
-  exchange: 'exchange',
+  plannerId: 'plannerId',
+  label: 'label',
+  curAmount: 'curAmount',
+  currencyFromId: 'currencyFromId',
+  convertedAmount: 'convertedAmount',
+  currencyToId: 'currencyToId',
+  expenseCategoryId: 'expenseCategoryId',
   isRequired: 'isRequired',
+  notifiedThreshold: 'notifiedThreshold',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type PaymentsScalarFieldEnum = (typeof PaymentsScalarFieldEnum)[keyof typeof PaymentsScalarFieldEnum]
+export type BudgetItemScalarFieldEnum = (typeof BudgetItemScalarFieldEnum)[keyof typeof BudgetItemScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1719,6 +1728,13 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
 
 
@@ -1848,7 +1864,7 @@ export type GlobalOmitConfig = {
   businessCardLink?: Prisma.BusinessCardLinkOmit
   goal?: Prisma.GoalOmit
   financePlanner?: Prisma.FinancePlannerOmit
-  payments?: Prisma.PaymentsOmit
+  budgetItem?: Prisma.BudgetItemOmit
 }
 
 /* Types for Logging */

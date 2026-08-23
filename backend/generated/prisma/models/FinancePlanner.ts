@@ -27,24 +27,34 @@ export type AggregateFinancePlanner = {
 }
 
 export type FinancePlannerAvgAggregateOutputType = {
-  commonBudget: number | null
-  remainder: number | null
+  year: number | null
+  month: number | null
+  curIncome: number | null
+  convertedIncome: number | null
+  alertThreshold: number | null
+  notifiedThreshold: number | null
 }
 
 export type FinancePlannerSumAggregateOutputType = {
-  commonBudget: number | null
-  remainder: number | null
+  year: number | null
+  month: number | null
+  curIncome: number | null
+  convertedIncome: number | null
+  alertThreshold: number | null
+  notifiedThreshold: number | null
 }
 
 export type FinancePlannerMinAggregateOutputType = {
   id: string | null
   userId: string | null
-  name: string | null
-  commonBudget: number | null
-  remainder: number | null
-  period: string | null
-  customPeriodFrom: Date | null
-  customPeriodTo: Date | null
+  year: number | null
+  month: number | null
+  curIncome: number | null
+  currencyFromId: string | null
+  convertedIncome: number | null
+  currencyToId: string | null
+  alertThreshold: number | null
+  notifiedThreshold: number | null
   isRegular: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -53,12 +63,14 @@ export type FinancePlannerMinAggregateOutputType = {
 export type FinancePlannerMaxAggregateOutputType = {
   id: string | null
   userId: string | null
-  name: string | null
-  commonBudget: number | null
-  remainder: number | null
-  period: string | null
-  customPeriodFrom: Date | null
-  customPeriodTo: Date | null
+  year: number | null
+  month: number | null
+  curIncome: number | null
+  currencyFromId: string | null
+  convertedIncome: number | null
+  currencyToId: string | null
+  alertThreshold: number | null
+  notifiedThreshold: number | null
   isRegular: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -67,12 +79,14 @@ export type FinancePlannerMaxAggregateOutputType = {
 export type FinancePlannerCountAggregateOutputType = {
   id: number
   userId: number
-  name: number
-  commonBudget: number
-  remainder: number
-  period: number
-  customPeriodFrom: number
-  customPeriodTo: number
+  year: number
+  month: number
+  curIncome: number
+  currencyFromId: number
+  convertedIncome: number
+  currencyToId: number
+  alertThreshold: number
+  notifiedThreshold: number
   isRegular: number
   createdAt: number
   updatedAt: number
@@ -81,24 +95,34 @@ export type FinancePlannerCountAggregateOutputType = {
 
 
 export type FinancePlannerAvgAggregateInputType = {
-  commonBudget?: true
-  remainder?: true
+  year?: true
+  month?: true
+  curIncome?: true
+  convertedIncome?: true
+  alertThreshold?: true
+  notifiedThreshold?: true
 }
 
 export type FinancePlannerSumAggregateInputType = {
-  commonBudget?: true
-  remainder?: true
+  year?: true
+  month?: true
+  curIncome?: true
+  convertedIncome?: true
+  alertThreshold?: true
+  notifiedThreshold?: true
 }
 
 export type FinancePlannerMinAggregateInputType = {
   id?: true
   userId?: true
-  name?: true
-  commonBudget?: true
-  remainder?: true
-  period?: true
-  customPeriodFrom?: true
-  customPeriodTo?: true
+  year?: true
+  month?: true
+  curIncome?: true
+  currencyFromId?: true
+  convertedIncome?: true
+  currencyToId?: true
+  alertThreshold?: true
+  notifiedThreshold?: true
   isRegular?: true
   createdAt?: true
   updatedAt?: true
@@ -107,12 +131,14 @@ export type FinancePlannerMinAggregateInputType = {
 export type FinancePlannerMaxAggregateInputType = {
   id?: true
   userId?: true
-  name?: true
-  commonBudget?: true
-  remainder?: true
-  period?: true
-  customPeriodFrom?: true
-  customPeriodTo?: true
+  year?: true
+  month?: true
+  curIncome?: true
+  currencyFromId?: true
+  convertedIncome?: true
+  currencyToId?: true
+  alertThreshold?: true
+  notifiedThreshold?: true
   isRegular?: true
   createdAt?: true
   updatedAt?: true
@@ -121,12 +147,14 @@ export type FinancePlannerMaxAggregateInputType = {
 export type FinancePlannerCountAggregateInputType = {
   id?: true
   userId?: true
-  name?: true
-  commonBudget?: true
-  remainder?: true
-  period?: true
-  customPeriodFrom?: true
-  customPeriodTo?: true
+  year?: true
+  month?: true
+  curIncome?: true
+  currencyFromId?: true
+  convertedIncome?: true
+  currencyToId?: true
+  alertThreshold?: true
+  notifiedThreshold?: true
   isRegular?: true
   createdAt?: true
   updatedAt?: true
@@ -222,12 +250,14 @@ export type FinancePlannerGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 export type FinancePlannerGroupByOutputType = {
   id: string
   userId: string
-  name: string
-  commonBudget: number
-  remainder: number | null
-  period: string | null
-  customPeriodFrom: Date
-  customPeriodTo: Date
+  year: number
+  month: number
+  curIncome: number
+  currencyFromId: string
+  convertedIncome: number
+  currencyToId: string
+  alertThreshold: number
+  notifiedThreshold: number | null
   isRegular: boolean
   createdAt: Date
   updatedAt: Date | null
@@ -259,63 +289,72 @@ export type FinancePlannerWhereInput = {
   NOT?: Prisma.FinancePlannerWhereInput | Prisma.FinancePlannerWhereInput[]
   id?: Prisma.StringFilter<"FinancePlanner"> | string
   userId?: Prisma.StringFilter<"FinancePlanner"> | string
-  name?: Prisma.StringFilter<"FinancePlanner"> | string
-  commonBudget?: Prisma.FloatFilter<"FinancePlanner"> | number
-  remainder?: Prisma.FloatNullableFilter<"FinancePlanner"> | number | null
-  period?: Prisma.StringNullableFilter<"FinancePlanner"> | string | null
-  customPeriodFrom?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
-  customPeriodTo?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
+  year?: Prisma.IntFilter<"FinancePlanner"> | number
+  month?: Prisma.IntFilter<"FinancePlanner"> | number
+  curIncome?: Prisma.FloatFilter<"FinancePlanner"> | number
+  currencyFromId?: Prisma.StringFilter<"FinancePlanner"> | string
+  convertedIncome?: Prisma.FloatFilter<"FinancePlanner"> | number
+  currencyToId?: Prisma.StringFilter<"FinancePlanner"> | string
+  alertThreshold?: Prisma.FloatFilter<"FinancePlanner"> | number
+  notifiedThreshold?: Prisma.FloatNullableFilter<"FinancePlanner"> | number | null
   isRegular?: Prisma.BoolFilter<"FinancePlanner"> | boolean
   createdAt?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"FinancePlanner"> | Date | string | null
-  payments?: Prisma.PaymentsListRelationFilter
+  items?: Prisma.BudgetItemListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type FinancePlannerOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  commonBudget?: Prisma.SortOrder
-  remainder?: Prisma.SortOrder
-  period?: Prisma.SortOrder
-  customPeriodFrom?: Prisma.SortOrder
-  customPeriodTo?: Prisma.SortOrder
+  year?: Prisma.SortOrder
+  month?: Prisma.SortOrder
+  curIncome?: Prisma.SortOrder
+  currencyFromId?: Prisma.SortOrder
+  convertedIncome?: Prisma.SortOrder
+  currencyToId?: Prisma.SortOrder
+  alertThreshold?: Prisma.SortOrder
+  notifiedThreshold?: Prisma.SortOrder
   isRegular?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  payments?: Prisma.PaymentsOrderByRelationAggregateInput
+  items?: Prisma.BudgetItemOrderByRelationAggregateInput
   user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type FinancePlannerWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  userId_year_month?: Prisma.FinancePlannerUserIdYearMonthCompoundUniqueInput
   AND?: Prisma.FinancePlannerWhereInput | Prisma.FinancePlannerWhereInput[]
   OR?: Prisma.FinancePlannerWhereInput[]
   NOT?: Prisma.FinancePlannerWhereInput | Prisma.FinancePlannerWhereInput[]
   userId?: Prisma.StringFilter<"FinancePlanner"> | string
-  name?: Prisma.StringFilter<"FinancePlanner"> | string
-  commonBudget?: Prisma.FloatFilter<"FinancePlanner"> | number
-  remainder?: Prisma.FloatNullableFilter<"FinancePlanner"> | number | null
-  period?: Prisma.StringNullableFilter<"FinancePlanner"> | string | null
-  customPeriodFrom?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
-  customPeriodTo?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
+  year?: Prisma.IntFilter<"FinancePlanner"> | number
+  month?: Prisma.IntFilter<"FinancePlanner"> | number
+  curIncome?: Prisma.FloatFilter<"FinancePlanner"> | number
+  currencyFromId?: Prisma.StringFilter<"FinancePlanner"> | string
+  convertedIncome?: Prisma.FloatFilter<"FinancePlanner"> | number
+  currencyToId?: Prisma.StringFilter<"FinancePlanner"> | string
+  alertThreshold?: Prisma.FloatFilter<"FinancePlanner"> | number
+  notifiedThreshold?: Prisma.FloatNullableFilter<"FinancePlanner"> | number | null
   isRegular?: Prisma.BoolFilter<"FinancePlanner"> | boolean
   createdAt?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"FinancePlanner"> | Date | string | null
-  payments?: Prisma.PaymentsListRelationFilter
+  items?: Prisma.BudgetItemListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id">
+}, "id" | "userId_year_month">
 
 export type FinancePlannerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  commonBudget?: Prisma.SortOrder
-  remainder?: Prisma.SortOrder
-  period?: Prisma.SortOrder
-  customPeriodFrom?: Prisma.SortOrder
-  customPeriodTo?: Prisma.SortOrder
+  year?: Prisma.SortOrder
+  month?: Prisma.SortOrder
+  curIncome?: Prisma.SortOrder
+  currencyFromId?: Prisma.SortOrder
+  convertedIncome?: Prisma.SortOrder
+  currencyToId?: Prisma.SortOrder
+  alertThreshold?: Prisma.SortOrder
+  notifiedThreshold?: Prisma.SortOrder
   isRegular?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -332,12 +371,14 @@ export type FinancePlannerScalarWhereWithAggregatesInput = {
   NOT?: Prisma.FinancePlannerScalarWhereWithAggregatesInput | Prisma.FinancePlannerScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"FinancePlanner"> | string
   userId?: Prisma.StringWithAggregatesFilter<"FinancePlanner"> | string
-  name?: Prisma.StringWithAggregatesFilter<"FinancePlanner"> | string
-  commonBudget?: Prisma.FloatWithAggregatesFilter<"FinancePlanner"> | number
-  remainder?: Prisma.FloatNullableWithAggregatesFilter<"FinancePlanner"> | number | null
-  period?: Prisma.StringNullableWithAggregatesFilter<"FinancePlanner"> | string | null
-  customPeriodFrom?: Prisma.DateTimeWithAggregatesFilter<"FinancePlanner"> | Date | string
-  customPeriodTo?: Prisma.DateTimeWithAggregatesFilter<"FinancePlanner"> | Date | string
+  year?: Prisma.IntWithAggregatesFilter<"FinancePlanner"> | number
+  month?: Prisma.IntWithAggregatesFilter<"FinancePlanner"> | number
+  curIncome?: Prisma.FloatWithAggregatesFilter<"FinancePlanner"> | number
+  currencyFromId?: Prisma.StringWithAggregatesFilter<"FinancePlanner"> | string
+  convertedIncome?: Prisma.FloatWithAggregatesFilter<"FinancePlanner"> | number
+  currencyToId?: Prisma.StringWithAggregatesFilter<"FinancePlanner"> | string
+  alertThreshold?: Prisma.FloatWithAggregatesFilter<"FinancePlanner"> | number
+  notifiedThreshold?: Prisma.FloatNullableWithAggregatesFilter<"FinancePlanner"> | number | null
   isRegular?: Prisma.BoolWithAggregatesFilter<"FinancePlanner"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"FinancePlanner"> | Date | string
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"FinancePlanner"> | Date | string | null
@@ -345,83 +386,95 @@ export type FinancePlannerScalarWhereWithAggregatesInput = {
 
 export type FinancePlannerCreateInput = {
   id?: string
-  name?: string
-  commonBudget?: number
-  remainder?: number | null
-  period?: string | null
-  customPeriodFrom?: Date | string
-  customPeriodTo?: Date | string
+  year: number
+  month: number
+  curIncome?: number
+  currencyFromId: string
+  convertedIncome?: number
+  currencyToId: string
+  alertThreshold?: number
+  notifiedThreshold?: number | null
   isRegular?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  payments?: Prisma.PaymentsCreateNestedManyWithoutPlannerInput
+  items?: Prisma.BudgetItemCreateNestedManyWithoutPlannerInput
   user: Prisma.UserCreateNestedOneWithoutFinancePlannerInput
 }
 
 export type FinancePlannerUncheckedCreateInput = {
   id?: string
   userId: string
-  name?: string
-  commonBudget?: number
-  remainder?: number | null
-  period?: string | null
-  customPeriodFrom?: Date | string
-  customPeriodTo?: Date | string
+  year: number
+  month: number
+  curIncome?: number
+  currencyFromId: string
+  convertedIncome?: number
+  currencyToId: string
+  alertThreshold?: number
+  notifiedThreshold?: number | null
   isRegular?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  payments?: Prisma.PaymentsUncheckedCreateNestedManyWithoutPlannerInput
+  items?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutPlannerInput
 }
 
 export type FinancePlannerUpdateInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  commonBudget?: Prisma.FloatFieldUpdateOperationsInput | number
-  remainder?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  period?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  customPeriodFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  month?: Prisma.IntFieldUpdateOperationsInput | number
+  curIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyFromId?: Prisma.StringFieldUpdateOperationsInput | string
+  convertedIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyToId?: Prisma.StringFieldUpdateOperationsInput | string
+  alertThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
+  notifiedThreshold?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payments?: Prisma.PaymentsUpdateManyWithoutPlannerNestedInput
+  items?: Prisma.BudgetItemUpdateManyWithoutPlannerNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutFinancePlannerNestedInput
 }
 
 export type FinancePlannerUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  commonBudget?: Prisma.FloatFieldUpdateOperationsInput | number
-  remainder?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  period?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  customPeriodFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  month?: Prisma.IntFieldUpdateOperationsInput | number
+  curIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyFromId?: Prisma.StringFieldUpdateOperationsInput | string
+  convertedIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyToId?: Prisma.StringFieldUpdateOperationsInput | string
+  alertThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
+  notifiedThreshold?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payments?: Prisma.PaymentsUncheckedUpdateManyWithoutPlannerNestedInput
+  items?: Prisma.BudgetItemUncheckedUpdateManyWithoutPlannerNestedInput
 }
 
 export type FinancePlannerCreateManyInput = {
   id?: string
   userId: string
-  name?: string
-  commonBudget?: number
-  remainder?: number | null
-  period?: string | null
-  customPeriodFrom?: Date | string
-  customPeriodTo?: Date | string
+  year: number
+  month: number
+  curIncome?: number
+  currencyFromId: string
+  convertedIncome?: number
+  currencyToId: string
+  alertThreshold?: number
+  notifiedThreshold?: number | null
   isRegular?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string | null
 }
 
 export type FinancePlannerUpdateManyMutationInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  commonBudget?: Prisma.FloatFieldUpdateOperationsInput | number
-  remainder?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  period?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  customPeriodFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  month?: Prisma.IntFieldUpdateOperationsInput | number
+  curIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyFromId?: Prisma.StringFieldUpdateOperationsInput | string
+  convertedIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyToId?: Prisma.StringFieldUpdateOperationsInput | string
+  alertThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
+  notifiedThreshold?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -429,12 +482,14 @@ export type FinancePlannerUpdateManyMutationInput = {
 
 export type FinancePlannerUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  commonBudget?: Prisma.FloatFieldUpdateOperationsInput | number
-  remainder?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  period?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  customPeriodFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  month?: Prisma.IntFieldUpdateOperationsInput | number
+  curIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyFromId?: Prisma.StringFieldUpdateOperationsInput | string
+  convertedIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyToId?: Prisma.StringFieldUpdateOperationsInput | string
+  alertThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
+  notifiedThreshold?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -450,34 +505,48 @@ export type FinancePlannerOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type FinancePlannerUserIdYearMonthCompoundUniqueInput = {
+  userId: string
+  year: number
+  month: number
+}
+
 export type FinancePlannerCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  commonBudget?: Prisma.SortOrder
-  remainder?: Prisma.SortOrder
-  period?: Prisma.SortOrder
-  customPeriodFrom?: Prisma.SortOrder
-  customPeriodTo?: Prisma.SortOrder
+  year?: Prisma.SortOrder
+  month?: Prisma.SortOrder
+  curIncome?: Prisma.SortOrder
+  currencyFromId?: Prisma.SortOrder
+  convertedIncome?: Prisma.SortOrder
+  currencyToId?: Prisma.SortOrder
+  alertThreshold?: Prisma.SortOrder
+  notifiedThreshold?: Prisma.SortOrder
   isRegular?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type FinancePlannerAvgOrderByAggregateInput = {
-  commonBudget?: Prisma.SortOrder
-  remainder?: Prisma.SortOrder
+  year?: Prisma.SortOrder
+  month?: Prisma.SortOrder
+  curIncome?: Prisma.SortOrder
+  convertedIncome?: Prisma.SortOrder
+  alertThreshold?: Prisma.SortOrder
+  notifiedThreshold?: Prisma.SortOrder
 }
 
 export type FinancePlannerMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  commonBudget?: Prisma.SortOrder
-  remainder?: Prisma.SortOrder
-  period?: Prisma.SortOrder
-  customPeriodFrom?: Prisma.SortOrder
-  customPeriodTo?: Prisma.SortOrder
+  year?: Prisma.SortOrder
+  month?: Prisma.SortOrder
+  curIncome?: Prisma.SortOrder
+  currencyFromId?: Prisma.SortOrder
+  convertedIncome?: Prisma.SortOrder
+  currencyToId?: Prisma.SortOrder
+  alertThreshold?: Prisma.SortOrder
+  notifiedThreshold?: Prisma.SortOrder
   isRegular?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -486,20 +555,26 @@ export type FinancePlannerMaxOrderByAggregateInput = {
 export type FinancePlannerMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  commonBudget?: Prisma.SortOrder
-  remainder?: Prisma.SortOrder
-  period?: Prisma.SortOrder
-  customPeriodFrom?: Prisma.SortOrder
-  customPeriodTo?: Prisma.SortOrder
+  year?: Prisma.SortOrder
+  month?: Prisma.SortOrder
+  curIncome?: Prisma.SortOrder
+  currencyFromId?: Prisma.SortOrder
+  convertedIncome?: Prisma.SortOrder
+  currencyToId?: Prisma.SortOrder
+  alertThreshold?: Prisma.SortOrder
+  notifiedThreshold?: Prisma.SortOrder
   isRegular?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type FinancePlannerSumOrderByAggregateInput = {
-  commonBudget?: Prisma.SortOrder
-  remainder?: Prisma.SortOrder
+  year?: Prisma.SortOrder
+  month?: Prisma.SortOrder
+  curIncome?: Prisma.SortOrder
+  convertedIncome?: Prisma.SortOrder
+  alertThreshold?: Prisma.SortOrder
+  notifiedThreshold?: Prisma.SortOrder
 }
 
 export type FinancePlannerScalarRelationFilter = {
@@ -549,46 +624,50 @@ export type FinancePlannerUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.FinancePlannerScalarWhereInput | Prisma.FinancePlannerScalarWhereInput[]
 }
 
-export type FinancePlannerCreateNestedOneWithoutPaymentsInput = {
-  create?: Prisma.XOR<Prisma.FinancePlannerCreateWithoutPaymentsInput, Prisma.FinancePlannerUncheckedCreateWithoutPaymentsInput>
-  connectOrCreate?: Prisma.FinancePlannerCreateOrConnectWithoutPaymentsInput
+export type FinancePlannerCreateNestedOneWithoutItemsInput = {
+  create?: Prisma.XOR<Prisma.FinancePlannerCreateWithoutItemsInput, Prisma.FinancePlannerUncheckedCreateWithoutItemsInput>
+  connectOrCreate?: Prisma.FinancePlannerCreateOrConnectWithoutItemsInput
   connect?: Prisma.FinancePlannerWhereUniqueInput
 }
 
-export type FinancePlannerUpdateOneRequiredWithoutPaymentsNestedInput = {
-  create?: Prisma.XOR<Prisma.FinancePlannerCreateWithoutPaymentsInput, Prisma.FinancePlannerUncheckedCreateWithoutPaymentsInput>
-  connectOrCreate?: Prisma.FinancePlannerCreateOrConnectWithoutPaymentsInput
-  upsert?: Prisma.FinancePlannerUpsertWithoutPaymentsInput
+export type FinancePlannerUpdateOneRequiredWithoutItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.FinancePlannerCreateWithoutItemsInput, Prisma.FinancePlannerUncheckedCreateWithoutItemsInput>
+  connectOrCreate?: Prisma.FinancePlannerCreateOrConnectWithoutItemsInput
+  upsert?: Prisma.FinancePlannerUpsertWithoutItemsInput
   connect?: Prisma.FinancePlannerWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.FinancePlannerUpdateToOneWithWhereWithoutPaymentsInput, Prisma.FinancePlannerUpdateWithoutPaymentsInput>, Prisma.FinancePlannerUncheckedUpdateWithoutPaymentsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FinancePlannerUpdateToOneWithWhereWithoutItemsInput, Prisma.FinancePlannerUpdateWithoutItemsInput>, Prisma.FinancePlannerUncheckedUpdateWithoutItemsInput>
 }
 
 export type FinancePlannerCreateWithoutUserInput = {
   id?: string
-  name?: string
-  commonBudget?: number
-  remainder?: number | null
-  period?: string | null
-  customPeriodFrom?: Date | string
-  customPeriodTo?: Date | string
+  year: number
+  month: number
+  curIncome?: number
+  currencyFromId: string
+  convertedIncome?: number
+  currencyToId: string
+  alertThreshold?: number
+  notifiedThreshold?: number | null
   isRegular?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  payments?: Prisma.PaymentsCreateNestedManyWithoutPlannerInput
+  items?: Prisma.BudgetItemCreateNestedManyWithoutPlannerInput
 }
 
 export type FinancePlannerUncheckedCreateWithoutUserInput = {
   id?: string
-  name?: string
-  commonBudget?: number
-  remainder?: number | null
-  period?: string | null
-  customPeriodFrom?: Date | string
-  customPeriodTo?: Date | string
+  year: number
+  month: number
+  curIncome?: number
+  currencyFromId: string
+  convertedIncome?: number
+  currencyToId: string
+  alertThreshold?: number
+  notifiedThreshold?: number | null
   isRegular?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  payments?: Prisma.PaymentsUncheckedCreateNestedManyWithoutPlannerInput
+  items?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutPlannerInput
 }
 
 export type FinancePlannerCreateOrConnectWithoutUserInput = {
@@ -622,82 +701,92 @@ export type FinancePlannerScalarWhereInput = {
   NOT?: Prisma.FinancePlannerScalarWhereInput | Prisma.FinancePlannerScalarWhereInput[]
   id?: Prisma.StringFilter<"FinancePlanner"> | string
   userId?: Prisma.StringFilter<"FinancePlanner"> | string
-  name?: Prisma.StringFilter<"FinancePlanner"> | string
-  commonBudget?: Prisma.FloatFilter<"FinancePlanner"> | number
-  remainder?: Prisma.FloatNullableFilter<"FinancePlanner"> | number | null
-  period?: Prisma.StringNullableFilter<"FinancePlanner"> | string | null
-  customPeriodFrom?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
-  customPeriodTo?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
+  year?: Prisma.IntFilter<"FinancePlanner"> | number
+  month?: Prisma.IntFilter<"FinancePlanner"> | number
+  curIncome?: Prisma.FloatFilter<"FinancePlanner"> | number
+  currencyFromId?: Prisma.StringFilter<"FinancePlanner"> | string
+  convertedIncome?: Prisma.FloatFilter<"FinancePlanner"> | number
+  currencyToId?: Prisma.StringFilter<"FinancePlanner"> | string
+  alertThreshold?: Prisma.FloatFilter<"FinancePlanner"> | number
+  notifiedThreshold?: Prisma.FloatNullableFilter<"FinancePlanner"> | number | null
   isRegular?: Prisma.BoolFilter<"FinancePlanner"> | boolean
   createdAt?: Prisma.DateTimeFilter<"FinancePlanner"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"FinancePlanner"> | Date | string | null
 }
 
-export type FinancePlannerCreateWithoutPaymentsInput = {
+export type FinancePlannerCreateWithoutItemsInput = {
   id?: string
-  name?: string
-  commonBudget?: number
-  remainder?: number | null
-  period?: string | null
-  customPeriodFrom?: Date | string
-  customPeriodTo?: Date | string
+  year: number
+  month: number
+  curIncome?: number
+  currencyFromId: string
+  convertedIncome?: number
+  currencyToId: string
+  alertThreshold?: number
+  notifiedThreshold?: number | null
   isRegular?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutFinancePlannerInput
 }
 
-export type FinancePlannerUncheckedCreateWithoutPaymentsInput = {
+export type FinancePlannerUncheckedCreateWithoutItemsInput = {
   id?: string
   userId: string
-  name?: string
-  commonBudget?: number
-  remainder?: number | null
-  period?: string | null
-  customPeriodFrom?: Date | string
-  customPeriodTo?: Date | string
+  year: number
+  month: number
+  curIncome?: number
+  currencyFromId: string
+  convertedIncome?: number
+  currencyToId: string
+  alertThreshold?: number
+  notifiedThreshold?: number | null
   isRegular?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string | null
 }
 
-export type FinancePlannerCreateOrConnectWithoutPaymentsInput = {
+export type FinancePlannerCreateOrConnectWithoutItemsInput = {
   where: Prisma.FinancePlannerWhereUniqueInput
-  create: Prisma.XOR<Prisma.FinancePlannerCreateWithoutPaymentsInput, Prisma.FinancePlannerUncheckedCreateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.FinancePlannerCreateWithoutItemsInput, Prisma.FinancePlannerUncheckedCreateWithoutItemsInput>
 }
 
-export type FinancePlannerUpsertWithoutPaymentsInput = {
-  update: Prisma.XOR<Prisma.FinancePlannerUpdateWithoutPaymentsInput, Prisma.FinancePlannerUncheckedUpdateWithoutPaymentsInput>
-  create: Prisma.XOR<Prisma.FinancePlannerCreateWithoutPaymentsInput, Prisma.FinancePlannerUncheckedCreateWithoutPaymentsInput>
+export type FinancePlannerUpsertWithoutItemsInput = {
+  update: Prisma.XOR<Prisma.FinancePlannerUpdateWithoutItemsInput, Prisma.FinancePlannerUncheckedUpdateWithoutItemsInput>
+  create: Prisma.XOR<Prisma.FinancePlannerCreateWithoutItemsInput, Prisma.FinancePlannerUncheckedCreateWithoutItemsInput>
   where?: Prisma.FinancePlannerWhereInput
 }
 
-export type FinancePlannerUpdateToOneWithWhereWithoutPaymentsInput = {
+export type FinancePlannerUpdateToOneWithWhereWithoutItemsInput = {
   where?: Prisma.FinancePlannerWhereInput
-  data: Prisma.XOR<Prisma.FinancePlannerUpdateWithoutPaymentsInput, Prisma.FinancePlannerUncheckedUpdateWithoutPaymentsInput>
+  data: Prisma.XOR<Prisma.FinancePlannerUpdateWithoutItemsInput, Prisma.FinancePlannerUncheckedUpdateWithoutItemsInput>
 }
 
-export type FinancePlannerUpdateWithoutPaymentsInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  commonBudget?: Prisma.FloatFieldUpdateOperationsInput | number
-  remainder?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  period?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  customPeriodFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+export type FinancePlannerUpdateWithoutItemsInput = {
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  month?: Prisma.IntFieldUpdateOperationsInput | number
+  curIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyFromId?: Prisma.StringFieldUpdateOperationsInput | string
+  convertedIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyToId?: Prisma.StringFieldUpdateOperationsInput | string
+  alertThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
+  notifiedThreshold?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutFinancePlannerNestedInput
 }
 
-export type FinancePlannerUncheckedUpdateWithoutPaymentsInput = {
+export type FinancePlannerUncheckedUpdateWithoutItemsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  commonBudget?: Prisma.FloatFieldUpdateOperationsInput | number
-  remainder?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  period?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  customPeriodFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  month?: Prisma.IntFieldUpdateOperationsInput | number
+  curIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyFromId?: Prisma.StringFieldUpdateOperationsInput | string
+  convertedIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyToId?: Prisma.StringFieldUpdateOperationsInput | string
+  alertThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
+  notifiedThreshold?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -705,50 +794,58 @@ export type FinancePlannerUncheckedUpdateWithoutPaymentsInput = {
 
 export type FinancePlannerCreateManyUserInput = {
   id?: string
-  name?: string
-  commonBudget?: number
-  remainder?: number | null
-  period?: string | null
-  customPeriodFrom?: Date | string
-  customPeriodTo?: Date | string
+  year: number
+  month: number
+  curIncome?: number
+  currencyFromId: string
+  convertedIncome?: number
+  currencyToId: string
+  alertThreshold?: number
+  notifiedThreshold?: number | null
   isRegular?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string | null
 }
 
 export type FinancePlannerUpdateWithoutUserInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  commonBudget?: Prisma.FloatFieldUpdateOperationsInput | number
-  remainder?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  period?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  customPeriodFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  month?: Prisma.IntFieldUpdateOperationsInput | number
+  curIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyFromId?: Prisma.StringFieldUpdateOperationsInput | string
+  convertedIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyToId?: Prisma.StringFieldUpdateOperationsInput | string
+  alertThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
+  notifiedThreshold?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payments?: Prisma.PaymentsUpdateManyWithoutPlannerNestedInput
+  items?: Prisma.BudgetItemUpdateManyWithoutPlannerNestedInput
 }
 
 export type FinancePlannerUncheckedUpdateWithoutUserInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  commonBudget?: Prisma.FloatFieldUpdateOperationsInput | number
-  remainder?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  period?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  customPeriodFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  month?: Prisma.IntFieldUpdateOperationsInput | number
+  curIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyFromId?: Prisma.StringFieldUpdateOperationsInput | string
+  convertedIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyToId?: Prisma.StringFieldUpdateOperationsInput | string
+  alertThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
+  notifiedThreshold?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payments?: Prisma.PaymentsUncheckedUpdateManyWithoutPlannerNestedInput
+  items?: Prisma.BudgetItemUncheckedUpdateManyWithoutPlannerNestedInput
 }
 
 export type FinancePlannerUncheckedUpdateManyWithoutUserInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  commonBudget?: Prisma.FloatFieldUpdateOperationsInput | number
-  remainder?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  period?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  customPeriodFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  customPeriodTo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  year?: Prisma.IntFieldUpdateOperationsInput | number
+  month?: Prisma.IntFieldUpdateOperationsInput | number
+  curIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyFromId?: Prisma.StringFieldUpdateOperationsInput | string
+  convertedIncome?: Prisma.FloatFieldUpdateOperationsInput | number
+  currencyToId?: Prisma.StringFieldUpdateOperationsInput | string
+  alertThreshold?: Prisma.FloatFieldUpdateOperationsInput | number
+  notifiedThreshold?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   isRegular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -760,11 +857,11 @@ export type FinancePlannerUncheckedUpdateManyWithoutUserInput = {
  */
 
 export type FinancePlannerCountOutputType = {
-  payments: number
+  items: number
 }
 
 export type FinancePlannerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  payments?: boolean | FinancePlannerCountOutputTypeCountPaymentsArgs
+  items?: boolean | FinancePlannerCountOutputTypeCountItemsArgs
 }
 
 /**
@@ -780,24 +877,26 @@ export type FinancePlannerCountOutputTypeDefaultArgs<ExtArgs extends runtime.Typ
 /**
  * FinancePlannerCountOutputType without action
  */
-export type FinancePlannerCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PaymentsWhereInput
+export type FinancePlannerCountOutputTypeCountItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BudgetItemWhereInput
 }
 
 
 export type FinancePlannerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  name?: boolean
-  commonBudget?: boolean
-  remainder?: boolean
-  period?: boolean
-  customPeriodFrom?: boolean
-  customPeriodTo?: boolean
+  year?: boolean
+  month?: boolean
+  curIncome?: boolean
+  currencyFromId?: boolean
+  convertedIncome?: boolean
+  currencyToId?: boolean
+  alertThreshold?: boolean
+  notifiedThreshold?: boolean
   isRegular?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  payments?: boolean | Prisma.FinancePlanner$paymentsArgs<ExtArgs>
+  items?: boolean | Prisma.FinancePlanner$itemsArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.FinancePlannerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["financePlanner"]>
@@ -807,20 +906,22 @@ export type FinancePlannerSelect<ExtArgs extends runtime.Types.Extensions.Intern
 export type FinancePlannerSelectScalar = {
   id?: boolean
   userId?: boolean
-  name?: boolean
-  commonBudget?: boolean
-  remainder?: boolean
-  period?: boolean
-  customPeriodFrom?: boolean
-  customPeriodTo?: boolean
+  year?: boolean
+  month?: boolean
+  curIncome?: boolean
+  currencyFromId?: boolean
+  convertedIncome?: boolean
+  currencyToId?: boolean
+  alertThreshold?: boolean
+  notifiedThreshold?: boolean
   isRegular?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type FinancePlannerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "commonBudget" | "remainder" | "period" | "customPeriodFrom" | "customPeriodTo" | "isRegular" | "createdAt" | "updatedAt", ExtArgs["result"]["financePlanner"]>
+export type FinancePlannerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "year" | "month" | "curIncome" | "currencyFromId" | "convertedIncome" | "currencyToId" | "alertThreshold" | "notifiedThreshold" | "isRegular" | "createdAt" | "updatedAt", ExtArgs["result"]["financePlanner"]>
 export type FinancePlannerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  payments?: boolean | Prisma.FinancePlanner$paymentsArgs<ExtArgs>
+  items?: boolean | Prisma.FinancePlanner$itemsArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.FinancePlannerCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -828,18 +929,20 @@ export type FinancePlannerInclude<ExtArgs extends runtime.Types.Extensions.Inter
 export type $FinancePlannerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FinancePlanner"
   objects: {
-    payments: Prisma.$PaymentsPayload<ExtArgs>[]
+    items: Prisma.$BudgetItemPayload<ExtArgs>[]
     user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
-    name: string
-    commonBudget: number
-    remainder: number | null
-    period: string | null
-    customPeriodFrom: Date
-    customPeriodTo: Date
+    year: number
+    month: number
+    curIncome: number
+    currencyFromId: string
+    convertedIncome: number
+    currencyToId: string
+    alertThreshold: number
+    notifiedThreshold: number | null
     isRegular: boolean
     createdAt: Date
     updatedAt: Date | null
@@ -1206,7 +1309,7 @@ readonly fields: FinancePlannerFieldRefs;
  */
 export interface Prisma__FinancePlannerClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  payments<T extends Prisma.FinancePlanner$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinancePlanner$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  items<T extends Prisma.FinancePlanner$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinancePlanner$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BudgetItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1239,12 +1342,14 @@ export interface Prisma__FinancePlannerClient<T, Null = never, ExtArgs extends r
 export interface FinancePlannerFieldRefs {
   readonly id: Prisma.FieldRef<"FinancePlanner", 'String'>
   readonly userId: Prisma.FieldRef<"FinancePlanner", 'String'>
-  readonly name: Prisma.FieldRef<"FinancePlanner", 'String'>
-  readonly commonBudget: Prisma.FieldRef<"FinancePlanner", 'Float'>
-  readonly remainder: Prisma.FieldRef<"FinancePlanner", 'Float'>
-  readonly period: Prisma.FieldRef<"FinancePlanner", 'String'>
-  readonly customPeriodFrom: Prisma.FieldRef<"FinancePlanner", 'DateTime'>
-  readonly customPeriodTo: Prisma.FieldRef<"FinancePlanner", 'DateTime'>
+  readonly year: Prisma.FieldRef<"FinancePlanner", 'Int'>
+  readonly month: Prisma.FieldRef<"FinancePlanner", 'Int'>
+  readonly curIncome: Prisma.FieldRef<"FinancePlanner", 'Float'>
+  readonly currencyFromId: Prisma.FieldRef<"FinancePlanner", 'String'>
+  readonly convertedIncome: Prisma.FieldRef<"FinancePlanner", 'Float'>
+  readonly currencyToId: Prisma.FieldRef<"FinancePlanner", 'String'>
+  readonly alertThreshold: Prisma.FieldRef<"FinancePlanner", 'Float'>
+  readonly notifiedThreshold: Prisma.FieldRef<"FinancePlanner", 'Float'>
   readonly isRegular: Prisma.FieldRef<"FinancePlanner", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"FinancePlanner", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"FinancePlanner", 'DateTime'>
@@ -1618,27 +1723,27 @@ export type FinancePlannerAggregateRawArgs<ExtArgs extends runtime.Types.Extensi
 }
 
 /**
- * FinancePlanner.payments
+ * FinancePlanner.items
  */
-export type FinancePlanner$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type FinancePlanner$itemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Payments
+   * Select specific fields to fetch from the BudgetItem
    */
-  select?: Prisma.PaymentsSelect<ExtArgs> | null
+  select?: Prisma.BudgetItemSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Payments
+   * Omit specific fields from the BudgetItem
    */
-  omit?: Prisma.PaymentsOmit<ExtArgs> | null
+  omit?: Prisma.BudgetItemOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.PaymentsInclude<ExtArgs> | null
-  where?: Prisma.PaymentsWhereInput
-  orderBy?: Prisma.PaymentsOrderByWithRelationInput | Prisma.PaymentsOrderByWithRelationInput[]
-  cursor?: Prisma.PaymentsWhereUniqueInput
+  include?: Prisma.BudgetItemInclude<ExtArgs> | null
+  where?: Prisma.BudgetItemWhereInput
+  orderBy?: Prisma.BudgetItemOrderByWithRelationInput | Prisma.BudgetItemOrderByWithRelationInput[]
+  cursor?: Prisma.BudgetItemWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.PaymentsScalarFieldEnum | Prisma.PaymentsScalarFieldEnum[]
+  distinct?: Prisma.BudgetItemScalarFieldEnum | Prisma.BudgetItemScalarFieldEnum[]
 }
 
 /**

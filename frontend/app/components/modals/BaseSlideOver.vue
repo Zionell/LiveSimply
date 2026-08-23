@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import type { ButtonProps } from "@nuxt/ui";
+
 interface IProps {
 	btnLabel: string;
+	btnIcon?: string;
+	btnVariant?: ButtonProps["variant"];
 	footerBtnLabel?: string;
 	title: string;
 	description?: string;
@@ -36,7 +40,7 @@ function handleClose(): void {
 		:description="props.description || $t(`modals.${props.title}`)"
 		@after:leave="emit('close')"
 	>
-		<UButton @click="isOpen = true">
+		<UButton :icon="props.btnIcon" :variant="props.btnVariant" @click="isOpen = true">
 			{{ $t(`buttons.${props.btnLabel}`) }}
 		</UButton>
 

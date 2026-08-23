@@ -18,7 +18,7 @@ function handleDownload() {
 		:title="$t(`modals.generateQr`)"
 		:description="$t(`modals.generateQrDesc`)"
 	>
-		<UButton>
+		<UButton icon="i-lucide-qr-code">
 			{{ $t("buttons.qrGen") }}
 		</UButton>
 

@@ -15,5 +15,6 @@ export interface IUser {
 	phone: string | null;
 	exchange: string | null;
 	role: string;
+	language?: string | null;
 	total: number | null;
 }

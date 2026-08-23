@@ -16,6 +16,7 @@ import {
 import { type Request } from "express";
 import { FinanceService } from "./finance.service";
 import { CreateFinanceDto } from "./dto/create-finance.dto";
+import { CreateExpenseCategoryDto } from "./dto/create-expense-category.dto";
 import { UpdateFinanceDto } from "./dto/update-finance.dto";
 import { FindAllFinanceDto } from "./dto/find-all-finance.dto";
 
@@ -40,8 +41,14 @@ export class FinanceController {
 		@Body() createFinanceDto: CreateFinanceDto,
 		@Req() req: Request
 	) {
-		await this.financeService.create(createFinanceDto, req);
-		return HttpStatus.CREATED;
+		return this.financeService.create(createFinanceDto, req);
+	}
+
+	@HttpCode(HttpStatus.CREATED)
+	@Post("expense-categories")
+	@UsePipes(new ValidationPipe({ transform: true }))
+	async createExpenseCategory(@Body() dto: CreateExpenseCategoryDto) {
+		return this.financeService.createExpenseCategory(dto);
 	}
 
 	@Get()
@@ -60,6 +67,13 @@ export class FinanceController {
 		@Body() updateFinanceDto: UpdateFinanceDto
 	) {
 		return this.financeService.update(id, updateFinanceDto);
+	}
+
+	@HttpCode(HttpStatus.NO_CONTENT)
+	@Delete("reset")
+	async reset(@Req() req: Request) {
+		await this.financeService.resetAll(req);
+		return HttpStatus.NO_CONTENT;
 	}
 
 	@HttpCode(HttpStatus.NO_CONTENT)

@@ -30,6 +30,7 @@ function copyGeneratedLink() {
 
 		<UTooltip :text="tooltipText">
 			<UButton
+				icon="i-lucide-link"
 				:label="$t(`businessCardLink.generateLink`)"
 				@click="copyGeneratedLink"
 			/>

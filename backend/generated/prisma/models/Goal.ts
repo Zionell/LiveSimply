@@ -45,6 +45,7 @@ export type GoalMinAggregateOutputType = {
   amount: number | null
   exchangeId: string | null
   isCompleted: boolean | null
+  lastAmountAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -58,6 +59,7 @@ export type GoalMaxAggregateOutputType = {
   amount: number | null
   exchangeId: string | null
   isCompleted: boolean | null
+  lastAmountAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -71,6 +73,7 @@ export type GoalCountAggregateOutputType = {
   amount: number
   exchangeId: number
   isCompleted: number
+  lastAmountAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -96,6 +99,7 @@ export type GoalMinAggregateInputType = {
   amount?: true
   exchangeId?: true
   isCompleted?: true
+  lastAmountAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -109,6 +113,7 @@ export type GoalMaxAggregateInputType = {
   amount?: true
   exchangeId?: true
   isCompleted?: true
+  lastAmountAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -122,6 +127,7 @@ export type GoalCountAggregateInputType = {
   amount?: true
   exchangeId?: true
   isCompleted?: true
+  lastAmountAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -222,6 +228,7 @@ export type GoalGroupByOutputType = {
   amount: number
   exchangeId: string
   isCompleted: boolean
+  lastAmountAt: Date | null
   createdAt: Date
   updatedAt: Date | null
   _count: GoalCountAggregateOutputType | null
@@ -258,6 +265,7 @@ export type GoalWhereInput = {
   amount?: Prisma.FloatFilter<"Goal"> | number
   exchangeId?: Prisma.StringFilter<"Goal"> | string
   isCompleted?: Prisma.BoolFilter<"Goal"> | boolean
+  lastAmountAt?: Prisma.DateTimeNullableFilter<"Goal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Goal"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"Goal"> | Date | string | null
   exchangeItem?: Prisma.XOR<Prisma.ExchangeItemScalarRelationFilter, Prisma.ExchangeItemWhereInput>
@@ -273,6 +281,7 @@ export type GoalOrderByWithRelationInput = {
   amount?: Prisma.SortOrder
   exchangeId?: Prisma.SortOrder
   isCompleted?: Prisma.SortOrder
+  lastAmountAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   exchangeItem?: Prisma.ExchangeItemOrderByWithRelationInput
@@ -291,6 +300,7 @@ export type GoalWhereUniqueInput = Prisma.AtLeast<{
   amount?: Prisma.FloatFilter<"Goal"> | number
   exchangeId?: Prisma.StringFilter<"Goal"> | string
   isCompleted?: Prisma.BoolFilter<"Goal"> | boolean
+  lastAmountAt?: Prisma.DateTimeNullableFilter<"Goal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Goal"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"Goal"> | Date | string | null
   exchangeItem?: Prisma.XOR<Prisma.ExchangeItemScalarRelationFilter, Prisma.ExchangeItemWhereInput>
@@ -306,6 +316,7 @@ export type GoalOrderByWithAggregationInput = {
   amount?: Prisma.SortOrder
   exchangeId?: Prisma.SortOrder
   isCompleted?: Prisma.SortOrder
+  lastAmountAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.GoalCountOrderByAggregateInput
@@ -327,6 +338,7 @@ export type GoalScalarWhereWithAggregatesInput = {
   amount?: Prisma.FloatWithAggregatesFilter<"Goal"> | number
   exchangeId?: Prisma.StringWithAggregatesFilter<"Goal"> | string
   isCompleted?: Prisma.BoolWithAggregatesFilter<"Goal"> | boolean
+  lastAmountAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Goal"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Goal"> | Date | string
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Goal"> | Date | string | null
 }
@@ -338,6 +350,7 @@ export type GoalCreateInput = {
   total?: number
   amount?: number
   isCompleted?: boolean
+  lastAmountAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
   exchangeItem: Prisma.ExchangeItemCreateNestedOneWithoutGoalInput
@@ -353,6 +366,7 @@ export type GoalUncheckedCreateInput = {
   amount?: number
   exchangeId: string
   isCompleted?: boolean
+  lastAmountAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
 }
@@ -363,6 +377,7 @@ export type GoalUpdateInput = {
   total?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastAmountAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   exchangeItem?: Prisma.ExchangeItemUpdateOneRequiredWithoutGoalNestedInput
@@ -377,6 +392,7 @@ export type GoalUncheckedUpdateInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   exchangeId?: Prisma.StringFieldUpdateOperationsInput | string
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastAmountAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -390,6 +406,7 @@ export type GoalCreateManyInput = {
   amount?: number
   exchangeId: string
   isCompleted?: boolean
+  lastAmountAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
 }
@@ -400,6 +417,7 @@ export type GoalUpdateManyMutationInput = {
   total?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastAmountAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -412,6 +430,7 @@ export type GoalUncheckedUpdateManyInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   exchangeId?: Prisma.StringFieldUpdateOperationsInput | string
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastAmountAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -435,6 +454,7 @@ export type GoalCountOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   exchangeId?: Prisma.SortOrder
   isCompleted?: Prisma.SortOrder
+  lastAmountAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -453,6 +473,7 @@ export type GoalMaxOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   exchangeId?: Prisma.SortOrder
   isCompleted?: Prisma.SortOrder
+  lastAmountAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -466,6 +487,7 @@ export type GoalMinOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   exchangeId?: Prisma.SortOrder
   isCompleted?: Prisma.SortOrder
+  lastAmountAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -574,6 +596,7 @@ export type GoalCreateWithoutUserInput = {
   total?: number
   amount?: number
   isCompleted?: boolean
+  lastAmountAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
   exchangeItem: Prisma.ExchangeItemCreateNestedOneWithoutGoalInput
@@ -587,6 +610,7 @@ export type GoalUncheckedCreateWithoutUserInput = {
   amount?: number
   exchangeId: string
   isCompleted?: boolean
+  lastAmountAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
 }
@@ -628,6 +652,7 @@ export type GoalScalarWhereInput = {
   amount?: Prisma.FloatFilter<"Goal"> | number
   exchangeId?: Prisma.StringFilter<"Goal"> | string
   isCompleted?: Prisma.BoolFilter<"Goal"> | boolean
+  lastAmountAt?: Prisma.DateTimeNullableFilter<"Goal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Goal"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"Goal"> | Date | string | null
 }
@@ -639,6 +664,7 @@ export type GoalCreateWithoutExchangeItemInput = {
   total?: number
   amount?: number
   isCompleted?: boolean
+  lastAmountAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutGoalsInput
@@ -652,6 +678,7 @@ export type GoalUncheckedCreateWithoutExchangeItemInput = {
   total?: number
   amount?: number
   isCompleted?: boolean
+  lastAmountAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
 }
@@ -689,6 +716,7 @@ export type GoalCreateManyUserInput = {
   amount?: number
   exchangeId: string
   isCompleted?: boolean
+  lastAmountAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
 }
@@ -699,6 +727,7 @@ export type GoalUpdateWithoutUserInput = {
   total?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastAmountAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   exchangeItem?: Prisma.ExchangeItemUpdateOneRequiredWithoutGoalNestedInput
@@ -711,6 +740,7 @@ export type GoalUncheckedUpdateWithoutUserInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   exchangeId?: Prisma.StringFieldUpdateOperationsInput | string
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastAmountAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -722,6 +752,7 @@ export type GoalUncheckedUpdateManyWithoutUserInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   exchangeId?: Prisma.StringFieldUpdateOperationsInput | string
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastAmountAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -734,6 +765,7 @@ export type GoalCreateManyExchangeItemInput = {
   total?: number
   amount?: number
   isCompleted?: boolean
+  lastAmountAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
 }
@@ -744,6 +776,7 @@ export type GoalUpdateWithoutExchangeItemInput = {
   total?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastAmountAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutGoalsNestedInput
@@ -756,6 +789,7 @@ export type GoalUncheckedUpdateWithoutExchangeItemInput = {
   total?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastAmountAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -767,6 +801,7 @@ export type GoalUncheckedUpdateManyWithoutExchangeItemInput = {
   total?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastAmountAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -782,6 +817,7 @@ export type GoalSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   amount?: boolean
   exchangeId?: boolean
   isCompleted?: boolean
+  lastAmountAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   exchangeItem?: boolean | Prisma.ExchangeItemDefaultArgs<ExtArgs>
@@ -799,11 +835,12 @@ export type GoalSelectScalar = {
   amount?: boolean
   exchangeId?: boolean
   isCompleted?: boolean
+  lastAmountAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type GoalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "title" | "untilAt" | "total" | "amount" | "exchangeId" | "isCompleted" | "createdAt" | "updatedAt", ExtArgs["result"]["goal"]>
+export type GoalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "title" | "untilAt" | "total" | "amount" | "exchangeId" | "isCompleted" | "lastAmountAt" | "createdAt" | "updatedAt", ExtArgs["result"]["goal"]>
 export type GoalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   exchangeItem?: boolean | Prisma.ExchangeItemDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -824,6 +861,12 @@ export type $GoalPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     amount: number
     exchangeId: string
     isCompleted: boolean
+    /**
+     * Last time the saved amount actually moved. Editing the title or the
+     * deadline must not look like a contribution, so updatedAt cannot carry
+     * this. Null means nothing was ever added after the goal was created.
+     */
+    lastAmountAt: Date | null
     createdAt: Date
     updatedAt: Date | null
   }, ExtArgs["result"]["goal"]>
@@ -1228,6 +1271,7 @@ export interface GoalFieldRefs {
   readonly amount: Prisma.FieldRef<"Goal", 'Float'>
   readonly exchangeId: Prisma.FieldRef<"Goal", 'String'>
   readonly isCompleted: Prisma.FieldRef<"Goal", 'Boolean'>
+  readonly lastAmountAt: Prisma.FieldRef<"Goal", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Goal", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Goal", 'DateTime'>
 }

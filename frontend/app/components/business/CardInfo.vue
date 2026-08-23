@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { z } from "zod";
 import { api } from "~~/lib/api";
+import { getError } from "~/assets/utils/common.ts";
 
 interface IProps {
 	card: IBusinessCard | undefined;
@@ -44,10 +45,10 @@ async function handleSubmit() {
 			color: "success",
 			icon: "i-lucide-circle-check",
 		});
-	} catch (e) {
+	} catch (e: unknown) {
 		console.warn("onSubmit: ", e);
 		toast.add({
-			title: e?.data?.message?.[0] || e?.data?.message || t("common.error"),
+			title: getError(e) || t("common.error"),
 			color: "error",
 		});
 	} finally {

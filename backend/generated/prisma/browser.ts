@@ -83,7 +83,7 @@ export type Goal = Prisma.GoalModel
  */
 export type FinancePlanner = Prisma.FinancePlannerModel
 /**
- * Model Payments
+ * Model BudgetItem
  * 
  */
-export type Payments = Prisma.PaymentsModel
+export type BudgetItem = Prisma.BudgetItemModel

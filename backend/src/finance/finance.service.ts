@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { CreateFinanceDto } from "./dto/create-finance.dto";
+import { CreateExpenseCategoryDto } from "./dto/create-expense-category.dto";
 import { UpdateFinanceDto } from "./dto/update-finance.dto";
 import { PrismaService } from "../prisma.service";
 import { FindAllFinanceDto } from "./dto/find-all-finance.dto";
@@ -8,12 +9,18 @@ import { I18nContext } from "nestjs-i18n";
 import { SpecsSerializer } from "./serializer/specs.serializer";
 import { UsersService } from "../users/users.service";
 import { ListSerializer } from "./serializer/list.serializer";
-import { daysInMonth } from "../../utils/date";
+import { getMonthRange } from "../../utils/date";
 import { StatisticsSerializer } from "./serializer/statistics.serializer";
 import { FinanceSerializer } from "./serializer/finance.serializer";
 import { GoalsService } from "../goals/goals.service";
 import { BadRequestException } from "@nestjs/common/exceptions/bad-request.exception";
 import { ERole } from "../../types/user";
+import { BudgetAlertService } from "../planner/budget-alert.service";
+import { ISerializedNotification } from "../notifications/types";
+import { slugify } from "../../utils/slug";
+import { normalizeLanguage, SUPPORTED_LANGUAGES } from "../../utils/language";
+import { ISpec } from "../../types/common";
+import { randomUUID } from "node:crypto";
 
 @Injectable()
 export class FinanceService {
@@ -21,7 +28,8 @@ export class FinanceService {
 		private readonly prismaService: PrismaService,
 		private readonly ratesService: RatesService,
 		private readonly usersService: UsersService,
-		private readonly goalsService: GoalsService
+		private readonly goalsService: GoalsService,
+		private readonly budgetAlertService: BudgetAlertService
 	) {}
 
 	async getSpecs(req: Record<string, any>) {
@@ -76,14 +84,70 @@ export class FinanceService {
 		}
 	}
 
+	/**
+	 * Creates an expense category on the fly from the "add transaction" and
+	 * "add budget item" modals. The catalog is shared, so a label that slugs
+	 * into an existing category returns that one instead of failing on the
+	 * unique constraint.
+	 */
+	async createExpenseCategory(dto: CreateExpenseCategoryDto): Promise<ISpec> {
+		const label = dto.label?.trim();
+
+		if (!label) {
+			throw new BadRequestException("Expense category label is required");
+		}
+
+		const lang = normalizeLanguage(I18nContext.current()?.lang);
+		const include = {
+			label: {
+				where: { lang },
+				select: { label: true },
+			},
+		};
+
+		const value = slugify(label) || `category-${randomUUID().slice(0, 8)}`;
+
+		try {
+			const existing =
+				await this.prismaService.expenseCategory.findUnique({
+					where: { value },
+					include,
+				});
+
+			if (existing) {
+				return SpecsSerializer.serializeCategory(existing);
+			}
+
+			const created = await this.prismaService.expenseCategory.create({
+				data: {
+					value,
+					...(dto.color ? { color: dto.color } : {}),
+					label: {
+						create: SUPPORTED_LANGUAGES.map(itemLang => ({
+							label,
+							lang: itemLang,
+						})),
+					},
+				},
+				include,
+			});
+
+			return SpecsSerializer.serializeCategory(created);
+		} catch (e) {
+			console.warn("[FinanceService / createExpenseCategory]: ", e);
+			throw new Error(e);
+		}
+	}
+
 	async getStatistics(req: Record<string, any>) {
 		try {
 			const userId: ERole = req?.payload?.id;
 
 			const date = new Date();
-			const year = date.getFullYear();
-			const month = date.getMonth() + 1;
-			const lastDay = daysInMonth(month, year);
+			const period = getMonthRange(
+				date.getUTCFullYear(),
+				date.getUTCMonth() + 1
+			);
 
 			const [rates, finances, financesChart, expenseCategories] =
 				await Promise.all([
@@ -93,10 +157,7 @@ export class FinanceService {
 						where: {
 							userId: userId,
 							operationCategoryId: { in: ["expense", "income"] },
-							createdAt: {
-								gte: new Date(`${year}-${month}-1`),
-								lte: new Date(`${year}-${month}-${lastDay}`),
-							},
+							createdAt: period,
 						},
 						_sum: {
 							convertedPrice: true,
@@ -107,10 +168,7 @@ export class FinanceService {
 						where: {
 							userId: userId,
 							operationCategoryId: { in: ["expense"] },
-							createdAt: {
-								gte: new Date(`${year}-${month}-1`),
-								lte: new Date(`${year}-${month}-${lastDay}`),
-							},
+							createdAt: period,
 						},
 						_sum: {
 							convertedPrice: true,
@@ -139,7 +197,7 @@ export class FinanceService {
 				),
 			};
 		} catch (e) {
-			console.warn("[FinanceService / getSpecs]: ", e);
+			console.warn("[FinanceService / getStatistics]: ", e);
 			throw new Error(e);
 		}
 	}
@@ -147,7 +205,7 @@ export class FinanceService {
 	async create(
 		createFinanceDto: CreateFinanceDto,
 		req: Record<string, any>
-	): Promise<void> {
+	): Promise<{ notifications: ISerializedNotification[] }> {
 		const user: Record<string, any> = req.payload;
 		const currencyToId = user.exchange || "EUR";
 
@@ -193,7 +251,7 @@ export class FinanceService {
 
 		delete createFinanceDto.goalsId;
 
-		await this.prismaService.financeItem.create({
+		const created = await this.prismaService.financeItem.create({
 			data: {
 				...createFinanceDto,
 				expenseCategoryId: createFinanceDto.expenseCategoryId || null,
@@ -204,6 +262,57 @@ export class FinanceService {
 		});
 
 		await this.usersService.update({ total }, req);
+
+		if (operationCategoryId !== "expense") {
+			return { notifications: [] };
+		}
+
+		const notifications = await this.budgetAlertService.checkAfterExpense({
+			userId: user.id,
+			expenseCategoryId: createFinanceDto.expenseCategoryId || null,
+			date: created.createdAt,
+		});
+
+		return { notifications };
+	}
+
+	async resetAll(req: Record<string, any>): Promise<{ count: number }> {
+		try {
+			const userId: string = req.payload.id;
+
+			const { count } = await this.prismaService.financeItem.deleteMany({
+				where: { userId },
+			});
+
+			const planners = await this.prismaService.financePlanner.findMany({
+				where: { userId },
+				select: { id: true },
+			});
+
+			await this.prismaService.financePlanner.updateMany({
+				where: { userId, notifiedThreshold: { not: null } },
+				data: { notifiedThreshold: null, updatedAt: new Date() },
+			});
+
+			if (planners.length) {
+				await this.prismaService.budgetItem.updateMany({
+					where: {
+						plannerId: {
+							in: planners.map(
+								(planner: { id: string }) => planner.id
+							),
+						},
+						notifiedThreshold: { not: null },
+					},
+					data: { notifiedThreshold: null, updatedAt: new Date() },
+				});
+			}
+
+			return { count };
+		} catch (e) {
+			console.warn("[FinanceService / resetAll]: ", e);
+			throw new Error(e);
+		}
 	}
 
 	async findAll(
@@ -282,15 +391,59 @@ export class FinanceService {
 		}
 	}
 
-	async update(id: string, updateFinanceDto: UpdateFinanceDto) {
+	async update(
+		id: string,
+		updateFinanceDto: UpdateFinanceDto
+	): Promise<
+		Record<string, any> & { notifications: ISerializedNotification[] }
+	> {
 		try {
-			return this.prismaService.financeItem.update({
+			const original = await this.prismaService.financeItem.findUnique({
+				where: { id },
+			});
+
+			const updated = await this.prismaService.financeItem.update({
 				where: { id },
 				data: {
 					updatedAt: new Date(),
 					...updateFinanceDto,
 				},
 			});
+
+			if (
+				!original ||
+				(original.operationCategoryId !== "expense" &&
+					updated.operationCategoryId !== "expense")
+			) {
+				return { ...updated, notifications: [] };
+			}
+
+			const categoryIds = new Set<string | null>([
+				original.expenseCategoryId,
+				updated.expenseCategoryId,
+			]);
+
+			const notifications: ISerializedNotification[] = [];
+
+			for (const expenseCategoryId of categoryIds) {
+				await this.budgetAlertService.resetAfterChange({
+					userId: original.userId,
+					expenseCategoryId,
+					date: original.createdAt,
+				});
+
+				const created = await this.budgetAlertService.checkAfterExpense(
+					{
+						userId: original.userId,
+						expenseCategoryId,
+						date: original.createdAt,
+					}
+				);
+
+				notifications.push(...created);
+			}
+
+			return { ...updated, notifications };
 		} catch (e) {
 			console.warn("[FinanceService / update]: ", e);
 			throw new Error(e);
@@ -299,9 +452,21 @@ export class FinanceService {
 
 	async remove(id: string) {
 		try {
+			const item = await this.prismaService.financeItem.findUnique({
+				where: { id },
+			});
+
 			await this.prismaService.financeItem.delete({
 				where: { id },
 			});
+
+			if (item && item.operationCategoryId === "expense") {
+				await this.budgetAlertService.resetAfterChange({
+					userId: item.userId,
+					expenseCategoryId: item.expenseCategoryId,
+					date: item.createdAt,
+				});
+			}
 		} catch (e) {
 			console.warn("[FinanceService / remove]: ", e);
 			throw new Error(e);

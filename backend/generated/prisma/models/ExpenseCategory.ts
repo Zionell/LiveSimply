@@ -184,6 +184,7 @@ export type ExpenseCategoryWhereInput = {
   updatedAt?: Prisma.DateTimeNullableFilter<"ExpenseCategory"> | Date | string | null
   label?: Prisma.ExpenseCategoryNameListRelationFilter
   financeItem?: Prisma.FinanceItemListRelationFilter
+  budgetItems?: Prisma.BudgetItemListRelationFilter
 }
 
 export type ExpenseCategoryOrderByWithRelationInput = {
@@ -194,6 +195,7 @@ export type ExpenseCategoryOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   label?: Prisma.ExpenseCategoryNameOrderByRelationAggregateInput
   financeItem?: Prisma.FinanceItemOrderByRelationAggregateInput
+  budgetItems?: Prisma.BudgetItemOrderByRelationAggregateInput
 }
 
 export type ExpenseCategoryWhereUniqueInput = Prisma.AtLeast<{
@@ -207,6 +209,7 @@ export type ExpenseCategoryWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeNullableFilter<"ExpenseCategory"> | Date | string | null
   label?: Prisma.ExpenseCategoryNameListRelationFilter
   financeItem?: Prisma.FinanceItemListRelationFilter
+  budgetItems?: Prisma.BudgetItemListRelationFilter
 }, "id" | "value">
 
 export type ExpenseCategoryOrderByWithAggregationInput = {
@@ -239,6 +242,7 @@ export type ExpenseCategoryCreateInput = {
   updatedAt?: Date | string | null
   label?: Prisma.ExpenseCategoryNameCreateNestedManyWithoutExpenseCategoryInput
   financeItem?: Prisma.FinanceItemCreateNestedManyWithoutExpenseCategoryInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutExpenseCategoryInput
 }
 
 export type ExpenseCategoryUncheckedCreateInput = {
@@ -249,6 +253,7 @@ export type ExpenseCategoryUncheckedCreateInput = {
   updatedAt?: Date | string | null
   label?: Prisma.ExpenseCategoryNameUncheckedCreateNestedManyWithoutExpenseCategoryInput
   financeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExpenseCategoryInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutExpenseCategoryInput
 }
 
 export type ExpenseCategoryUpdateInput = {
@@ -258,6 +263,7 @@ export type ExpenseCategoryUpdateInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExpenseCategoryNameUpdateManyWithoutExpenseCategoryNestedInput
   financeItem?: Prisma.FinanceItemUpdateManyWithoutExpenseCategoryNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutExpenseCategoryNestedInput
 }
 
 export type ExpenseCategoryUncheckedUpdateInput = {
@@ -267,6 +273,7 @@ export type ExpenseCategoryUncheckedUpdateInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExpenseCategoryNameUncheckedUpdateManyWithoutExpenseCategoryNestedInput
   financeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExpenseCategoryNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutExpenseCategoryNestedInput
 }
 
 export type ExpenseCategoryCreateManyInput = {
@@ -355,6 +362,20 @@ export type ExpenseCategoryUpdateOneWithoutFinanceItemNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ExpenseCategoryUpdateToOneWithWhereWithoutFinanceItemInput, Prisma.ExpenseCategoryUpdateWithoutFinanceItemInput>, Prisma.ExpenseCategoryUncheckedUpdateWithoutFinanceItemInput>
 }
 
+export type ExpenseCategoryCreateNestedOneWithoutBudgetItemsInput = {
+  create?: Prisma.XOR<Prisma.ExpenseCategoryCreateWithoutBudgetItemsInput, Prisma.ExpenseCategoryUncheckedCreateWithoutBudgetItemsInput>
+  connectOrCreate?: Prisma.ExpenseCategoryCreateOrConnectWithoutBudgetItemsInput
+  connect?: Prisma.ExpenseCategoryWhereUniqueInput
+}
+
+export type ExpenseCategoryUpdateOneRequiredWithoutBudgetItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.ExpenseCategoryCreateWithoutBudgetItemsInput, Prisma.ExpenseCategoryUncheckedCreateWithoutBudgetItemsInput>
+  connectOrCreate?: Prisma.ExpenseCategoryCreateOrConnectWithoutBudgetItemsInput
+  upsert?: Prisma.ExpenseCategoryUpsertWithoutBudgetItemsInput
+  connect?: Prisma.ExpenseCategoryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ExpenseCategoryUpdateToOneWithWhereWithoutBudgetItemsInput, Prisma.ExpenseCategoryUpdateWithoutBudgetItemsInput>, Prisma.ExpenseCategoryUncheckedUpdateWithoutBudgetItemsInput>
+}
+
 export type ExpenseCategoryCreateWithoutLabelInput = {
   id?: string
   value: string
@@ -362,6 +383,7 @@ export type ExpenseCategoryCreateWithoutLabelInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   financeItem?: Prisma.FinanceItemCreateNestedManyWithoutExpenseCategoryInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutExpenseCategoryInput
 }
 
 export type ExpenseCategoryUncheckedCreateWithoutLabelInput = {
@@ -371,6 +393,7 @@ export type ExpenseCategoryUncheckedCreateWithoutLabelInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   financeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExpenseCategoryInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutExpenseCategoryInput
 }
 
 export type ExpenseCategoryCreateOrConnectWithoutLabelInput = {
@@ -395,6 +418,7 @@ export type ExpenseCategoryUpdateWithoutLabelInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   financeItem?: Prisma.FinanceItemUpdateManyWithoutExpenseCategoryNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutExpenseCategoryNestedInput
 }
 
 export type ExpenseCategoryUncheckedUpdateWithoutLabelInput = {
@@ -403,6 +427,7 @@ export type ExpenseCategoryUncheckedUpdateWithoutLabelInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   financeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExpenseCategoryNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutExpenseCategoryNestedInput
 }
 
 export type ExpenseCategoryCreateWithoutFinanceItemInput = {
@@ -412,6 +437,7 @@ export type ExpenseCategoryCreateWithoutFinanceItemInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   label?: Prisma.ExpenseCategoryNameCreateNestedManyWithoutExpenseCategoryInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutExpenseCategoryInput
 }
 
 export type ExpenseCategoryUncheckedCreateWithoutFinanceItemInput = {
@@ -421,6 +447,7 @@ export type ExpenseCategoryUncheckedCreateWithoutFinanceItemInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   label?: Prisma.ExpenseCategoryNameUncheckedCreateNestedManyWithoutExpenseCategoryInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutExpenseCategoryInput
 }
 
 export type ExpenseCategoryCreateOrConnectWithoutFinanceItemInput = {
@@ -445,6 +472,7 @@ export type ExpenseCategoryUpdateWithoutFinanceItemInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExpenseCategoryNameUpdateManyWithoutExpenseCategoryNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutExpenseCategoryNestedInput
 }
 
 export type ExpenseCategoryUncheckedUpdateWithoutFinanceItemInput = {
@@ -453,6 +481,61 @@ export type ExpenseCategoryUncheckedUpdateWithoutFinanceItemInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.ExpenseCategoryNameUncheckedUpdateManyWithoutExpenseCategoryNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutExpenseCategoryNestedInput
+}
+
+export type ExpenseCategoryCreateWithoutBudgetItemsInput = {
+  id?: string
+  value: string
+  color?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  label?: Prisma.ExpenseCategoryNameCreateNestedManyWithoutExpenseCategoryInput
+  financeItem?: Prisma.FinanceItemCreateNestedManyWithoutExpenseCategoryInput
+}
+
+export type ExpenseCategoryUncheckedCreateWithoutBudgetItemsInput = {
+  id?: string
+  value: string
+  color?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  label?: Prisma.ExpenseCategoryNameUncheckedCreateNestedManyWithoutExpenseCategoryInput
+  financeItem?: Prisma.FinanceItemUncheckedCreateNestedManyWithoutExpenseCategoryInput
+}
+
+export type ExpenseCategoryCreateOrConnectWithoutBudgetItemsInput = {
+  where: Prisma.ExpenseCategoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.ExpenseCategoryCreateWithoutBudgetItemsInput, Prisma.ExpenseCategoryUncheckedCreateWithoutBudgetItemsInput>
+}
+
+export type ExpenseCategoryUpsertWithoutBudgetItemsInput = {
+  update: Prisma.XOR<Prisma.ExpenseCategoryUpdateWithoutBudgetItemsInput, Prisma.ExpenseCategoryUncheckedUpdateWithoutBudgetItemsInput>
+  create: Prisma.XOR<Prisma.ExpenseCategoryCreateWithoutBudgetItemsInput, Prisma.ExpenseCategoryUncheckedCreateWithoutBudgetItemsInput>
+  where?: Prisma.ExpenseCategoryWhereInput
+}
+
+export type ExpenseCategoryUpdateToOneWithWhereWithoutBudgetItemsInput = {
+  where?: Prisma.ExpenseCategoryWhereInput
+  data: Prisma.XOR<Prisma.ExpenseCategoryUpdateWithoutBudgetItemsInput, Prisma.ExpenseCategoryUncheckedUpdateWithoutBudgetItemsInput>
+}
+
+export type ExpenseCategoryUpdateWithoutBudgetItemsInput = {
+  value?: Prisma.StringFieldUpdateOperationsInput | string
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  label?: Prisma.ExpenseCategoryNameUpdateManyWithoutExpenseCategoryNestedInput
+  financeItem?: Prisma.FinanceItemUpdateManyWithoutExpenseCategoryNestedInput
+}
+
+export type ExpenseCategoryUncheckedUpdateWithoutBudgetItemsInput = {
+  value?: Prisma.StringFieldUpdateOperationsInput | string
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  label?: Prisma.ExpenseCategoryNameUncheckedUpdateManyWithoutExpenseCategoryNestedInput
+  financeItem?: Prisma.FinanceItemUncheckedUpdateManyWithoutExpenseCategoryNestedInput
 }
 
 
@@ -463,11 +546,13 @@ export type ExpenseCategoryUncheckedUpdateWithoutFinanceItemInput = {
 export type ExpenseCategoryCountOutputType = {
   label: number
   financeItem: number
+  budgetItems: number
 }
 
 export type ExpenseCategoryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   label?: boolean | ExpenseCategoryCountOutputTypeCountLabelArgs
   financeItem?: boolean | ExpenseCategoryCountOutputTypeCountFinanceItemArgs
+  budgetItems?: boolean | ExpenseCategoryCountOutputTypeCountBudgetItemsArgs
 }
 
 /**
@@ -494,6 +579,13 @@ export type ExpenseCategoryCountOutputTypeCountFinanceItemArgs<ExtArgs extends r
   where?: Prisma.FinanceItemWhereInput
 }
 
+/**
+ * ExpenseCategoryCountOutputType without action
+ */
+export type ExpenseCategoryCountOutputTypeCountBudgetItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BudgetItemWhereInput
+}
+
 
 export type ExpenseCategorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -503,6 +595,7 @@ export type ExpenseCategorySelect<ExtArgs extends runtime.Types.Extensions.Inter
   updatedAt?: boolean
   label?: boolean | Prisma.ExpenseCategory$labelArgs<ExtArgs>
   financeItem?: boolean | Prisma.ExpenseCategory$financeItemArgs<ExtArgs>
+  budgetItems?: boolean | Prisma.ExpenseCategory$budgetItemsArgs<ExtArgs>
   _count?: boolean | Prisma.ExpenseCategoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["expenseCategory"]>
 
@@ -520,6 +613,7 @@ export type ExpenseCategoryOmit<ExtArgs extends runtime.Types.Extensions.Interna
 export type ExpenseCategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   label?: boolean | Prisma.ExpenseCategory$labelArgs<ExtArgs>
   financeItem?: boolean | Prisma.ExpenseCategory$financeItemArgs<ExtArgs>
+  budgetItems?: boolean | Prisma.ExpenseCategory$budgetItemsArgs<ExtArgs>
   _count?: boolean | Prisma.ExpenseCategoryCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -528,6 +622,7 @@ export type $ExpenseCategoryPayload<ExtArgs extends runtime.Types.Extensions.Int
   objects: {
     label: Prisma.$ExpenseCategoryNamePayload<ExtArgs>[]
     financeItem: Prisma.$FinanceItemPayload<ExtArgs>[]
+    budgetItems: Prisma.$BudgetItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -900,6 +995,7 @@ export interface Prisma__ExpenseCategoryClient<T, Null = never, ExtArgs extends 
   readonly [Symbol.toStringTag]: "PrismaPromise"
   label<T extends Prisma.ExpenseCategory$labelArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExpenseCategory$labelArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExpenseCategoryNamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   financeItem<T extends Prisma.ExpenseCategory$financeItemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExpenseCategory$financeItemArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinanceItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  budgetItems<T extends Prisma.ExpenseCategory$budgetItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExpenseCategory$budgetItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BudgetItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1349,6 +1445,30 @@ export type ExpenseCategory$financeItemArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.FinanceItemScalarFieldEnum | Prisma.FinanceItemScalarFieldEnum[]
+}
+
+/**
+ * ExpenseCategory.budgetItems
+ */
+export type ExpenseCategory$budgetItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BudgetItem
+   */
+  select?: Prisma.BudgetItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BudgetItem
+   */
+  omit?: Prisma.BudgetItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BudgetItemInclude<ExtArgs> | null
+  where?: Prisma.BudgetItemWhereInput
+  orderBy?: Prisma.BudgetItemOrderByWithRelationInput | Prisma.BudgetItemOrderByWithRelationInput[]
+  cursor?: Prisma.BudgetItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BudgetItemScalarFieldEnum | Prisma.BudgetItemScalarFieldEnum[]
 }
 
 /**

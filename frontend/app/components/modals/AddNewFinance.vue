@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { z } from "zod";
 import { api } from "~~/lib/api";
+import { getError } from "~/assets/utils/common.ts";
 
 const emit = defineEmits(["refresh"]);
 
 interface IState {
-	curPrice: number | null;
+	curPrice: number;
 	currencyFromId: string;
 	operationCategoryId: string;
 	expenseCategoryId: string;
@@ -13,7 +14,7 @@ interface IState {
 }
 
 const initialValues: IState = {
-	curPrice: null,
+	curPrice: 0,
 	currencyFromId: "",
 	operationCategoryId: "",
 	expenseCategoryId: "",
@@ -38,7 +39,7 @@ const isLoading = ref<boolean>(false);
 const toast = useToast();
 const sliderOverRef = useTemplateRef("slideOver");
 
-const { data, error } = await useFetch<FinanceSpecs>(api.finance.specs, {
+const { data, error, refresh } = await useFetch<FinanceSpecs>(api.finance.specs, {
 	key: "FinanceSpecs",
 });
 
@@ -49,6 +50,8 @@ if (error.value) {
 	});
 }
 
+const { isCreating, createCategory } = useExpenseCategory();
+
 const isExpenseCatVisible = computed((): boolean => state.operationCategoryId === EOperationTypes.expense);
 
 const isGoalsVisible = computed((): boolean => state.operationCategoryId === EOperationTypes.goals);
@@ -57,11 +60,22 @@ const isValid = computed(() => {
 	return schema.safeParse(state).success;
 });
 
+async function onCreateCategory(label: string) {
+	const category = await createCategory(label);
+
+	if (!category) {
+		return;
+	}
+
+	await refresh();
+	state.expenseCategoryId = category.value;
+}
+
 async function onSubmit() {
 	try {
 		isLoading.value = true;
 
-		await $fetch(api.finance.common, {
+		const response = await $fetch<{ notifications: INotification[] }>(api.finance.common, {
 			method: "POST",
 			body: JSON.stringify(state),
 		});
@@ -74,11 +88,27 @@ async function onSubmit() {
 			icon: "i-lucide-circle-check",
 		});
 
+		// TODO: check notifications
+		const notifications = response?.notifications || [];
+
+		if (notifications.length) {
+			useNotificationsStore().push(notifications);
+
+			notifications.forEach((notification) => {
+				toast.add({
+					title: notification.title,
+					description: notification.text,
+					color: "warning",
+					icon: "i-lucide-triangle-alert",
+				});
+			});
+		}
+
 		await useUserStore().fetchUser();
 	} catch (e) {
 		console.warn("onSubmit: ", e);
 		toast.add({
-			title: e?.data?.message || t("common.error"),
+			title: getError(e) || t("common.error"),
 			color: "error",
 		});
 	} finally {
@@ -88,9 +118,7 @@ async function onSubmit() {
 }
 
 function handleClose() {
-	(Object.keys(initialValues) as Array<keyof IState>).forEach((key) => {
-		state[key] = initialValues[key];
-	});
+	Object.assign(state, initialValues);
 }
 </script>
 
@@ -98,6 +126,7 @@ function handleClose() {
 	<ModalsBaseSlideOver
 		ref="slideOver"
 		btnLabel="new"
+		btnIcon="i-lucide-plus"
 		title="newFinance"
 		:isDisabled="!isValid"
 		:isLoading="isLoading"
@@ -145,8 +174,15 @@ function handleClose() {
 						:items="data?.expenseCategory"
 						placeholder="12 093"
 						value-key="value"
+						:loading="isCreating"
+						create-item
 						virtualize
-					/>
+						@create="onCreateCategory"
+					>
+						<template #create-item-label="{ item }">
+							{{ $t("inputs.createExpenseCategory", { label: item }) }}
+						</template>
+					</USelectMenu>
 				</UFormField>
 
 				<UFormField v-else-if="isGoalsVisible" class="w-full" :label="$t('inputs.goals')" name="goals">

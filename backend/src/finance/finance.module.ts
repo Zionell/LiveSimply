@@ -1,40 +1,15 @@
 import { Module } from "@nestjs/common";
 import { FinanceService } from "./finance.service";
 import { FinanceController } from "./finance.controller";
-import { PrismaService } from "../prisma.service";
-import { RatesService } from "../rates/rates.service";
-import { TranslateService } from "../translate/translate.service";
-import { MailService } from "../mail/mail.service";
 import { SpecsSerializer } from "./serializer/specs.serializer";
-import { UsersService } from "../users/users.service";
-import { GoalsService } from "../goals/goals.service";
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import { JwtModule } from "@nestjs/jwt";
+import { RatesModule } from "../rates/rates.module";
+import { UsersModule } from "../users/users.module";
+import { GoalsModule } from "../goals/goals.module";
+import { PlannerModule } from "../planner/planner.module";
 
 @Module({
-	imports: [
-		ConfigModule,
-		JwtModule.registerAsync({
-			imports: [ConfigModule],
-			useFactory: (configService: ConfigService) => ({
-				secret: configService.get<string>("JWT_SECRET"),
-				signOptions: {
-					expiresIn: configService.get<number>("JWT_EXPIRES_IN"),
-				},
-			}),
-			inject: [ConfigService],
-		}),
-	],
+	imports: [RatesModule, UsersModule, GoalsModule, PlannerModule],
 	controllers: [FinanceController],
-	providers: [
-		SpecsSerializer,
-		FinanceService,
-		PrismaService,
-		RatesService,
-		TranslateService,
-		MailService,
-		UsersService,
-		GoalsService,
-	],
+	providers: [SpecsSerializer, FinanceService],
 })
 export class FinanceModule {}

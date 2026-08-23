@@ -18,12 +18,16 @@ model User {
 	phone          String?
 	exchange       String?
 	role           String           @default("LVL3")
+	language       String?
 	total          Float?           @default(0)
 	businessCard   BusinessCard?
 	goals          Goal[]
 	financePlanner FinancePlanner[]
+	notifications  Notification[]
 
-	exchangeItem ExchangeItem? @relation(fields: [exchange], references: [id])
+	emailNotifications Json?
+
+	exchangeItem ExchangeItem? @relation(fields: [exchange], references: [value])
 
 	createdAt DateTime  @default(now())
 	updatedAt DateTime? @default(now())
@@ -40,7 +44,6 @@ model ExchangeItem {
 	fromExchangeItem FinanceItem[] @relation("FromExchangeItem")
 	toExchangeItem   FinanceItem[] @relation("ToExchangeItem")
 	goal             Goal[]
-	requiredPayments Payments[]
 
 	createdAt DateTime  @default(now())
 	updatedAt DateTime? @default(now())
@@ -64,6 +67,7 @@ model ExpenseCategory {
 	label       ExpenseCategoryName[]
 	color       String                @default("#fff")
 	financeItem FinanceItem[]
+	budgetItems BudgetItem[]
 
 	createdAt DateTime  @default(now())
 	updatedAt DateTime? @default(now())
@@ -125,9 +129,11 @@ model FinanceItem {
 model Notification {
 	id       String  @id @default(auto()) @map("_id") @db.ObjectId
 	userId   String
+	type     String
+	params   Json    @default("{}")
 	isReaded Boolean @default(false)
-	title    String
-	text     String
+
+	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
 	createdAt DateTime  @default(now())
 	updatedAt DateTime? @default(now())
@@ -170,6 +176,11 @@ model Goal {
 	exchangeId  String
 	isCompleted Boolean  @default(false)
 
+	/// Last time the saved amount actually moved. Editing the title or the
+	/// deadline must not look like a contribution, so updatedAt cannot carry
+	/// this. Null means nothing was ever added after the goal was created.
+	lastAmountAt DateTime?
+
 	exchangeItem ExchangeItem @relation(fields: [exchangeId], references: [value])
 	user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -181,33 +192,47 @@ model FinancePlanner {
 	id     String @id @default(auto()) @map("_id") @db.ObjectId
 	userId String
 
-	name             String     @default("")
-	commonBudget     Float      @default(0)
-	remainder        Float?     @default(0)
-	payments         Payments[]
-	period           String?    @default("MONTH")
-	customPeriodFrom DateTime   @default(now())
-	customPeriodTo   DateTime   @default(now())
-	isRegular        Boolean    @default(false)
+	year  Int
+	month Int
 
-	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+	curIncome       Float  @default(0)
+	currencyFromId  String
+	convertedIncome Float  @default(0)
+	currencyToId    String
+
+	alertThreshold    Float   @default(0.7)
+	notifiedThreshold Float?
+	isRegular         Boolean @default(false)
+
+	items BudgetItem[]
+	user  User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
 	createdAt DateTime  @default(now())
 	updatedAt DateTime? @default(now())
+
+	@@unique([userId, year, month])
 }
 
-model Payments {
-	id       String @id @default(auto()) @map("_id") @db.ObjectId
-	plnnerId String
+model BudgetItem {
+	id        String @id @default(auto()) @map("_id") @db.ObjectId
+	plannerId String
 
-	lable      String
-	amount     Float   @default(0)
-	exchange   String  @default("EUR")
-	isRequired Boolean @default(false)
+	label String
 
-	exchangeItem ExchangeItem   @relation(fields: [exchange], references: [value])
-	planner      FinancePlanner @relation(fields: [plnnerId], references: [id], onDelete: Cascade)
+	curAmount       Float  @default(0)
+	currencyFromId  String
+	convertedAmount Float  @default(0)
+	currencyToId    String
+
+	expenseCategoryId String
+	isRequired        Boolean @default(false)
+	notifiedThreshold Float?
+
+	planner         FinancePlanner  @relation(fields: [plannerId], references: [id], onDelete: Cascade)
+	expenseCategory ExpenseCategory @relation(fields: [expenseCategoryId], references: [value])
 
 	createdAt DateTime  @default(now())
 	updatedAt DateTime? @default(now())
+
+	@@unique([plannerId, expenseCategoryId])
 }

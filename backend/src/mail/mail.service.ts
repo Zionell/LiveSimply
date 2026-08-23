@@ -6,6 +6,7 @@ interface IMailSendProps {
 	to: string;
 	template: string;
 	locale: string;
+	subject?: string;
 	props?: Record<string, string>;
 }
 
@@ -16,14 +17,22 @@ export class MailService {
 		private readonly i18nService: I18nService
 	) {}
 
-	async sendEmail({ to, template, locale, props }: IMailSendProps) {
-		const subject = this.i18nService.translate(`mail.${template}`, {
-			lang: locale,
-		});
+	async sendEmail({
+		to,
+		template,
+		locale,
+		subject,
+		props,
+	}: IMailSendProps) {
+		const resolvedSubject =
+			subject ||
+			this.i18nService.translate(`mail.${template}`, {
+				lang: locale,
+			});
 
 		await this.mailerService.sendMail({
 			to,
-			subject: subject,
+			subject: resolvedSubject,
 			template: `${locale}/${template}`,
 			context: props,
 		});
