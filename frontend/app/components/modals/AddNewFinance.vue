@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { z } from "zod";
 import { api } from "~~/lib/api";
+import { getError } from "~/assets/utils/common.ts";
 
 const emit = defineEmits(["refresh"]);
 
 interface IState {
-	curPrice: number | null;
+	curPrice: number;
 	currencyFromId: string;
 	operationCategoryId: string;
 	expenseCategoryId: string;
@@ -13,7 +14,7 @@ interface IState {
 }
 
 const initialValues: IState = {
-	curPrice: null,
+	curPrice: 0,
 	currencyFromId: "",
 	operationCategoryId: "",
 	expenseCategoryId: "",
@@ -49,7 +50,7 @@ if (error.value) {
 	});
 }
 
-const { isCreating: isCategoryCreating, createCategory } = useExpenseCategory();
+const { isCreating, createCategory } = useExpenseCategory();
 
 const isExpenseCatVisible = computed((): boolean => state.operationCategoryId === EOperationTypes.expense);
 
@@ -87,6 +88,7 @@ async function onSubmit() {
 			icon: "i-lucide-circle-check",
 		});
 
+		// TODO: check notifications
 		const notifications = response?.notifications || [];
 
 		if (notifications.length) {
@@ -106,7 +108,7 @@ async function onSubmit() {
 	} catch (e) {
 		console.warn("onSubmit: ", e);
 		toast.add({
-			title: e?.data?.message || t("common.error"),
+			title: getError(e) || t("common.error"),
 			color: "error",
 		});
 	} finally {
@@ -116,9 +118,7 @@ async function onSubmit() {
 }
 
 function handleClose() {
-	(Object.keys(initialValues) as Array<keyof IState>).forEach((key) => {
-		state[key] = initialValues[key];
-	});
+	Object.assign(state, initialValues);
 }
 </script>
 
@@ -174,7 +174,7 @@ function handleClose() {
 						:items="data?.expenseCategory"
 						placeholder="12 093"
 						value-key="value"
-						:loading="isCategoryCreating"
+						:loading="isCreating"
 						create-item
 						virtualize
 						@create="onCreateCategory"

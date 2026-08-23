@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { z } from "zod";
 import { api } from "~~/lib/api";
+import { getError } from "~/assets/utils/common.ts";
 
 const initialValues = {
-	total: null,
+	total: 0,
 	exchange: "",
 };
 const { t } = useI18n();
@@ -43,7 +44,7 @@ async function handleSubmit() {
 	} catch (e) {
 		console.warn("onSubmit: ", e);
 		toast.add({
-			title: t("common.error"),
+			title: getError(e) || t("common.error"),
 			color: "error",
 		});
 	} finally {

@@ -1,13 +1,8 @@
-import type { ISpec } from "#shared/types/index";
+import type { ISpec } from "#shared/types";
 import { api } from "~~/lib/api";
 import { getError } from "~/assets/utils/common";
 import { generateColorFromString } from "~/assets/utils/colors";
 
-/**
- * Creates an expense category straight from a select, so a transaction or a
- * budget item can be filled in without leaving the modal. The chart color is
- * derived from the label, the backend keeps the catalog free of duplicates.
- */
 export default function useExpenseCategory() {
 	const { t } = useI18n();
 	const toast = useToast();

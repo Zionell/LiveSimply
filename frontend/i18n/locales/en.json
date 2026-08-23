@@ -208,7 +208,8 @@
 		"error": "Something went wrong!",
 		"deleted": "Successfully deleted",
 		"updated": "Successfully updated",
-		"added": "Successfully added"
+		"added": "Successfully added",
+		"retry": "Retry"
 	},
 	"settings": {
 		"tabs": {
@@ -245,6 +246,10 @@
 				"goals": {
 					"label": "Goals",
 					"hint": "Progress on your saving goals."
+				},
+				"rates": {
+					"label": "Exchange rates",
+					"hint": "Currency rates have been refreshed."
 				}
 			}
 		}

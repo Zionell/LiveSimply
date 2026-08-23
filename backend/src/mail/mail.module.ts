@@ -1,7 +1,6 @@
 import { Module } from "@nestjs/common";
 import { MailService } from "./mail.service";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { PrismaService } from "../prisma.service";
 import { MailerModule } from "@nestjs-modules/mailer";
 import { join } from "path";
 import { PugAdapter } from "@nestjs-modules/mailer/adapters/pug.adapter";
@@ -34,6 +33,7 @@ import { PugAdapter } from "@nestjs-modules/mailer/adapters/pug.adapter";
 			inject: [ConfigService],
 		}),
 	],
-	providers: [MailService, PrismaService],
+	providers: [MailService],
+	exports: [MailService],
 })
 export class MailModule {}

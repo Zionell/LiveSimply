@@ -10,8 +10,6 @@ const emit = defineEmits<{
 
 const { locale } = useI18n();
 
-// Every visited month gets a planner row created for it, so the arrows are
-// bounded rather than free-running.
 const BOUND_MONTHS = 12;
 
 const index = computed((): number => props.year * 12 + (props.month - 1));

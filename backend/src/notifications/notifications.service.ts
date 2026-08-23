@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+	ForbiddenException,
+	Injectable,
+	NotFoundException,
+} from "@nestjs/common";
 import { I18nContext, I18nService } from "nestjs-i18n";
 import { PrismaService } from "../prisma.service";
 import { NotificationSerializer } from "./serializer/notification.serializer";
@@ -7,13 +11,16 @@ import { Notification } from "../../generated/prisma/client";
 import { normalizeLanguage } from "../../utils/language";
 import { UpdateNotificationSettingsDto } from "./dto/update-notification-settings.dto";
 import {
-	AVAILABLE_GROUPS,
+	ENotificationGroup,
 	ENotificationType,
+	groupsForRole,
 	INotificationGroupSetting,
 	INotificationParams,
 	ISerializedNotification,
 	NOTIFICATION_GROUPS,
 } from "./types";
+import { UpdateNotificationRatesDto } from "./dto/update-notification-rates.dto";
+import { ERole } from "../../types/user";
 
 interface ICreateNotification {
 	userId: string;
@@ -55,8 +62,6 @@ export class NotificationsService {
 				this.currentLang(lang)
 			);
 
-			// Email is best-effort and must never hold up the request that
-			// produced the notification.
 			void this.emailIfEnabled(notification);
 
 			return serialized;
@@ -73,18 +78,22 @@ export class NotificationsService {
 	}
 
 	private toSettingsList(
-		stored: Record<string, boolean>
+		stored: Record<string, boolean>,
+		role?: string
 	): INotificationGroupSetting[] {
-		return AVAILABLE_GROUPS.map(group => ({
+		return groupsForRole(role).map(group => ({
 			group,
 			isEmailEnabled: stored[group] === true,
 		}));
 	}
 
-	/**
-	 * Renders the notification again in the recipient's own language: the
-	 * request language is wrong for anything a cron produced.
-	 */
+	private isEmailEnabledFor(
+		user: { emailNotifications?: unknown } | null,
+		group: ENotificationGroup
+	): boolean {
+		return this.readGroupSettings(user)[group] === true;
+	}
+
 	async emailIfEnabled(notification: Notification): Promise<void> {
 		try {
 			const user = await this.prismaService.user.findUnique({
@@ -104,7 +113,7 @@ export class NotificationsService {
 			const group =
 				NOTIFICATION_GROUPS[notification.type as ENotificationType];
 
-			if (this.readGroupSettings(user)[group] !== true) {
+			if (!this.isEmailEnabledFor(user, group)) {
 				return;
 			}
 
@@ -147,7 +156,10 @@ export class NotificationsService {
 			select: { emailNotifications: true },
 		});
 
-		return this.toSettingsList(this.readGroupSettings(user));
+		return this.toSettingsList(
+			this.readGroupSettings(user),
+			req.payload.role
+		);
 	}
 
 	async updateSettings(
@@ -155,6 +167,11 @@ export class NotificationsService {
 		req: Record<string, any>
 	): Promise<INotificationGroupSetting[]> {
 		const userId: string = req.payload.id;
+		const role: string = req.payload.role;
+
+		if (!groupsForRole(role).includes(dto.group)) {
+			throw new ForbiddenException();
+		}
 
 		const user = await this.prismaService.user.findUnique({
 			where: { id: userId },
@@ -174,7 +191,7 @@ export class NotificationsService {
 			},
 		});
 
-		return this.toSettingsList(updated);
+		return this.toSettingsList(updated, role);
 	}
 
 	async findAll(req: Record<string, any>) {
@@ -230,5 +247,57 @@ export class NotificationsService {
 			where: { userId, isReaded: false },
 			data: { isReaded: true, updatedAt: new Date() },
 		});
+	}
+
+	/**
+	 * Called by the rates cron. The in-app notification always lands; the email
+	 * copy follows the admin's own switch for the rates group, the same way
+	 * every other notification behaves.
+	 */
+	async updateRatesNotification(
+		dto?: UpdateNotificationRatesDto
+	): Promise<void> {
+		const admins = await this.prismaService.user.findMany({
+			where: {
+				role: ERole.ADMIN,
+			},
+			select: {
+				id: true,
+				email: true,
+				emailVerified: true,
+				emailNotifications: true,
+				language: true,
+			},
+		});
+
+		const type = dto
+			? ENotificationType.RatesUpdateError
+			: ENotificationType.RatesUpdate;
+
+		for (const admin of admins) {
+			await this.prismaService.notification.create({
+				data: {
+					userId: admin.id,
+					type,
+					params: { ...dto },
+				},
+			});
+
+			const isEmailEnabled =
+				admin.email &&
+				admin.emailVerified &&
+				this.isEmailEnabledFor(admin, ENotificationGroup.Rates);
+
+			if (!isEmailEnabled) {
+				continue;
+			}
+
+			await this.mailService.sendEmail({
+				to: admin.email,
+				template: dto ? "updateRatesError" : "updateRates",
+				locale: normalizeLanguage(admin.language),
+				...(dto ? { props: { ...dto } } : {}),
+			});
+		}
 	}
 }

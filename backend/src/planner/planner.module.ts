@@ -1,27 +1,15 @@
 import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
 import { PlannerService } from "./planner.service";
 import { PlannerController } from "./planner.controller";
-import { PrismaService } from "../prisma.service";
-import { RatesService } from "../rates/rates.service";
-import { TranslateService } from "../translate/translate.service";
-import { MailService } from "../mail/mail.service";
+import { RatesModule } from "../rates/rates.module";
 import { NotificationsModule } from "../notifications/notifications.module";
 import { BudgetAlertService } from "./budget-alert.service";
 import { PlannerCron } from "./planner.cron";
 
 @Module({
-	imports: [ConfigModule, NotificationsModule],
+	imports: [RatesModule, NotificationsModule],
 	controllers: [PlannerController],
-	providers: [
-		PlannerService,
-		PrismaService,
-		RatesService,
-		TranslateService,
-		MailService,
-		BudgetAlertService,
-		PlannerCron,
-	],
+	providers: [PlannerService, BudgetAlertService, PlannerCron],
 	exports: [PlannerService, BudgetAlertService],
 })
 export class PlannerModule {}

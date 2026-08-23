@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { z } from "zod";
 import { api } from "~~/lib/api";
-import { DateFormatter, getLocalTimeZone } from "@internationalized/date";
+import { CalendarDate, DateFormatter, getLocalTimeZone } from "@internationalized/date";
+import { getError } from "~/assets/utils/common.ts";
 
 const emit = defineEmits(["refresh"]);
 
@@ -20,7 +21,10 @@ const schema = z.object({
 	exchangeId: z.string({ error: t("inputsErrors.required") }).nonempty(),
 });
 
-const untilAt = shallowRef(null);
+const year = new Date().getFullYear();
+const month = new Date().getMonth();
+const day = new Date().getDate();
+const untilAt = shallowRef(new CalendarDate(year, month + 1, day));
 const df = new DateFormatter(locale.value, {
 	dateStyle: "medium",
 });
@@ -28,8 +32,6 @@ const sliderOverRef = useTemplateRef("sliderOver");
 const state = reactive({ ...initialValues });
 const isLoading = ref<boolean>(false);
 const toast = useToast();
-
-// const { data: cashedData } = useNuxtData("FinanceSpecs");
 
 const { data, error } = await useFetch<FinanceSpecs>(api.finance.specs, {
 	key: "FinanceSpecs",
@@ -52,7 +54,7 @@ async function onSubmit() {
 			method: "POST",
 			body: JSON.stringify({
 				...state,
-				untilAt: untilAt.value?.toDate(),
+				untilAt: untilAt.value ? untilAt.value.toDate(getLocalTimeZone()) : "",
 			}),
 		});
 
@@ -65,7 +67,7 @@ async function onSubmit() {
 	} catch (e) {
 		console.warn("onSubmit: ", e);
 		toast.add({
-			title: e?.data?.message?.[0] || e?.data?.message || t("common.error"),
+			title: getError(e) || t("common.error"),
 			color: "error",
 		});
 	} finally {
@@ -75,9 +77,7 @@ async function onSubmit() {
 }
 
 function handleCLose() {
-	Object.entries(initialValues).forEach(([key, value]) => {
-		state[key] = value;
-	});
+	Object.assign(state, initialValues);
 }
 </script>
 

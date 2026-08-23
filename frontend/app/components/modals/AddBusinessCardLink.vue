@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { z } from "zod";
 import { api } from "~~/lib/api";
+import { getError } from "~/assets/utils/common.ts";
 
 interface IProps {
 	cardId: string | undefined;
@@ -55,7 +56,7 @@ async function onSubmit() {
 	} catch (e) {
 		console.warn("onSubmit: ", e);
 		toast.add({
-			title: e?.data?.message?.[0] || e?.data?.message || t("common.error"),
+			title: getError(e) || t("common.error"),
 			color: "error",
 		});
 	} finally {
@@ -65,9 +66,7 @@ async function onSubmit() {
 }
 
 function handleCLose() {
-	Object.entries(initialValues).forEach(([key, value]) => {
-		state[key] = value;
-	});
+	Object.assign(state, initialValues);
 }
 </script>
 
@@ -81,19 +80,19 @@ function handleCLose() {
 		@click="onSubmit"
 	>
 		<UForm :schema="schema" :state="state" class="w-full flex flex-col items-center space-y-4" @submit="onSubmit">
-			<UFormField class="w-full" :label="$t('inputs.linkName')" name="curPrice">
+			<UFormField class="w-full" :label="$t('inputs.linkName')" name="linkName">
 				<UInput class="w-full" size="md" :placeholder="$t('inputs.linkName')" v-model="state.name" />
 			</UFormField>
 
-			<UFormField class="w-full" :label="$t('inputs.link')" name="curPrice">
+			<UFormField class="w-full" :label="$t('inputs.link')" name="link">
 				<UInput class="w-full" size="md" :placeholder="$t('inputs.link')" v-model="state.link" />
 			</UFormField>
 
-			<UFormField v-if="false" class="w-full" :label="$t('inputs.icon')" name="curPrice">
+			<UFormField v-if="false" class="w-full" :label="$t('inputs.icon')" name="icon">
 				<UInput class="w-full" size="md" :placeholder="$t('inputs.icon')" v-model="state.icon" />
 			</UFormField>
 
-			<UFormField class="w-full" :label="$t('inputs.visibility')" name="curPrice">
+			<UFormField class="w-full" :label="$t('inputs.visibility')" name="visibility">
 				<USwitch class="w-full" size="md" :placeholder="$t('inputs.visibility')" v-model="state.isVisible" />
 			</UFormField>
 		</UForm>

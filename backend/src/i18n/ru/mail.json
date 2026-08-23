@@ -1,5 +1,6 @@
 {
-	"welcome": "Welcome to Live Simply!",
-	"updateRates": "Rates have been updated!",
+	"welcome": "Добро пожаловать в Live Simply!",
+	"updateRates": "Курсы валют обновлены!",
+	"updateRatesError": "Не удалось обновить курсы валют",
 	"notification": "У вас новое уведомление"
 }

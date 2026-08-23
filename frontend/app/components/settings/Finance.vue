@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { api } from "~~/lib/api";
 import { splitThousandsFloat } from "~/assets/utils/numbers";
+import { getError } from "~/assets/utils/common.ts";
 
 const { t } = useI18n();
 const toast = useToast();
@@ -28,7 +29,10 @@ async function resetBalance() {
 		});
 	} catch (e) {
 		console.warn("Settings finance / resetBalance: ", e);
-		toast.add({ title: t("common.error"), color: "error" });
+		toast.add({
+			title: getError(e) || t("common.error"),
+			color: "error",
+		});
 	} finally {
 		isBalanceLoading.value = false;
 	}
@@ -47,7 +51,10 @@ async function resetTable() {
 		});
 	} catch (e) {
 		console.warn("Settings finance / resetTable: ", e);
-		toast.add({ title: t("common.error"), color: "error" });
+		toast.add({
+			title: getError(e) || t("common.error"),
+			color: "error",
+		});
 	} finally {
 		isTableLoading.value = false;
 	}

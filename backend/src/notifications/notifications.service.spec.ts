@@ -1,5 +1,7 @@
+import { ForbiddenException } from "@nestjs/common";
 import { NotificationsService } from "./notifications.service";
 import { ENotificationGroup, ENotificationType } from "./types";
+import { ERole } from "../../types/user";
 
 const buildPrismaMock = () => ({
 	notification: {
@@ -7,6 +9,7 @@ const buildPrismaMock = () => ({
 	},
 	user: {
 		findUnique: jest.fn(),
+		findMany: jest.fn(),
 		update: jest.fn(),
 	},
 });
@@ -19,7 +22,8 @@ const mailMock = {
 	sendEmail: jest.fn(),
 };
 
-const req = { payload: { id: "u1" } };
+const req = { payload: { id: "u1", role: ERole.LVL3 } };
+const adminReq = { payload: { id: "u1", role: ERole.ADMIN } };
 
 const notification = {
 	id: "n1",
@@ -55,6 +59,34 @@ describe("NotificationsService", () => {
 			expect(result.map(s => s.group)).toEqual([
 				ENotificationGroup.Finance,
 				ENotificationGroup.Planner,
+				ENotificationGroup.Goals,
+			]);
+		});
+
+		it("keeps the rates group out of a regular user's list", async () => {
+			prisma.user.findUnique.mockResolvedValue({
+				emailNotifications: { rates: true },
+			});
+
+			const result = await service.getSettings(req);
+
+			expect(result.map(s => s.group)).not.toContain(
+				ENotificationGroup.Rates
+			);
+		});
+
+		it("offers the rates group to an admin", async () => {
+			prisma.user.findUnique.mockResolvedValue({
+				emailNotifications: null,
+			});
+
+			const result = await service.getSettings(adminReq);
+
+			expect(result.map(s => s.group)).toEqual([
+				ENotificationGroup.Finance,
+				ENotificationGroup.Planner,
+				ENotificationGroup.Goals,
+				ENotificationGroup.Rates,
 			]);
 		});
 
@@ -68,6 +100,7 @@ describe("NotificationsService", () => {
 			expect(result).toEqual([
 				{ group: "finance", isEmailEnabled: true },
 				{ group: "planner", isEmailEnabled: false },
+				{ group: "goals", isEmailEnabled: false },
 			]);
 		});
 	});
@@ -93,7 +126,22 @@ describe("NotificationsService", () => {
 			expect(result).toEqual([
 				{ group: "finance", isEmailEnabled: true },
 				{ group: "planner", isEmailEnabled: true },
+				{ group: "goals", isEmailEnabled: false },
 			]);
+		});
+
+		it("refuses a group the user's role cannot see", async () => {
+			await expect(
+				service.updateSettings(
+					{
+						group: ENotificationGroup.Rates,
+						isEmailEnabled: true,
+					},
+					req
+				)
+			).rejects.toBeInstanceOf(ForbiddenException);
+
+			expect(prisma.user.update).not.toHaveBeenCalled();
 		});
 
 		it("can turn a group back off", async () => {
@@ -214,6 +262,95 @@ describe("NotificationsService", () => {
 			).resolves.toBeUndefined();
 
 			warnSpy.mockRestore();
+		});
+	});
+
+	describe("updateRatesNotification", () => {
+		const admin = (overrides: Record<string, unknown> = {}) => ({
+			id: "a1",
+			email: "admin@example.com",
+			emailVerified: true,
+			emailNotifications: { rates: true },
+			language: "ru",
+			...overrides,
+		});
+
+		beforeEach(() => {
+			prisma.notification.create.mockResolvedValue({});
+		});
+
+		it("stores a success notification and mails the matching template", async () => {
+			prisma.user.findMany.mockResolvedValue([admin()]);
+
+			await service.updateRatesNotification();
+
+			expect(prisma.notification.create).toHaveBeenCalledWith({
+				data: {
+					userId: "a1",
+					type: ENotificationType.RatesUpdate,
+					params: {},
+				},
+			});
+			expect(mailMock.sendEmail).toHaveBeenCalledWith(
+				expect.objectContaining({
+					template: "updateRates",
+					locale: "ru",
+				})
+			);
+		});
+
+		it("stores the failure under its own type so the text is not a lie", async () => {
+			prisma.user.findMany.mockResolvedValue([admin()]);
+
+			await service.updateRatesNotification({
+				error: "boom",
+				errorMsg: "timeout",
+			});
+
+			expect(prisma.notification.create).toHaveBeenCalledWith({
+				data: {
+					userId: "a1",
+					type: ENotificationType.RatesUpdateError,
+					params: { error: "boom", errorMsg: "timeout" },
+				},
+			});
+			expect(mailMock.sendEmail).toHaveBeenCalledWith(
+				expect.objectContaining({
+					template: "updateRatesError",
+					props: { error: "boom", errorMsg: "timeout" },
+				})
+			);
+		});
+
+		it("keeps the notification in-app when the admin turned the group off", async () => {
+			prisma.user.findMany.mockResolvedValue([
+				admin({ emailNotifications: { rates: false } }),
+			]);
+
+			await service.updateRatesNotification();
+
+			expect(prisma.notification.create).toHaveBeenCalled();
+			expect(mailMock.sendEmail).not.toHaveBeenCalled();
+		});
+
+		it("does not mail an unverified admin address", async () => {
+			prisma.user.findMany.mockResolvedValue([
+				admin({ emailVerified: false }),
+			]);
+
+			await service.updateRatesNotification();
+
+			expect(mailMock.sendEmail).not.toHaveBeenCalled();
+		});
+
+		it("normalizes a regional language down to a shipped template", async () => {
+			prisma.user.findMany.mockResolvedValue([admin({ language: "ru-RU" })]);
+
+			await service.updateRatesNotification();
+
+			expect(mailMock.sendEmail).toHaveBeenCalledWith(
+				expect.objectContaining({ locale: "ru" })
+			);
 		});
 	});
 

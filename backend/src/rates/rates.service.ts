@@ -4,13 +4,13 @@ import { TranslateService } from "../translate/translate.service";
 import { PrismaService } from "../prisma.service";
 import { roleRestrictions } from "../../utils/rolesRestrictions";
 import { ConvertRatesDto } from "./dto/convert-rates.dto";
-import { MailService } from "../mail/mail.service";
 import expenseCategory from "../../static/expenseCategory.json";
 import operationCategory from "../../static/operationCategory.json";
 import { Cron, CronExpression } from "@nestjs/schedule";
 import { I18nContext } from "nestjs-i18n";
 import { ERole } from "../../types/user";
 import { ExchangeItem } from "../../generated/prisma/client";
+import { NotificationsService } from "../notifications/notifications.service";
 
 @Injectable()
 export class RatesService {
@@ -18,7 +18,7 @@ export class RatesService {
 		private readonly prismaService: PrismaService,
 		private readonly configService: ConfigService,
 		private readonly translateService: TranslateService,
-		private readonly mailService: MailService
+		private readonly notificationService: NotificationsService
 	) {}
 
 	private async createOperationCategory() {
@@ -288,27 +288,14 @@ export class RatesService {
 				});
 			}
 
-			const options = {
-				to: this.configService.get("EMAIL_SERVER_USER"),
-				template: "updateRates",
-				locale: "en",
-			};
-
-			await this.mailService.sendEmail(options);
+			await this.notificationService.updateRatesNotification();
 		} catch (e) {
 			console.warn("[RatesService / update]: ", e);
 
-			const options = {
-				to: this.configService.get("EMAIL_SERVER_USER"),
-				template: "updateRatesError",
-				locale: "en",
-				props: {
-					error: JSON.stringify(e),
-					errorMsg: JSON.stringify(e?.message),
-				},
-			};
-
-			await this.mailService.sendEmail(options);
+			await this.notificationService.updateRatesNotification({
+				error: JSON.stringify(e),
+				errorMsg: JSON.stringify(e?.message),
+			});
 
 			throw new Error(e);
 		}

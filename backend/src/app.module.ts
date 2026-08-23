@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { PrismaService } from "./prisma.service";
+import { PrismaModule } from "./prisma.module";
 import configuration from "./config/configuration";
 import { ThrottlerModule } from "@nestjs/throttler";
 import { AuthModule } from "./auth/auth.module";
@@ -25,6 +25,7 @@ import { AuthGuard } from "./auth/guards/auth.guard";
 
 @Module({
 	imports: [
+		PrismaModule,
 		ConfigModule.forRoot({
 			envFilePath: ".env",
 			load: [configuration],
@@ -74,7 +75,6 @@ import { AuthGuard } from "./auth/guards/auth.guard";
 		PlannerModule,
 	],
 	providers: [
-		PrismaService,
 		{
 			provide: APP_GUARD,
 			useClass: AuthGuard,

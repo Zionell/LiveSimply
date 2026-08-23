@@ -224,6 +224,7 @@ export const GoalScalarFieldEnum = {
   amount: 'amount',
   exchangeId: 'exchangeId',
   isCompleted: 'isCompleted',
+  lastAmountAt: 'lastAmountAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

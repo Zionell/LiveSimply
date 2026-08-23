@@ -4,16 +4,11 @@ import { api } from "~~/lib/api";
 const { t } = useI18n();
 const toast = useToast();
 
-const { data, error, refresh } = await useFetch<INotificationSetting[]>(api.notifications.settings, {
+const { data, pending, error, refresh } = useFetch<INotificationSetting[]>(api.notifications.settings, {
 	key: "NotificationSettings",
+	lazy: true,
+	server: false,
 });
-
-if (error.value) {
-	throw createError({
-		statusCode: error.value?.statusCode,
-		statusMessage: error.value?.statusMessage,
-	});
-}
 
 const pendingGroup = ref<string>("");
 
@@ -49,26 +44,36 @@ async function toggle(group: string, isEmailEnabled: boolean) {
 			{{ $t("settings.notifications.description") }}
 		</p>
 
-		<div class="grid gap-4">
-			<div
-				v-for="setting in data"
-				:key="setting.group"
-				class="flex items-center justify-between gap-4 border-t border-gray-800 pt-4 first:border-0 first:pt-0"
-			>
-				<div>
-					<div class="text-sm">{{ $t(`settings.notifications.groups.${setting.group}.label`) }}</div>
-					<div class="text-xs text-gray-400">
-						{{ $t(`settings.notifications.groups.${setting.group}.hint`) }}
-					</div>
-				</div>
+		<div v-if="error" class="flex items-center justify-between gap-4">
+			<span class="text-sm text-gray-400">{{ $t("common.error") }}</span>
 
-				<USwitch
-					:model-value="setting.isEmailEnabled"
-					:disabled="pendingGroup === setting.group"
-					:aria-label="$t('settings.notifications.emailLabel')"
-					@update:model-value="toggle(setting.group, $event)"
-				/>
-			</div>
+			<UButton variant="subtle" size="sm" icon="i-lucide-refresh-cw" :loading="pending" @click="refresh()">
+				{{ $t("common.retry") }}
+			</UButton>
 		</div>
+
+		<CommonSuspenseWrapper v-else :loading="pending">
+			<div class="grid gap-4">
+				<div
+					v-for="setting in data"
+					:key="setting.group"
+					class="flex items-center justify-between gap-4 border-t border-gray-800 pt-4 first:border-0 first:pt-0"
+				>
+					<div>
+						<div class="text-sm">{{ $t(`settings.notifications.groups.${setting.group}.label`) }}</div>
+						<div class="text-xs text-gray-400">
+							{{ $t(`settings.notifications.groups.${setting.group}.hint`) }}
+						</div>
+					</div>
+
+					<USwitch
+						:model-value="setting.isEmailEnabled"
+						:disabled="pendingGroup === setting.group"
+						:aria-label="$t('settings.notifications.emailLabel')"
+						@update:model-value="toggle(setting.group, $event)"
+					/>
+				</div>
+			</div>
+		</CommonSuspenseWrapper>
 	</CommonCardWrapper>
 </template>

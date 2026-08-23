@@ -25,10 +25,9 @@ model User {
 	financePlanner FinancePlanner[]
 	notifications  Notification[]
 
-	// { [group]: boolean } — which notification groups are also emailed.
 	emailNotifications Json?
 
-	exchangeItem ExchangeItem? @relation(fields: [exchange], references: [id])
+	exchangeItem ExchangeItem? @relation(fields: [exchange], references: [value])
 
 	createdAt DateTime  @default(now())
 	updatedAt DateTime? @default(now())
@@ -176,6 +175,11 @@ model Goal {
 	amount      Float    @default(0)
 	exchangeId  String
 	isCompleted Boolean  @default(false)
+
+	/// Last time the saved amount actually moved. Editing the title or the
+	/// deadline must not look like a contribution, so updatedAt cannot carry
+	/// this. Null means nothing was ever added after the goal was created.
+	lastAmountAt DateTime?
 
 	exchangeItem ExchangeItem @relation(fields: [exchangeId], references: [value])
 	user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)

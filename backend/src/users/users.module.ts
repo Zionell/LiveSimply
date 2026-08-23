@@ -1,10 +1,8 @@
 import { Module } from "@nestjs/common";
 import { UsersService } from "./users.service";
-import { PrismaService } from "../prisma.service";
 import { UsersController } from "./users.controller";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
-import { MailService } from "../mail/mail.service";
 import { MailModule } from "../mail/mail.module";
 
 @Module({
@@ -22,7 +20,7 @@ import { MailModule } from "../mail/mail.module";
 			inject: [ConfigService],
 		}),
 	],
-	providers: [UsersService, PrismaService, MailService],
+	providers: [UsersService],
 	exports: [UsersService],
 	controllers: [UsersController],
 })
