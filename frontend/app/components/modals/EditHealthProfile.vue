@@ -28,7 +28,7 @@ const schema = z.object({
 	startWeightKg: z.number().min(20).max(500),
 	targetWeightKg: z.number().min(20).max(500),
 	startedAt: z.string().nonempty({ message: t("inputsErrors.required") }),
-	dailyDeficit: z.number().min(0).max(1500),
+	dailyDeficit: z.number().int().min(0).max(1500),
 	proteinPerKg: z.number().min(0.5).max(4),
 	proteinBasis: z.enum([EProteinBasis.Current, EProteinBasis.Target]),
 	fatPercent: z.number().min(15).max(60),
