@@ -403,7 +403,9 @@ export const ModelName = {
   BusinessCardLink: 'BusinessCardLink',
   Goal: 'Goal',
   FinancePlanner: 'FinancePlanner',
-  BudgetItem: 'BudgetItem'
+  BudgetItem: 'BudgetItem',
+  HealthProfile: 'HealthProfile',
+  HealthBodyEntry: 'HealthBodyEntry'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -419,7 +421,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "exchangeItem" | "exchangeItemName" | "expenseCategory" | "expenseCategoryName" | "operationCategory" | "operationCategoryName" | "financeItem" | "notification" | "businessCard" | "businessCardLink" | "goal" | "financePlanner" | "budgetItem"
+    modelProps: "user" | "exchangeItem" | "exchangeItemName" | "expenseCategory" | "expenseCategoryName" | "operationCategory" | "operationCategoryName" | "financeItem" | "notification" | "businessCard" | "businessCardLink" | "goal" | "financePlanner" | "budgetItem" | "healthProfile" | "healthBodyEntry"
     txIsolationLevel: never
   }
   model: {
@@ -1459,6 +1461,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    HealthProfile: {
+      payload: Prisma.$HealthProfilePayload<ExtArgs>
+      fields: Prisma.HealthProfileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HealthProfileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProfilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HealthProfileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProfilePayload>
+        }
+        findFirst: {
+          args: Prisma.HealthProfileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProfilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HealthProfileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProfilePayload>
+        }
+        findMany: {
+          args: Prisma.HealthProfileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProfilePayload>[]
+        }
+        create: {
+          args: Prisma.HealthProfileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProfilePayload>
+        }
+        createMany: {
+          args: Prisma.HealthProfileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.HealthProfileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProfilePayload>
+        }
+        update: {
+          args: Prisma.HealthProfileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProfilePayload>
+        }
+        deleteMany: {
+          args: Prisma.HealthProfileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HealthProfileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.HealthProfileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProfilePayload>
+        }
+        aggregate: {
+          args: Prisma.HealthProfileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHealthProfile>
+        }
+        groupBy: {
+          args: Prisma.HealthProfileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HealthProfileGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.HealthProfileFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.HealthProfileAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.HealthProfileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HealthProfileCountAggregateOutputType> | number
+        }
+      }
+    }
+    HealthBodyEntry: {
+      payload: Prisma.$HealthBodyEntryPayload<ExtArgs>
+      fields: Prisma.HealthBodyEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HealthBodyEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthBodyEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HealthBodyEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthBodyEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.HealthBodyEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthBodyEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HealthBodyEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthBodyEntryPayload>
+        }
+        findMany: {
+          args: Prisma.HealthBodyEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthBodyEntryPayload>[]
+        }
+        create: {
+          args: Prisma.HealthBodyEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthBodyEntryPayload>
+        }
+        createMany: {
+          args: Prisma.HealthBodyEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.HealthBodyEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthBodyEntryPayload>
+        }
+        update: {
+          args: Prisma.HealthBodyEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthBodyEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.HealthBodyEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HealthBodyEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.HealthBodyEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthBodyEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.HealthBodyEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHealthBodyEntry>
+        }
+        groupBy: {
+          args: Prisma.HealthBodyEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HealthBodyEntryGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.HealthBodyEntryFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.HealthBodyEntryAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.HealthBodyEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HealthBodyEntryCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1674,6 +1824,43 @@ export const BudgetItemScalarFieldEnum = {
 export type BudgetItemScalarFieldEnum = (typeof BudgetItemScalarFieldEnum)[keyof typeof BudgetItemScalarFieldEnum]
 
 
+export const HealthProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  sex: 'sex',
+  birthDate: 'birthDate',
+  heightCm: 'heightCm',
+  activityLevel: 'activityLevel',
+  startWeightKg: 'startWeightKg',
+  targetWeightKg: 'targetWeightKg',
+  startedAt: 'startedAt',
+  dailyDeficit: 'dailyDeficit',
+  proteinPerKg: 'proteinPerKg',
+  proteinBasis: 'proteinBasis',
+  fatPercent: 'fatPercent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HealthProfileScalarFieldEnum = (typeof HealthProfileScalarFieldEnum)[keyof typeof HealthProfileScalarFieldEnum]
+
+
+export const HealthBodyEntryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  weightKg: 'weightKg',
+  chestCm: 'chestCm',
+  waistCm: 'waistCm',
+  armCm: 'armCm',
+  note: 'note',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HealthBodyEntryScalarFieldEnum = (typeof HealthBodyEntryScalarFieldEnum)[keyof typeof HealthBodyEntryScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1865,6 +2052,8 @@ export type GlobalOmitConfig = {
   goal?: Prisma.GoalOmit
   financePlanner?: Prisma.FinancePlannerOmit
   budgetItem?: Prisma.BudgetItemOmit
+  healthProfile?: Prisma.HealthProfileOmit
+  healthBodyEntry?: Prisma.HealthBodyEntryOmit
 }
 
 /* Types for Logging */

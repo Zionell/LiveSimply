@@ -112,3 +112,13 @@ export type FinancePlanner = Prisma.FinancePlannerModel
  * 
  */
 export type BudgetItem = Prisma.BudgetItemModel
+/**
+ * Model HealthProfile
+ * 
+ */
+export type HealthProfile = Prisma.HealthProfileModel
+/**
+ * Model HealthBodyEntry
+ * 
+ */
+export type HealthBodyEntry = Prisma.HealthBodyEntryModel

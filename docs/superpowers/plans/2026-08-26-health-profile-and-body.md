@@ -521,7 +521,11 @@ describe("HealthProfileSerializer", () => {
 
 	it("passes the macro conflict flag through", () => {
 		const result = HealthProfileSerializer.serialize(
-			profileRecord({ proteinPerKg: 2.2, dailyDeficit: 1500 }),
+			profileRecord({
+				sex: "female",
+				proteinPerKg: 2.2,
+				dailyDeficit: 1500,
+			}),
 			100,
 			NOW
 		);

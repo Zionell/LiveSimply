@@ -62,7 +62,9 @@ export const ModelName = {
   BusinessCardLink: 'BusinessCardLink',
   Goal: 'Goal',
   FinancePlanner: 'FinancePlanner',
-  BudgetItem: 'BudgetItem'
+  BudgetItem: 'BudgetItem',
+  HealthProfile: 'HealthProfile',
+  HealthBodyEntry: 'HealthBodyEntry'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -267,6 +269,43 @@ export const BudgetItemScalarFieldEnum = {
 } as const
 
 export type BudgetItemScalarFieldEnum = (typeof BudgetItemScalarFieldEnum)[keyof typeof BudgetItemScalarFieldEnum]
+
+
+export const HealthProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  sex: 'sex',
+  birthDate: 'birthDate',
+  heightCm: 'heightCm',
+  activityLevel: 'activityLevel',
+  startWeightKg: 'startWeightKg',
+  targetWeightKg: 'targetWeightKg',
+  startedAt: 'startedAt',
+  dailyDeficit: 'dailyDeficit',
+  proteinPerKg: 'proteinPerKg',
+  proteinBasis: 'proteinBasis',
+  fatPercent: 'fatPercent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HealthProfileScalarFieldEnum = (typeof HealthProfileScalarFieldEnum)[keyof typeof HealthProfileScalarFieldEnum]
+
+
+export const HealthBodyEntryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  weightKg: 'weightKg',
+  chestCm: 'chestCm',
+  waistCm: 'waistCm',
+  armCm: 'armCm',
+  note: 'note',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HealthBodyEntryScalarFieldEnum = (typeof HealthBodyEntryScalarFieldEnum)[keyof typeof HealthBodyEntryScalarFieldEnum]
 
 
 export const SortOrder = {
