@@ -29,8 +29,9 @@ const isConfigured = computed((): boolean => Boolean(profile.value?.isConfigured
 		<CommonSuspenseWrapper>
 			<HealthEmptyProfile v-if="!isConfigured" />
 
-			<div v-else class="grid gap-6">
-				<p class="text-gray-400">{{ $t("health.logTitle") }}</p>
+			<div v-else-if="profile?.isConfigured" class="grid gap-6">
+				<HealthSummary :profile="profile" />
+				<HealthNormCard :profile="profile" />
 			</div>
 		</CommonSuspenseWrapper>
 	</section>
