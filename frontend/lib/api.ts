@@ -36,6 +36,11 @@ export const api = {
 		items: (id: string) => `${prefix}/planner/${id}/items/`,
 		item: (itemId: string) => `${prefix}/planner/items/${itemId}/`,
 	},
+	health: {
+		profile: `${prefix}/health/profile/`,
+		body: `${prefix}/health/body/`,
+		bodyDetail: (id: string) => `${prefix}/health/body/${id}/`,
+	},
 	notifications: {
 		common: `${prefix}/notifications/`,
 		read: (id: string) => `${prefix}/notifications/${id}/read/`,
