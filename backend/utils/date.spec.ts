@@ -1,4 +1,4 @@
-import { getMonthRange } from "./date";
+import { addUtcDays, getMonthRange } from "./date";
 
 describe("getMonthRange", () => {
 	it("returns the first instant of the month and the first instant of the next month", () => {
@@ -28,5 +28,27 @@ describe("getMonthRange", () => {
 		const lastDayExpense = new Date("2026-08-31T18:30:00.000Z");
 
 		expect(lastDayExpense >= range.gte && lastDayExpense < range.lt).toBe(true);
+	});
+});
+
+describe("addUtcDays", () => {
+	it("shifts forward across a month boundary", () => {
+		expect(addUtcDays(new Date("2026-08-30T00:00:00.000Z"), 3)).toEqual(
+			new Date("2026-09-02T00:00:00.000Z")
+		);
+	});
+
+	it("shifts backwards with a negative step", () => {
+		expect(addUtcDays(new Date("2026-08-01T00:00:00.000Z"), -1)).toEqual(
+			new Date("2026-07-31T00:00:00.000Z")
+		);
+	});
+
+	it("does not mutate the date it was given", () => {
+		const original = new Date("2026-08-01T00:00:00.000Z");
+
+		addUtcDays(original, 5);
+
+		expect(original).toEqual(new Date("2026-08-01T00:00:00.000Z"));
 	});
 });

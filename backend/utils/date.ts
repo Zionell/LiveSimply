@@ -34,3 +34,7 @@ export const monthsUntil = (deadline: Date, from: Date = new Date()): number => 
 
 	return Math.max(months, 1);
 };
+
+export const addUtcDays = (date: Date, days: number): Date => {
+	return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
+};
