@@ -81,7 +81,11 @@ async function handleDelete(id: string) {
 			<div v-else-if="profile?.isConfigured" class="grid gap-6">
 				<HealthSummary :profile="profile" />
 				<HealthNormCard :profile="profile" />
-				<HealthBodyTable :entries="bodyLog?.entries || []" @delete="handleDelete" />
+			<div class="grid gap-6 lg:grid-cols-2 lg:items-start">
+				<HealthWeightChart :points="bodyLog?.weightChart || []" />
+				<HealthMeasurementsChart :points="bodyLog?.measurementChart || []" />
+			</div>
+			<HealthBodyTable :entries="bodyLog?.entries || []" @delete="handleDelete" />
 			</div>
 		</CommonSuspenseWrapper>
 	</section>
