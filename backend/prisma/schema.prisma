@@ -24,6 +24,8 @@ model User {
 	goals          Goal[]
 	financePlanner FinancePlanner[]
 	notifications  Notification[]
+	healthProfile     HealthProfile?
+	healthBodyEntries HealthBodyEntry[]
 
 	emailNotifications Json?
 
@@ -235,4 +237,48 @@ model BudgetItem {
 	updatedAt DateTime? @default(now())
 
 	@@unique([plannerId, expenseCategoryId])
+}
+
+model HealthProfile {
+	id     String @id @default(auto()) @map("_id") @db.ObjectId
+	userId String @unique @db.ObjectId
+
+	sex           String
+	birthDate     DateTime
+	heightCm      Float
+	activityLevel String
+
+	startWeightKg  Float
+	targetWeightKg Float
+	startedAt      DateTime
+
+	dailyDeficit Int @default(500)
+
+	proteinPerKg Float  @default(1.8)
+	proteinBasis String @default("current")
+	fatPercent   Float  @default(0.3)
+
+	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
+}
+
+model HealthBodyEntry {
+	id     String @id @default(auto()) @map("_id") @db.ObjectId
+	userId String @db.ObjectId
+
+	date     DateTime
+	weightKg Float?
+	chestCm  Float?
+	waistCm  Float?
+	armCm    Float?
+	note     String?
+
+	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
+
+	@@unique([userId, date])
 }
