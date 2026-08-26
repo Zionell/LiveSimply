@@ -20,7 +20,13 @@ import { UpsertBodyEntryDto } from "./dto/upsert-body-entry.dto";
 import { UpdateBodyEntryDto } from "./dto/update-body-entry.dto";
 
 @Controller("health/body")
-@UsePipes(new ValidationPipe({ transform: true }))
+@UsePipes(
+	new ValidationPipe({
+		transform: true,
+		whitelist: true,
+		forbidNonWhitelisted: true,
+	})
+)
 export class HealthBodyController {
 	constructor(private readonly healthBodyService: HealthBodyService) {}
 

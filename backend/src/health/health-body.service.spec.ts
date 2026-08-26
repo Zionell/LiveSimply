@@ -79,6 +79,9 @@ describe("HealthBodyService", () => {
 		});
 
 		it("upserts on (userId, date) so re-saving a day does not duplicate it", async () => {
+			jest.useFakeTimers().setSystemTime(
+				new Date("2026-08-26T10:00:00.000Z")
+			);
 			prisma.healthBodyEntry.upsert.mockResolvedValue({});
 
 			await service.upsert(
@@ -100,6 +103,57 @@ describe("HealthBodyService", () => {
 				},
 				update: { weightKg: 74.2 },
 			});
+
+			jest.useRealTimers();
+		});
+
+		it("rejects a future-dated entry", async () => {
+			jest.useFakeTimers().setSystemTime(
+				new Date("2026-08-26T10:00:00.000Z")
+			);
+
+			await expect(
+				service.upsert(
+					{ date: "2026-08-27", weightKg: 74 } as any,
+					req
+				)
+			).rejects.toBeInstanceOf(BadRequestException);
+			expect(prisma.healthBodyEntry.upsert).not.toHaveBeenCalled();
+
+			jest.useRealTimers();
+		});
+
+		it("ignores a userId supplied in the dto and writes the authenticated user's id", async () => {
+			jest.useFakeTimers().setSystemTime(
+				new Date("2026-08-26T10:00:00.000Z")
+			);
+			prisma.healthBodyEntry.upsert.mockResolvedValue({});
+
+			await service.upsert(
+				{
+					date: "2026-08-26",
+					weightKg: 74,
+					userId: "VICTIM",
+				} as any,
+				req
+			);
+
+			expect(prisma.healthBodyEntry.upsert).toHaveBeenCalledWith({
+				where: {
+					userId_date: {
+						userId: "u1",
+						date: new Date("2026-08-26T00:00:00.000Z"),
+					},
+				},
+				create: {
+					userId: "u1",
+					date: new Date("2026-08-26T00:00:00.000Z"),
+					weightKg: 74,
+				},
+				update: { weightKg: 74 },
+			});
+
+			jest.useRealTimers();
 		});
 	});
 
@@ -114,6 +168,28 @@ describe("HealthBodyService", () => {
 				service.update("e1", { weightKg: 70 } as any, req)
 			).rejects.toBeInstanceOf(NotFoundException);
 			expect(prisma.healthBodyEntry.update).not.toHaveBeenCalled();
+		});
+
+		it("ignores a userId supplied in the dto and never forwards it to prisma", async () => {
+			prisma.healthBodyEntry.findUnique.mockResolvedValue({
+				id: "e1",
+				userId: "u1",
+			});
+			prisma.healthBodyEntry.update.mockResolvedValue({});
+
+			await service.update(
+				"e1",
+				{ weightKg: 70, userId: "VICTIM" } as any,
+				req
+			);
+
+			const call = prisma.healthBodyEntry.update.mock.calls[0][0];
+
+			expect(call).toEqual({
+				where: { id: "e1" },
+				data: { weightKg: 70 },
+			});
+			expect(call.data.userId).toBeUndefined();
 		});
 	});
 

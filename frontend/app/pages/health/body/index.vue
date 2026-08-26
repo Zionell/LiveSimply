@@ -6,12 +6,22 @@ const toast = useToast();
 
 const rangeDays = ref<number | null>(90);
 
+// "All time" has to send an explicit `from` far enough in the past that it
+// genuinely covers the whole diary — an absent `from` reads on the backend as
+// the default 90-day window (see HealthBodyService.list), so leaving it empty
+// here would silently collapse "All time" into "90 days".
+const HEALTH_HISTORY_EPOCH = "1970-01-01";
+
 const bodyParams = computed(() => {
+	const to = new Date();
+
 	if (rangeDays.value === null) {
-		return {};
+		return {
+			from: HEALTH_HISTORY_EPOCH,
+			to: to.toISOString().slice(0, 10),
+		};
 	}
 
-	const to = new Date();
 	const from = new Date(to.getTime() - rangeDays.value * 24 * 60 * 60 * 1000);
 
 	return {

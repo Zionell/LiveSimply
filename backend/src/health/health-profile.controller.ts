@@ -16,7 +16,13 @@ import { CreateHealthProfileDto } from "./dto/create-health-profile.dto";
 import { UpdateHealthProfileDto } from "./dto/update-health-profile.dto";
 
 @Controller("health/profile")
-@UsePipes(new ValidationPipe({ transform: true }))
+@UsePipes(
+	new ValidationPipe({
+		transform: true,
+		whitelist: true,
+		forbidNonWhitelisted: true,
+	})
+)
 export class HealthProfileController {
 	constructor(private readonly healthProfileService: HealthProfileService) {}
 

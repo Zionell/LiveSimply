@@ -49,7 +49,10 @@ describe("HealthProfileService", () => {
 			});
 		});
 
-		it("computes the norm from the latest weighed day", async () => {
+		it("computes the norm from the latest weighed day, capped at today", async () => {
+			jest.useFakeTimers().setSystemTime(
+				new Date("2026-08-26T10:00:00.000Z")
+			);
 			prisma.healthProfile.findUnique.mockResolvedValue(profileRecord());
 			prisma.healthBodyEntry.findFirst.mockResolvedValue({
 				weightKg: 70,
@@ -59,9 +62,15 @@ describe("HealthProfileService", () => {
 
 			expect(result.currentWeightKg).toBe(70);
 			expect(prisma.healthBodyEntry.findFirst).toHaveBeenCalledWith({
-				where: { userId: "u1", weightKg: { not: null } },
+				where: {
+					userId: "u1",
+					weightKg: { not: null },
+					date: { lte: new Date("2026-08-26T00:00:00.000Z") },
+				},
 				orderBy: { date: "desc" },
 			});
+
+			jest.useRealTimers();
 		});
 
 		it("falls back to the start weight while nothing has been weighed", async () => {
@@ -107,6 +116,29 @@ describe("HealthProfileService", () => {
 				ConflictException
 			);
 		});
+
+		it("ignores a userId supplied in the dto and writes the authenticated user's id", async () => {
+			prisma.healthProfile.findUnique.mockResolvedValue(null);
+			prisma.healthProfile.create.mockResolvedValue(profileRecord());
+
+			await service.create(
+				{
+					sex: "male",
+					birthDate: "1996-08-26",
+					heightCm: 160,
+					activityLevel: "light",
+					startWeightKg: 75,
+					targetWeightKg: 66,
+					startedAt: "2026-08-26",
+					userId: "VICTIM",
+				} as any,
+				req
+			);
+
+			const call = prisma.healthProfile.create.mock.calls[0][0];
+
+			expect(call.data.userId).toBe("u1");
+		});
 	});
 
 	describe("update", () => {
@@ -130,6 +162,26 @@ describe("HealthProfileService", () => {
 				where: { userId: "u1" },
 				data: { heightCm: 170 },
 			});
+		});
+
+		it("ignores a userId supplied in the dto and never forwards it to prisma", async () => {
+			prisma.healthProfile.findUnique.mockResolvedValue(profileRecord());
+			prisma.healthProfile.update.mockResolvedValue(
+				profileRecord({ heightCm: 170 })
+			);
+
+			await service.update(
+				{ heightCm: 170, userId: "VICTIM" } as any,
+				req
+			);
+
+			const call = prisma.healthProfile.update.mock.calls[0][0];
+
+			expect(call).toEqual({
+				where: { userId: "u1" },
+				data: { heightCm: 170 },
+			});
+			expect(call.data.userId).toBeUndefined();
 		});
 	});
 });

@@ -67,12 +67,27 @@ export class HealthBodyService {
 		);
 	}
 
+	// Explicit picking (never a wholesale spread of the DTO) so a body key the
+	// client should not control - most importantly userId - can never ride
+	// along even if the ValidationPipe's whitelist were ever removed.
+	private pickEntryFields(
+		values: Pick<
+			UpsertBodyEntryDto,
+			"weightKg" | "chestCm" | "waistCm" | "armCm" | "note"
+		>
+	) {
+		const { weightKg, chestCm, waistCm, armCm, note } = values;
+
+		return { weightKg, chestCm, waistCm, armCm, note };
+	}
+
 	async upsert(dto: UpsertBodyEntryDto, req: Record<string, any>) {
 		const userId: string = req.payload.id;
-		const { date, ...values } = dto;
+		const { date } = dto;
+		const fields = this.pickEntryFields(dto);
 
 		const hasValue = MEASURABLE_FIELDS.some(
-			(field) => values[field] !== undefined
+			(field) => fields[field] !== undefined
 		);
 
 		if (!hasValue) {
@@ -83,10 +98,16 @@ export class HealthBodyService {
 
 		const day = startOfUtcDay(new Date(date));
 
+		if (day > startOfUtcDay()) {
+			throw new BadRequestException(
+				"Body entry date cannot be in the future"
+			);
+		}
+
 		return this.prismaService.healthBodyEntry.upsert({
 			where: { userId_date: { userId, date: day } },
-			create: { userId, date: day, ...values } as any,
-			update: values as any,
+			create: { ...fields, date: day, userId },
+			update: fields,
 		});
 	}
 
@@ -99,7 +120,7 @@ export class HealthBodyService {
 
 		return this.prismaService.healthBodyEntry.update({
 			where: { id },
-			data: dto as any,
+			data: this.pickEntryFields(dto),
 		});
 	}
 

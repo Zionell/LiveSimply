@@ -4,6 +4,7 @@ import {
 	NotFoundException,
 } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
+import { startOfUtcDay } from "../../utils/date";
 import { CreateHealthProfileDto } from "./dto/create-health-profile.dto";
 import { UpdateHealthProfileDto } from "./dto/update-health-profile.dto";
 import {
@@ -13,6 +14,24 @@ import {
 } from "./serializer/health-profile.serializer";
 
 type TProfileDto = CreateHealthProfileDto | UpdateHealthProfileDto;
+
+// Explicit whitelist of the fields a profile write is allowed to set. This is
+// walked instead of Object.entries(dto) so a key the client should never
+// control - most importantly userId - can never ride along in `data`, even if
+// the ValidationPipe's whitelist were ever removed upstream.
+const PROFILE_FIELDS = [
+	"sex",
+	"birthDate",
+	"heightCm",
+	"activityLevel",
+	"startWeightKg",
+	"targetWeightKg",
+	"startedAt",
+	"dailyDeficit",
+	"proteinPerKg",
+	"proteinBasis",
+	"fatPercent",
+] as const;
 
 @Injectable()
 export class HealthProfileService {
@@ -25,8 +44,11 @@ export class HealthProfileService {
 	 */
 	private toData(dto: TProfileDto): Record<string, unknown> {
 		const data: Record<string, unknown> = {};
+		const source = dto as Record<string, unknown>;
 
-		Object.entries(dto).forEach(([key, value]) => {
+		PROFILE_FIELDS.forEach((key) => {
+			const value = source[key];
+
 			if (value === undefined) {
 				return;
 			}
@@ -55,7 +77,11 @@ export class HealthProfileService {
 		startWeightKg: number
 	): Promise<number> {
 		const last = await this.prismaService.healthBodyEntry.findFirst({
-			where: { userId, weightKg: { not: null } },
+			where: {
+				userId,
+				weightKg: { not: null },
+				date: { lte: startOfUtcDay() },
+			},
 			orderBy: { date: "desc" },
 		});
 

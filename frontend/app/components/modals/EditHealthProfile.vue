@@ -57,6 +57,18 @@ function initialState() {
 const state = reactive(initialState());
 const isLoading = ref<boolean>(false);
 
+// `state` is only seeded once via reactive(initialState()). A save's
+// handleClose() resets it synchronously in onSubmit's `finally`, before
+// refreshAll()'s round trip resolves, so it reads the pre-save profile.
+// Resyncing here whenever the prop itself changes (i.e. once the refresh
+// actually lands) prevents a stale field from riding along on the next save.
+watch(
+	() => props.profile,
+	() => {
+		Object.assign(state, initialState());
+	},
+);
+
 const sexItems = computed(() => [
 	{ label: t("health.male"), value: EHealthSex.Male },
 	{ label: t("health.female"), value: EHealthSex.Female },

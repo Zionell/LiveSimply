@@ -9,15 +9,19 @@ const { t } = useI18n();
 const toast = useToast();
 const slideOverRef = useTemplateRef("slideOver");
 
-const optionalNumber = z.number().nullable();
+// Mirrors backend/src/health/dto/upsert-body-entry.dto.ts so a mistyped value
+// (e.g. a waist of 8) is caught here instead of coming back as an untranslated
+// class-validator error in a toast.
+const boundedNumber = (min: number, max: number) =>
+	z.number().min(min).max(max).nullable();
 
 const schema = z.object({
 	date: z.string().nonempty({ message: t("inputsErrors.required") }),
-	weightKg: optionalNumber,
-	chestCm: optionalNumber,
-	waistCm: optionalNumber,
-	armCm: optionalNumber,
-	note: z.string().nullable(),
+	weightKg: boundedNumber(20, 500),
+	chestCm: boundedNumber(10, 300),
+	waistCm: boundedNumber(10, 300),
+	armCm: boundedNumber(10, 300),
+	note: z.string().max(500).nullable(),
 });
 
 const today = new Date().toISOString().slice(0, 10);
@@ -142,7 +146,7 @@ function handleClose() {
 	>
 		<UForm :schema="schema" :state="state" class="w-full flex flex-col space-y-4" @submit="onSubmit">
 			<UFormField class="w-full" :label="$t('health.date')" name="date">
-				<UInput v-model="state.date" type="date" class="w-full" size="md" />
+				<UInput v-model="state.date" type="date" :max="today" class="w-full" size="md" />
 			</UFormField>
 
 			<UFormField class="w-full" :label="$t('health.weight')" name="weightKg">
