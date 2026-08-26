@@ -19,6 +19,7 @@ import { BusinessCardModule } from "./businessCard/businessCard.module";
 import { GoalsModule } from "./goals/goals.module";
 import { NotificationsModule } from "./notifications/notifications.module";
 import { PlannerModule } from "./planner/planner.module";
+import { HealthModule } from "./health/health.module";
 import { JwtModule } from "@nestjs/jwt";
 import { APP_GUARD } from "@nestjs/core";
 import { AuthGuard } from "./auth/guards/auth.guard";
@@ -73,6 +74,7 @@ import { AuthGuard } from "./auth/guards/auth.guard";
 		GoalsModule,
 		NotificationsModule,
 		PlannerModule,
+		HealthModule,
 	],
 	providers: [
 		{
