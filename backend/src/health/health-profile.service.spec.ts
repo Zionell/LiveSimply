@@ -58,6 +58,10 @@ describe("HealthProfileService", () => {
 			const result: any = await service.get(req);
 
 			expect(result.currentWeightKg).toBe(70);
+			expect(prisma.healthBodyEntry.findFirst).toHaveBeenCalledWith({
+				where: { userId: "u1", weightKg: { not: null } },
+				orderBy: { date: "desc" },
+			});
 		});
 
 		it("falls back to the start weight while nothing has been weighed", async () => {
