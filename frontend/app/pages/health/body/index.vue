@@ -22,6 +22,10 @@ const isConfigured = computed((): boolean => Boolean(profile.value?.isConfigured
 
 		<HealthTabs />
 
+		<CommonSectionHeader>
+			<ModalsEditHealthProfile :profile="profile ?? null" @refresh="refreshProfile" />
+		</CommonSectionHeader>
+
 		<CommonSuspenseWrapper>
 			<HealthEmptyProfile v-if="!isConfigured" />
 
