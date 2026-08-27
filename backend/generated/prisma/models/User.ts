@@ -290,6 +290,7 @@ export type UserWhereInput = {
   notifications?: Prisma.NotificationListRelationFilter
   healthProfile?: Prisma.XOR<Prisma.HealthProfileNullableScalarRelationFilter, Prisma.HealthProfileWhereInput> | null
   healthBodyEntries?: Prisma.HealthBodyEntryListRelationFilter
+  healthNutritionEntries?: Prisma.HealthNutritionEntryListRelationFilter
   exchangeItem?: Prisma.XOR<Prisma.ExchangeItemNullableScalarRelationFilter, Prisma.ExchangeItemWhereInput> | null
 }
 
@@ -314,6 +315,7 @@ export type UserOrderByWithRelationInput = {
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   healthProfile?: Prisma.HealthProfileOrderByWithRelationInput
   healthBodyEntries?: Prisma.HealthBodyEntryOrderByRelationAggregateInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryOrderByRelationAggregateInput
   exchangeItem?: Prisma.ExchangeItemOrderByWithRelationInput
 }
 
@@ -341,6 +343,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   notifications?: Prisma.NotificationListRelationFilter
   healthProfile?: Prisma.XOR<Prisma.HealthProfileNullableScalarRelationFilter, Prisma.HealthProfileWhereInput> | null
   healthBodyEntries?: Prisma.HealthBodyEntryListRelationFilter
+  healthNutritionEntries?: Prisma.HealthNutritionEntryListRelationFilter
   exchangeItem?: Prisma.XOR<Prisma.ExchangeItemNullableScalarRelationFilter, Prisma.ExchangeItemWhereInput> | null
 }, "id" | "email">
 
@@ -406,6 +409,7 @@ export type UserCreateInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   healthProfile?: Prisma.HealthProfileCreateNestedOneWithoutUserInput
   healthBodyEntries?: Prisma.HealthBodyEntryCreateNestedManyWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryCreateNestedManyWithoutUserInput
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
 }
 
@@ -430,6 +434,7 @@ export type UserUncheckedCreateInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   healthProfile?: Prisma.HealthProfileUncheckedCreateNestedOneWithoutUserInput
   healthBodyEntries?: Prisma.HealthBodyEntryUncheckedCreateNestedManyWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -451,6 +456,7 @@ export type UserUpdateInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   healthProfile?: Prisma.HealthProfileUpdateOneWithoutUserNestedInput
   healthBodyEntries?: Prisma.HealthBodyEntryUpdateManyWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUpdateManyWithoutUserNestedInput
   exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
 }
 
@@ -474,6 +480,7 @@ export type UserUncheckedUpdateInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   healthProfile?: Prisma.HealthProfileUncheckedUpdateOneWithoutUserNestedInput
   healthBodyEntries?: Prisma.HealthBodyEntryUncheckedUpdateManyWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -753,6 +760,20 @@ export type UserUpdateOneRequiredWithoutHealthBodyEntriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutHealthBodyEntriesInput, Prisma.UserUpdateWithoutHealthBodyEntriesInput>, Prisma.UserUncheckedUpdateWithoutHealthBodyEntriesInput>
 }
 
+export type UserCreateNestedOneWithoutHealthNutritionEntriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutHealthNutritionEntriesInput, Prisma.UserUncheckedCreateWithoutHealthNutritionEntriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutHealthNutritionEntriesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutHealthNutritionEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutHealthNutritionEntriesInput, Prisma.UserUncheckedCreateWithoutHealthNutritionEntriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutHealthNutritionEntriesInput
+  upsert?: Prisma.UserUpsertWithoutHealthNutritionEntriesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutHealthNutritionEntriesInput, Prisma.UserUpdateWithoutHealthNutritionEntriesInput>, Prisma.UserUncheckedUpdateWithoutHealthNutritionEntriesInput>
+}
+
 export type UserCreateWithoutExchangeItemInput = {
   id?: string
   name?: string
@@ -773,6 +794,7 @@ export type UserCreateWithoutExchangeItemInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   healthProfile?: Prisma.HealthProfileCreateNestedOneWithoutUserInput
   healthBodyEntries?: Prisma.HealthBodyEntryCreateNestedManyWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutExchangeItemInput = {
@@ -795,6 +817,7 @@ export type UserUncheckedCreateWithoutExchangeItemInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   healthProfile?: Prisma.HealthProfileUncheckedCreateNestedOneWithoutUserInput
   healthBodyEntries?: Prisma.HealthBodyEntryUncheckedCreateNestedManyWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutExchangeItemInput = {
@@ -861,6 +884,7 @@ export type UserCreateWithoutNotificationsInput = {
   financePlanner?: Prisma.FinancePlannerCreateNestedManyWithoutUserInput
   healthProfile?: Prisma.HealthProfileCreateNestedOneWithoutUserInput
   healthBodyEntries?: Prisma.HealthBodyEntryCreateNestedManyWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryCreateNestedManyWithoutUserInput
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
 }
 
@@ -884,6 +908,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   financePlanner?: Prisma.FinancePlannerUncheckedCreateNestedManyWithoutUserInput
   healthProfile?: Prisma.HealthProfileUncheckedCreateNestedOneWithoutUserInput
   healthBodyEntries?: Prisma.HealthBodyEntryUncheckedCreateNestedManyWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -920,6 +945,7 @@ export type UserUpdateWithoutNotificationsInput = {
   financePlanner?: Prisma.FinancePlannerUpdateManyWithoutUserNestedInput
   healthProfile?: Prisma.HealthProfileUpdateOneWithoutUserNestedInput
   healthBodyEntries?: Prisma.HealthBodyEntryUpdateManyWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUpdateManyWithoutUserNestedInput
   exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
 }
 
@@ -942,6 +968,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   financePlanner?: Prisma.FinancePlannerUncheckedUpdateManyWithoutUserNestedInput
   healthProfile?: Prisma.HealthProfileUncheckedUpdateOneWithoutUserNestedInput
   healthBodyEntries?: Prisma.HealthBodyEntryUncheckedUpdateManyWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBusinessCardInput = {
@@ -963,6 +990,7 @@ export type UserCreateWithoutBusinessCardInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   healthProfile?: Prisma.HealthProfileCreateNestedOneWithoutUserInput
   healthBodyEntries?: Prisma.HealthBodyEntryCreateNestedManyWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryCreateNestedManyWithoutUserInput
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
 }
 
@@ -986,6 +1014,7 @@ export type UserUncheckedCreateWithoutBusinessCardInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   healthProfile?: Prisma.HealthProfileUncheckedCreateNestedOneWithoutUserInput
   healthBodyEntries?: Prisma.HealthBodyEntryUncheckedCreateNestedManyWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBusinessCardInput = {
@@ -1022,6 +1051,7 @@ export type UserUpdateWithoutBusinessCardInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   healthProfile?: Prisma.HealthProfileUpdateOneWithoutUserNestedInput
   healthBodyEntries?: Prisma.HealthBodyEntryUpdateManyWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUpdateManyWithoutUserNestedInput
   exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
 }
 
@@ -1044,6 +1074,7 @@ export type UserUncheckedUpdateWithoutBusinessCardInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   healthProfile?: Prisma.HealthProfileUncheckedUpdateOneWithoutUserNestedInput
   healthBodyEntries?: Prisma.HealthBodyEntryUncheckedUpdateManyWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGoalsInput = {
@@ -1065,6 +1096,7 @@ export type UserCreateWithoutGoalsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   healthProfile?: Prisma.HealthProfileCreateNestedOneWithoutUserInput
   healthBodyEntries?: Prisma.HealthBodyEntryCreateNestedManyWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryCreateNestedManyWithoutUserInput
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
 }
 
@@ -1088,6 +1120,7 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   healthProfile?: Prisma.HealthProfileUncheckedCreateNestedOneWithoutUserInput
   healthBodyEntries?: Prisma.HealthBodyEntryUncheckedCreateNestedManyWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGoalsInput = {
@@ -1124,6 +1157,7 @@ export type UserUpdateWithoutGoalsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   healthProfile?: Prisma.HealthProfileUpdateOneWithoutUserNestedInput
   healthBodyEntries?: Prisma.HealthBodyEntryUpdateManyWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUpdateManyWithoutUserNestedInput
   exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
 }
 
@@ -1146,6 +1180,7 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   healthProfile?: Prisma.HealthProfileUncheckedUpdateOneWithoutUserNestedInput
   healthBodyEntries?: Prisma.HealthBodyEntryUncheckedUpdateManyWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFinancePlannerInput = {
@@ -1167,6 +1202,7 @@ export type UserCreateWithoutFinancePlannerInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   healthProfile?: Prisma.HealthProfileCreateNestedOneWithoutUserInput
   healthBodyEntries?: Prisma.HealthBodyEntryCreateNestedManyWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryCreateNestedManyWithoutUserInput
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
 }
 
@@ -1190,6 +1226,7 @@ export type UserUncheckedCreateWithoutFinancePlannerInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   healthProfile?: Prisma.HealthProfileUncheckedCreateNestedOneWithoutUserInput
   healthBodyEntries?: Prisma.HealthBodyEntryUncheckedCreateNestedManyWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFinancePlannerInput = {
@@ -1226,6 +1263,7 @@ export type UserUpdateWithoutFinancePlannerInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   healthProfile?: Prisma.HealthProfileUpdateOneWithoutUserNestedInput
   healthBodyEntries?: Prisma.HealthBodyEntryUpdateManyWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUpdateManyWithoutUserNestedInput
   exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
 }
 
@@ -1248,6 +1286,7 @@ export type UserUncheckedUpdateWithoutFinancePlannerInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   healthProfile?: Prisma.HealthProfileUncheckedUpdateOneWithoutUserNestedInput
   healthBodyEntries?: Prisma.HealthBodyEntryUncheckedUpdateManyWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutHealthProfileInput = {
@@ -1269,6 +1308,7 @@ export type UserCreateWithoutHealthProfileInput = {
   financePlanner?: Prisma.FinancePlannerCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   healthBodyEntries?: Prisma.HealthBodyEntryCreateNestedManyWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryCreateNestedManyWithoutUserInput
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
 }
 
@@ -1292,6 +1332,7 @@ export type UserUncheckedCreateWithoutHealthProfileInput = {
   financePlanner?: Prisma.FinancePlannerUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   healthBodyEntries?: Prisma.HealthBodyEntryUncheckedCreateNestedManyWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutHealthProfileInput = {
@@ -1328,6 +1369,7 @@ export type UserUpdateWithoutHealthProfileInput = {
   financePlanner?: Prisma.FinancePlannerUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   healthBodyEntries?: Prisma.HealthBodyEntryUpdateManyWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUpdateManyWithoutUserNestedInput
   exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
 }
 
@@ -1350,6 +1392,7 @@ export type UserUncheckedUpdateWithoutHealthProfileInput = {
   financePlanner?: Prisma.FinancePlannerUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   healthBodyEntries?: Prisma.HealthBodyEntryUncheckedUpdateManyWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutHealthBodyEntriesInput = {
@@ -1371,6 +1414,7 @@ export type UserCreateWithoutHealthBodyEntriesInput = {
   financePlanner?: Prisma.FinancePlannerCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   healthProfile?: Prisma.HealthProfileCreateNestedOneWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryCreateNestedManyWithoutUserInput
   exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
 }
 
@@ -1394,6 +1438,7 @@ export type UserUncheckedCreateWithoutHealthBodyEntriesInput = {
   financePlanner?: Prisma.FinancePlannerUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   healthProfile?: Prisma.HealthProfileUncheckedCreateNestedOneWithoutUserInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutHealthBodyEntriesInput = {
@@ -1430,6 +1475,7 @@ export type UserUpdateWithoutHealthBodyEntriesInput = {
   financePlanner?: Prisma.FinancePlannerUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   healthProfile?: Prisma.HealthProfileUpdateOneWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUpdateManyWithoutUserNestedInput
   exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
 }
 
@@ -1452,6 +1498,113 @@ export type UserUncheckedUpdateWithoutHealthBodyEntriesInput = {
   financePlanner?: Prisma.FinancePlannerUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   healthProfile?: Prisma.HealthProfileUncheckedUpdateOneWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutHealthNutritionEntriesInput = {
+  id?: string
+  name?: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  password?: string | null
+  phone?: string | null
+  role?: string
+  language?: string | null
+  total?: number | null
+  emailNotifications?: runtime.InputJsonValue | null
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  businessCard?: Prisma.BusinessCardCreateNestedOneWithoutUserInput
+  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  financePlanner?: Prisma.FinancePlannerCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  healthProfile?: Prisma.HealthProfileCreateNestedOneWithoutUserInput
+  healthBodyEntries?: Prisma.HealthBodyEntryCreateNestedManyWithoutUserInput
+  exchangeItem?: Prisma.ExchangeItemCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutHealthNutritionEntriesInput = {
+  id?: string
+  name?: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  password?: string | null
+  phone?: string | null
+  exchange?: string | null
+  role?: string
+  language?: string | null
+  total?: number | null
+  emailNotifications?: runtime.InputJsonValue | null
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  businessCard?: Prisma.BusinessCardUncheckedCreateNestedOneWithoutUserInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  financePlanner?: Prisma.FinancePlannerUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  healthProfile?: Prisma.HealthProfileUncheckedCreateNestedOneWithoutUserInput
+  healthBodyEntries?: Prisma.HealthBodyEntryUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutHealthNutritionEntriesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutHealthNutritionEntriesInput, Prisma.UserUncheckedCreateWithoutHealthNutritionEntriesInput>
+}
+
+export type UserUpsertWithoutHealthNutritionEntriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutHealthNutritionEntriesInput, Prisma.UserUncheckedUpdateWithoutHealthNutritionEntriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutHealthNutritionEntriesInput, Prisma.UserUncheckedCreateWithoutHealthNutritionEntriesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutHealthNutritionEntriesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutHealthNutritionEntriesInput, Prisma.UserUncheckedUpdateWithoutHealthNutritionEntriesInput>
+}
+
+export type UserUpdateWithoutHealthNutritionEntriesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  emailNotifications?: runtime.InputJsonValue | runtime.InputJsonValue | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  businessCard?: Prisma.BusinessCardUpdateOneWithoutUserNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  financePlanner?: Prisma.FinancePlannerUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  healthProfile?: Prisma.HealthProfileUpdateOneWithoutUserNestedInput
+  healthBodyEntries?: Prisma.HealthBodyEntryUpdateManyWithoutUserNestedInput
+  exchangeItem?: Prisma.ExchangeItemUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutHealthNutritionEntriesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exchange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  total?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  emailNotifications?: runtime.InputJsonValue | runtime.InputJsonValue | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  businessCard?: Prisma.BusinessCardUncheckedUpdateOneWithoutUserNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  financePlanner?: Prisma.FinancePlannerUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  healthProfile?: Prisma.HealthProfileUncheckedUpdateOneWithoutUserNestedInput
+  healthBodyEntries?: Prisma.HealthBodyEntryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyExchangeItemInput = {
@@ -1489,6 +1642,7 @@ export type UserUpdateWithoutExchangeItemInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   healthProfile?: Prisma.HealthProfileUpdateOneWithoutUserNestedInput
   healthBodyEntries?: Prisma.HealthBodyEntryUpdateManyWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExchangeItemInput = {
@@ -1510,6 +1664,7 @@ export type UserUncheckedUpdateWithoutExchangeItemInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   healthProfile?: Prisma.HealthProfileUncheckedUpdateOneWithoutUserNestedInput
   healthBodyEntries?: Prisma.HealthBodyEntryUncheckedUpdateManyWithoutUserNestedInput
+  healthNutritionEntries?: Prisma.HealthNutritionEntryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutExchangeItemInput = {
@@ -1537,6 +1692,7 @@ export type UserCountOutputType = {
   financePlanner: number
   notifications: number
   healthBodyEntries: number
+  healthNutritionEntries: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1544,6 +1700,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   financePlanner?: boolean | UserCountOutputTypeCountFinancePlannerArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   healthBodyEntries?: boolean | UserCountOutputTypeCountHealthBodyEntriesArgs
+  healthNutritionEntries?: boolean | UserCountOutputTypeCountHealthNutritionEntriesArgs
 }
 
 /**
@@ -1584,6 +1741,13 @@ export type UserCountOutputTypeCountHealthBodyEntriesArgs<ExtArgs extends runtim
   where?: Prisma.HealthBodyEntryWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountHealthNutritionEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HealthNutritionEntryWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1606,6 +1770,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   healthProfile?: boolean | Prisma.User$healthProfileArgs<ExtArgs>
   healthBodyEntries?: boolean | Prisma.User$healthBodyEntriesArgs<ExtArgs>
+  healthNutritionEntries?: boolean | Prisma.User$healthNutritionEntriesArgs<ExtArgs>
   exchangeItem?: boolean | Prisma.User$exchangeItemArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -1637,6 +1802,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   healthProfile?: boolean | Prisma.User$healthProfileArgs<ExtArgs>
   healthBodyEntries?: boolean | Prisma.User$healthBodyEntriesArgs<ExtArgs>
+  healthNutritionEntries?: boolean | Prisma.User$healthNutritionEntriesArgs<ExtArgs>
   exchangeItem?: boolean | Prisma.User$exchangeItemArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1650,6 +1816,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     healthProfile: Prisma.$HealthProfilePayload<ExtArgs> | null
     healthBodyEntries: Prisma.$HealthBodyEntryPayload<ExtArgs>[]
+    healthNutritionEntries: Prisma.$HealthNutritionEntryPayload<ExtArgs>[]
     exchangeItem: Prisma.$ExchangeItemPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -2036,6 +2203,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   healthProfile<T extends Prisma.User$healthProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$healthProfileArgs<ExtArgs>>): Prisma.Prisma__HealthProfileClient<runtime.Types.Result.GetResult<Prisma.$HealthProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   healthBodyEntries<T extends Prisma.User$healthBodyEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$healthBodyEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HealthBodyEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  healthNutritionEntries<T extends Prisma.User$healthNutritionEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$healthNutritionEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HealthNutritionEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   exchangeItem<T extends Prisma.User$exchangeItemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$exchangeItemArgs<ExtArgs>>): Prisma.Prisma__ExchangeItemClient<runtime.Types.Result.GetResult<Prisma.$ExchangeItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2581,6 +2749,30 @@ export type User$healthBodyEntriesArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.HealthBodyEntryScalarFieldEnum | Prisma.HealthBodyEntryScalarFieldEnum[]
+}
+
+/**
+ * User.healthNutritionEntries
+ */
+export type User$healthNutritionEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the HealthNutritionEntry
+   */
+  select?: Prisma.HealthNutritionEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the HealthNutritionEntry
+   */
+  omit?: Prisma.HealthNutritionEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HealthNutritionEntryInclude<ExtArgs> | null
+  where?: Prisma.HealthNutritionEntryWhereInput
+  orderBy?: Prisma.HealthNutritionEntryOrderByWithRelationInput | Prisma.HealthNutritionEntryOrderByWithRelationInput[]
+  cursor?: Prisma.HealthNutritionEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HealthNutritionEntryScalarFieldEnum | Prisma.HealthNutritionEntryScalarFieldEnum[]
 }
 
 /**

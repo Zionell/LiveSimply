@@ -97,3 +97,28 @@ export type HealthProfile = Prisma.HealthProfileModel
  * 
  */
 export type HealthBodyEntry = Prisma.HealthBodyEntryModel
+/**
+ * Model HealthProduct
+ * 
+ */
+export type HealthProduct = Prisma.HealthProductModel
+/**
+ * Model HealthProductName
+ * 
+ */
+export type HealthProductName = Prisma.HealthProductNameModel
+/**
+ * Model HealthNutritionEntry
+ * 
+ */
+export type HealthNutritionEntry = Prisma.HealthNutritionEntryModel
+/**
+ * Model HealthMeal
+ * 
+ */
+export type HealthMeal = Prisma.HealthMealModel
+/**
+ * Model HealthMealItem
+ * 
+ */
+export type HealthMealItem = Prisma.HealthMealItemModel

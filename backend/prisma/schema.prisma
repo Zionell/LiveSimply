@@ -26,6 +26,7 @@ model User {
 	notifications  Notification[]
 	healthProfile     HealthProfile?
 	healthBodyEntries HealthBodyEntry[]
+	healthNutritionEntries HealthNutritionEntry[]
 
 	emailNotifications Json?
 
@@ -281,4 +282,99 @@ model HealthBodyEntry {
 	updatedAt DateTime? @default(now())
 
 	@@unique([userId, date])
+}
+
+model HealthProduct {
+	id    String @id @default(auto()) @map("_id") @db.ObjectId
+	value String @unique
+
+	kcalPer100    Float
+	proteinPer100 Float
+	fatPer100     Float
+	carbsPer100   Float
+
+	category String?
+
+	label HealthProductName[]
+	items HealthMealItem[]
+
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
+}
+
+model HealthProductName {
+	id        String @id @default(auto()) @map("_id") @db.ObjectId
+	label     String
+	lang      String
+	productId String @db.ObjectId
+
+	product HealthProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
+}
+
+model HealthNutritionEntry {
+	id     String @id @default(auto()) @map("_id") @db.ObjectId
+	userId String @db.ObjectId
+
+	date DateTime
+
+	kcal     Float @default(0)
+	proteinG Float @default(0)
+	fatG     Float @default(0)
+	carbsG   Float @default(0)
+
+	targetKcal     Float
+	targetProteinG Float
+	targetFatG     Float
+	targetCarbsG   Float
+
+	note String?
+
+	meals HealthMeal[]
+	user  User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
+
+	@@unique([userId, date])
+}
+
+model HealthMeal {
+	id      String @id @default(auto()) @map("_id") @db.ObjectId
+	entryId String @db.ObjectId
+
+	mealType String
+
+	kcal     Float @default(0)
+	proteinG Float @default(0)
+	fatG     Float @default(0)
+	carbsG   Float @default(0)
+
+	items HealthMealItem[]
+	entry HealthNutritionEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
+}
+
+model HealthMealItem {
+	id     String @id @default(auto()) @map("_id") @db.ObjectId
+	mealId String @db.ObjectId
+
+	grams     Float
+	productId String? @db.ObjectId
+	title     String
+
+	kcal     Float
+	proteinG Float
+	fatG     Float
+	carbsG   Float
+
+	meal    HealthMeal     @relation(fields: [mealId], references: [id], onDelete: Cascade)
+	product HealthProduct? @relation(fields: [productId], references: [id])
+
+	createdAt DateTime  @default(now())
+	updatedAt DateTime? @default(now())
 }

@@ -405,7 +405,12 @@ export const ModelName = {
   FinancePlanner: 'FinancePlanner',
   BudgetItem: 'BudgetItem',
   HealthProfile: 'HealthProfile',
-  HealthBodyEntry: 'HealthBodyEntry'
+  HealthBodyEntry: 'HealthBodyEntry',
+  HealthProduct: 'HealthProduct',
+  HealthProductName: 'HealthProductName',
+  HealthNutritionEntry: 'HealthNutritionEntry',
+  HealthMeal: 'HealthMeal',
+  HealthMealItem: 'HealthMealItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -421,7 +426,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "exchangeItem" | "exchangeItemName" | "expenseCategory" | "expenseCategoryName" | "operationCategory" | "operationCategoryName" | "financeItem" | "notification" | "businessCard" | "businessCardLink" | "goal" | "financePlanner" | "budgetItem" | "healthProfile" | "healthBodyEntry"
+    modelProps: "user" | "exchangeItem" | "exchangeItemName" | "expenseCategory" | "expenseCategoryName" | "operationCategory" | "operationCategoryName" | "financeItem" | "notification" | "businessCard" | "businessCardLink" | "goal" | "financePlanner" | "budgetItem" | "healthProfile" | "healthBodyEntry" | "healthProduct" | "healthProductName" | "healthNutritionEntry" | "healthMeal" | "healthMealItem"
     txIsolationLevel: never
   }
   model: {
@@ -1609,6 +1614,376 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    HealthProduct: {
+      payload: Prisma.$HealthProductPayload<ExtArgs>
+      fields: Prisma.HealthProductFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HealthProductFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HealthProductFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductPayload>
+        }
+        findFirst: {
+          args: Prisma.HealthProductFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HealthProductFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductPayload>
+        }
+        findMany: {
+          args: Prisma.HealthProductFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductPayload>[]
+        }
+        create: {
+          args: Prisma.HealthProductCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductPayload>
+        }
+        createMany: {
+          args: Prisma.HealthProductCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.HealthProductDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductPayload>
+        }
+        update: {
+          args: Prisma.HealthProductUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductPayload>
+        }
+        deleteMany: {
+          args: Prisma.HealthProductDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HealthProductUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.HealthProductUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductPayload>
+        }
+        aggregate: {
+          args: Prisma.HealthProductAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHealthProduct>
+        }
+        groupBy: {
+          args: Prisma.HealthProductGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HealthProductGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.HealthProductFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.HealthProductAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.HealthProductCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HealthProductCountAggregateOutputType> | number
+        }
+      }
+    }
+    HealthProductName: {
+      payload: Prisma.$HealthProductNamePayload<ExtArgs>
+      fields: Prisma.HealthProductNameFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HealthProductNameFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductNamePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HealthProductNameFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductNamePayload>
+        }
+        findFirst: {
+          args: Prisma.HealthProductNameFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductNamePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HealthProductNameFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductNamePayload>
+        }
+        findMany: {
+          args: Prisma.HealthProductNameFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductNamePayload>[]
+        }
+        create: {
+          args: Prisma.HealthProductNameCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductNamePayload>
+        }
+        createMany: {
+          args: Prisma.HealthProductNameCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.HealthProductNameDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductNamePayload>
+        }
+        update: {
+          args: Prisma.HealthProductNameUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductNamePayload>
+        }
+        deleteMany: {
+          args: Prisma.HealthProductNameDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HealthProductNameUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.HealthProductNameUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthProductNamePayload>
+        }
+        aggregate: {
+          args: Prisma.HealthProductNameAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHealthProductName>
+        }
+        groupBy: {
+          args: Prisma.HealthProductNameGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HealthProductNameGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.HealthProductNameFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.HealthProductNameAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.HealthProductNameCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HealthProductNameCountAggregateOutputType> | number
+        }
+      }
+    }
+    HealthNutritionEntry: {
+      payload: Prisma.$HealthNutritionEntryPayload<ExtArgs>
+      fields: Prisma.HealthNutritionEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HealthNutritionEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthNutritionEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HealthNutritionEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthNutritionEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.HealthNutritionEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthNutritionEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HealthNutritionEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthNutritionEntryPayload>
+        }
+        findMany: {
+          args: Prisma.HealthNutritionEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthNutritionEntryPayload>[]
+        }
+        create: {
+          args: Prisma.HealthNutritionEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthNutritionEntryPayload>
+        }
+        createMany: {
+          args: Prisma.HealthNutritionEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.HealthNutritionEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthNutritionEntryPayload>
+        }
+        update: {
+          args: Prisma.HealthNutritionEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthNutritionEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.HealthNutritionEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HealthNutritionEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.HealthNutritionEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthNutritionEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.HealthNutritionEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHealthNutritionEntry>
+        }
+        groupBy: {
+          args: Prisma.HealthNutritionEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HealthNutritionEntryGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.HealthNutritionEntryFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.HealthNutritionEntryAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.HealthNutritionEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HealthNutritionEntryCountAggregateOutputType> | number
+        }
+      }
+    }
+    HealthMeal: {
+      payload: Prisma.$HealthMealPayload<ExtArgs>
+      fields: Prisma.HealthMealFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HealthMealFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HealthMealFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealPayload>
+        }
+        findFirst: {
+          args: Prisma.HealthMealFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HealthMealFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealPayload>
+        }
+        findMany: {
+          args: Prisma.HealthMealFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealPayload>[]
+        }
+        create: {
+          args: Prisma.HealthMealCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealPayload>
+        }
+        createMany: {
+          args: Prisma.HealthMealCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.HealthMealDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealPayload>
+        }
+        update: {
+          args: Prisma.HealthMealUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealPayload>
+        }
+        deleteMany: {
+          args: Prisma.HealthMealDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HealthMealUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.HealthMealUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealPayload>
+        }
+        aggregate: {
+          args: Prisma.HealthMealAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHealthMeal>
+        }
+        groupBy: {
+          args: Prisma.HealthMealGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HealthMealGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.HealthMealFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.HealthMealAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.HealthMealCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HealthMealCountAggregateOutputType> | number
+        }
+      }
+    }
+    HealthMealItem: {
+      payload: Prisma.$HealthMealItemPayload<ExtArgs>
+      fields: Prisma.HealthMealItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.HealthMealItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.HealthMealItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealItemPayload>
+        }
+        findFirst: {
+          args: Prisma.HealthMealItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.HealthMealItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealItemPayload>
+        }
+        findMany: {
+          args: Prisma.HealthMealItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealItemPayload>[]
+        }
+        create: {
+          args: Prisma.HealthMealItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealItemPayload>
+        }
+        createMany: {
+          args: Prisma.HealthMealItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.HealthMealItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealItemPayload>
+        }
+        update: {
+          args: Prisma.HealthMealItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.HealthMealItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.HealthMealItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.HealthMealItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HealthMealItemPayload>
+        }
+        aggregate: {
+          args: Prisma.HealthMealItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHealthMealItem>
+        }
+        groupBy: {
+          args: Prisma.HealthMealItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HealthMealItemGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.HealthMealItemFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.HealthMealItemAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.HealthMealItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HealthMealItemCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1861,6 +2236,85 @@ export const HealthBodyEntryScalarFieldEnum = {
 export type HealthBodyEntryScalarFieldEnum = (typeof HealthBodyEntryScalarFieldEnum)[keyof typeof HealthBodyEntryScalarFieldEnum]
 
 
+export const HealthProductScalarFieldEnum = {
+  id: 'id',
+  value: 'value',
+  kcalPer100: 'kcalPer100',
+  proteinPer100: 'proteinPer100',
+  fatPer100: 'fatPer100',
+  carbsPer100: 'carbsPer100',
+  category: 'category',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HealthProductScalarFieldEnum = (typeof HealthProductScalarFieldEnum)[keyof typeof HealthProductScalarFieldEnum]
+
+
+export const HealthProductNameScalarFieldEnum = {
+  id: 'id',
+  label: 'label',
+  lang: 'lang',
+  productId: 'productId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HealthProductNameScalarFieldEnum = (typeof HealthProductNameScalarFieldEnum)[keyof typeof HealthProductNameScalarFieldEnum]
+
+
+export const HealthNutritionEntryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  kcal: 'kcal',
+  proteinG: 'proteinG',
+  fatG: 'fatG',
+  carbsG: 'carbsG',
+  targetKcal: 'targetKcal',
+  targetProteinG: 'targetProteinG',
+  targetFatG: 'targetFatG',
+  targetCarbsG: 'targetCarbsG',
+  note: 'note',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HealthNutritionEntryScalarFieldEnum = (typeof HealthNutritionEntryScalarFieldEnum)[keyof typeof HealthNutritionEntryScalarFieldEnum]
+
+
+export const HealthMealScalarFieldEnum = {
+  id: 'id',
+  entryId: 'entryId',
+  mealType: 'mealType',
+  kcal: 'kcal',
+  proteinG: 'proteinG',
+  fatG: 'fatG',
+  carbsG: 'carbsG',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HealthMealScalarFieldEnum = (typeof HealthMealScalarFieldEnum)[keyof typeof HealthMealScalarFieldEnum]
+
+
+export const HealthMealItemScalarFieldEnum = {
+  id: 'id',
+  mealId: 'mealId',
+  grams: 'grams',
+  productId: 'productId',
+  title: 'title',
+  kcal: 'kcal',
+  proteinG: 'proteinG',
+  fatG: 'fatG',
+  carbsG: 'carbsG',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type HealthMealItemScalarFieldEnum = (typeof HealthMealItemScalarFieldEnum)[keyof typeof HealthMealItemScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2054,6 +2508,11 @@ export type GlobalOmitConfig = {
   budgetItem?: Prisma.BudgetItemOmit
   healthProfile?: Prisma.HealthProfileOmit
   healthBodyEntry?: Prisma.HealthBodyEntryOmit
+  healthProduct?: Prisma.HealthProductOmit
+  healthProductName?: Prisma.HealthProductNameOmit
+  healthNutritionEntry?: Prisma.HealthNutritionEntryOmit
+  healthMeal?: Prisma.HealthMealOmit
+  healthMealItem?: Prisma.HealthMealItemOmit
 }
 
 /* Types for Logging */
