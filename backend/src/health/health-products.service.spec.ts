@@ -1,3 +1,4 @@
+import { I18nContext } from "nestjs-i18n";
 import { HealthProductsService } from "./health-products.service";
 
 const buildPrismaMock = () => ({
@@ -15,11 +16,31 @@ describe("HealthProductsService", () => {
 		service = new HealthProductsService(prisma as any);
 	});
 
-	it("returns every product when no filter is given", async () => {
+	afterEach(() => {
+		jest.restoreAllMocks();
+	});
+
+	it("returns every product when no filter is given, ordered by value, labelled in the default language", async () => {
+		await service.list({});
+
+		expect(prisma.healthProduct.findMany).toHaveBeenCalledWith({
+			where: {},
+			orderBy: { value: "asc" },
+			include: { label: { where: { lang: "en" } } },
+		});
+	});
+
+	it("resolves the label in the current i18n language rather than a fixed one", async () => {
+		jest
+			.spyOn(I18nContext, "current")
+			.mockReturnValue({ lang: "ru" } as any);
+
 		await service.list({});
 
 		expect(prisma.healthProduct.findMany).toHaveBeenCalledWith(
-			expect.objectContaining({ where: {} })
+			expect.objectContaining({
+				include: { label: { where: { lang: "ru" } } },
+			})
 		);
 	});
 
