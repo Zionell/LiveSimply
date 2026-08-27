@@ -34,7 +34,7 @@ const state = reactive({
 const rows = ref<IRow[]>([{ productId: null, grams: null }]);
 const isLoading = ref<boolean>(false);
 
-const { data: products } = await useFetch<IProduct[]>(api.health.products, {
+const { data: products, error: productsError } = await useFetch<IProduct[]>(api.health.products, {
 	key: "HealthProducts",
 });
 
@@ -65,8 +65,21 @@ function setGrams(row: IRow, value: unknown) {
 	row.grams = toNullableNumber(value);
 }
 
+// Mirrors backend/src/health/dto/meal-item.dto.ts (MealItemDto: @Min(1) @Max(5000))
+// so an out-of-range grams value (e.g. 6000) is caught here instead of coming
+// back as an untranslated class-validator error in a toast.
+const gramsSchema = z.number().min(1).max(5000);
+
 const filledRows = computed((): IRow[] =>
-	rows.value.filter((row) => row.productId && typeof row.grams === "number" && row.grams > 0),
+	rows.value.filter(
+		(row) => row.productId && typeof row.grams === "number" && gramsSchema.safeParse(row.grams).success,
+	),
+);
+
+const hasInvalidGrams = computed((): boolean =>
+	rows.value.some(
+		(row) => row.productId && typeof row.grams === "number" && !gramsSchema.safeParse(row.grams).success,
+	),
 );
 
 const isValid = computed(() => schema.safeParse(state).success && filledRows.value.length > 0);
@@ -159,7 +172,7 @@ function handleClose() {
 				<UInput v-model="state.date" type="date" :max="today" class="w-full" size="md" />
 			</UFormField>
 
-			<UFormField class="w-full" :label="$t('health.nutrition.title')" name="mealType">
+			<UFormField class="w-full" :label="$t('health.nutrition.mealType')" name="mealType">
 				<USelect v-model="state.mealType" :items="mealTypeItems" value-key="value" class="w-full" size="md" />
 			</UFormField>
 
@@ -185,7 +198,7 @@ function handleClose() {
 					/>
 				</div>
 
-				<UButton variant="subtle" icon="i-lucide-plus" @click="addRow">
+				<UButton variant="subtle" icon="i-lucide-plus" :disabled="Boolean(productsError)" @click="addRow">
 					{{ $t("health.nutrition.addProduct") }}
 				</UButton>
 			</div>
@@ -194,6 +207,10 @@ function handleClose() {
 				{{ $t("health.nutrition.mealTotal") }}: {{ preview.kcal }} —
 				{{ preview.proteinG }} / {{ preview.fatG }} / {{ preview.carbsG }} {{ $t("health.gram") }}
 			</div>
+
+			<p v-if="hasInvalidGrams" class="text-xs text-amber-500">
+				{{ $t("health.nutrition.gramsRange") }}
+			</p>
 
 			<p v-if="!filledRows.length" class="text-xs text-amber-500">
 				{{ $t("health.nutrition.needProduct") }}

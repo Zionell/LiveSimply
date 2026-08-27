@@ -355,13 +355,16 @@
 			"product": "Продукт",
 			"per100": "ккал/100 г",
 			"grams": "Граммы",
+			"mealType": "Приём пищи",
 			"addProduct": "Добавить продукт",
 			"removeProduct": "Убрать",
 			"mealTotal": "Итог приёма",
 			"caloriesChartTitle": "Калории",
 			"macrosChartTitle": "Распределение БЖУ",
 			"chartEmpty": "За этот период ещё нет записей",
-			"needProduct": "Добавьте хотя бы один продукт"
+			"needProduct": "Добавьте хотя бы один продукт",
+			"gramsRange": "Вес должен быть от 1 до 5000",
+			"catalogueError": "Не удалось загрузить каталог продуктов. Попробуйте позже."
 		},
 		"mealTypes": {
 			"breakfast": "Завтрак",

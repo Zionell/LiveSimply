@@ -347,13 +347,16 @@
 			"product": "Product",
 			"per100": "kcal/100 g",
 			"grams": "Grams",
+			"mealType": "Meal type",
 			"addProduct": "Add product",
 			"removeProduct": "Remove",
 			"mealTotal": "Meal total",
 			"caloriesChartTitle": "Calories",
 			"macrosChartTitle": "Macro split",
 			"chartEmpty": "Nothing logged for this period yet",
-			"needProduct": "Add at least one product"
+			"needProduct": "Add at least one product",
+			"gramsRange": "Grams must be between 1 and 5000",
+			"catalogueError": "Couldn't load the product catalogue. Try again later."
 		},
 		"mealTypes": {
 			"breakfast": "Breakfast",

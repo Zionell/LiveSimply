@@ -11,7 +11,7 @@ const emit = defineEmits<{
 
 const { t } = useI18n();
 
-const { data: products } = await useFetch<IProduct[]>(api.health.products, {
+const { data: products, error } = await useFetch<IProduct[]>(api.health.products, {
 	key: "HealthProducts",
 });
 
@@ -24,14 +24,21 @@ const items = computed(() =>
 </script>
 
 <template>
-	<USelectMenu
-		class="w-full"
-		size="md"
-		:model-value="props.modelValue"
-		:items="items"
-		value-key="value"
-		:placeholder="$t('health.nutrition.product')"
-		virtualize
-		@update:model-value="emit('update:modelValue', $event)"
-	/>
+	<div class="w-full">
+		<USelectMenu
+			class="w-full"
+			size="md"
+			:model-value="props.modelValue"
+			:items="items"
+			value-key="value"
+			:disabled="Boolean(error)"
+			:placeholder="$t('health.nutrition.product')"
+			virtualize
+			@update:model-value="emit('update:modelValue', $event)"
+		/>
+
+		<p v-if="error" class="text-xs text-red-500 mt-1">
+			{{ $t("health.nutrition.catalogueError") }}
+		</p>
+	</div>
 </template>
