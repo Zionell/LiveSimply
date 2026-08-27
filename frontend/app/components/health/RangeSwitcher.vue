@@ -17,7 +17,7 @@ const items = computed(() => [
 </script>
 
 <template>
-	<div class="flex items-center gap-2 mr-auto">
+	<div class="flex items-center gap-2">
 		<UButton
 			v-for="item in items"
 			:key="String(item.value)"

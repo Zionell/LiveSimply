@@ -77,8 +77,6 @@ async function handleDelete(id: string) {
 		<HealthTabs />
 
 		<CommonSectionHeader>
-			<HealthRangeSwitcher v-model="rangeDays" />
-
 			<ModalsEditHealthProfile :profile="profile ?? null" @refresh="refreshAll" />
 			<ModalsAddBodyEntry v-if="isConfigured" @refresh="refreshAll" />
 		</CommonSectionHeader>
@@ -91,11 +89,16 @@ async function handleDelete(id: string) {
 			<div v-else-if="profile?.isConfigured" class="grid gap-6">
 				<HealthSummary :profile="profile" />
 				<HealthNormCard :profile="profile" />
-			<div class="grid gap-6 lg:grid-cols-2 lg:items-start">
-				<HealthWeightChart :points="bodyLog?.weightChart || []" />
-				<HealthMeasurementsChart :points="bodyLog?.measurementChart || []" />
-			</div>
-			<HealthBodyTable :entries="bodyLog?.entries || []" @delete="handleDelete" />
+				<div class="grid gap-3">
+					<HealthRangeSwitcher v-model="rangeDays" />
+
+					<div class="grid gap-6 lg:grid-cols-2 lg:items-start">
+						<HealthWeightChart :points="bodyLog?.weightChart || []" />
+						<HealthMeasurementsChart :points="bodyLog?.measurementChart || []" />
+					</div>
+				</div>
+
+				<HealthBodyTable :entries="bodyLog?.entries || []" @delete="handleDelete" />
 			</div>
 		</CommonSuspenseWrapper>
 	</section>
