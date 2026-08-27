@@ -78,6 +78,15 @@ async function handleDeleteMeal(id: string) {
 				<HealthNormCard :profile="profile" />
 				<HealthNutritionTotals v-if="log" :totals="log.totals" />
 
+				<div class="grid gap-3">
+					<HealthGranularitySwitcher v-model="granularity" />
+
+					<div class="grid gap-6 lg:grid-cols-2 lg:items-start">
+						<HealthCaloriesChart :points="log?.chart || []" />
+						<HealthMacrosDonut v-if="log" :totals="log.totals" />
+					</div>
+				</div>
+
 				<p v-if="!log?.days.length" class="text-gray-400">
 					{{ $t("health.nutrition.empty") }}
 				</p>
