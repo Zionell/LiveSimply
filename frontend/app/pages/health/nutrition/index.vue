@@ -79,7 +79,10 @@ async function handleDeleteMeal(id: string) {
 				<HealthNutritionTotals v-if="log" :totals="log.totals" />
 
 				<div class="grid gap-3">
-					<HealthGranularitySwitcher v-model="granularity" />
+					<div class="flex flex-wrap items-center gap-4">
+						<HealthRangeSwitcher v-model="rangeDays" />
+						<HealthGranularitySwitcher v-model="granularity" />
+					</div>
 
 					<div class="grid gap-6 lg:grid-cols-2 lg:items-start">
 						<HealthCaloriesChart :points="log?.chart || []" />
