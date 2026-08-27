@@ -6,6 +6,7 @@ const route = useRoute();
 
 const items = computed((): TabsItem[] => [
 	{ label: t("health.tabs.body"), value: ERoutes.healthBody, icon: "i-lucide-scale" },
+	{ label: t("health.tabs.nutrition"), value: ERoutes.healthNutrition, icon: "i-lucide-utensils" },
 ]);
 
 const active = computed((): string => {

@@ -40,6 +40,12 @@ export const api = {
 		profile: `${prefix}/health/profile/`,
 		body: `${prefix}/health/body/`,
 		bodyDetail: (id: string) => `${prefix}/health/body/${id}/`,
+		products: `${prefix}/health/products/`,
+		nutrition: `${prefix}/health/nutrition/`,
+		nutritionDetail: (id: string) => `${prefix}/health/nutrition/${id}/`,
+		meals: `${prefix}/health/nutrition/meals/`,
+		meal: (id: string) => `${prefix}/health/nutrition/meals/${id}/`,
+		applyTargets: `${prefix}/health/nutrition/apply-targets/`,
 	},
 	notifications: {
 		common: `${prefix}/notifications/`,

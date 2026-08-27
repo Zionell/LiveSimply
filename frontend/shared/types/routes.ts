@@ -6,6 +6,7 @@ export enum ERoutes {
 	goals = "/goals",
 	health = "/health",
 	healthBody = "/health/body",
+	healthNutrition = "/health/nutrition",
 	businessCard = "/business-card",
 	settings = "/settings",
 	users = "/users",

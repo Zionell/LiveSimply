@@ -47,7 +47,8 @@
 		"tg": "Go to telegram",
 		"newBodyEntry": "Add entry",
 		"healthProfile": "Profile",
-		"fillProfile": "Fill in profile"
+		"fillProfile": "Fill in profile",
+		"newMeal": "Add meal"
 	},
 	"inputs": {
 		"total": "Total sum",
@@ -91,7 +92,8 @@
 		"newBudgetItem": "Add a planned expense",
 		"editPlanner": "Monthly budget settings",
 		"healthProfile": "Health profile",
-		"newBodyEntry": "New entry"
+		"newBodyEntry": "New entry",
+		"newMeal": "New meal"
 	},
 	"modalAddNewGoal": {},
 	"modalAddTotal": {
@@ -262,7 +264,8 @@
 	},
 	"health": {
 		"tabs": {
-			"body": "Weight & body"
+			"body": "Weight & body",
+			"nutrition": "Nutrition"
 		},
 		"emptyProfile": "Fill in height, weight and activity level — we will work out your daily calorie and macro targets.",
 		"start": "Start",
@@ -329,6 +332,43 @@
 			"proteinPerKg": "Protein per kilogram of body weight. 1.6-2.2 g protects muscle while losing weight; 1.8 is a safe middle.",
 			"proteinBasis": "Current weight suits most cases. Target weight is for noticeable excess weight, where counting from the current one inflates the protein figure.",
 			"fatPercent": "Share of calories from fat; 20-35% is the usual range. Whatever is left after protein and fat becomes carbs."
+		},
+		"nutrition": {
+			"title": "Nutrition diary",
+			"addMeal": "Add meal",
+			"noProfile": "Fill in your health profile first — the daily targets come from it.",
+			"empty": "No meals logged for this period yet",
+			"fact": "Eaten",
+			"target": "Target",
+			"deviation": "Difference",
+			"avgKcal": "Average calories",
+			"daysLogged": "Days logged",
+			"onTargetDays": "Days on target",
+			"product": "Product",
+			"grams": "Grams",
+			"addProduct": "Add product",
+			"removeProduct": "Remove",
+			"mealTotal": "Meal total",
+			"caloriesChartTitle": "Calories",
+			"macrosChartTitle": "Macro split",
+			"chartEmpty": "Nothing logged for this period yet",
+			"needProduct": "Add at least one product"
+		},
+		"mealTypes": {
+			"breakfast": "Breakfast",
+			"lunch": "Lunch",
+			"dinner": "Dinner",
+			"snack": "Snack"
+		},
+		"status": {
+			"under": "Below target",
+			"onTarget": "On target",
+			"over": "Above target"
+		},
+		"granularity": {
+			"day": "By day",
+			"week": "By week",
+			"month": "By month"
 		}
 	}
 }
