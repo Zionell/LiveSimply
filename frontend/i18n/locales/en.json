@@ -345,6 +345,7 @@
 			"daysLogged": "Days logged",
 			"onTargetDays": "Days on target",
 			"product": "Product",
+			"per100": "kcal/100 g",
 			"grams": "Grams",
 			"addProduct": "Add product",
 			"removeProduct": "Remove",

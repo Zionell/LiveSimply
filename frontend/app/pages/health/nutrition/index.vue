@@ -67,6 +67,10 @@ async function handleDeleteMeal(id: string) {
 
 		<HealthTabs />
 
+		<CommonSectionHeader>
+			<ModalsAddMeal v-if="isConfigured" @refresh="refreshAll" />
+		</CommonSectionHeader>
+
 		<CommonSuspenseWrapper>
 			<HealthEmptyProfile v-if="!isConfigured" />
 
