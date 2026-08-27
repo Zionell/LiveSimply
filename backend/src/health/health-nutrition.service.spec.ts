@@ -254,6 +254,98 @@ describe("HealthNutritionService", () => {
 				})
 			);
 		});
+
+		it("falls back to the default language instead of forwarding an unsupported cookie value verbatim", async () => {
+			// CookieResolver hands back i18n_redirected verbatim, unvalidated.
+			// An unsupported value must not reach the Prisma query as-is, or
+			// the label lookup silently returns [] and the diary permanently
+			// snapshots the product slug instead of a real title.
+			jest
+				.spyOn(I18nContext, "current")
+				.mockReturnValue({ lang: "fr-CA" } as any);
+
+			await service.createMeal(
+				{
+					date: "2026-08-26",
+					mealType: EMealType.Breakfast,
+					items: [{ productId: "pr1", grams: 80 }],
+				},
+				req
+			);
+
+			expect(prisma.healthProduct.findMany).toHaveBeenCalledWith(
+				expect.objectContaining({
+					include: { label: { where: { lang: "en" } } },
+				})
+			);
+		});
+
+		it("returns the meal re-read after recalculation, with its items, not the pre-recalc create() result", async () => {
+			// createMeal used to return the object handed back by
+			// healthMeal.create(), captured BEFORE recalcMeal wrote the
+			// totals — so the 201 body always carried zeroed macros and no
+			// items. This proves it now matches updateMeal's re-read.
+			prisma.healthMeal.create.mockResolvedValue({
+				id: "m1",
+				entryId: "n1",
+				mealType: EMealType.Breakfast,
+				kcal: 0,
+				proteinG: 0,
+				fatG: 0,
+				carbsG: 0,
+			});
+			prisma.healthMeal.findUnique.mockResolvedValue({
+				id: "m1",
+				entryId: "n1",
+				mealType: EMealType.Breakfast,
+				kcal: 246,
+				proteinG: 10.1,
+				fatG: 2.6,
+				carbsG: 45.7,
+				items: [
+					{
+						id: "i1",
+						mealId: "m1",
+						productId: "pr1",
+						title: "Гречка, сухая",
+						grams: 80,
+						kcal: 246,
+						proteinG: 10.1,
+						fatG: 2.6,
+						carbsG: 45.7,
+					},
+				],
+			});
+
+			const meal = await service.createMeal(
+				{
+					date: "2026-08-26",
+					mealType: EMealType.Breakfast,
+					items: [{ productId: "pr1", grams: 80 }],
+				},
+				req
+			);
+
+			expect(meal).toEqual(
+				expect.objectContaining({
+					kcal: 246,
+					proteinG: 10.1,
+					fatG: 2.6,
+					carbsG: 45.7,
+					items: [
+						expect.objectContaining({
+							productId: "pr1",
+							grams: 80,
+							kcal: 246,
+						}),
+					],
+				})
+			);
+			expect(prisma.healthMeal.findUnique).toHaveBeenCalledWith({
+				where: { id: "m1" },
+				include: { items: true },
+			});
+		});
 	});
 
 	describe("createMeal races the unique index (ensureDay P2002)", () => {
@@ -268,6 +360,10 @@ describe("HealthNutritionService", () => {
 			prisma.healthNutritionEntry.create.mockRejectedValue({
 				code: "P2002",
 			});
+			prisma.healthMeal.findUnique.mockResolvedValue({
+				id: "m1",
+				items: [],
+			});
 
 			const meal = await service.createMeal(
 				{
@@ -278,7 +374,7 @@ describe("HealthNutritionService", () => {
 				req
 			);
 
-			expect(meal).toEqual({ id: "m1" });
+			expect(meal).toEqual({ id: "m1", items: [] });
 			expect(prisma.healthNutritionEntry.findUnique).toHaveBeenCalledTimes(
 				2
 			);

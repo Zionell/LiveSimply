@@ -6,6 +6,7 @@ import {
 import { I18nContext } from "nestjs-i18n";
 import { EGranularity } from "../../types/health";
 import { addUtcDays, startOfUtcDay } from "../../utils/date";
+import { normalizeLanguage } from "../../utils/language";
 import { PrismaService } from "../prisma.service";
 import { HealthProfileService } from "./health-profile.service";
 import { HealthProfileSerializer } from "./serializer/health-profile.serializer";
@@ -89,7 +90,7 @@ export class HealthNutritionService {
 	private async prepareItems(
 		items: MealItemDto[]
 	): Promise<IPreparedItem[]> {
-		const lang = I18nContext.current()?.lang || "en";
+		const lang = normalizeLanguage(I18nContext.current()?.lang);
 
 		const products = await this.prismaService.healthProduct.findMany({
 			where: { id: { in: items.map(item => item.productId) } },
@@ -267,7 +268,10 @@ export class HealthNutritionService {
 		await this.recalcMeal(meal.id);
 		await this.recalcDay(entry.id);
 
-		return meal;
+		return this.prismaService.healthMeal.findUnique({
+			where: { id: meal.id },
+			include: { items: true },
+		});
 	}
 
 	async updateMeal(

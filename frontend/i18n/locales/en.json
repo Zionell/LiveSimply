@@ -334,13 +334,9 @@
 			"fatPercent": "Share of calories from fat; 20-35% is the usual range. Whatever is left after protein and fat becomes carbs."
 		},
 		"nutrition": {
-			"title": "Nutrition diary",
-			"addMeal": "Add meal",
-			"noProfile": "Fill in your health profile first — the daily targets come from it.",
 			"empty": "No meals logged for this period yet",
 			"fact": "Eaten",
 			"target": "Target",
-			"deviation": "Difference",
 			"avgKcal": "Average calories",
 			"daysLogged": "Days logged",
 			"onTargetDays": "Days on target",
@@ -355,6 +351,7 @@
 			"macrosChartTitle": "Macro split",
 			"chartEmpty": "Nothing logged for this period yet",
 			"needProduct": "Add at least one product",
+			"incompleteRow": "Every added row needs both a product and grams",
 			"gramsRange": "Grams must be between 1 and 5000",
 			"catalogueError": "Couldn't load the product catalogue. Try again later."
 		},

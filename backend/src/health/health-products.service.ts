@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { I18nContext } from "nestjs-i18n";
+import { normalizeLanguage } from "../../utils/language";
 import { PrismaService } from "../prisma.service";
 import { FindProductsDto } from "./dto/find-products.dto";
 import {
@@ -12,7 +13,7 @@ export class HealthProductsService {
 	constructor(private readonly prismaService: PrismaService) {}
 
 	async list(dto: FindProductsDto): Promise<ISerializedProduct[]> {
-		const lang = I18nContext.current()?.lang || "en";
+		const lang = normalizeLanguage(I18nContext.current()?.lang);
 
 		const where: Record<string, unknown> = {};
 

@@ -76,13 +76,32 @@ const filledRows = computed((): IRow[] =>
 	),
 );
 
+// A row the user started (picked a product, or typed grams) but didn't finish.
+// An untouched row (the seeded blank one, or one left behind after removeRow
+// empties the list) has both fields null and is deliberately excluded here —
+// otherwise the form could never be submitted at all.
+const touchedRows = computed((): IRow[] =>
+	rows.value.filter((row) => row.productId !== null || row.grams !== null),
+);
+
 const hasInvalidGrams = computed((): boolean =>
 	rows.value.some(
 		(row) => row.productId && typeof row.grams === "number" && !gramsSchema.safeParse(row.grams).success,
 	),
 );
 
-const isValid = computed(() => schema.safeParse(state).success && filledRows.value.length > 0);
+// Any touched row that isn't a filled row is incomplete (missing a product,
+// missing grams, or grams out of range) and must block submission — a
+// half-finished row used to be silently dropped from the payload while the
+// form still reported success.
+const hasIncompleteRow = computed((): boolean => touchedRows.value.length !== filledRows.value.length);
+
+const isValid = computed(
+	() =>
+		schema.safeParse(state).success &&
+		filledRows.value.length > 0 &&
+		filledRows.value.length === touchedRows.value.length,
+);
 
 // Предпросмотр считается на фронте только чтобы не сохранять вслепую.
 // Сохранённые числа приходят с бэкенда и ими же перерисовывается таблица.
@@ -212,7 +231,11 @@ function handleClose() {
 				{{ $t("health.nutrition.gramsRange") }}
 			</p>
 
-			<p v-if="!filledRows.length" class="text-xs text-amber-500">
+			<p v-else-if="hasIncompleteRow" class="text-xs text-amber-500">
+				{{ $t("health.nutrition.incompleteRow") }}
+			</p>
+
+			<p v-else-if="!filledRows.length" class="text-xs text-amber-500">
 				{{ $t("health.nutrition.needProduct") }}
 			</p>
 		</UForm>

@@ -44,6 +44,23 @@ describe("HealthProductsService", () => {
 		);
 	});
 
+	it("falls back to the default language instead of forwarding an unsupported cookie value verbatim", async () => {
+		// CookieResolver hands back i18n_redirected verbatim, unvalidated.
+		// An unsupported value must not reach the Prisma query as-is, or
+		// the label lookup silently returns [] for every product.
+		jest
+			.spyOn(I18nContext, "current")
+			.mockReturnValue({ lang: "fr-CA" } as any);
+
+		await service.list({});
+
+		expect(prisma.healthProduct.findMany).toHaveBeenCalledWith(
+			expect.objectContaining({
+				include: { label: { where: { lang: "en" } } },
+			})
+		);
+	});
+
 	it("filters by category when one is given", async () => {
 		await service.list({ category: "meat" as any });
 
