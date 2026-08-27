@@ -31,7 +31,7 @@ const columns: TableColumn<IMeal>[] = [
 	},
 	{
 		accessorKey: "mealType",
-		header: t("health.nutrition.title"),
+		header: t("health.nutrition.mealType"),
 		cell: ({ row }) => t(`health.mealTypes.${row.original.mealType}`),
 	},
 	{
@@ -86,7 +86,13 @@ function getRowItems(row: Row<IMeal>) {
 </script>
 
 <template>
-	<UTable v-model:expanded="expanded" class="w-full" :data="props.meals" :columns="columns">
+	<UTable
+		v-model:expanded="expanded"
+		class="w-full"
+		:data="props.meals"
+		:columns="columns"
+		:get-row-id="(row: IMeal) => row.id"
+	>
 		<template #expanded="{ row }">
 			<div class="grid gap-1 py-2 pl-10 text-sm">
 				<div v-for="item in row.original.items" :key="item.id" class="flex gap-4 text-gray-400">
