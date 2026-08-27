@@ -1,4 +1,5 @@
 import { BadRequestException, NotFoundException } from "@nestjs/common";
+import { I18nContext } from "nestjs-i18n";
 import { EGranularity, EMealType } from "../../types/health";
 import { HealthNutritionService } from "./health-nutrition.service";
 
@@ -74,6 +75,10 @@ describe("HealthNutritionService", () => {
 			prisma as any,
 			profileServiceMock as any
 		);
+	});
+
+	afterEach(() => {
+		jest.restoreAllMocks();
 	});
 
 	describe("createMeal", () => {
@@ -211,6 +216,114 @@ describe("HealthNutritionService", () => {
 				data: expect.objectContaining({ userId: "u1" }),
 			});
 		});
+
+		it("looks up product labels in the default language when no i18n context is active", async () => {
+			await service.createMeal(
+				{
+					date: "2026-08-26",
+					mealType: EMealType.Breakfast,
+					items: [{ productId: "pr1", grams: 80 }],
+				},
+				req
+			);
+
+			expect(prisma.healthProduct.findMany).toHaveBeenCalledWith(
+				expect.objectContaining({
+					include: { label: { where: { lang: "en" } } },
+				})
+			);
+		});
+
+		it("resolves the product label in the current i18n language rather than a fixed one", async () => {
+			jest
+				.spyOn(I18nContext, "current")
+				.mockReturnValue({ lang: "ru" } as any);
+
+			await service.createMeal(
+				{
+					date: "2026-08-26",
+					mealType: EMealType.Breakfast,
+					items: [{ productId: "pr1", grams: 80 }],
+				},
+				req
+			);
+
+			expect(prisma.healthProduct.findMany).toHaveBeenCalledWith(
+				expect.objectContaining({
+					include: { label: { where: { lang: "ru" } } },
+				})
+			);
+		});
+	});
+
+	describe("createMeal races the unique index (ensureDay P2002)", () => {
+		beforeEach(() => {
+			prisma.healthProduct.findMany.mockResolvedValue([buckwheat]);
+		});
+
+		it("re-reads and uses the winning day when a concurrent create loses the unique-index race", async () => {
+			prisma.healthNutritionEntry.findUnique
+				.mockResolvedValueOnce(null)
+				.mockResolvedValueOnce({ id: "n1", userId: "u1" });
+			prisma.healthNutritionEntry.create.mockRejectedValue({
+				code: "P2002",
+			});
+
+			const meal = await service.createMeal(
+				{
+					date: "2026-08-26",
+					mealType: EMealType.Breakfast,
+					items: [{ productId: "pr1", grams: 80 }],
+				},
+				req
+			);
+
+			expect(meal).toEqual({ id: "m1" });
+			expect(prisma.healthNutritionEntry.findUnique).toHaveBeenCalledTimes(
+				2
+			);
+			expect(prisma.healthMeal.create).toHaveBeenCalledWith({
+				data: { entryId: "n1", mealType: EMealType.Breakfast },
+			});
+		});
+
+		it("propagates a non-P2002 error from create instead of swallowing it", async () => {
+			prisma.healthNutritionEntry.findUnique.mockResolvedValue(null);
+			prisma.healthNutritionEntry.create.mockRejectedValue(
+				new Error("boom")
+			);
+
+			await expect(
+				service.createMeal(
+					{
+						date: "2026-08-26",
+						mealType: EMealType.Breakfast,
+						items: [{ productId: "pr1", grams: 80 }],
+					},
+					req
+				)
+			).rejects.toThrow("boom");
+
+			expect(prisma.healthMeal.create).not.toHaveBeenCalled();
+		});
+
+		it("propagates the original P2002 if the re-read still finds nothing", async () => {
+			prisma.healthNutritionEntry.findUnique.mockResolvedValue(null);
+			prisma.healthNutritionEntry.create.mockRejectedValue({
+				code: "P2002",
+			});
+
+			await expect(
+				service.createMeal(
+					{
+						date: "2026-08-26",
+						mealType: EMealType.Breakfast,
+						items: [{ productId: "pr1", grams: 80 }],
+					},
+					req
+				)
+			).rejects.toMatchObject({ code: "P2002" });
+		});
 	});
 
 	describe("updateMeal", () => {
@@ -257,6 +370,105 @@ describe("HealthNutritionService", () => {
 				NotFoundException
 			);
 			expect(prisma.healthMeal.delete).not.toHaveBeenCalled();
+		});
+	});
+
+	describe("applyTargets", () => {
+		it("scopes its updateMany to the authenticated user and the requested date range", async () => {
+			await service.applyTargets(
+				{ from: "2026-08-01", to: "2026-08-26" },
+				req
+			);
+
+			expect(prisma.healthNutritionEntry.updateMany).toHaveBeenCalledWith({
+				where: {
+					userId: "u1",
+					date: {
+						gte: new Date("2026-08-01T00:00:00.000Z"),
+						lte: new Date("2026-08-26T00:00:00.000Z"),
+					},
+				},
+				data: {
+					targetKcal: 1707,
+					targetProteinG: 135,
+					targetFatG: 56.9,
+					targetCarbsG: 163.7,
+				},
+			});
+		});
+
+		it("scopes the updateMany to whichever user made the request, not a fixed user", async () => {
+			const other = { payload: { id: "u2" } };
+
+			await service.applyTargets(
+				{ from: "2026-08-01", to: "2026-08-26" },
+				other
+			);
+
+			expect(prisma.healthNutritionEntry.updateMany).toHaveBeenCalledWith(
+				expect.objectContaining({
+					where: expect.objectContaining({ userId: "u2" }),
+				})
+			);
+		});
+	});
+
+	describe("updateDay", () => {
+		it("refuses to touch a day belonging to somebody else", async () => {
+			prisma.healthNutritionEntry.findUnique.mockResolvedValue({
+				id: "n1",
+				userId: "u2",
+			});
+
+			await expect(
+				service.updateDay("n1", { targetKcal: 2000 }, req)
+			).rejects.toBeInstanceOf(NotFoundException);
+			expect(prisma.healthNutritionEntry.update).not.toHaveBeenCalled();
+		});
+
+		it("never takes userId from the request body, and writes only the whitelisted fields", async () => {
+			prisma.healthNutritionEntry.findUnique.mockResolvedValue({
+				id: "n1",
+				userId: "u1",
+			});
+
+			await service.updateDay(
+				"n1",
+				{ targetKcal: 2000, userId: "VICTIM" } as any,
+				req
+			);
+
+			expect(prisma.healthNutritionEntry.update).toHaveBeenCalledWith({
+				where: { id: "n1" },
+				data: { targetKcal: 2000 },
+			});
+		});
+	});
+
+	describe("removeDay", () => {
+		it("refuses to delete a day belonging to somebody else", async () => {
+			prisma.healthNutritionEntry.findUnique.mockResolvedValue({
+				id: "n1",
+				userId: "u2",
+			});
+
+			await expect(service.removeDay("n1", req)).rejects.toBeInstanceOf(
+				NotFoundException
+			);
+			expect(prisma.healthNutritionEntry.delete).not.toHaveBeenCalled();
+		});
+
+		it("deletes the day once ownership is confirmed", async () => {
+			prisma.healthNutritionEntry.findUnique.mockResolvedValue({
+				id: "n1",
+				userId: "u1",
+			});
+
+			await service.removeDay("n1", req);
+
+			expect(prisma.healthNutritionEntry.delete).toHaveBeenCalledWith({
+				where: { id: "n1" },
+			});
 		});
 	});
 

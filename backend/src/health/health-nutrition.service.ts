@@ -3,7 +3,8 @@ import {
 	Injectable,
 	NotFoundException,
 } from "@nestjs/common";
-import { EGranularity, EMealType } from "../../types/health";
+import { I18nContext } from "nestjs-i18n";
+import { EGranularity } from "../../types/health";
 import { addUtcDays, startOfUtcDay } from "../../utils/date";
 import { PrismaService } from "../prisma.service";
 import { HealthProfileService } from "./health-profile.service";
@@ -88,9 +89,11 @@ export class HealthNutritionService {
 	private async prepareItems(
 		items: MealItemDto[]
 	): Promise<IPreparedItem[]> {
+		const lang = I18nContext.current()?.lang || "en";
+
 		const products = await this.prismaService.healthProduct.findMany({
 			where: { id: { in: items.map(item => item.productId) } },
-			include: { label: true },
+			include: { label: { where: { lang } } },
 		});
 
 		const byId = new Map(products.map(product => [product.id, product]));
@@ -117,6 +120,15 @@ export class HealthNutritionService {
 		});
 	}
 
+	/**
+	 * Два одновременных POST meals для ещё не заведённого дня оба видят
+	 * findUnique -> null и оба идут в create; второй упирается в
+	 * @@unique([userId, date]) и падает с P2002. Это ловится и трактуется как
+	 * "кто-то нас обогнал" - день перечитывается, а не создаётся заново.
+	 * Намеренно НЕ upsert: Prisma вычисляет payload create заранее, а
+	 * targetsFor() - это чтение профиля и веса, которое должно происходить
+	 * только на первом приёме пищи дня, а не при каждой записи.
+	 */
 	private async ensureDay(userId: string, day: Date) {
 		const existing =
 			await this.prismaService.healthNutritionEntry.findUnique({
@@ -127,13 +139,30 @@ export class HealthNutritionService {
 			return existing;
 		}
 
-		return this.prismaService.healthNutritionEntry.create({
-			data: {
-				...(await this.targetsFor(userId)),
-				date: day,
-				userId,
-			},
-		});
+		try {
+			return await this.prismaService.healthNutritionEntry.create({
+				data: {
+					...(await this.targetsFor(userId)),
+					date: day,
+					userId,
+				},
+			});
+		} catch (e) {
+			if ((e as { code?: string })?.code !== "P2002") {
+				throw e;
+			}
+
+			const retried =
+				await this.prismaService.healthNutritionEntry.findUnique({
+					where: { userId_date: { userId, date: day } },
+				});
+
+			if (!retried) {
+				throw e;
+			}
+
+			return retried;
+		}
 	}
 
 	private async loadOwnedMeal(mealId: string, userId: string) {
