@@ -21,7 +21,7 @@ const macros = computed(() => [
 
 <template>
 	<CommonCardWrapper>
-		<template #header>{{ $t("health.targetKcal") }}</template>
+		<template #header>{{ $t("health.normTitle") }}</template>
 
 		<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
 			<div v-for="norm in norms" :key="norm.label">

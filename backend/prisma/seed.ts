@@ -8,6 +8,8 @@ const prisma = new PrismaClient();
  * Стартовый справочник намеренно маленький и разнесён по профилю макронутриентов,
  * чтобы на нём проверялась вся арифметика: чистый белок, чистые углеводы, чистый
  * жир на верхней границе калорийности, смешанный продукт и дробные граммы.
+ * Дополнен крупами, рыбой, овощем и фруктом — этого хватает, чтобы собрать
+ * правдоподобный приём пищи при ручной проверке раздела.
  * Значения референсные — при наполнении справочника их стоит сверить.
  */
 const PRODUCTS = [
@@ -55,6 +57,51 @@ const PRODUCTS = [
 		fatPer100: 5,
 		carbsPer100: 1.8,
 		label: { en: "Cottage cheese 5%", ru: "Творог 5%" },
+	},
+	{
+		value: "rice-white",
+		category: EProductCategory.Grains,
+		kcalPer100: 365,
+		proteinPer100: 7.1,
+		fatPer100: 0.7,
+		carbsPer100: 80,
+		label: { en: "White rice, dry", ru: "Рис белый, сухой" },
+	},
+	{
+		value: "oats",
+		category: EProductCategory.Grains,
+		kcalPer100: 389,
+		proteinPer100: 16.9,
+		fatPer100: 6.9,
+		carbsPer100: 66.3,
+		label: { en: "Rolled oats", ru: "Овсяные хлопья" },
+	},
+	{
+		value: "salmon",
+		category: EProductCategory.Meat,
+		kcalPer100: 208,
+		proteinPer100: 20.4,
+		fatPer100: 13.4,
+		carbsPer100: 0,
+		label: { en: "Salmon, raw", ru: "Лосось, сырой" },
+	},
+	{
+		value: "broccoli",
+		category: EProductCategory.Vegetables,
+		kcalPer100: 34,
+		proteinPer100: 2.8,
+		fatPer100: 0.4,
+		carbsPer100: 6.6,
+		label: { en: "Broccoli", ru: "Брокколи" },
+	},
+	{
+		value: "banana",
+		category: EProductCategory.Fruits,
+		kcalPer100: 89,
+		proteinPer100: 1.1,
+		fatPer100: 0.3,
+		carbsPer100: 22.8,
+		label: { en: "Banana", ru: "Банан" },
 	},
 ];
 

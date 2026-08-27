@@ -135,100 +135,122 @@ function handleClose() {
 		<UForm :schema="schema" :state="state" class="w-full flex flex-col space-y-4" @submit="onSubmit">
 			<UFormField
 				class="w-full"
-				:label="$t('health.sex')"
-				:description="$t('health.hints.sex')"
 				name="sex"
 			>
+				<template #label>
+					<CommonFieldLabel :label="$t('health.sex')" :hint="$t('health.hints.sex')" />
+				</template>
+
 				<URadioGroup v-model="state.sex" :items="sexItems" orientation="horizontal" />
 			</UFormField>
 
 			<UFormField
 				class="w-full"
-				:label="$t('health.birthDate')"
-				:description="$t('health.hints.birthDate')"
 				name="birthDate"
 			>
+				<template #label>
+					<CommonFieldLabel :label="$t('health.birthDate')" :hint="$t('health.hints.birthDate')" />
+				</template>
+
 				<UInput v-model="state.birthDate" type="date" class="w-full" size="md" />
 			</UFormField>
 
 			<UFormField
 				class="w-full"
-				:label="$t('health.height')"
-				:description="$t('health.hints.height')"
 				name="heightCm"
 			>
+				<template #label>
+					<CommonFieldLabel :label="$t('health.height')" :hint="$t('health.hints.height')" />
+				</template>
+
 				<UInput v-model.number="state.heightCm" type="number" class="w-full" size="md" />
 			</UFormField>
 
 			<UFormField
 				class="w-full"
-				:label="$t('health.startWeight')"
-				:description="$t('health.hints.startWeight')"
 				name="startWeightKg"
 			>
+				<template #label>
+					<CommonFieldLabel :label="$t('health.startWeight')" :hint="$t('health.hints.startWeight')" />
+				</template>
+
 				<UInput v-model.number="state.startWeightKg" type="number" step="0.1" class="w-full" size="md" />
 			</UFormField>
 
 			<UFormField
 				class="w-full"
-				:label="$t('health.targetWeight')"
-				:description="$t('health.hints.targetWeight')"
 				name="targetWeightKg"
 			>
+				<template #label>
+					<CommonFieldLabel :label="$t('health.targetWeight')" :hint="$t('health.hints.targetWeight')" />
+				</template>
+
 				<UInput v-model.number="state.targetWeightKg" type="number" step="0.1" class="w-full" size="md" />
 			</UFormField>
 
 			<UFormField
 				class="w-full"
-				:label="$t('health.startedAt')"
-				:description="$t('health.hints.startedAt')"
 				name="startedAt"
 			>
+				<template #label>
+					<CommonFieldLabel :label="$t('health.startedAt')" :hint="$t('health.hints.startedAt')" />
+				</template>
+
 				<UInput v-model="state.startedAt" type="date" class="w-full" size="md" />
 			</UFormField>
 
 			<UFormField
 				class="w-full"
-				:label="$t('health.activity')"
-				:description="$t('health.hints.activity')"
 				name="activityLevel"
 			>
+				<template #label>
+					<CommonFieldLabel :label="$t('health.activity')" :hint="$t('health.hints.activity')" />
+				</template>
+
 				<USelect v-model="state.activityLevel" :items="activityItems" value-key="value" class="w-full" size="md" />
 			</UFormField>
 
 			<UFormField
 				class="w-full"
-				:label="$t('health.deficit')"
-				:description="$t('health.hints.deficit')"
 				name="dailyDeficit"
 			>
+				<template #label>
+					<CommonFieldLabel :label="$t('health.deficit')" :hint="$t('health.hints.deficit')" />
+				</template>
+
 				<UInput v-model.number="state.dailyDeficit" type="number" step="50" class="w-full" size="md" />
 			</UFormField>
 
 			<UFormField
 				class="w-full"
-				:label="$t('health.proteinPerKg')"
-				:description="$t('health.hints.proteinPerKg')"
 				name="proteinPerKg"
 			>
+				<template #label>
+					<CommonFieldLabel :label="$t('health.proteinPerKg')" :hint="$t('health.hints.proteinPerKg')" />
+				</template>
+
 				<UInput v-model.number="state.proteinPerKg" type="number" step="0.1" class="w-full" size="md" />
 			</UFormField>
 
 			<UFormField
 				class="w-full"
-				:label="$t('health.proteinBasis')"
-				:description="$t('health.hints.proteinBasis')"
 				name="proteinBasis"
 			>
+				<template #label>
+					<CommonFieldLabel :label="$t('health.proteinBasis')" :hint="$t('health.hints.proteinBasis')" />
+				</template>
+
 				<USelect v-model="state.proteinBasis" :items="basisItems" value-key="value" class="w-full" size="md" />
 			</UFormField>
 
 			<UFormField
 				class="w-full"
-				:label="`${$t('health.fatPercent')}: ${state.fatPercent}%`"
-				:description="$t('health.hints.fatPercent')"
 				name="fatPercent"
 			>
+				<template #label>
+					<CommonFieldLabel :label="`${$t('health.fatPercent')}: ${state.fatPercent}%`" :hint="$t('health.hints.fatPercent')" />
+				</template>
+
 				<USlider v-model="state.fatPercent" :min="15" :max="60" :step="1" />
 			</UFormField>
 		</UForm>

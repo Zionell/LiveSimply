@@ -31,6 +31,7 @@ const hasData = computed((): boolean => props.totals.daysLogged > 0);
 			:data="data"
 			:categories="categories"
 			:radius="140"
+			:arc-width="34"
 			:height="320"
 			:legend-position="LegendPosition.TopLeft"
 		/>
