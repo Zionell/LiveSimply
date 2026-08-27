@@ -77,6 +77,17 @@ async function handleDeleteMeal(id: string) {
 			<div v-else-if="profile?.isConfigured" class="grid gap-6">
 				<HealthNormCard :profile="profile" />
 				<HealthNutritionTotals v-if="log" :totals="log.totals" />
+
+				<p v-if="!log?.days.length" class="text-gray-400">
+					{{ $t("health.nutrition.empty") }}
+				</p>
+
+				<HealthNutritionDay
+					v-for="day in log?.days || []"
+					:key="day.id"
+					:day="day"
+					@delete-meal="handleDeleteMeal"
+				/>
 			</div>
 		</CommonSuspenseWrapper>
 	</section>
