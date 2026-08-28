@@ -176,6 +176,8 @@ export const FinanceItemScalarFieldEnum = {
   currencyToId: 'currencyToId',
   expenseCategoryId: 'expenseCategoryId',
   operationCategoryId: 'operationCategoryId',
+  goalsId: 'goalsId',
+  goalConvertedPrice: 'goalConvertedPrice',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

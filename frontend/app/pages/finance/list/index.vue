@@ -32,6 +32,7 @@ async function handleDelete(id: string) {
 
 		handlePaginate(1);
 		await refresh();
+		await useUserStore().fetchUser();
 		toast.add({
 			title: t("common.deleted"),
 			color: "success",

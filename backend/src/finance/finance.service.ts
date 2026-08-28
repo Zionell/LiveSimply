@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateFinanceDto } from "./dto/create-finance.dto";
 import { CreateExpenseCategoryDto } from "./dto/create-expense-category.dto";
 import { UpdateFinanceDto } from "./dto/update-finance.dto";
@@ -222,34 +222,14 @@ export class FinanceService {
 			price,
 		});
 
-		if (goalsId) {
-			const curGoal = await this.goalsService.findOne(goalsId);
-			const goalConvertedPrice: number =
-				await this.ratesService.convertPrice({
-					from,
-					to: curGoal.exchangeId,
-					price,
-				});
-			const newAmount = curGoal.amount + goalConvertedPrice;
-
-			if (Math.round(newAmount) > Math.ceil(curGoal.total)) {
-				throw new BadRequestException({
-					message: "Cant be greater than total",
-				});
-			}
-
-			await this.goalsService.update(goalsId, {
-				amount: newAmount,
-				isCompleted: newAmount === curGoal.total,
-			});
-		}
+		const goalConvertedPrice: number | null = goalsId
+			? await this.contributeToGoal(goalsId, { from, price })
+			: null;
 
 		const total =
 			operationCategoryId === "income"
 				? user.total + convertedPrice
 				: user.total - convertedPrice;
-
-		delete createFinanceDto.goalsId;
 
 		const created = await this.prismaService.financeItem.create({
 			data: {
@@ -257,6 +237,8 @@ export class FinanceService {
 				expenseCategoryId: createFinanceDto.expenseCategoryId || null,
 				currencyToId: currencyToId,
 				convertedPrice,
+				goalsId: goalsId || null,
+				goalConvertedPrice,
 				userId: user.id,
 			},
 		});
@@ -274,6 +256,96 @@ export class FinanceService {
 		});
 
 		return { notifications };
+	}
+
+	/**
+	 * Moves money into a goal and reports how much of it landed there, in the
+	 * goal's own currency. Stored on the record so the same amount can be
+	 * taken back out later, whatever the rates do in between.
+	 */
+	private async contributeToGoal(
+		goalsId: string,
+		{
+			from,
+			price,
+			releasing = 0,
+		}: { from: string; price: number; releasing?: number }
+	): Promise<number> {
+		const goal = await this.goalsService.findOne(goalsId);
+
+		if (!goal) {
+			throw new NotFoundException({ message: "Goal not found" });
+		}
+
+		const goalConvertedPrice: number = await this.ratesService.convertPrice(
+			{
+				from,
+				to: goal.exchangeId,
+				price,
+			}
+		);
+		// An edit replaces its own earlier contribution, so that one steps
+		// aside before the new amount is measured against the target.
+		const newAmount = goal.amount - releasing + goalConvertedPrice;
+
+		if (Math.round(newAmount) > Math.ceil(goal.total)) {
+			throw new BadRequestException({
+				message: "Cant be greater than total",
+			});
+		}
+
+		await this.goalsService.update(goalsId, {
+			amount: newAmount,
+			isCompleted: newAmount === goal.total,
+		});
+
+		return goalConvertedPrice;
+	}
+
+	/**
+	 * Gives a contribution back to the goal it came from. A goal that the
+	 * contribution had completed reopens.
+	 */
+	private async releaseFromGoal(
+		goalsId: string | null,
+		contributed: number | null
+	): Promise<void> {
+		if (!goalsId || !contributed) {
+			return;
+		}
+
+		const goal = await this.goalsService.findOne(goalsId);
+
+		if (!goal) {
+			return;
+		}
+
+		const amount = goal.amount - contributed;
+
+		await this.goalsService.update(goalsId, {
+			amount,
+			isCompleted: amount >= goal.total,
+		});
+	}
+
+	/**
+	 * What a record actually did to the balance, expressed in the currency the
+	 * user holds today. The stored amount is exact while the currency has not
+	 * changed; after a switch it has to be carried over.
+	 */
+	private async appliedPrice(
+		item: { convertedPrice: number; currencyToId: string },
+		currencyToId: string
+	): Promise<number> {
+		if (item.currencyToId === currencyToId) {
+			return item.convertedPrice;
+		}
+
+		return this.ratesService.convertPrice({
+			from: item.currencyToId,
+			to: currencyToId,
+			price: item.convertedPrice,
+		});
 	}
 
 	async resetAll(req: Record<string, any>): Promise<{ count: number }> {
@@ -393,27 +465,114 @@ export class FinanceService {
 
 	async update(
 		id: string,
-		updateFinanceDto: UpdateFinanceDto
+		updateFinanceDto: UpdateFinanceDto,
+		req: Record<string, any>
 	): Promise<
 		Record<string, any> & { notifications: ISerializedNotification[] }
 	> {
+		const user: Record<string, any> = req.payload;
+
+		const original = await this.prismaService.financeItem.findUnique({
+			where: { id },
+		});
+
+		if (!original || original.userId !== user.id) {
+			throw new NotFoundException({ message: "Finance item not found" });
+		}
+
 		try {
-			const original = await this.prismaService.financeItem.findUnique({
-				where: { id },
-			});
+			const currencyToId = user.exchange || "EUR";
+			const { goalsId, ...financeData } = updateFinanceDto;
+
+			const curPrice = financeData.curPrice ?? original.curPrice;
+			const currencyFromId =
+				financeData.currencyFromId ?? original.currencyFromId;
+			const operationCategoryId =
+				financeData.operationCategoryId ?? original.operationCategoryId;
+
+			const priceChanged =
+				curPrice !== original.curPrice ||
+				currencyFromId !== original.currencyFromId ||
+				currencyToId !== original.currencyToId;
+
+			const convertedPrice: number = priceChanged
+				? await this.ratesService.convertPrice({
+						from: currencyFromId,
+						to: currencyToId,
+						price: curPrice,
+					})
+				: original.convertedPrice;
+
+			// The goal keeps whatever it was given until the money itself
+			// moves: renaming a category must not shuffle a contribution.
+			const nextGoalsId =
+				goalsId !== undefined ? goalsId || null : original.goalsId;
+			const goalChanged =
+				nextGoalsId !== original.goalsId ||
+				(priceChanged && Boolean(nextGoalsId));
+
+			let goalConvertedPrice = original.goalConvertedPrice;
+
+			if (goalChanged && nextGoalsId === original.goalsId) {
+				goalConvertedPrice = await this.contributeToGoal(nextGoalsId, {
+					from: currencyFromId,
+					price: curPrice,
+					releasing: original.goalConvertedPrice || 0,
+				});
+			} else if (goalChanged) {
+				// The new goal has to accept the money before the old one
+				// gives it up: a contribution that overshoots must leave both
+				// of them as they were.
+				goalConvertedPrice = nextGoalsId
+					? await this.contributeToGoal(nextGoalsId, {
+							from: currencyFromId,
+							price: curPrice,
+						})
+					: null;
+
+				await this.releaseFromGoal(
+					original.goalsId,
+					original.goalConvertedPrice
+				);
+			}
 
 			const updated = await this.prismaService.financeItem.update({
 				where: { id },
 				data: {
 					updatedAt: new Date(),
-					...updateFinanceDto,
+					...financeData,
+					convertedPrice,
+					currencyToId,
+					goalsId: nextGoalsId,
+					goalConvertedPrice,
 				},
 			});
 
+			const appliedBefore = await this.appliedPrice(
+				original,
+				currencyToId
+			);
+			const balanceBefore =
+				original.operationCategoryId === "income"
+					? appliedBefore
+					: -appliedBefore;
+			const balanceAfter =
+				operationCategoryId === "income"
+					? convertedPrice
+					: -convertedPrice;
+
+			if (balanceBefore !== balanceAfter) {
+				await this.usersService.update(
+					{
+						total: (user.total || 0) - balanceBefore + balanceAfter,
+					},
+					req
+				);
+			}
+
 			if (
-				!original ||
-				(original.operationCategoryId !== "expense" &&
-					updated.operationCategoryId !== "expense")
+				original.operationCategoryId !== "expense" &&
+				updated.operationCategoryId !== "expense"
 			) {
 				return { ...updated, notifications: [] };
 			}
@@ -450,17 +609,38 @@ export class FinanceService {
 		}
 	}
 
-	async remove(id: string) {
-		try {
-			const item = await this.prismaService.financeItem.findUnique({
-				where: { id },
-			});
+	async remove(id: string, req: Record<string, any>) {
+		const user: Record<string, any> = req.payload;
 
+		const item = await this.prismaService.financeItem.findUnique({
+			where: { id },
+		});
+
+		if (!item || item.userId !== user.id) {
+			throw new NotFoundException({ message: "Finance item not found" });
+		}
+
+		try {
 			await this.prismaService.financeItem.delete({
 				where: { id },
 			});
 
-			if (item && item.operationCategoryId === "expense") {
+			const currencyToId = user.exchange || "EUR";
+			const revertedPrice: number = await this.appliedPrice(
+				item,
+				currencyToId
+			);
+
+			const total =
+				item.operationCategoryId === "income"
+					? (user.total || 0) - revertedPrice
+					: (user.total || 0) + revertedPrice;
+
+			await this.usersService.update({ total }, req);
+
+			await this.releaseFromGoal(item.goalsId, item.goalConvertedPrice);
+
+			if (item.operationCategoryId === "expense") {
 				await this.budgetAlertService.resetAfterChange({
 					userId: item.userId,
 					expenseCategoryId: item.expenseCategoryId,

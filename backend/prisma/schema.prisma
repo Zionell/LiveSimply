@@ -121,6 +121,13 @@ model FinanceItem {
 	expenseCategoryId   String?
 	operationCategoryId String
 
+	/// The goal this record moved money into, and how much of it reached the
+	/// goal in the goal's own currency. Both are needed to give the
+	/// contribution back when the record is edited or deleted; recomputing it
+	/// from curPrice later would use whatever the rate is on that day.
+	goalsId            String?
+	goalConvertedPrice Float?
+
 	exchangeItemFrom  ExchangeItem      @relation("FromExchangeItem", fields: [currencyFromId], references: [value])
 	exchangeItemTo    ExchangeItem      @relation("ToExchangeItem", fields: [currencyToId], references: [value])
 	expenseCategory   ExpenseCategory?  @relation(fields: [expenseCategoryId], references: [value])
