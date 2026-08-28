@@ -29,6 +29,9 @@
 		"finance-planner": "Finance planner",
 		"business-card": "Business card",
 		"goals": "Goals",
+		"health": "Health",
+		"health-body": "Health",
+		"health-nutrition": "Health",
 		"tgBot": "Telegram bot",
 		"users": "Users",
 		"settings": "Settings"
@@ -43,7 +46,11 @@
 		"delete": "Delete",
 		"download": "Download",
 		"qrGen": "Generate QR-code",
-		"tg": "Go to telegram"
+		"tg": "Go to telegram",
+		"newBodyEntry": "Add entry",
+		"healthProfile": "Profile",
+		"fillProfile": "Fill in profile",
+		"newMeal": "Add meal"
 	},
 	"inputs": {
 		"total": "Total sum",
@@ -85,7 +92,10 @@
 		"generateQr": "Generate QR-code",
 		"generateQrDesc": "Generate and download your personal QR-code",
 		"newBudgetItem": "Add a planned expense",
-		"editPlanner": "Monthly budget settings"
+		"editPlanner": "Monthly budget settings",
+		"healthProfile": "Health profile",
+		"newBodyEntry": "New entry",
+		"newMeal": "New meal"
 	},
 	"modalAddNewGoal": {},
 	"modalAddTotal": {
@@ -252,6 +262,129 @@
 					"hint": "Currency rates have been refreshed."
 				}
 			}
+		}
+	},
+	"health": {
+		"tabs": {
+			"body": "Weight & body",
+			"nutrition": "Nutrition"
+		},
+		"emptyProfile": "Fill in height, weight and activity level — we will work out your daily calorie and macro targets.",
+		"start": "Start",
+		"current": "Current",
+		"target": "Target",
+		"lost": "Lost",
+		"remaining": "Remaining",
+		"progress": "Progress to goal",
+		"normTitle": "Daily target",
+		"bmr": "BMR",
+		"tdee": "TDEE",
+		"deficit": "Deficit",
+		"targetKcal": "Calorie target",
+		"protein": "Protein",
+		"fat": "Fat",
+		"carbs": "Carbs",
+		"macroConflict": "Protein and fat alone already use up the calorie target. Lower protein per kg or the fat share.",
+		"weightChartTitle": "Weight",
+		"measurementsChartTitle": "Body measurements",
+		"chartEmpty": "Nothing logged for this period yet",
+		"logTitle": "Diary",
+		"date": "Date",
+		"weight": "Weight, kg",
+		"chest": "Chest, cm",
+		"waist": "Waist, cm",
+		"arm": "Arm, cm",
+		"note": "Note",
+		"kg": "kg",
+		"gram": "g",
+		"kcal": "kcal",
+		"needValue": "Enter a weight or at least one measurement",
+		"sex": "Sex",
+		"male": "Male",
+		"female": "Female",
+		"birthDate": "Date of birth",
+		"height": "Height, cm",
+		"startWeight": "Start weight, kg",
+		"targetWeight": "Target weight, kg",
+		"startedAt": "Diary start date",
+		"activity": "Activity level",
+		"activityLevels": {
+			"sedentary": "Sedentary (x1.2)",
+			"light": "Light activity (x1.375)",
+			"moderate": "Moderate activity (x1.55)",
+			"high": "High activity (x1.725)"
+		},
+		"proteinPerKg": "Protein, g per kg",
+		"proteinBasis": "Protein based on",
+		"basisCurrent": "Current weight",
+		"basisTarget": "Target weight",
+		"fatPercent": "Fat, % of calories",
+		"range": {
+			"30": "30 days",
+			"90": "90 days",
+			"all": "All time"
+		},
+		"hints": {
+			"sex": "Changes the BMR formula and the safe calorie floor.",
+			"birthDate": "Age feeds the calculation and stays current on its own.",
+			"height": "Used in the basal metabolic rate calculation.",
+			"startWeight": "The baseline for progress — your weight when the diary started.",
+			"targetWeight": "The goal: drives the remaining kilos and the progress percentage.",
+			"startedAt": "The date the diary counts from.",
+			"activity": "Multiplies the basal rate: the higher it is, the more you burn per day.",
+			"deficit": "How far below your expenditure to eat. 500 kcal is roughly 0.5 kg a week.",
+			"proteinPerKg": "Protein per kilogram of body weight. 1.6-2.2 g protects muscle while losing weight; 1.8 is a safe middle.",
+			"proteinBasis": "Current weight suits most cases. Target weight is for noticeable excess weight, where counting from the current one inflates the protein figure.",
+			"fatPercent": "Share of calories from fat; 20-35% is the usual range. Whatever is left after protein and fat becomes carbs."
+		},
+		"nutrition": {
+			"empty": "No meals logged for this period yet",
+			"fact": "Eaten",
+			"target": "Target",
+			"avgKcal": "Average calories",
+			"daysLogged": "Days logged",
+			"onTargetDays": "Days on target",
+			"product": "Product",
+			"per100": "kcal/100 g",
+			"grams": "Grams",
+			"mealType": "Meal type",
+			"addProduct": "Add product",
+			"removeProduct": "Remove",
+			"mealTotal": "Meal total",
+			"caloriesChartTitle": "Calories",
+			"macrosChartTitle": "Macros, g",
+			"chartEmpty": "Nothing logged for this period yet",
+			"needProduct": "Add at least one product",
+			"incompleteRow": "Every added row needs both a product and grams",
+			"gramsRange": "Grams must be between 1 and 5000",
+			"catalogueError": "Couldn't load the product catalogue. Try again later.",
+			"deviation": "Deviation",
+			"manualEntry": "Enter manually",
+			"fromCatalogue": "From catalogue",
+			"productTitle": "Product name",
+			"per100Short": "per 100 g",
+			"saveToCatalogue": "Save to catalogue",
+			"ownProduct": "mine",
+			"manualIncomplete": "A manual row needs a name, grams and macros per 100 g",
+			"macroRange": "Protein, fat and carbs go from 0 to 100 g, calories up to 1000",
+			"productSaved": "Product added to the catalogue",
+			"productSaveError": "Couldn't save the product to the catalogue"
+		},
+		"mealTypes": {
+			"breakfast": "Breakfast",
+			"lunch": "Lunch",
+			"dinner": "Dinner",
+			"snack": "Snack"
+		},
+		"status": {
+			"under": "Below target",
+			"onTarget": "On target",
+			"over": "Above target"
+		},
+		"granularity": {
+			"day": "By day",
+			"week": "By week",
+			"month": "By month"
 		}
 	}
 }

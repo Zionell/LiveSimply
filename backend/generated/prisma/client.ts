@@ -112,3 +112,38 @@ export type FinancePlanner = Prisma.FinancePlannerModel
  * 
  */
 export type BudgetItem = Prisma.BudgetItemModel
+/**
+ * Model HealthProfile
+ * 
+ */
+export type HealthProfile = Prisma.HealthProfileModel
+/**
+ * Model HealthBodyEntry
+ * 
+ */
+export type HealthBodyEntry = Prisma.HealthBodyEntryModel
+/**
+ * Model HealthProduct
+ * 
+ */
+export type HealthProduct = Prisma.HealthProductModel
+/**
+ * Model HealthProductName
+ * 
+ */
+export type HealthProductName = Prisma.HealthProductNameModel
+/**
+ * Model HealthNutritionEntry
+ * 
+ */
+export type HealthNutritionEntry = Prisma.HealthNutritionEntryModel
+/**
+ * Model HealthMeal
+ * 
+ */
+export type HealthMeal = Prisma.HealthMealModel
+/**
+ * Model HealthMealItem
+ * 
+ */
+export type HealthMealItem = Prisma.HealthMealItemModel
