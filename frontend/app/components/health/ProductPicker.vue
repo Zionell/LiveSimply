@@ -15,9 +15,17 @@ const { data: products, error } = await useFetch<IProduct[]>(api.health.products
 	key: "HealthProducts",
 });
 
+// Личные продукты помечаем прямо в подписи: в списке они стоят вперемешку с
+// общими, а отличить своё от сида иначе никак.
 const items = computed(() =>
 	(products.value || []).map((product) => ({
-		label: `${product.title} · ${product.kcalPer100} ${t("health.nutrition.per100")}`,
+		label: [
+			product.title,
+			product.isOwn ? `(${t("health.nutrition.ownProduct")})` : "",
+			`· ${product.kcalPer100} ${t("health.nutrition.per100")}`,
+		]
+			.filter(Boolean)
+			.join(" "),
 		value: product.id,
 	})),
 );

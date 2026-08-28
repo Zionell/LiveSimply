@@ -86,7 +86,7 @@ async function handleDeleteMeal(id: string) {
 
 					<div class="grid gap-6 lg:grid-cols-2 lg:items-start">
 						<HealthCaloriesChart :points="log?.chart || []" />
-						<HealthMacrosDonut v-if="log" :totals="log.totals" />
+						<HealthMacrosChart :points="log?.chart || []" />
 					</div>
 				</div>
 

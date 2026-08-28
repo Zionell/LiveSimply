@@ -48,6 +48,7 @@ export type HealthProductMinAggregateOutputType = {
   fatPer100: number | null
   carbsPer100: number | null
   category: string | null
+  userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -60,6 +61,7 @@ export type HealthProductMaxAggregateOutputType = {
   fatPer100: number | null
   carbsPer100: number | null
   category: string | null
+  userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -72,6 +74,7 @@ export type HealthProductCountAggregateOutputType = {
   fatPer100: number
   carbsPer100: number
   category: number
+  userId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -100,6 +103,7 @@ export type HealthProductMinAggregateInputType = {
   fatPer100?: true
   carbsPer100?: true
   category?: true
+  userId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -112,6 +116,7 @@ export type HealthProductMaxAggregateInputType = {
   fatPer100?: true
   carbsPer100?: true
   category?: true
+  userId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -124,6 +129,7 @@ export type HealthProductCountAggregateInputType = {
   fatPer100?: true
   carbsPer100?: true
   category?: true
+  userId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -223,6 +229,7 @@ export type HealthProductGroupByOutputType = {
   fatPer100: number
   carbsPer100: number
   category: string | null
+  userId: string | null
   createdAt: Date
   updatedAt: Date | null
   _count: HealthProductCountAggregateOutputType | null
@@ -258,8 +265,10 @@ export type HealthProductWhereInput = {
   fatPer100?: Prisma.FloatFilter<"HealthProduct"> | number
   carbsPer100?: Prisma.FloatFilter<"HealthProduct"> | number
   category?: Prisma.StringNullableFilter<"HealthProduct"> | string | null
+  userId?: Prisma.StringNullableFilter<"HealthProduct"> | string | null
   createdAt?: Prisma.DateTimeFilter<"HealthProduct"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"HealthProduct"> | Date | string | null
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   label?: Prisma.HealthProductNameListRelationFilter
   items?: Prisma.HealthMealItemListRelationFilter
 }
@@ -272,8 +281,10 @@ export type HealthProductOrderByWithRelationInput = {
   fatPer100?: Prisma.SortOrder
   carbsPer100?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  user?: Prisma.UserOrderByWithRelationInput
   label?: Prisma.HealthProductNameOrderByRelationAggregateInput
   items?: Prisma.HealthMealItemOrderByRelationAggregateInput
 }
@@ -289,8 +300,10 @@ export type HealthProductWhereUniqueInput = Prisma.AtLeast<{
   fatPer100?: Prisma.FloatFilter<"HealthProduct"> | number
   carbsPer100?: Prisma.FloatFilter<"HealthProduct"> | number
   category?: Prisma.StringNullableFilter<"HealthProduct"> | string | null
+  userId?: Prisma.StringNullableFilter<"HealthProduct"> | string | null
   createdAt?: Prisma.DateTimeFilter<"HealthProduct"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"HealthProduct"> | Date | string | null
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   label?: Prisma.HealthProductNameListRelationFilter
   items?: Prisma.HealthMealItemListRelationFilter
 }, "id" | "value">
@@ -303,6 +316,7 @@ export type HealthProductOrderByWithAggregationInput = {
   fatPer100?: Prisma.SortOrder
   carbsPer100?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.HealthProductCountOrderByAggregateInput
@@ -323,6 +337,7 @@ export type HealthProductScalarWhereWithAggregatesInput = {
   fatPer100?: Prisma.FloatWithAggregatesFilter<"HealthProduct"> | number
   carbsPer100?: Prisma.FloatWithAggregatesFilter<"HealthProduct"> | number
   category?: Prisma.StringNullableWithAggregatesFilter<"HealthProduct"> | string | null
+  userId?: Prisma.StringNullableWithAggregatesFilter<"HealthProduct"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"HealthProduct"> | Date | string
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"HealthProduct"> | Date | string | null
 }
@@ -337,6 +352,7 @@ export type HealthProductCreateInput = {
   category?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
+  user?: Prisma.UserCreateNestedOneWithoutHealthProductsInput
   label?: Prisma.HealthProductNameCreateNestedManyWithoutProductInput
   items?: Prisma.HealthMealItemCreateNestedManyWithoutProductInput
 }
@@ -349,6 +365,7 @@ export type HealthProductUncheckedCreateInput = {
   fatPer100: number
   carbsPer100: number
   category?: string | null
+  userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
   label?: Prisma.HealthProductNameUncheckedCreateNestedManyWithoutProductInput
@@ -364,6 +381,7 @@ export type HealthProductUpdateInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneWithoutHealthProductsNestedInput
   label?: Prisma.HealthProductNameUpdateManyWithoutProductNestedInput
   items?: Prisma.HealthMealItemUpdateManyWithoutProductNestedInput
 }
@@ -375,6 +393,7 @@ export type HealthProductUncheckedUpdateInput = {
   fatPer100?: Prisma.FloatFieldUpdateOperationsInput | number
   carbsPer100?: Prisma.FloatFieldUpdateOperationsInput | number
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.HealthProductNameUncheckedUpdateManyWithoutProductNestedInput
@@ -389,6 +408,7 @@ export type HealthProductCreateManyInput = {
   fatPer100: number
   carbsPer100: number
   category?: string | null
+  userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
 }
@@ -411,8 +431,19 @@ export type HealthProductUncheckedUpdateManyInput = {
   fatPer100?: Prisma.FloatFieldUpdateOperationsInput | number
   carbsPer100?: Prisma.FloatFieldUpdateOperationsInput | number
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type HealthProductListRelationFilter = {
+  every?: Prisma.HealthProductWhereInput
+  some?: Prisma.HealthProductWhereInput
+  none?: Prisma.HealthProductWhereInput
+}
+
+export type HealthProductOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type HealthProductCountOrderByAggregateInput = {
@@ -423,6 +454,7 @@ export type HealthProductCountOrderByAggregateInput = {
   fatPer100?: Prisma.SortOrder
   carbsPer100?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -442,6 +474,7 @@ export type HealthProductMaxOrderByAggregateInput = {
   fatPer100?: Prisma.SortOrder
   carbsPer100?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -454,6 +487,7 @@ export type HealthProductMinOrderByAggregateInput = {
   fatPer100?: Prisma.SortOrder
   carbsPer100?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -473,6 +507,48 @@ export type HealthProductScalarRelationFilter = {
 export type HealthProductNullableScalarRelationFilter = {
   is?: Prisma.HealthProductWhereInput | null
   isNot?: Prisma.HealthProductWhereInput | null
+}
+
+export type HealthProductCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.HealthProductCreateWithoutUserInput, Prisma.HealthProductUncheckedCreateWithoutUserInput> | Prisma.HealthProductCreateWithoutUserInput[] | Prisma.HealthProductUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.HealthProductCreateOrConnectWithoutUserInput | Prisma.HealthProductCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.HealthProductCreateManyUserInputEnvelope
+  connect?: Prisma.HealthProductWhereUniqueInput | Prisma.HealthProductWhereUniqueInput[]
+}
+
+export type HealthProductUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.HealthProductCreateWithoutUserInput, Prisma.HealthProductUncheckedCreateWithoutUserInput> | Prisma.HealthProductCreateWithoutUserInput[] | Prisma.HealthProductUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.HealthProductCreateOrConnectWithoutUserInput | Prisma.HealthProductCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.HealthProductCreateManyUserInputEnvelope
+  connect?: Prisma.HealthProductWhereUniqueInput | Prisma.HealthProductWhereUniqueInput[]
+}
+
+export type HealthProductUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.HealthProductCreateWithoutUserInput, Prisma.HealthProductUncheckedCreateWithoutUserInput> | Prisma.HealthProductCreateWithoutUserInput[] | Prisma.HealthProductUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.HealthProductCreateOrConnectWithoutUserInput | Prisma.HealthProductCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.HealthProductUpsertWithWhereUniqueWithoutUserInput | Prisma.HealthProductUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.HealthProductCreateManyUserInputEnvelope
+  set?: Prisma.HealthProductWhereUniqueInput | Prisma.HealthProductWhereUniqueInput[]
+  disconnect?: Prisma.HealthProductWhereUniqueInput | Prisma.HealthProductWhereUniqueInput[]
+  delete?: Prisma.HealthProductWhereUniqueInput | Prisma.HealthProductWhereUniqueInput[]
+  connect?: Prisma.HealthProductWhereUniqueInput | Prisma.HealthProductWhereUniqueInput[]
+  update?: Prisma.HealthProductUpdateWithWhereUniqueWithoutUserInput | Prisma.HealthProductUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.HealthProductUpdateManyWithWhereWithoutUserInput | Prisma.HealthProductUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.HealthProductScalarWhereInput | Prisma.HealthProductScalarWhereInput[]
+}
+
+export type HealthProductUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.HealthProductCreateWithoutUserInput, Prisma.HealthProductUncheckedCreateWithoutUserInput> | Prisma.HealthProductCreateWithoutUserInput[] | Prisma.HealthProductUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.HealthProductCreateOrConnectWithoutUserInput | Prisma.HealthProductCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.HealthProductUpsertWithWhereUniqueWithoutUserInput | Prisma.HealthProductUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.HealthProductCreateManyUserInputEnvelope
+  set?: Prisma.HealthProductWhereUniqueInput | Prisma.HealthProductWhereUniqueInput[]
+  disconnect?: Prisma.HealthProductWhereUniqueInput | Prisma.HealthProductWhereUniqueInput[]
+  delete?: Prisma.HealthProductWhereUniqueInput | Prisma.HealthProductWhereUniqueInput[]
+  connect?: Prisma.HealthProductWhereUniqueInput | Prisma.HealthProductWhereUniqueInput[]
+  update?: Prisma.HealthProductUpdateWithWhereUniqueWithoutUserInput | Prisma.HealthProductUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.HealthProductUpdateManyWithWhereWithoutUserInput | Prisma.HealthProductUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.HealthProductScalarWhereInput | Prisma.HealthProductScalarWhereInput[]
 }
 
 export type HealthProductCreateNestedOneWithoutLabelInput = {
@@ -505,6 +581,75 @@ export type HealthProductUpdateOneWithoutItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.HealthProductUpdateToOneWithWhereWithoutItemsInput, Prisma.HealthProductUpdateWithoutItemsInput>, Prisma.HealthProductUncheckedUpdateWithoutItemsInput>
 }
 
+export type HealthProductCreateWithoutUserInput = {
+  id?: string
+  value: string
+  kcalPer100: number
+  proteinPer100: number
+  fatPer100: number
+  carbsPer100: number
+  category?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  label?: Prisma.HealthProductNameCreateNestedManyWithoutProductInput
+  items?: Prisma.HealthMealItemCreateNestedManyWithoutProductInput
+}
+
+export type HealthProductUncheckedCreateWithoutUserInput = {
+  id?: string
+  value: string
+  kcalPer100: number
+  proteinPer100: number
+  fatPer100: number
+  carbsPer100: number
+  category?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  label?: Prisma.HealthProductNameUncheckedCreateNestedManyWithoutProductInput
+  items?: Prisma.HealthMealItemUncheckedCreateNestedManyWithoutProductInput
+}
+
+export type HealthProductCreateOrConnectWithoutUserInput = {
+  where: Prisma.HealthProductWhereUniqueInput
+  create: Prisma.XOR<Prisma.HealthProductCreateWithoutUserInput, Prisma.HealthProductUncheckedCreateWithoutUserInput>
+}
+
+export type HealthProductCreateManyUserInputEnvelope = {
+  data: Prisma.HealthProductCreateManyUserInput | Prisma.HealthProductCreateManyUserInput[]
+}
+
+export type HealthProductUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.HealthProductWhereUniqueInput
+  update: Prisma.XOR<Prisma.HealthProductUpdateWithoutUserInput, Prisma.HealthProductUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.HealthProductCreateWithoutUserInput, Prisma.HealthProductUncheckedCreateWithoutUserInput>
+}
+
+export type HealthProductUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.HealthProductWhereUniqueInput
+  data: Prisma.XOR<Prisma.HealthProductUpdateWithoutUserInput, Prisma.HealthProductUncheckedUpdateWithoutUserInput>
+}
+
+export type HealthProductUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.HealthProductScalarWhereInput
+  data: Prisma.XOR<Prisma.HealthProductUpdateManyMutationInput, Prisma.HealthProductUncheckedUpdateManyWithoutUserInput>
+}
+
+export type HealthProductScalarWhereInput = {
+  AND?: Prisma.HealthProductScalarWhereInput | Prisma.HealthProductScalarWhereInput[]
+  OR?: Prisma.HealthProductScalarWhereInput[]
+  NOT?: Prisma.HealthProductScalarWhereInput | Prisma.HealthProductScalarWhereInput[]
+  id?: Prisma.StringFilter<"HealthProduct"> | string
+  value?: Prisma.StringFilter<"HealthProduct"> | string
+  kcalPer100?: Prisma.FloatFilter<"HealthProduct"> | number
+  proteinPer100?: Prisma.FloatFilter<"HealthProduct"> | number
+  fatPer100?: Prisma.FloatFilter<"HealthProduct"> | number
+  carbsPer100?: Prisma.FloatFilter<"HealthProduct"> | number
+  category?: Prisma.StringNullableFilter<"HealthProduct"> | string | null
+  userId?: Prisma.StringNullableFilter<"HealthProduct"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"HealthProduct"> | Date | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"HealthProduct"> | Date | string | null
+}
+
 export type HealthProductCreateWithoutLabelInput = {
   id?: string
   value: string
@@ -515,6 +660,7 @@ export type HealthProductCreateWithoutLabelInput = {
   category?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
+  user?: Prisma.UserCreateNestedOneWithoutHealthProductsInput
   items?: Prisma.HealthMealItemCreateNestedManyWithoutProductInput
 }
 
@@ -526,6 +672,7 @@ export type HealthProductUncheckedCreateWithoutLabelInput = {
   fatPer100: number
   carbsPer100: number
   category?: string | null
+  userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
   items?: Prisma.HealthMealItemUncheckedCreateNestedManyWithoutProductInput
@@ -556,6 +703,7 @@ export type HealthProductUpdateWithoutLabelInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneWithoutHealthProductsNestedInput
   items?: Prisma.HealthMealItemUpdateManyWithoutProductNestedInput
 }
 
@@ -566,6 +714,7 @@ export type HealthProductUncheckedUpdateWithoutLabelInput = {
   fatPer100?: Prisma.FloatFieldUpdateOperationsInput | number
   carbsPer100?: Prisma.FloatFieldUpdateOperationsInput | number
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   items?: Prisma.HealthMealItemUncheckedUpdateManyWithoutProductNestedInput
@@ -581,6 +730,7 @@ export type HealthProductCreateWithoutItemsInput = {
   category?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
+  user?: Prisma.UserCreateNestedOneWithoutHealthProductsInput
   label?: Prisma.HealthProductNameCreateNestedManyWithoutProductInput
 }
 
@@ -592,6 +742,7 @@ export type HealthProductUncheckedCreateWithoutItemsInput = {
   fatPer100: number
   carbsPer100: number
   category?: string | null
+  userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
   label?: Prisma.HealthProductNameUncheckedCreateNestedManyWithoutProductInput
@@ -622,6 +773,7 @@ export type HealthProductUpdateWithoutItemsInput = {
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneWithoutHealthProductsNestedInput
   label?: Prisma.HealthProductNameUpdateManyWithoutProductNestedInput
 }
 
@@ -632,9 +784,59 @@ export type HealthProductUncheckedUpdateWithoutItemsInput = {
   fatPer100?: Prisma.FloatFieldUpdateOperationsInput | number
   carbsPer100?: Prisma.FloatFieldUpdateOperationsInput | number
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   label?: Prisma.HealthProductNameUncheckedUpdateManyWithoutProductNestedInput
+}
+
+export type HealthProductCreateManyUserInput = {
+  id?: string
+  value: string
+  kcalPer100: number
+  proteinPer100: number
+  fatPer100: number
+  carbsPer100: number
+  category?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+}
+
+export type HealthProductUpdateWithoutUserInput = {
+  value?: Prisma.StringFieldUpdateOperationsInput | string
+  kcalPer100?: Prisma.FloatFieldUpdateOperationsInput | number
+  proteinPer100?: Prisma.FloatFieldUpdateOperationsInput | number
+  fatPer100?: Prisma.FloatFieldUpdateOperationsInput | number
+  carbsPer100?: Prisma.FloatFieldUpdateOperationsInput | number
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  label?: Prisma.HealthProductNameUpdateManyWithoutProductNestedInput
+  items?: Prisma.HealthMealItemUpdateManyWithoutProductNestedInput
+}
+
+export type HealthProductUncheckedUpdateWithoutUserInput = {
+  value?: Prisma.StringFieldUpdateOperationsInput | string
+  kcalPer100?: Prisma.FloatFieldUpdateOperationsInput | number
+  proteinPer100?: Prisma.FloatFieldUpdateOperationsInput | number
+  fatPer100?: Prisma.FloatFieldUpdateOperationsInput | number
+  carbsPer100?: Prisma.FloatFieldUpdateOperationsInput | number
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  label?: Prisma.HealthProductNameUncheckedUpdateManyWithoutProductNestedInput
+  items?: Prisma.HealthMealItemUncheckedUpdateManyWithoutProductNestedInput
+}
+
+export type HealthProductUncheckedUpdateManyWithoutUserInput = {
+  value?: Prisma.StringFieldUpdateOperationsInput | string
+  kcalPer100?: Prisma.FloatFieldUpdateOperationsInput | number
+  proteinPer100?: Prisma.FloatFieldUpdateOperationsInput | number
+  fatPer100?: Prisma.FloatFieldUpdateOperationsInput | number
+  carbsPer100?: Prisma.FloatFieldUpdateOperationsInput | number
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -685,8 +887,10 @@ export type HealthProductSelect<ExtArgs extends runtime.Types.Extensions.Interna
   fatPer100?: boolean
   carbsPer100?: boolean
   category?: boolean
+  userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  user?: boolean | Prisma.HealthProduct$userArgs<ExtArgs>
   label?: boolean | Prisma.HealthProduct$labelArgs<ExtArgs>
   items?: boolean | Prisma.HealthProduct$itemsArgs<ExtArgs>
   _count?: boolean | Prisma.HealthProductCountOutputTypeDefaultArgs<ExtArgs>
@@ -702,12 +906,14 @@ export type HealthProductSelectScalar = {
   fatPer100?: boolean
   carbsPer100?: boolean
   category?: boolean
+  userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type HealthProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "value" | "kcalPer100" | "proteinPer100" | "fatPer100" | "carbsPer100" | "category" | "createdAt" | "updatedAt", ExtArgs["result"]["healthProduct"]>
+export type HealthProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "value" | "kcalPer100" | "proteinPer100" | "fatPer100" | "carbsPer100" | "category" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["healthProduct"]>
 export type HealthProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.HealthProduct$userArgs<ExtArgs>
   label?: boolean | Prisma.HealthProduct$labelArgs<ExtArgs>
   items?: boolean | Prisma.HealthProduct$itemsArgs<ExtArgs>
   _count?: boolean | Prisma.HealthProductCountOutputTypeDefaultArgs<ExtArgs>
@@ -716,6 +922,7 @@ export type HealthProductInclude<ExtArgs extends runtime.Types.Extensions.Intern
 export type $HealthProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "HealthProduct"
   objects: {
+    user: Prisma.$UserPayload<ExtArgs> | null
     label: Prisma.$HealthProductNamePayload<ExtArgs>[]
     items: Prisma.$HealthMealItemPayload<ExtArgs>[]
   }
@@ -727,6 +934,13 @@ export type $HealthProductPayload<ExtArgs extends runtime.Types.Extensions.Inter
     fatPer100: number
     carbsPer100: number
     category: string | null
+    /**
+     * null — общий продукт из сида, виден всем. Заполнен — личный продукт
+     * пользователя, который видит только он. Слаг value остаётся глобально
+     * уникальным: для личных продуктов он генерируется с суффиксом, чтобы
+     * не трогать индекс и сид.
+     */
+    userId: string | null
     createdAt: Date
     updatedAt: Date | null
   }, ExtArgs["result"]["healthProduct"]>
@@ -1092,6 +1306,7 @@ readonly fields: HealthProductFieldRefs;
  */
 export interface Prisma__HealthProductClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  user<T extends Prisma.HealthProduct$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.HealthProduct$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   label<T extends Prisma.HealthProduct$labelArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.HealthProduct$labelArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HealthProductNamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   items<T extends Prisma.HealthProduct$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.HealthProduct$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HealthMealItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1130,6 +1345,7 @@ export interface HealthProductFieldRefs {
   readonly fatPer100: Prisma.FieldRef<"HealthProduct", 'Float'>
   readonly carbsPer100: Prisma.FieldRef<"HealthProduct", 'Float'>
   readonly category: Prisma.FieldRef<"HealthProduct", 'String'>
+  readonly userId: Prisma.FieldRef<"HealthProduct", 'String'>
   readonly createdAt: Prisma.FieldRef<"HealthProduct", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"HealthProduct", 'DateTime'>
 }
@@ -1499,6 +1715,25 @@ export type HealthProductAggregateRawArgs<ExtArgs extends runtime.Types.Extensio
    * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
    */
   options?: runtime.InputJsonValue
+}
+
+/**
+ * HealthProduct.user
+ */
+export type HealthProduct$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

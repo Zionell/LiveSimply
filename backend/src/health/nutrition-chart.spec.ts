@@ -1,11 +1,20 @@
 import { EGranularity } from "../../types/health";
 import { aggregateNutritionPoints, bucketStart } from "./nutrition-chart";
 
-const day = (date: string, kcal: number, target = 1700) =>
+const day = (
+	date: string,
+	kcal: number,
+	target = 1700,
+	macros: { proteinG: number; fatG: number; carbsG: number } = {
+		proteinG: 0,
+		fatG: 0,
+		carbsG: 0,
+	}
+) =>
 	({
 		id: date,
 		date,
-		fact: { kcal, proteinG: 0, fatG: 0, carbsG: 0 },
+		fact: { kcal, ...macros },
 		target: { kcal: target, proteinG: 0, fatG: 0, carbsG: 0 },
 		deviationKcal: kcal - target,
 		status: "onTarget",
@@ -36,7 +45,10 @@ describe("bucketStart", () => {
 
 	it("snaps to the first day of the calendar month", () => {
 		expect(
-			bucketStart(new Date("2026-08-26T00:00:00.000Z"), EGranularity.Month)
+			bucketStart(
+				new Date("2026-08-26T00:00:00.000Z"),
+				EGranularity.Month
+			)
 		).toEqual(new Date("2026-08-01T00:00:00.000Z"));
 	});
 });
@@ -49,8 +61,22 @@ describe("aggregateNutritionPoints", () => {
 		);
 
 		expect(result).toEqual([
-			{ date: "2026-08-24", kcal: 1600, target: 1700 },
-			{ date: "2026-08-25", kcal: 1800, target: 1700 },
+			{
+				date: "2026-08-24",
+				kcal: 1600,
+				target: 1700,
+				proteinG: 0,
+				fatG: 0,
+				carbsG: 0,
+			},
+			{
+				date: "2026-08-25",
+				kcal: 1800,
+				target: 1700,
+				proteinG: 0,
+				fatG: 0,
+				carbsG: 0,
+			},
 		]);
 	});
 
@@ -65,7 +91,14 @@ describe("aggregateNutritionPoints", () => {
 		);
 
 		expect(result).toEqual([
-			{ date: "2026-08-24", kcal: 1700, target: 1700 },
+			{
+				date: "2026-08-24",
+				kcal: 1700,
+				target: 1700,
+				proteinG: 0,
+				fatG: 0,
+				carbsG: 0,
+			},
 		]);
 	});
 
@@ -88,7 +121,14 @@ describe("aggregateNutritionPoints", () => {
 		);
 
 		expect(result).toEqual([
-			{ date: "2026-08-01", kcal: 1700, target: 1700 },
+			{
+				date: "2026-08-01",
+				kcal: 1700,
+				target: 1700,
+				proteinG: 0,
+				fatG: 0,
+				carbsG: 0,
+			},
 		]);
 	});
 
@@ -103,7 +143,43 @@ describe("aggregateNutritionPoints", () => {
 		);
 
 		expect(result).toEqual([
-			{ date: "2026-08-24", kcal: 1700, target: 1700 },
+			{
+				date: "2026-08-24",
+				kcal: 1700,
+				target: 1700,
+				proteinG: 0,
+				fatG: 0,
+				carbsG: 0,
+			},
+		]);
+	});
+
+	it("averages macros alongside calories", () => {
+		const result = aggregateNutritionPoints(
+			[
+				day("2026-08-24", 1600, 1700, {
+					proteinG: 100,
+					fatG: 50,
+					carbsG: 200,
+				}),
+				day("2026-08-25", 1800, 1700, {
+					proteinG: 130,
+					fatG: 61,
+					carbsG: 205,
+				}),
+			],
+			EGranularity.Week
+		);
+
+		expect(result).toEqual([
+			{
+				date: "2026-08-24",
+				kcal: 1700,
+				target: 1700,
+				proteinG: 115,
+				fatG: 55.5,
+				carbsG: 202.5,
+			},
 		]);
 	});
 

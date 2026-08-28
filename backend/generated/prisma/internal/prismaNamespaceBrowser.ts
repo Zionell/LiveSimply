@@ -321,6 +321,7 @@ export const HealthProductScalarFieldEnum = {
   fatPer100: 'fatPer100',
   carbsPer100: 'carbsPer100',
   category: 'category',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

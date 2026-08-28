@@ -7,16 +7,34 @@ export interface ISerializedNutritionPoint {
 	date: string;
 	kcal: number;
 	target: number;
+	proteinG: number;
+	fatG: number;
+	carbsG: number;
 }
 
-export const bucketStart = (
-	date: Date,
-	granularity: EGranularity
-): Date => {
+interface IBucket {
+	kcal: number;
+	target: number;
+	proteinG: number;
+	fatG: number;
+	carbsG: number;
+	count: number;
+}
+
+const EMPTY_BUCKET: IBucket = {
+	kcal: 0,
+	target: 0,
+	proteinG: 0,
+	fatG: 0,
+	carbsG: 0,
+	count: 0,
+};
+
+const round1 = (value: number): number => +value.toFixed(1);
+
+export const bucketStart = (date: Date, granularity: EGranularity): Date => {
 	if (granularity === EGranularity.Month) {
-		return new Date(
-			Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1)
-		);
+		return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1));
 	}
 
 	if (granularity === EGranularity.Week) {
@@ -31,33 +49,31 @@ export const bucketStart = (
 
 /**
  * Точки отдают СРЕДНЕЕ за период, а не сумму: цель по калориям дневная, и
- * столбик с месячной суммой рядом с линией дневной цели читался бы как
+ * точка с месячной суммой рядом с линией дневной цели читалась бы как
  * чудовищное превышение. Дни без записей в среднее не попадают.
  */
 export const aggregateNutritionPoints = (
 	days: ISerializedNutritionDay[],
 	granularity: EGranularity
 ): ISerializedNutritionPoint[] => {
-	const buckets = new Map<
-		string,
-		{ kcal: number; target: number; count: number }
-	>();
+	const buckets = new Map<string, IBucket>();
 
-	days
-		.filter(day => day.fact.kcal > 0)
-		.forEach(day => {
-			const key = toIsoDay(
-				bucketStart(new Date(`${day.date}T00:00:00.000Z`), granularity)
-			);
+	days.filter(day => day.fact.kcal > 0).forEach(day => {
+		const key = toIsoDay(
+			bucketStart(new Date(`${day.date}T00:00:00.000Z`), granularity)
+		);
 
-			const bucket = buckets.get(key) || { kcal: 0, target: 0, count: 0 };
+		const bucket = buckets.get(key) || EMPTY_BUCKET;
 
-			buckets.set(key, {
-				kcal: bucket.kcal + day.fact.kcal,
-				target: bucket.target + day.target.kcal,
-				count: bucket.count + 1,
-			});
+		buckets.set(key, {
+			kcal: bucket.kcal + day.fact.kcal,
+			target: bucket.target + day.target.kcal,
+			proteinG: bucket.proteinG + day.fact.proteinG,
+			fatG: bucket.fatG + day.fact.fatG,
+			carbsG: bucket.carbsG + day.fact.carbsG,
+			count: bucket.count + 1,
 		});
+	});
 
 	return [...buckets.entries()]
 		.sort(([a], [b]) => a.localeCompare(b))
@@ -65,5 +81,8 @@ export const aggregateNutritionPoints = (
 			date,
 			kcal: Math.round(bucket.kcal / bucket.count),
 			target: Math.round(bucket.target / bucket.count),
+			proteinG: round1(bucket.proteinG / bucket.count),
+			fatG: round1(bucket.fatG / bucket.count),
+			carbsG: round1(bucket.carbsG / bucket.count),
 		}));
 };

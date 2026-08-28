@@ -128,6 +128,18 @@ export interface IProduct {
 	fatPer100: number;
 	carbsPer100: number;
 	category: EProductCategory | null;
+	/** Продукт заведён самим пользователем, а не пришёл из общего справочника. */
+	isOwn: boolean;
+}
+
+/** Тело POST /health/products — личный продукт пользователя. */
+export interface ICreateProductPayload {
+	title: string;
+	category?: EProductCategory;
+	kcalPer100: number;
+	proteinPer100: number;
+	fatPer100: number;
+	carbsPer100: number;
 }
 
 export interface IMealItem {
@@ -175,6 +187,9 @@ export interface INutritionPoint {
 	date: string;
 	kcal: number;
 	target: number;
+	proteinG: number;
+	fatG: number;
+	carbsG: number;
 }
 
 export interface INutritionLog {

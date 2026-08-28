@@ -37,7 +37,7 @@ export interface ISerializedNutritionLog {
 }
 
 interface IPreparedItem {
-	productId: string;
+	productId: string | null;
 	title: string;
 	grams: number;
 	kcal: number;
@@ -87,19 +87,29 @@ export class HealthNutritionService {
 		};
 	}
 
-	private async prepareItems(
-		items: MealItemDto[]
-	): Promise<IPreparedItem[]> {
+	private async prepareItems(items: MealItemDto[]): Promise<IPreparedItem[]> {
 		const lang = normalizeLanguage(I18nContext.current()?.lang);
 
-		const products = await this.prismaService.healthProduct.findMany({
-			where: { id: { in: items.map(item => item.productId) } },
-			include: { label: { where: { lang } } },
-		});
+		const productIds = items
+			.map(item => item.productId)
+			.filter((id): id is string => Boolean(id));
+
+		// Пустой in-фильтр в Prisma не сужает выборку, а возвращает всю
+		// коллекцию — при полностью ручном приёме пищи справочник не трогаем.
+		const products = productIds.length
+			? await this.prismaService.healthProduct.findMany({
+					where: { id: { in: productIds } },
+					include: { label: { where: { lang } } },
+				})
+			: [];
 
 		const byId = new Map(products.map(product => [product.id, product]));
 
 		return items.map(item => {
+			if (!item.productId) {
+				return this.prepareManualItem(item);
+			}
+
 			const product = byId.get(item.productId);
 
 			if (!product) {
@@ -119,6 +129,40 @@ export class HealthNutritionService {
 				...macros,
 			};
 		});
+	}
+
+	/**
+	 * Позиция, которой нет в справочнике: КБЖУ на 100 г приходят из формы и
+	 * ложатся в дневник тем же снимком, что и у продукта. Ссылки на продукт
+	 * нет, поэтому запись самодостаточна.
+	 */
+	private prepareManualItem(item: MealItemDto): IPreparedItem {
+		const { title, kcalPer100, proteinPer100, fatPer100, carbsPer100 } =
+			item;
+
+		if (
+			!title ||
+			typeof kcalPer100 !== "number" ||
+			typeof proteinPer100 !== "number" ||
+			typeof fatPer100 !== "number" ||
+			typeof carbsPer100 !== "number"
+		) {
+			throw new BadRequestException(
+				"A manual item needs a title and a full set of macros per 100 g"
+			);
+		}
+
+		const macros = calcItemMacros({
+			product: { kcalPer100, proteinPer100, fatPer100, carbsPer100 },
+			grams: item.grams,
+		});
+
+		return {
+			productId: null,
+			title,
+			grams: item.grams,
+			...macros,
+		};
 	}
 
 	/**
@@ -232,12 +276,11 @@ export class HealthNutritionService {
 			? startOfUtcDay(new Date(dto.from))
 			: addUtcDays(to, -DEFAULT_RANGE_DAYS);
 
-		const entries =
-			await this.prismaService.healthNutritionEntry.findMany({
-				where: { userId, date: { gte: from, lte: to } },
-				orderBy: { date: "asc" },
-				include: this.mealsInclude(),
-			});
+		const entries = await this.prismaService.healthNutritionEntry.findMany({
+			where: { userId, date: { gte: from, lte: to } },
+			orderBy: { date: "asc" },
+			include: this.mealsInclude(),
+		});
 
 		const days = entries.map(entry =>
 			HealthNutritionSerializer.serializeDay(entry)
@@ -301,10 +344,7 @@ export class HealthNutritionService {
 		});
 	}
 
-	async removeMeal(
-		mealId: string,
-		req: Record<string, any>
-	): Promise<void> {
+	async removeMeal(mealId: string, req: Record<string, any>): Promise<void> {
 		const meal = await this.loadOwnedMeal(mealId, req.payload.id);
 
 		await this.prismaService.healthMeal.delete({ where: { id: mealId } });
@@ -365,8 +405,8 @@ export class HealthNutritionService {
 		const userId: string = req.payload.id;
 		const targets = await this.targetsFor(userId);
 
-		const result =
-			await this.prismaService.healthNutritionEntry.updateMany({
+		const result = await this.prismaService.healthNutritionEntry.updateMany(
+			{
 				where: {
 					userId,
 					date: {
@@ -375,7 +415,8 @@ export class HealthNutritionService {
 					},
 				},
 				data: targets,
-			});
+			}
+		);
 
 		return { updated: result.count };
 	}

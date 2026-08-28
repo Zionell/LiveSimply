@@ -69,7 +69,9 @@ describe("HealthNutritionService", () => {
 
 	beforeEach(() => {
 		prisma = buildPrismaMock();
-		profileServiceMock.loadProfile.mockReset().mockResolvedValue(profileRecord);
+		profileServiceMock.loadProfile
+			.mockReset()
+			.mockResolvedValue(profileRecord);
 		profileServiceMock.currentWeight.mockReset().mockResolvedValue(75);
 		service = new HealthNutritionService(
 			prisma as any,
@@ -125,6 +127,109 @@ describe("HealthNutritionService", () => {
 						date: "2026-08-26",
 						mealType: EMealType.Breakfast,
 						items: [{ productId: "pr404", grams: 80 }],
+					},
+					req
+				)
+			).rejects.toBeInstanceOf(BadRequestException);
+		});
+
+		// Продукта может не быть в справочнике: пользователь вводит название и
+		// КБЖУ на 100 г прямо в строке. Такая позиция считается по тем же
+		// правилам, но не ссылается ни на какой продукт.
+		it("accepts a manual item and snapshots the macros the user typed in", async () => {
+			await service.createMeal(
+				{
+					date: "2026-08-26",
+					mealType: EMealType.Breakfast,
+					items: [
+						{
+							title: "Каша «Выручай»",
+							grams: 50,
+							kcalPer100: 360,
+							proteinPer100: 2,
+							fatPer100: 5,
+							carbsPer100: 64,
+						},
+					],
+				},
+				req
+			);
+
+			expect(prisma.healthMealItem.createMany).toHaveBeenCalledWith({
+				data: [
+					{
+						mealId: "m1",
+						productId: null,
+						title: "Каша «Выручай»",
+						grams: 50,
+						kcal: 180,
+						proteinG: 1,
+						fatG: 2.5,
+						carbsG: 32,
+					},
+				],
+			});
+		});
+
+		it("mixes catalogue items and manual ones in a single meal", async () => {
+			await service.createMeal(
+				{
+					date: "2026-08-26",
+					mealType: EMealType.Breakfast,
+					items: [
+						{ productId: "pr1", grams: 80 },
+						{
+							title: "Каша «Выручай»",
+							grams: 50,
+							kcalPer100: 360,
+							proteinPer100: 2,
+							fatPer100: 5,
+							carbsPer100: 64,
+						},
+					],
+				},
+				req
+			);
+
+			const { data } = prisma.healthMealItem.createMany.mock.calls[0][0];
+
+			expect(data).toEqual([
+				expect.objectContaining({ productId: "pr1", kcal: 246 }),
+				expect.objectContaining({ productId: null, kcal: 180 }),
+			]);
+		});
+
+		// Без productId справочник трогать незачем: лишний findMany с пустым
+		// in-фильтром тянул бы всю коллекцию на каждую ручную запись.
+		it("does not hit the product catalogue when every item is manual", async () => {
+			await service.createMeal(
+				{
+					date: "2026-08-26",
+					mealType: EMealType.Breakfast,
+					items: [
+						{
+							title: "Каша «Выручай»",
+							grams: 50,
+							kcalPer100: 360,
+							proteinPer100: 2,
+							fatPer100: 5,
+							carbsPer100: 64,
+						},
+					],
+				},
+				req
+			);
+
+			expect(prisma.healthProduct.findMany).not.toHaveBeenCalled();
+		});
+
+		it("refuses a manual item that carries neither a product nor a full macro set", async () => {
+			await expect(
+				service.createMeal(
+					{
+						date: "2026-08-26",
+						mealType: EMealType.Breakfast,
+						items: [{ title: "Каша", grams: 50 } as any],
 					},
 					req
 				)
@@ -235,9 +340,9 @@ describe("HealthNutritionService", () => {
 		});
 
 		it("resolves the product label in the current i18n language rather than a fixed one", async () => {
-			jest
-				.spyOn(I18nContext, "current")
-				.mockReturnValue({ lang: "ru" } as any);
+			jest.spyOn(I18nContext, "current").mockReturnValue({
+				lang: "ru",
+			} as any);
 
 			await service.createMeal(
 				{
@@ -260,9 +365,9 @@ describe("HealthNutritionService", () => {
 			// An unsupported value must not reach the Prisma query as-is, or
 			// the label lookup silently returns [] and the diary permanently
 			// snapshots the product slug instead of a real title.
-			jest
-				.spyOn(I18nContext, "current")
-				.mockReturnValue({ lang: "fr-CA" } as any);
+			jest.spyOn(I18nContext, "current").mockReturnValue({
+				lang: "fr-CA",
+			} as any);
 
 			await service.createMeal(
 				{
@@ -375,9 +480,9 @@ describe("HealthNutritionService", () => {
 			);
 
 			expect(meal).toEqual({ id: "m1", items: [] });
-			expect(prisma.healthNutritionEntry.findUnique).toHaveBeenCalledTimes(
-				2
-			);
+			expect(
+				prisma.healthNutritionEntry.findUnique
+			).toHaveBeenCalledTimes(2);
 			expect(prisma.healthMeal.create).toHaveBeenCalledWith({
 				data: { entryId: "n1", mealType: EMealType.Breakfast },
 			});
@@ -476,21 +581,23 @@ describe("HealthNutritionService", () => {
 				req
 			);
 
-			expect(prisma.healthNutritionEntry.updateMany).toHaveBeenCalledWith({
-				where: {
-					userId: "u1",
-					date: {
-						gte: new Date("2026-08-01T00:00:00.000Z"),
-						lte: new Date("2026-08-26T00:00:00.000Z"),
+			expect(prisma.healthNutritionEntry.updateMany).toHaveBeenCalledWith(
+				{
+					where: {
+						userId: "u1",
+						date: {
+							gte: new Date("2026-08-01T00:00:00.000Z"),
+							lte: new Date("2026-08-26T00:00:00.000Z"),
+						},
 					},
-				},
-				data: {
-					targetKcal: 1707,
-					targetProteinG: 135,
-					targetFatG: 56.9,
-					targetCarbsG: 163.7,
-				},
-			});
+					data: {
+						targetKcal: 1707,
+						targetProteinG: 135,
+						targetFatG: 56.9,
+						targetCarbsG: 163.7,
+					},
+				}
+			);
 		});
 
 		it("scopes the updateMany to whichever user made the request, not a fixed user", async () => {

@@ -23,6 +23,7 @@ import { HealthModule } from "./health/health.module";
 import { JwtModule } from "@nestjs/jwt";
 import { APP_GUARD } from "@nestjs/core";
 import { AuthGuard } from "./auth/guards/auth.guard";
+import { MockModule } from "./mock/mock.module";
 
 @Module({
 	imports: [
@@ -75,6 +76,7 @@ import { AuthGuard } from "./auth/guards/auth.guard";
 		NotificationsModule,
 		PlannerModule,
 		HealthModule,
+		MockModule,
 	],
 	providers: [
 		{

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { splitThousands } from "~/assets/utils/numbers";
+
 const props = defineProps<{
 	points: INutritionPoint[];
 }>();
@@ -6,17 +8,16 @@ const props = defineProps<{
 const { t, locale } = useI18n();
 
 /**
- * Съеденное — столбцы, цель — линия поверх них. Цель в норме постоянна,
- * и второй серией столбцов она превращалась в стену одинаковых полос,
- * которая ничего не сообщает и вдвое загущает график.
+ * Съеденное и цель — две линии в одних осях: важна не величина каждого дня
+ * сама по себе, а то, как факт идёт относительно цели. Цель пунктиром, чтобы
+ * она читалась как ориентир, а не как вторая измеренная величина.
  */
-const barCategories = computed((): Record<string, BulletLegendItemInterface> => ({
+const categories = computed((): Record<string, BulletLegendItemInterface> => ({
 	kcal: { name: t("health.nutrition.fact"), color: "#22c55e" },
-}));
-
-const lineCategories = computed((): Record<string, BulletLegendItemInterface> => ({
 	target: { name: t("health.nutrition.target"), color: "#94a3b8" },
 }));
+
+const lineDashArray = [[], [6, 4]];
 
 const hasData = computed((): boolean => props.points.length > 0);
 
@@ -50,6 +51,18 @@ function formatTooltipTitle(point: INutritionPoint): string {
 function formatKcal(tick: number): string {
 	return String(Math.round(tick));
 }
+
+// Отклонение от цели — то, ради чего в этот график и смотрят. Считаем здесь,
+// а не на бэкенде: обе величины уже в точке, а знак нужен только для показа.
+function formatDeviation(point: INutritionPoint): string {
+	const diff = Math.round(point.kcal - point.target);
+
+	return `${diff > 0 ? "+" : ""}${splitThousands(diff)}`;
+}
+
+function deviationClass(point: INutritionPoint): string {
+	return point.kcal > point.target ? "text-red-500" : "text-green-500";
+}
 </script>
 
 <template>
@@ -58,21 +71,51 @@ function formatKcal(tick: number): string {
 
 		<p v-if="!hasData" class="text-sm text-gray-500">{{ $t("health.nutrition.chartEmpty") }}</p>
 
-		<DualChart
+		<LineChart
 			v-else
 			:data="props.points"
-			:bar-categories="barCategories"
-			:line-categories="lineCategories"
-			:bar-y-axis="['kcal']"
-			:line-y-axis="['target']"
+			:categories="categories"
+			:line-dash-array="lineDashArray"
 			:height="320"
 			:x-num-ticks="6"
-			:bar-padding="0.25"
 			:curve-type="CurveType.Linear"
 			:legend-position="LegendPosition.TopLeft"
 			:x-formatter="formatDate"
 			:y-formatter="formatKcal"
 			:tooltip-title-formatter="formatTooltipTitle"
-		/>
+		>
+			<!--
+				Разметка тултипа копируется в контейнер графика через innerHTML,
+				поэтому здесь только статические классы — обработчики и реактивность
+				внутрь не переживают копирование.
+			-->
+			<template #tooltip="{ values }">
+				<div v-if="values" class="p-3 text-sm">
+					<p class="font-semibold pb-2 mb-2 border-b border-gray-200 dark:border-gray-700">
+						{{ formatTooltipTitle(values) }}
+					</p>
+
+					<div class="grid grid-cols-[auto_1fr_auto] items-center gap-x-2 gap-y-1">
+						<span class="size-2 rounded-full bg-[#22c55e]" />
+						<span class="text-gray-500">{{ $t("health.nutrition.fact") }}</span>
+						<span class="font-semibold tabular-nums text-right">
+							{{ splitThousands(values.kcal) }} {{ $t("health.kcal") }}
+						</span>
+
+						<span class="size-2 rounded-full bg-[#94a3b8]" />
+						<span class="text-gray-500">{{ $t("health.nutrition.target") }}</span>
+						<span class="font-semibold tabular-nums text-right">
+							{{ splitThousands(values.target) }} {{ $t("health.kcal") }}
+						</span>
+
+						<span />
+						<span class="text-gray-500">{{ $t("health.nutrition.deviation") }}</span>
+						<span class="font-semibold tabular-nums text-right" :class="deviationClass(values)">
+							{{ formatDeviation(values) }} {{ $t("health.kcal") }}
+						</span>
+					</div>
+				</div>
+			</template>
+		</LineChart>
 	</CommonCardWrapper>
 </template>

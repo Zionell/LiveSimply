@@ -9,6 +9,7 @@ export interface ISerializedProduct {
 	fatPer100: number;
 	carbsPer100: number;
 	category: EProductCategory | null;
+	isOwn: boolean;
 }
 
 export class HealthProductSerializer {
@@ -22,6 +23,9 @@ export class HealthProductSerializer {
 			fatPer100: product.fatPer100,
 			carbsPer100: product.carbsPer100,
 			category: (product.category as EProductCategory) ?? null,
+			// userId наружу не отдаём — клиенту нужно лишь знать, свой продукт
+			// или общий из сида, чтобы отметить его в списке.
+			isOwn: Boolean(product.userId),
 		};
 	}
 }

@@ -1,11 +1,16 @@
 import {
+	Body,
 	Controller,
 	Get,
+	Post,
 	Query,
+	Req,
 	UsePipes,
 	ValidationPipe,
 } from "@nestjs/common";
+import { type Request } from "express";
 import { HealthProductsService } from "./health-products.service";
+import { CreateProductDto } from "./dto/create-product.dto";
 import { FindProductsDto } from "./dto/find-products.dto";
 
 @Controller("health/products")
@@ -22,7 +27,12 @@ export class HealthProductsController {
 	) {}
 
 	@Get()
-	list(@Query() dto: FindProductsDto) {
-		return this.healthProductsService.list(dto);
+	list(@Query() dto: FindProductsDto, @Req() req: Request) {
+		return this.healthProductsService.list(dto, req);
+	}
+
+	@Post()
+	create(@Body() dto: CreateProductDto, @Req() req: Request) {
+		return this.healthProductsService.create(dto, req);
 	}
 }
