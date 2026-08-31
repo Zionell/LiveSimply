@@ -11,7 +11,15 @@ const buildPrismaMock = () => ({
 
 const req = { payload: { id: "u1" } };
 
-const ownScope = [{ userId: null }, { userId: "u1" }];
+// Сид лежит в базе без поля userId вовсе, поэтому одной ветки с `null`
+// мало — нужна ещё isSet: false, иначе справочник приходит пустым.
+const scopeFor = (userId: string) => [
+	{ userId },
+	{ userId: null },
+	{ userId: { isSet: false } },
+];
+
+const ownScope = scopeFor("u1");
 
 describe("HealthProductsService", () => {
 	let prisma: ReturnType<typeof buildPrismaMock>;
@@ -44,7 +52,7 @@ describe("HealthProductsService", () => {
 
 			expect(prisma.healthProduct.findMany).toHaveBeenCalledWith(
 				expect.objectContaining({
-					where: { OR: [{ userId: null }, { userId: "u2" }] },
+					where: { OR: scopeFor("u2") },
 				})
 			);
 		});

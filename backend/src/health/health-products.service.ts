@@ -41,10 +41,15 @@ export class HealthProductsService {
 		const userId: string = req.payload.id;
 		const lang = normalizeLanguage(I18nContext.current()?.lang);
 
-		// Общий сид (userId: null) плюс личные продукты вызывающего. Чужие
-		// личные продукты не попадают в выдачу ни при каком фильтре.
+		// Общий сид плюс личные продукты вызывающего; чужие личные продукты не
+		// попадают в выдачу ни при каком фильтре.
+		// isSet: false обязателен — у продуктов из сида поля userId в документе
+		// физически нет, а для опционального @db.ObjectId фильтр `null` в
+		// Prisma такие документы НЕ находит (проверено на базе: mongo `count`
+		// по {userId: null} даёт 101, Prisma — 0). Ветка с `null` оставлена для
+		// записей, где поле проставлено явно.
 		const where: Record<string, unknown> = {
-			OR: [{ userId: null }, { userId }],
+			OR: [{ userId }, { userId: null }, { userId: { isSet: false } }],
 		};
 
 		if (dto.category) {
