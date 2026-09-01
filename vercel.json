@@ -10,6 +10,12 @@
 			"entrypoint": "Dockerfile.vercel"
 		}
 	},
+	"crons": [
+		{
+			"path": "/api/v2/rates/cron/update",
+			"schedule": "0 0 * * *"
+		}
+	],
 	"rewrites": [
 		{
 			"source": "/api/v2(/.*)?",

@@ -6,7 +6,6 @@ import { roleRestrictions } from "../../utils/rolesRestrictions";
 import { ConvertRatesDto } from "./dto/convert-rates.dto";
 import expenseCategory from "../../static/expenseCategory.json";
 import operationCategory from "../../static/operationCategory.json";
-import { Cron, CronExpression } from "@nestjs/schedule";
 import { I18nContext } from "nestjs-i18n";
 import { ERole } from "../../types/user";
 import { ExchangeItem } from "../../generated/prisma/client";
@@ -254,9 +253,6 @@ export class RatesService {
 		}
 	}
 
-	@Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, {
-		name: "updateRates",
-	})
 	async update() {
 		try {
 			const res = await fetch(
