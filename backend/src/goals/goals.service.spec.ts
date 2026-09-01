@@ -76,6 +76,15 @@ describe("GoalsService", () => {
 			expect(data).not.toHaveProperty("lastAmountAt");
 		});
 
+		it("does not treat money leaving the goal as a contribution", async () => {
+			prisma.goal.findUnique.mockResolvedValue(goalRecord());
+
+			await service.update("g1", { amount: 1300 } as any);
+
+			const data = prisma.goal.update.mock.calls[0][0].data;
+			expect(data).not.toHaveProperty("lastAmountAt");
+		});
+
 		it("rejects an unknown goal", async () => {
 			prisma.goal.findUnique.mockResolvedValue(null);
 

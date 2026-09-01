@@ -97,9 +97,10 @@ export class GoalsService {
 				...dto,
 			};
 
-			// Only a moved amount counts as a contribution; renaming the goal
-			// must not silence this month's reminder.
-			if (dto.amount !== undefined && dto.amount !== goal.amount) {
+			// Only money going in counts as a contribution; renaming the goal
+			// - or taking a contribution back out - must not silence this
+			// month's reminder.
+			if (dto.amount !== undefined && dto.amount > goal.amount) {
 				data.lastAmountAt = new Date();
 			}
 

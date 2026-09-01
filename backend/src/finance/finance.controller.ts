@@ -64,9 +64,10 @@ export class FinanceController {
 	@Patch(":id")
 	update(
 		@Param("id") id: string,
-		@Body() updateFinanceDto: UpdateFinanceDto
+		@Body() updateFinanceDto: UpdateFinanceDto,
+		@Req() req: Request
 	) {
-		return this.financeService.update(id, updateFinanceDto);
+		return this.financeService.update(id, updateFinanceDto, req);
 	}
 
 	@HttpCode(HttpStatus.NO_CONTENT)
@@ -78,8 +79,8 @@ export class FinanceController {
 
 	@HttpCode(HttpStatus.NO_CONTENT)
 	@Delete(":id")
-	async remove(@Param("id") id: string) {
-		await this.financeService.remove(id);
+	async remove(@Param("id") id: string, @Req() req: Request) {
+		await this.financeService.remove(id, req);
 		return HttpStatus.NO_CONTENT;
 	}
 }
