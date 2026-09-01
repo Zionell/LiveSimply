@@ -2,6 +2,7 @@ import { Controller, Get, Post, Patch, Body, Req } from "@nestjs/common";
 import { RatesService } from "./rates.service";
 import { ConvertRatesDto } from "./dto/convert-rates.dto";
 import { PublicRoute } from "../auth/decorators/public.decorator";
+import { CronRoute } from "../auth/decorators/cron.decorator";
 
 @Controller("rates")
 export class RatesController {
@@ -21,6 +22,18 @@ export class RatesController {
 	@Get("current")
 	findCurrent(@Req() req: Request) {
 		return this.ratesService.findCurrent(req);
+	}
+
+	/**
+	 * Вызывается внешним планировщиком (блок `crons` в vercel.json).
+	 * GET — потому что Vercel Cron умеет только его.
+	 */
+	@CronRoute()
+	@Get("cron/update")
+	async updateByCron() {
+		await this.ratesService.update();
+
+		return { updatedAt: new Date().toISOString() };
 	}
 
 	@Patch()
