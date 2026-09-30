@@ -267,13 +267,14 @@ export class RatesService {
 				throw new Error("No data");
 			}
 			const symbolsArr = Object.entries(data.rates);
+			const skipped: string[] = [];
 
 			for (const [key, val] of symbolsArr) {
 				if (!val) {
 					continue;
 				}
 
-				await this.prismaService.exchangeItem.update({
+				const { count } = await this.prismaService.exchangeItem.updateMany({
 					where: {
 						value: key,
 					},
@@ -282,6 +283,16 @@ export class RatesService {
 						updatedAt: new Date(),
 					},
 				});
+				if (!count) {
+					skipped.push(key);
+				}
+			}
+
+			if (skipped.length) {
+				console.warn(
+					"[RatesService / update]: no ExchangeItem for ",
+					skipped.join(", ")
+				);
 			}
 
 			await this.notificationService.updateRatesNotification();
